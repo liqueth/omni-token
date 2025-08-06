@@ -8,6 +8,7 @@ contract ZKBridgeTokenTest is Test {
     ZKBridgeToken token;
     address zkBridgeMock = address(0x123);
     address allocTo = address(0xABC);
+    address bridgeTo = address(0xDEF);
 
     function setUp() public {
         vm.chainId(11155111); // EVM chain ID for Sepolia
@@ -53,12 +54,12 @@ contract ZKBridgeTokenTest is Test {
             address(token), // tokenAddress
             119, // srcZKChainId (Sepolia)
             1000, // amount
-            address(0xABC), // to
+            bridgeTo, // to
             103 // toChain (BSC Testnet)
         );
         vm.chainId(97); // BSC Testnet
         token.zkReceive(119, address(token), 1, payload);
-        assertEq(token.balanceOf(address(0xABC)), 1000);
+        assertEq(token.balanceOf(bridgeTo), 1000);
     }
 
     function test_RevertWhen_ZkReceiveFromUnmappedChain() public {

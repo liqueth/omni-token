@@ -68,7 +68,7 @@ contract ZKBridgeToken is ERC20, Ownable, IZKBridgeReceiver {
         IZKBridge(zkBridgeAddr).send{value: msg.value}(dstZkChainId, address(this), payload);
     }
 
-    function zkReceive(uint16 srcZkChainId, address srcAddress, uint64 /*nonce*/, bytes calldata payload)
+    function zkReceive(uint16 srcZkChainId, address srcAddress, uint64, /*nonce*/ bytes calldata payload)
         external
         override
     {

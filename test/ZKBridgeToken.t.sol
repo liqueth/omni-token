@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
@@ -51,7 +51,7 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(
             address(token), // tokenAddress
-            119, // srcZkChainId (Sepolia)
+            119, // srcZKChainId (Sepolia)
             1000, // amount
             address(0xABC), // to
             103 // toChain (BSC Testnet)
@@ -61,7 +61,7 @@ contract ZKBridgeTokenTest is Test {
         assertEq(token.balanceOf(address(0xABC)), 1000);
     }
 
-    function testFailZkReceiveFromUnmappedChain() public {
+    function test_RevertWhen_ZkReceiveFromUnmappedChain() public {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(
             address(token),
@@ -75,7 +75,7 @@ contract ZKBridgeTokenTest is Test {
         token.zkReceive(999, address(token), 1, payload);
     }
 
-    function testFailLocalChainNotMapped() public {
+    function test_RevertWhen_LocalChainNotMapped() public {
         vm.chainId(1); // Unsupported EVM chain ID
         ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
         chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 119, 1_000_000 * 10 ** 18);

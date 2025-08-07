@@ -21,8 +21,8 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     mapping(bytes32 => bool) private _received;
 
     struct ChainConfig {
-        uint256 evmChainId;
-        uint16 zkChainId;
+        uint256 evmChain;
+        uint16 zkChain;
         uint256 mintAmount;
     }
 
@@ -38,9 +38,9 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
         for (uint256 i = 0; i < chainConfigs.length; i++) {
-            _evmToZkChain[chainConfigs[i].evmChainId] = chainConfigs[i].zkChainId;
-            _zkToEvmChain[chainConfigs[i].zkChainId] = chainConfigs[i].evmChainId;
-            if (chainConfigs[i].evmChainId == block.chainid) {
+            _evmToZkChain[chainConfigs[i].evmChain] = chainConfigs[i].zkChain;
+            _zkToEvmChain[chainConfigs[i].zkChain] = chainConfigs[i].evmChain;
+            if (chainConfigs[i].evmChain == block.chainid) {
                 localChainIncluded = true;
                 if (chainConfigs[i].mintAmount > 0) {
                     _mint(allocTo, chainConfigs[i].mintAmount);

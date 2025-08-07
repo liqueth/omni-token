@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 
-contract ZKBridgeToken is ERC20, Ownable, IZKBridgeReceiver {
+contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     address public immutable zkBridgeAddr;
     mapping(uint256 => uint16) public evmToZkChainId; // EVM chainId => zkBridge chainId
     mapping(uint16 => uint256) public zkToEvmChainId; // zkBridge chainId => EVM chainId
@@ -23,7 +23,7 @@ contract ZKBridgeToken is ERC20, Ownable, IZKBridgeReceiver {
         address allocTo,
         address _zkBridgeAddr,
         ChainConfig[] memory chainConfigs
-    ) ERC20(name_, symbol_) Ownable(msg.sender) {
+    ) ERC20(name_, symbol_) {
         require(allocTo != address(0), "Invalid allocation address");
         require(_zkBridgeAddr != address(0), "Invalid zkBridge address");
         require(chainConfigs.length > 0, "Must provide at least one chain config");
@@ -88,7 +88,8 @@ contract ZKBridgeToken is ERC20, Ownable, IZKBridgeReceiver {
         _mint(to, amount);
     }
 
-    function estimateBridgeFee(uint16 dstZkChainId) external view returns (uint256) {
+    function estimateBridgeFee(uint256 dstEvmChainId) external view returns (uint256) {
+        uint16 dstZkChainId = evmToZkChainId[dstEvmChainId];
         return IZKBridge(zkBridgeAddr).estimateFee(dstZkChainId);
     }
 }

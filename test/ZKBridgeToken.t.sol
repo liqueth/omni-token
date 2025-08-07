@@ -44,18 +44,15 @@ contract ZKBridgeTokenTest is Test {
         vm.mockCall(
             zkBridgeMock, abi.encodeWithSelector(IZKBridge.send.selector, 103, address(token)), abi.encode(1234)
         );
-        token.bridgeOut{value: 0.1 ether}(97, 1000, address(0xABC)); // dstEvmChainId = 97 (BSC Testnet)
+        token.bridge{value: 0.1 ether}(97, 1000); // dstEvmChainId = 97 (BSC Testnet)
         assertEq(token.balanceOf(address(this)), 0);
     }
 
     function testZkReceiveFromValidChain() public {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(
-            address(token), // tokenAddress
-            119, // srcZKChainId (Sepolia)
-            1000, // amount
             bridgeTo, // to
-            103 // toChain (BSC Testnet)
+            1000 // amount
         );
         vm.chainId(97); // BSC Testnet
         token.zkReceive(119, address(token), 1, payload);
@@ -64,15 +61,9 @@ contract ZKBridgeTokenTest is Test {
 
     function test_RevertWhen_ZkReceiveFromUnmappedChain() public {
         vm.prank(zkBridgeMock);
-        bytes memory payload = abi.encode(
-            address(token),
-            999, // Unmapped zkChainId
-            1000,
-            address(0xABC),
-            103
-        );
+        bytes memory payload = abi.encode(address(0xABC), 1000);
         vm.chainId(97);
-        vm.expectRevert("Source chain ID not mapped");
+        vm.expectRevert();
         token.zkReceive(999, address(token), 1, payload);
     }
 

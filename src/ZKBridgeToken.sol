@@ -7,9 +7,17 @@ import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 
 contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
-    address public immutable zkBridgeAddr;
-    mapping(uint256 => uint16) public evmToZkChainId; // EVM chainId => zkBridge chainId
-    mapping(uint16 => uint256) public zkToEvmChainId; // zkBridge chainId => EVM chainId
+    error AlreadyReceived(bytes32 messageHash);
+    error SenderIsNotBridge(address sender);
+    error UnsupportedDestinationChain(uint256 chain);
+    error UnsupportedSourceChain(uint16 zkChain);
+
+    event Received(address indexed holder, uint256 indexed fromChain, uint256 amount, uint64 nonce);
+
+    IZKBridge private _zkBridge;
+    mapping(uint256 => uint16) private _evmToZkChainId; // EVM chainId => zkBridge chainId
+    mapping(uint16 => uint256) private _zkToEvmChainId; // zkBridge chainId => EVM chainId
+    mapping(bytes32 => bool) private _received;
 
     struct ChainConfig {
         uint256 evmChainId;
@@ -24,19 +32,13 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         address _zkBridgeAddr,
         ChainConfig[] memory chainConfigs
     ) ERC20(name_, symbol_) {
-        require(allocTo != address(0), "Invalid allocation address");
-        require(_zkBridgeAddr != address(0), "Invalid zkBridge address");
-        require(chainConfigs.length > 0, "Must provide at least one chain config");
-
-        zkBridgeAddr = _zkBridgeAddr;
+        _zkBridge = IZKBridge(_zkBridgeAddr);
 
         // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
         for (uint256 i = 0; i < chainConfigs.length; i++) {
-            require(chainConfigs[i].zkChainId != 0, "Invalid zkBridge chain ID");
-            require(chainConfigs[i].evmChainId != 0, "Invalid EVM chain ID");
-            evmToZkChainId[chainConfigs[i].evmChainId] = chainConfigs[i].zkChainId;
-            zkToEvmChainId[chainConfigs[i].zkChainId] = chainConfigs[i].evmChainId;
+            _evmToZkChainId[chainConfigs[i].evmChainId] = chainConfigs[i].zkChainId;
+            _zkToEvmChainId[chainConfigs[i].zkChainId] = chainConfigs[i].evmChainId;
             if (chainConfigs[i].evmChainId == block.chainid) {
                 localChainIncluded = true;
                 if (chainConfigs[i].mintAmount > 0) {
@@ -47,49 +49,44 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         require(localChainIncluded, "Local chain ID not in chainConfigs");
     }
 
-    function bridgeOut(uint256 dstEvmChainId, uint256 amount, address recipient) external payable {
-        uint16 dstZkChainId = evmToZkChainId[dstEvmChainId];
-        uint16 localZkChainId = evmToZkChainId[block.chainid];
-        require(localZkChainId != 0, "Local chain ID not mapped");
-        require(dstZkChainId != 0, "Destination chain ID not mapped");
-        require(recipient != address(0), "Invalid recipient");
-        require(amount > 0, "Amount must be greater than zero");
-
+    function bridge(uint256 toChain, uint256 amount) external payable {
+        bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
-
-        bytes memory payload = abi.encode(
-            address(this), // tokenAddress (source token contract)
-            localZkChainId, // tokenChain (source zkChainId)
-            amount, // amount
-            recipient, // to (recipient on dest)
-            dstZkChainId // toChain (dest zkChainId)
-        );
-
-        IZKBridge(zkBridgeAddr).send{value: msg.value}(dstZkChainId, address(this), payload);
+        _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
     }
 
-    function zkReceive(uint16 srcZkChainId, address srcAddress, uint64, /*nonce*/ bytes calldata payload)
-        external
-        override
-    {
-        require(msg.sender == zkBridgeAddr, "Caller must be zkBridge");
-        require(srcAddress == address(this), "Invalid source contract");
-        require(zkToEvmChainId[srcZkChainId] != 0, "Source chain ID not mapped");
+    function zkReceive(uint16 fromZkChain, address fromAddress, uint64 nonce, bytes calldata payload) external {
+        if (msg.sender != address(_zkBridge)) {
+            revert SenderIsNotBridge(msg.sender);
+        }
 
-        (address tokenAddress, uint16 tokenChain, uint256 amount, address to, uint16 toChain) =
-            abi.decode(payload, (address, uint16, uint256, address, uint16));
+        bytes32 messageHash = keccak256(abi.encodePacked(fromZkChain, fromAddress, nonce, payload));
+        if (_received[messageHash]) {
+            revert AlreadyReceived(messageHash);
+        }
+        _received[messageHash] = true;
 
-        require(toChain == evmToZkChainId[block.chainid], "Payload destination chain mismatch");
-        require(tokenChain == srcZkChainId, "Token chain mismatch with source");
-        require(tokenAddress == address(this), "Token address mismatch with source");
-        require(amount > 0, "Amount must be greater than zero");
-        require(to != address(0), "Invalid recipient");
-
-        _mint(to, amount);
+        (address holder, uint256 amount) = abi.decode(payload, (address, uint256));
+        emit Received(holder, zkToEvmChain(fromZkChain), amount, nonce);
+        _mint(holder, amount);
     }
 
-    function estimateBridgeFee(uint256 dstEvmChainId) external view returns (uint256) {
-        uint16 dstZkChainId = evmToZkChainId[dstEvmChainId];
-        return IZKBridge(zkBridgeAddr).estimateFee(dstZkChainId);
+    function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
+        uint16 toZkChain = _evmToZkChainId[toChain];
+        fee = _zkBridge.estimateFee(toZkChain);
+    }
+
+    function zkToEvmChain(uint16 zkChain) internal view returns (uint256 chainId) {
+        chainId = _zkToEvmChainId[zkChain];
+        if (chainId == 0) {
+            revert UnsupportedSourceChain(zkChain);
+        }
+    }
+
+    function evmToZkChain(uint256 chain) internal view returns (uint16 zkChain) {
+        zkChain = _evmToZkChainId[chain];
+        if (zkChain == 0) {
+            revert UnsupportedDestinationChain(chain);
+        }
     }
 }

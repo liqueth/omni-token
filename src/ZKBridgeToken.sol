@@ -12,11 +12,12 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
 
-    event Received(address indexed holder, uint256 indexed fromChain, uint256 amount, uint64 nonce);
+    event Bridged(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
+    event Received(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
 
     IZKBridge private _zkBridge;
-    mapping(uint256 => uint16) private _evmToZkChainId; // EVM chainId => zkBridge chainId
-    mapping(uint16 => uint256) private _zkToEvmChainId; // zkBridge chainId => EVM chainId
+    mapping(uint256 => uint16) private _evmToZkChain;
+    mapping(uint16 => uint256) private _zkToEvmChain;
     mapping(bytes32 => bool) private _received;
 
     struct ChainConfig {
@@ -37,8 +38,8 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
         for (uint256 i = 0; i < chainConfigs.length; i++) {
-            _evmToZkChainId[chainConfigs[i].evmChainId] = chainConfigs[i].zkChainId;
-            _zkToEvmChainId[chainConfigs[i].zkChainId] = chainConfigs[i].evmChainId;
+            _evmToZkChain[chainConfigs[i].evmChainId] = chainConfigs[i].zkChainId;
+            _zkToEvmChain[chainConfigs[i].zkChainId] = chainConfigs[i].evmChainId;
             if (chainConfigs[i].evmChainId == block.chainid) {
                 localChainIncluded = true;
                 if (chainConfigs[i].mintAmount > 0) {
@@ -52,7 +53,8 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     function bridge(uint256 toChain, uint256 amount) external payable {
         bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
-        _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
+        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
+        emit Bridged(msg.sender, toChain, amount, nonce);
     }
 
     function zkReceive(uint16 fromZkChain, address fromAddress, uint64 nonce, bytes calldata payload) external {
@@ -72,19 +74,19 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     }
 
     function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
-        uint16 toZkChain = _evmToZkChainId[toChain];
+        uint16 toZkChain = evmToZkChain(toChain);
         fee = _zkBridge.estimateFee(toZkChain);
     }
 
     function zkToEvmChain(uint16 zkChain) internal view returns (uint256 chainId) {
-        chainId = _zkToEvmChainId[zkChain];
+        chainId = _zkToEvmChain[zkChain];
         if (chainId == 0) {
             revert UnsupportedSourceChain(zkChain);
         }
     }
 
     function evmToZkChain(uint256 chain) internal view returns (uint16 zkChain) {
-        zkChain = _evmToZkChainId[chain];
+        zkChain = _evmToZkChain[chain];
         if (zkChain == 0) {
             revert UnsupportedDestinationChain(chain);
         }

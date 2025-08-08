@@ -3,6 +3,7 @@ src = "src"
 out = "out"
 libs = ["lib"]
 private_key = "${DEPLOYER_KEY}"
+fs_permissions = [{ access = "read", path = "./config" }]
 
 [rpc_endpoints]
 # Ethereum
@@ -12,6 +13,9 @@ eth_test         = "https://1rpc.io/sepolia"
 # BNB Smart Chain
 bsc              = "https://1rpc.io/bnb"
 bsc_test         = "https://1rpc.io/bnb-testnet"
+
+# EXPchain Testnet
+exp_test         = "https://rpc1-testnet.expchain.ai"
 
 # Polygon
 polygon          = "https://1rpc.io/matic"

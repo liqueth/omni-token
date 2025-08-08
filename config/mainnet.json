@@ -1,0 +1,79 @@
+{
+    "chainConfigs": [
+        {
+            "evmChain": 1,
+            "mintAmount": 100000000,
+            "name": "Ethereum Mainnet",
+            "zkChain": 101
+        },
+        {
+            "evmChain": 56,
+            "mintAmount": 100000000,
+            "name": "BNB Smart Chain Mainnet",
+            "zkChain": 102
+        },
+        {
+            "evmChain": 43114,
+            "mintAmount": 100000000,
+            "name": "Avalanche Mainnet",
+            "zkChain": 106
+        },
+        {
+            "evmChain": 137,
+            "mintAmount": 100000000,
+            "name": "Polygon Mainnet",
+            "zkChain": 109
+        },
+        {
+            "evmChain": 42161,
+            "mintAmount": 100000000,
+            "name": "Arbitrum One",
+            "zkChain": 110
+        },
+        {
+            "evmChain": 10,
+            "mintAmount": 100000000,
+            "name": "Optimism Mainnet",
+            "zkChain": 111
+        },
+        {
+            "evmChain": 324,
+            "mintAmount": 100000000,
+            "name": "zkSync Era Mainnet",
+            "zkChain": 114
+        },
+        {
+            "evmChain": 5000,
+            "mintAmount": 100000000,
+            "name": "Mantle Mainnet",
+            "zkChain": 181
+        },
+        {
+            "evmChain": 59144,
+            "mintAmount": 100000000,
+            "name": "Linea Mainnet",
+            "zkChain": 183
+        },
+        {
+            "evmChain": 8453,
+            "mintAmount": 100000000,
+            "name": "Base Mainnet",
+            "zkChain": 184
+        },
+        {
+            "evmChain": 534352,
+            "mintAmount": 100000000,
+            "name": "Scroll Mainnet",
+            "zkChain": 188
+        },
+        {
+            "evmChain": null,
+            "mintAmount": 100000000,
+            "name": "EXPchain Mainnet",
+            "zkChain": 131
+        }
+    ],
+    "name": "ZKBridgeToken",
+    "symbol": "ZBT",
+    "zkBridge": "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7"
+}

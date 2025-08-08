@@ -130,20 +130,23 @@ uint256 constant SALT = 1234; // Use same salt across all chains
 
 ```bash
 # Sepolia
+CONFIG=config/testnet.json \
 forge script script/Deploy.s.sol \
-  --rpc-url sepolia \
+  --rpc-url eth_test \
   --private-key $DEPLOYER_KEY \
   --broadcast
 
 # BSC Testnet
+CONFIG=config/testnet.json \
 forge script script/Deploy.s.sol \
-  --rpc-url bsc_testnet \
+  --rpc-url bsc_test \
   --private-key $DEPLOYER_KEY \
   --broadcast
 
 # EXPchain Testnet
+CONFIG=config/testnet.json \
 forge script script/Deploy.s.sol \
-  --rpc-url expchain_test \
+  --rpc-url exp_test \
   --private-key $DEPLOYER_KEY \
   --broadcast
 ```

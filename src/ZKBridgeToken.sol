@@ -22,8 +22,8 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
 
     struct ChainConfig {
         uint256 evmChain;
-        uint16 zkChain;
         uint256 mintAmount;
+        uint16 zkChain;
     }
 
     constructor(

@@ -2,27 +2,36 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Script.sol";
+import "forge-std/StdJson.sol";
 import "../src/ZKBridgeToken.sol";
 
 contract Deploy is Script {
-    function run() external {
-        address zkBridgeAddr = 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7; // Testnet zkBridge
-        bytes32 salt = 0x0; // Same salt for all chains
+    using stdJson for string;
 
-        // Define supported chain configs (e.g., Sepolia with mint, BSC Testnet with 0 mint)
-        ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](3);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 119, 3_000_000 * 10 ** 18); // Ethereum Testnest
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 103, 2_000_000 * 10 ** 18); // BSC Testnet
-        chainConfigs[2] = ZKBridgeToken.ChainConfig(18880, 131, 1_000_000 * 10 ** 18); // EXPchain Testnet
+    struct Config {
+        ZKBridgeToken.ChainConfig[] chainConfigs;
+        string name;
+        string symbol;
+        address zkBridge;
+    }
+
+    function run() external {
+        string memory path = vm.envString("CONFIG");
+        string memory json = vm.readFile(path);
+        bytes memory encodedData = vm.parseJson(json);
+
+        Config memory config = abi.decode(encodedData, (Config));
+
+        bytes32 salt = 0x0;
 
         vm.startBroadcast();
 
         ZKBridgeToken token = new ZKBridgeToken{salt: salt}(
-            "ZKBridgeToken",
-            "ZBT",
+            config.name,
+            config.symbol,
             msg.sender, // allocTo
-            zkBridgeAddr,
-            chainConfigs
+            config.zkBridge,
+            config.chainConfigs
         );
 
         token;

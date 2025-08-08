@@ -29,7 +29,6 @@ contract Deploy is Script {
         ZKBridgeToken token = new ZKBridgeToken{salt: salt}(
             config.name,
             config.symbol,
-            msg.sender, // allocTo
             config.zkBridge,
             config.chainConfigs
         );

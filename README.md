@@ -16,8 +16,8 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
   ```solidity
   struct ChainConfig {
       uint256 evmChainId;
-      uint16 zkBridgeChainId;
       uint256 mintAmount;
+      uint16 zkBridgeChainId;
   }
   ```
 * **Security** – Restricts `zkReceive` to mapped chains and validates same-address deployment.

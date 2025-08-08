@@ -29,7 +29,6 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     constructor(
         string memory name_,
         string memory symbol_,
-        address allocTo,
         address _zkBridgeAddr,
         ChainConfig[] memory chainConfigs
     ) ERC20(name_, symbol_) {
@@ -43,7 +42,7 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
             if (chainConfigs[i].evmChain == block.chainid) {
                 localChainIncluded = true;
                 if (chainConfigs[i].mintAmount > 0) {
-                    _mint(allocTo, chainConfigs[i].mintAmount);
+                    _mint(msg.sender, chainConfigs[i].mintAmount);
                 }
             }
         }

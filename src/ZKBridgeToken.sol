@@ -26,12 +26,9 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         uint16 zkChain;
     }
 
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        address _zkBridgeAddr,
-        ChainConfig[] memory chainConfigs
-    ) ERC20(name_, symbol_) {
+    constructor(string memory name_, string memory symbol_, address _zkBridgeAddr, ChainConfig[] memory chainConfigs)
+        ERC20(name_, symbol_)
+    {
         _zkBridge = IZKBridge(_zkBridgeAddr);
 
         // Initialize chain ID mappings and mint on local chain if specified

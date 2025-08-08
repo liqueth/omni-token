@@ -13,10 +13,11 @@ contract ZKBridgeTokenTest is Test {
     function setUp() public {
         vm.chainId(11155111); // EVM chain ID for Sepolia
         ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 119, 1_000_000 * 10 ** 18); // Sepolia, full mint
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 103, 0); // BSC Testnet, no mint
+        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 1_000_000 * 10 ** 18, 119); // Sepolia, full mint
+        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103); // BSC Testnet, no mint
 
-        token = new ZKBridgeToken("ZKBridgeToken", "ZBT", allocTo, zkBridgeMock, chainConfigs);
+        vm.prank(allocTo);
+        token = new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
     }
 
     function testInitialMintOnChainWithMintAmount() public view {
@@ -27,10 +28,11 @@ contract ZKBridgeTokenTest is Test {
     function testNoMintOnChainWithZeroMintAmount() public {
         vm.chainId(97); // BSC Testnet EVM chain ID
         ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 119, 1_000_000 * 10 ** 18);
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 103, 0);
+        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 1_000_000 * 10 ** 18, 119);
+        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
 
-        ZKBridgeToken nonMintToken = new ZKBridgeToken("ZKBridgeToken", "ZBT", allocTo, zkBridgeMock, chainConfigs);
+        vm.prank(allocTo);
+        ZKBridgeToken nonMintToken = new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
         assertEq(nonMintToken.balanceOf(allocTo), 0);
         assertEq(nonMintToken.totalSupply(), 0);
     }
@@ -70,10 +72,10 @@ contract ZKBridgeTokenTest is Test {
     function test_RevertWhen_LocalChainNotMapped() public {
         vm.chainId(1); // Unsupported EVM chain ID
         ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 119, 1_000_000 * 10 ** 18);
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 103, 0);
+        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, 1_000_000 * 10 ** 18, 119);
+        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
 
         vm.expectRevert("Local chain ID not in chainConfigs");
-        new ZKBridgeToken("ZKBridgeToken", "ZBT", allocTo, zkBridgeMock, chainConfigs);
+        new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
     }
 }

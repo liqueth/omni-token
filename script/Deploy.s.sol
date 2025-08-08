@@ -26,12 +26,8 @@ contract Deploy is Script {
 
         vm.startBroadcast();
 
-        ZKBridgeToken token = new ZKBridgeToken{salt: salt}(
-            config.name,
-            config.symbol,
-            config.zkBridge,
-            config.chainConfigs
-        );
+        ZKBridgeToken token =
+            new ZKBridgeToken{salt: salt}(config.name, config.symbol, config.zkBridge, config.chainConfigs);
 
         token;
 

@@ -64,40 +64,17 @@ curl -L https://foundry.paradigm.xyz | bash
 foundryup
 ```
 
-### 3. Configure `foundry.toml`
-
-```toml
-[profile.default]
-src = "src"
-out = "out"
-libs = ["lib"]
-solc_version = "0.8.30"
-
-[rpc_endpoints]
-sepolia       = "${SEPOLIA_RPC}"
-bsc_testnet   = "${BSC_TESTNET_RPC}"
-expchain_test = "${EXPCHAIN_TESTNET_RPC}"
-```
-
 ### 4. Set environment variables
 
 ```bash
-export SEPOLIA_RPC=<SEPOLIA_RPC_URL>
-export BSC_TESTNET_RPC=<BSC_TESTNET_RPC_URL>
-export EXPCHAIN_TESTNET_RPC=<EXPCHAIN_TESTNET_RPC_URL>
-export DEPLOYER_KEY=<YOUR_PRIVATE_KEY>
+export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
+export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 ```
 
 ### 5. Install dependencies
 
 ```bash
 forge install OpenZeppelin/openzeppelin-contracts
-```
-
-Ensure `remappings.txt` contains:
-
-```
-@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
 ```
 
 ### 6. Compile
@@ -112,17 +89,11 @@ forge build
 
 **Mint configuration per chain:**
 
-| Chain         | EVM Chain ID | zkBridge Chain ID | Mint Amount (ZBT) | zkBridge Address |
-| ------------- | ------------ | ----------------- | ----------------- | ---------------- |
-| Sepolia       | 11155111     | 119               | 3,000,000         | 0xa8a4…1C7       |
-| BSC Testnet   | 97           | 103               | 2,000,000         | 0xa8a4…1C7       |
-| EXPchain Test | 18880        | 131               | 1,000,000         | 0xa8a4…1C7       |
-
-**Salt:**
-
-```solidity
-uint256 constant SALT = 1234; // Use same salt across all chains
-```
+| Chain         | EVM Chain ID | zkBridge Chain ID | Mint Amount (ZBT) | zkBridge Address                           |
+| ------------- | ------------ | ----------------- | ----------------- | ------------------------------------------ |
+| Sepolia       | 11155111     | 119               | 3,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
+| BSC Testnet   | 97           | 103               | 2,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
+| EXPchain Test | 18880        | 131               | 1,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
 ---
 
@@ -135,14 +106,18 @@ forge script script/Deploy.s.sol \
   --rpc-url eth_test \
   --private-key $DEPLOYER_KEY \
   --broadcast
+```
 
+```bash
 # BSC Testnet
 CONFIG=config/testnet.json \
 forge script script/Deploy.s.sol \
   --rpc-url bsc_test \
   --private-key $DEPLOYER_KEY \
   --broadcast
+```
 
+```bash
 # EXPchain Testnet
 CONFIG=config/testnet.json \
 forge script script/Deploy.s.sol \
@@ -159,22 +134,21 @@ forge script script/Deploy.s.sol \
 
 ```bash
 cast abi-encode \
-  "constructor(string,string,address,address,(uint256,uint16,uint256)[])" \
+  "constructor(string,string,address,(uint256,uint256,uint16)[])" \
   "ZKBridgeToken" \
   "ZBT" \
-  "0x129b0628A241e26D5048224c5B788E2D89CE6c40" \
   "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-  "[(11155111,119,3000000000000000000000000),(97,103,2000000000000000000000000),(18880,131,1000000000000000000000000)]"
+  "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]"
 ```
 
 **2. Deploy**
 
 ```bash
 forge create src/ZKBridgeToken.sol:ZKBridgeToken \
-  --rpc-url sepolia \
+  --rpc-url eth_test \
   --private-key $DEPLOYER_KEY \
-  --constructor-args <ENCODED_ARGS> \
-  --create2-salt 1234
+  --create2-salt 0 \
+  --constructor-args <ENCODED_ARGS>
 ```
 
 ---
@@ -185,54 +159,16 @@ forge create src/ZKBridgeToken.sol:ZKBridgeToken \
 
 ```bash
 forge verify-contract \
+  <CONTRACT_ADDRESS> \
+  src/ZKBridgeToken.sol:ZKBridgeToken \
   --chain-id 11155111 \
-  --constructor-args $(cast abi-encode "constructor(string,string,address,address,(uint256,uint16,uint256)[])" \
+  --etherscan-api-key $ETHERSCAN_API_KEY \
+  --constructor-args $(cast abi-encode \
+    "constructor((uint256,uint256,uint16)[]string,string,address,)" \
     "ZKBridgeToken" \
     "ZBT" \
-    "0x129b0628A241e26D5048224c5B788E2D89CE6c40" \
     "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-    "[(11155111,119,3000000000000000000000000),(97,103,2000000000000000000000000),(18880,131,1000000000000000000000000)]") \
-  <CONTRACT_ADDRESS> \
-  src/ZKBridgeToken.sol:ZKBridgeToken \
-  --etherscan-api-key $ETHERSCAN_API_KEY
-```
-
-### BSC Testnet
-
-```bash
-forge verify-contract \
-  --chain-id 97 \
-  --constructor-args $(cast abi-encode "constructor(string,string,address,address,(uint256,uint16,uint256)[])" \
-    "ZKBridgeToken" \
-    "ZBT" \
-    "0x129b0628A241e26D5048224c5B788E2D89CE6c40" \
-    "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-    "[(11155111,119,3000000000000000000000000),(97,103,2000000000000000000000000),(18880,131,1000000000000000000000000)]") \
-  <CONTRACT_ADDRESS> \
-  src/ZKBridgeToken.sol:ZKBridgeToken \
-  --etherscan-api-key $BSCSCAN_API_KEY
-```
-
-### EXPchain Testnet
-
-```bash
-# If explorer supports API
-forge verify-contract \
-  --chain-id 18880 \
-  --constructor-args $(cast abi-encode "constructor(string,string,address,address,(uint256,uint16,uint256)[])" \
-    "ZKBridgeToken" \
-    "ZBT" \
-    "0x129b0628A241e26D5048224c5B788E2D89CE6c40" \
-    "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-    "[(11155111,119,3000000000000000000000000),(97,103,2000000000000000000000000),(18880,131,1000000000000000000000000)]") \
-  <CONTRACT_ADDRESS> \
-  src/ZKBridgeToken.sol:ZKBridgeToken \
-  --etherscan-api-key $EXPCHAIN_EXPLORER_API_KEY
-```
-
-```bash
-# If no API — flatten and upload manually
-forge flatten src/ZKBridgeToken.sol > ZKBridgeTokenFlattened.sol
+    "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]"
 ```
 
 ---
@@ -255,16 +191,12 @@ Covers:
 
 ## Usage
 
-**Minting** (deployment mints to fixed address):
-
-```solidity
-0x129b0628A241e26D5048224c5B788E2D89CE6c40
-```
+**Minting** (deployment mints to deployer):
 
 **Estimate bridge fee:**
 
 ```bash
-cast call <CONTRACT_ADDRESS> "estimateBridgeFee(uint16)(uint256)" 103 --rpc-url sepolia
+cast call <CONTRACT_ADDRESS> "estimateBridgeFee(uint16)(uint256)" 103 --rpc-url eth_test
 ```
 
 **Bridge out:**

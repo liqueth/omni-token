@@ -158,17 +158,7 @@ forge create src/ZKBridgeToken.sol:ZKBridgeToken \
 ### Sepolia
 
 ```bash
-forge verify-contract \
-  <CONTRACT_ADDRESS> \
-  src/ZKBridgeToken.sol:ZKBridgeToken \
-  --chain-id 11155111 \
-  --etherscan-api-key $ETHERSCAN_API_KEY \
-  --constructor-args $(cast abi-encode \
-    "constructor((uint256,uint256,uint16)[]string,string,address,)" \
-    "ZKBridgeToken" \
-    "ZBT" \
-    "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-    "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]"
+forge verify-contract <CONTRACT_ADDRESS> src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args <CONSTRUCTOR_ARGS_FROM_ABOVER>
 ```
 
 ---

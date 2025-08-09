@@ -12,7 +12,7 @@ eth_test         = "https://1rpc.io/sepolia"
 
 # BNB Smart Chain
 bsc              = "https://1rpc.io/bnb"
-bsc_test         = "https://1rpc.io/bnb-testnet"
+bsc_test         = "https://bsc-testnet.drpc.org"
 
 # EXPchain Testnet
 exp_test         = "https://rpc1-testnet.expchain.ai"

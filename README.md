@@ -25,19 +25,6 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 ---
 
-## Repository Structure
-
-```
-src/ZKBridgeToken.sol               # Main token contract (ERC-20 + zkBridge integration)
-src/interfaces/IZKBridge.sol        # zkBridge send interface
-src/interfaces/IZKBridgeReceiver.sol# zkBridge receive interface
-script/Deploy.s.sol                 # Deployment script (CREATE2)
-test/ZKBridgeToken.t.sol             # Tests for minting, bridging, edge cases
-foundry.toml                         # Config with RPC endpoints
-```
-
----
-
 ## Prerequisites
 
 * [Foundry](https://book.getfoundry.sh/) (`forge`, `cast`)
@@ -45,6 +32,7 @@ foundry.toml                         # Config with RPC endpoints
 * Environment variables for private key (`DEPLOYER_KEY`) and RPC endpoints (defined in `foundry.toml`)
 * Node.js (optional, for extra scripts)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
+* Environment variables for verifier key (`ETHERSCAN_KEY`) and RPC endpoints (defined in `foundry.toml`)
 
 ---
 
@@ -87,7 +75,26 @@ forge build
 
 ## Deployment
 
-**Mint configuration per chain:**
+```bash
+# Ethereum Sepolia
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url eth_test --private-key $DEPLOYER_KEY --broadcast
+```
+
+```bash
+# BSC (BNB) Testnet
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url bsc_test --private-key $DEPLOYER_KEY --broadcast
+```
+
+```bash
+# EXPchain Testnet
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test --private-key $DEPLOYER_KEY --broadcast
+```
+
+---
+
+## Encode constructor arguments
+
+**Configuration per chain:**
 
 | Chain         | EVM Chain ID | zkBridge Chain ID | Mint Amount (ZBT) | zkBridge Address                           |
 | ------------- | ------------ | ----------------- | ----------------- | ------------------------------------------ |
@@ -95,70 +102,32 @@ forge build
 | BSC Testnet   | 97           | 103               | 2,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 | EXPchain Test | 18880        | 131               | 1,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
----
-
-### Deploy using script
-
 ```bash
-# Sepolia
-CONFIG=config/testnet.json \
-forge script script/Deploy.s.sol \
-  --rpc-url eth_test \
-  --private-key $DEPLOYER_KEY \
-  --broadcast
-```
-
-```bash
-# BSC Testnet
-CONFIG=config/testnet.json \
-forge script script/Deploy.s.sol \
-  --rpc-url bsc_test \
-  --private-key $DEPLOYER_KEY \
-  --broadcast
-```
-
-```bash
-# EXPchain Testnet
-CONFIG=config/testnet.json \
-forge script script/Deploy.s.sol \
-  --rpc-url exp_test \
-  --private-key $DEPLOYER_KEY \
-  --broadcast
-```
-
----
-
-### Deploy using `forge create`
-
-**1. Encode constructor arguments**
-
-```bash
-cast abi-encode \
+constructor_args=$(cast abi-encode \
   "constructor(string,string,address,(uint256,uint256,uint16)[])" \
   "ZKBridgeToken" \
   "ZBT" \
   "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-  "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]"
-```
-
-**2. Deploy**
-
-```bash
-forge create src/ZKBridgeToken.sol:ZKBridgeToken \
-  --rpc-url eth_test \
-  --private-key $DEPLOYER_KEY \
-  --create2-salt 0 \
-  --constructor-args <ENCODED_ARGS>
+  "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]")
 ```
 
 ---
 
 ## Verification
 
-### Sepolia
+```bash
+# Ethereum Sepolia
+forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
+```
 
 ```bash
-forge verify-contract <CONTRACT_ADDRESS> src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args <CONSTRUCTOR_ARGS_FROM_ABOVER>
+# BSC (BNB) Testnet
+forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 97 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
+```
+
+```bash
+# EXPchain Testnet
+forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 18880 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
 ```
 
 ---
@@ -186,17 +155,16 @@ Covers:
 **Estimate bridge fee:**
 
 ```bash
-cast call <CONTRACT_ADDRESS> "estimateBridgeFee(uint16)(uint256)" 103 --rpc-url eth_test
+cast call <CONTRACT_ADDRESS> "bridgeFeeEstimate(uint16,uint256)" 103 --rpc-url eth_test
 ```
 
 **Bridge out:**
 
 ```bash
-cast send <CONTRACT_ADDRESS> "bridgeOut(uint256,uint256,address)" \
+cast send <CONTRACT_ADDRESS> "bridge(uint256,uint256)" \
   97 \
   1000000000000000000000 \
-  0x129b0628A241e26D5048224c5B788E2D89CE6c40 \
-  --rpc-url sepolia \
+  --rpc-url <CHAIN> \
   --private-key $DEPLOYER_KEY \
   --value <FEE>
 ```

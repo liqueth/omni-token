@@ -21,6 +21,13 @@ contract Deploy is Script {
         bytes memory encodedData = vm.parseJson(json);
 
         Config memory config = abi.decode(encodedData, (Config));
+        console.log("chainConfigs: ", config.chainConfigs.length);
+        for (uint256 i = 0; i < config.chainConfigs.length; i++) {
+            ZKBridgeToken.ChainConfig memory chainConfig = config.chainConfigs[i];
+            console.log("evmChain: ", chainConfig.evmChain);
+            console.log("mintAmount: ", chainConfig.mintAmount);
+            console.log("zkChain: ", chainConfig.zkChain);
+        }
 
         bytes32 salt = 0x0;
 
@@ -29,7 +36,9 @@ contract Deploy is Script {
         ZKBridgeToken token =
             new ZKBridgeToken{salt: salt}(config.name, config.symbol, config.zkBridge, config.chainConfigs);
 
-        token;
+        console.log("address: ", address(token));
+        console.log("name: ", token.name());
+        console.log("symbol: ", token.symbol());
 
         vm.stopBroadcast();
     }

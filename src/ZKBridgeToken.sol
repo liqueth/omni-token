@@ -5,6 +5,11 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 
+/**
+ * @title ZK Bridge Token
+ * @notice Omnichain ERC-20 token with zkBridge integration
+ * @custom:source https://github.com/liqueth/ZKBridgeToken
+ */
 contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     error AlreadyReceived(bytes32 messageHash);
     error SenderIsNotBridge(address sender);

@@ -5,6 +5,11 @@ import "forge-std/Script.sol";
 import "forge-std/StdJson.sol";
 import "../src/ZKBridgeToken.sol";
 
+/**
+ * @title Deploy Script for ZKBridgeToken
+ * @notice Deploys the ZKBridgeToken contract with specified configurations
+ *         The deployer account will receive the initial mint amounts across specified chains.
+ */
 contract Deploy is Script {
     using stdJson for string;
 

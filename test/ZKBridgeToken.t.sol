@@ -5,7 +5,7 @@ import "forge-std/Test.sol";
 import "../src/ZKBridgeToken.sol";
 
 contract ZKBridgeTokenTest is Test {
-    uint256 constant mintAcount = 1_000_000 * 10**18;
+    uint256 constant mintAcount = 1_000_000 * 10 ** 18;
     ZKBridgeToken token;
     address zkBridgeMock = address(0x123);
     address allocTo = address(0xABC);

@@ -1,0 +1,22 @@
+{
+    "chainConfigs": [
+        {
+            "evmChain": 11155111,
+            "mintAmount": 3000000000000000000000,
+            "zkChain": 119
+        },
+        {
+            "evmChain": 97,
+            "mintAmount": 2000000000000000000000,
+            "zkChain": 103
+        },
+        {
+            "evmChain": 18880,
+            "mintAmount": 1000000000000000000000,
+            "zkChain": 131
+        }
+    ],
+    "name": "ZKBridgeToken",
+    "symbol": "ZBT",
+    "zkBridge": "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7"
+}

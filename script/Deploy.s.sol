@@ -34,7 +34,7 @@ contract Deploy is Script {
         vm.startBroadcast();
 
         ZKBridgeToken token =
-            new ZKBridgeToken{salt: salt}(config.name, config.symbol, config.zkBridge, config.chainConfigs);
+            new ZKBridgeToken{salt: salt}(msg.sender, config.name, config.symbol, config.zkBridge, config.chainConfigs);
 
         console.log("address: ", address(token));
         console.log("name: ", token.name());

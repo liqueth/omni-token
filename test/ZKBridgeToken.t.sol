@@ -18,7 +18,7 @@ contract ZKBridgeTokenTest is Test {
         chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103); // BSC Testnet, no mint
 
         vm.prank(allocTo);
-        token = new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        token = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
     }
 
     function testInitialMintOnChainWithMintAmount() public view {
@@ -33,7 +33,7 @@ contract ZKBridgeTokenTest is Test {
         chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
 
         vm.prank(allocTo);
-        ZKBridgeToken nonMintToken = new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        ZKBridgeToken nonMintToken = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
         assertEq(nonMintToken.balanceOf(allocTo), 0);
         assertEq(nonMintToken.totalSupply(), 0);
     }
@@ -77,6 +77,6 @@ contract ZKBridgeTokenTest is Test {
         chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
 
         vm.expectRevert("Local chain ID not in chainConfigs");
-        new ZKBridgeToken("ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
     }
 }

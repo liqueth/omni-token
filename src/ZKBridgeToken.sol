@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 
@@ -26,9 +25,13 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         uint16 zkChain;
     }
 
-    constructor(string memory name_, string memory symbol_, address _zkBridgeAddr, ChainConfig[] memory chainConfigs)
-        ERC20(name_, symbol_)
-    {
+    constructor(
+        address holder,
+        string memory name_,
+        string memory symbol_,
+        address _zkBridgeAddr,
+        ChainConfig[] memory chainConfigs
+    ) ERC20(name_, symbol_) {
         _zkBridge = IZKBridge(_zkBridgeAddr);
 
         // Initialize chain ID mappings and mint on local chain if specified
@@ -39,7 +42,7 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
             if (chainConfigs[i].evmChain == block.chainid) {
                 localChainIncluded = true;
                 if (chainConfigs[i].mintAmount > 0) {
-                    _mint(msg.sender, chainConfigs[i].mintAmount);
+                    _mint(holder, chainConfigs[i].mintAmount);
                 }
             }
         }

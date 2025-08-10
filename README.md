@@ -55,6 +55,7 @@ foundryup
 ### 4. Set environment variables
 
 ```bash
+export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 ```
@@ -103,12 +104,7 @@ CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test -
 | EXPchain Test | 18880        | 131               | 1000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
 ```bash
-constructor_args=$(cast abi-encode \
-  "constructor(string,string,address,(uint256,uint256,uint16)[])" \
-  "ZKBridgeToken" \
-  "ZBT" \
-  "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-  "[(11155111,3000000000000000000000,119),(97,2000000000000000000000,103),(18880,1000000000000000000000,131)]")
+constructor_args=$(cast abi-encode "constructor(address,string,string,address,(uint256,uint256,uint16)[])" $DEPLOYER_ADDRESS "ZKBridgeToken" "ZBT" 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 "[(11155111,3000000000000000000000,119),(97,2000000000000000000000,103),(18880,1000000000000000000000,131)]")
 ```
 
 ---

@@ -2,17 +2,17 @@
     "chainConfigs": [
         {
             "evmChain": 11155111,
-            "mintAmount": 300000000000000000000000000,
+            "mintAmount": 3000000000000000000000,
             "zkChain": 119
         },
         {
             "evmChain": 97,
-            "mintAmount": 200000000000000000000000000,
+            "mintAmount": 2000000000000000000000,
             "zkChain": 103
         },
         {
             "evmChain": 18880,
-            "mintAmount": 100000000000000000000000000,
+            "mintAmount": 1000000000000000000000,
             "zkChain": 131
         }
     ],

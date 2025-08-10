@@ -98,9 +98,9 @@ CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test -
 
 | Chain         | EVM Chain ID | zkBridge Chain ID | Mint Amount (ZBT) | zkBridge Address                           |
 | ------------- | ------------ | ----------------- | ----------------- | ------------------------------------------ |
-| Sepolia       | 11155111     | 119               | 3,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
-| BSC Testnet   | 97           | 103               | 2,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
-| EXPchain Test | 18880        | 131               | 1,000,000         | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
+| Sepolia       | 11155111     | 119               | 3000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
+| BSC Testnet   | 97           | 103               | 2000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
+| EXPchain Test | 18880        | 131               | 1000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
 ```bash
 constructor_args=$(cast abi-encode \
@@ -108,7 +108,7 @@ constructor_args=$(cast abi-encode \
   "ZKBridgeToken" \
   "ZBT" \
   "0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7" \
-  "[(11155111,3000000000000000000000000,119),(97,2000000000000000000000000,103),(18880,1000000000000000000000000,131)]")
+  "[(11155111,3000000000000000000000,119),(97,2000000000000000000000,103),(18880,1000000000000000000000,131)]")
 ```
 
 ---

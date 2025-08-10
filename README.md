@@ -91,6 +91,11 @@ CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url bsc_test -
 CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test --private-key $DEPLOYER_KEY --broadcast
 ```
 
+```bash
+# Save contract address displayed in commands above in environment variable
+ZKBridgeToken=<CONTRACT_ADDRESS_DISPLAYED_ABOVE>
+```
+
 ---
 
 ## Encode constructor arguments
@@ -104,7 +109,7 @@ CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test -
 | EXPchain Test | 18880        | 131               | 1000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
 ```bash
-constructor_args=$(cast abi-encode "constructor(address,string,string,address,(uint256,uint256,uint16)[])" $DEPLOYER_ADDRESS "ZKBridgeToken" "ZBT" 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 "[(11155111,3000000000000000000000,119),(97,2000000000000000000000,103),(18880,1000000000000000000000,131)]")
+CONSTRUCTOR_ARGS=$(cast abi-encode "constructor(address,string,string,address,(uint256,uint256,uint16)[])" $DEPLOYER_ADDRESS "ZKBridgeToken" "ZBT" 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 "[(11155111,3000000000000000000000,119),(97,2000000000000000000000,103),(18880,1000000000000000000000,131)]")
 ```
 
 ---
@@ -113,17 +118,17 @@ constructor_args=$(cast abi-encode "constructor(address,string,string,address,(u
 
 ```bash
 # Ethereum Sepolia
-forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
+forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
 ```
 
 ```bash
 # BSC (BNB) Testnet
-forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 97 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
+forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 97 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
 ```
 
 ```bash
 # EXPchain Testnet
-forge verify-contract $contract src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 18880 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $constructor_args
+forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 18880 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
 ```
 
 ---
@@ -151,7 +156,8 @@ Covers:
 **Estimate bridge fee:**
 
 ```bash
-cast call <CONTRACT_ADDRESS> "bridgeFeeEstimate(uint16,uint256)" 103 --rpc-url eth_test
+# 
+cast call $ZKBridgeToken "bridgeFeeEstimate(uint256)" 97 --rpc-url eth_test
 ```
 
 **Bridge out:**

@@ -6,8 +6,10 @@ import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 
 /**
- * @title ZK Bridge Token
- * @notice Omnichain ERC-20 token with zkBridge integration
+ * @title ZKBridgeToken
+ * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
+ * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
+ *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
 contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
@@ -16,8 +18,8 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
 
-    event Bridged(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
-    event Received(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
+    event BridgeInitiated(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
+    event BridgeFinalized(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
 
     IZKBridge private _zkBridge;
     mapping(uint256 => uint16) private _evmToZkChain;
@@ -30,42 +32,66 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         uint16 zkChain;
     }
 
+    /**
+     * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
+     * @param holder Recipient of the initial mint on this chain.
+     * @param name_ ERC-20 name.
+     * @param symbol_ ERC-20 symbol.
+     * @param zkBridge_ zkBridge endpoint address on this chain.
+     * @param chains Array of per-chain configs; includes this chain and any peers.
+     */
     constructor(
         address holder,
         string memory name_,
         string memory symbol_,
-        address _zkBridgeAddr,
-        ChainConfig[] memory chainConfigs
+        address zkBridge_,
+        ChainConfig[] memory chains
     ) ERC20(name_, symbol_) {
-        _zkBridge = IZKBridge(_zkBridgeAddr);
+        _zkBridge = IZKBridge(zkBridge_);
 
         // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
-        for (uint256 i = 0; i < chainConfigs.length; i++) {
-            _evmToZkChain[chainConfigs[i].evmChain] = chainConfigs[i].zkChain;
-            _zkToEvmChain[chainConfigs[i].zkChain] = chainConfigs[i].evmChain;
-            if (chainConfigs[i].evmChain == block.chainid) {
+        for (uint256 i = 0; i < chains.length; i++) {
+            _evmToZkChain[chains[i].evmChain] = chains[i].zkChain;
+            _zkToEvmChain[chains[i].zkChain] = chains[i].evmChain;
+            if (chains[i].evmChain == block.chainid) {
                 localChainIncluded = true;
-                if (chainConfigs[i].mintAmount > 0) {
-                    _mint(holder, chainConfigs[i].mintAmount);
+                if (chains[i].mintAmount > 0) {
+                    _mint(holder, chains[i].mintAmount);
                 }
             }
         }
-        require(localChainIncluded, "Local chain ID not in chainConfigs");
+        require(localChainIncluded, "Local chain ID not in chains");
     }
 
+    /**
+     * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.
+     * @dev Reverts if the destination is unsupported or the attached fee is insufficient. Emits a bridge event on success.
+     * @param toChain Destination EVM `chainid`.
+     * @param amount Token amount to bridge (in smallest units).
+     */
     function bridge(uint256 toChain, uint256 amount) external payable {
         bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
         uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
-        emit Bridged(msg.sender, toChain, amount, nonce);
+        emit BridgeInitiated(msg.sender, toChain, amount, nonce);
     }
 
+    /**
+     * @notice zkBridge callback to mint tokens on this chain for a received bridge message.
+     * @dev Only callable by the zkBridge endpoint. Validates the source chain/address and enforces replay protection.
+     *      Decodes the payload (e.g., recipient, token, destChain, amount) and mints to the intended recipient.
+     * @param fromZkChain Source zkBridge chain ID.
+     * @param fromAddress Address of the token contract on the source chain.
+     * @param nonce Source message nonce.
+     * @param payload ABI-encoded bridge payload.
+     */
     function zkReceive(uint16 fromZkChain, address fromAddress, uint64 nonce, bytes calldata payload) external {
         if (msg.sender != address(_zkBridge)) {
             revert SenderIsNotBridge(msg.sender);
         }
 
+        // Ensure the message has not been processed before
         bytes32 messageHash = keccak256(abi.encodePacked(fromZkChain, fromAddress, nonce, payload));
         if (_received[messageHash]) {
             revert AlreadyReceived(messageHash);
@@ -73,10 +99,18 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         _received[messageHash] = true;
 
         (address holder, uint256 amount) = abi.decode(payload, (address, uint256));
-        emit Received(holder, zkToEvmChain(fromZkChain), amount, nonce);
+        uint256 evmChain = zkToEvmChain(fromZkChain);
         _mint(holder, amount);
+
+        emit BridgeFinalized(holder, evmChain, amount, nonce);
     }
 
+    /**
+     * @notice Returns the native fee required to bridge to a destination chain.
+     * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
+     * @param toChain Destination zkBridge chain ID.
+     * @return fee Estimated native value (wei) the caller should send with {bridge}.
+     */
     function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
         uint16 toZkChain = evmToZkChain(toChain);
         fee = _zkBridge.estimateFee(toZkChain);

@@ -76,7 +76,7 @@ contract ZKBridgeTokenTest is Test {
         chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, 119);
         chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
 
-        vm.expectRevert("Local chain ID not in chainConfigs");
+        vm.expectRevert("Local chain ID not in chains");
         new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
     }
 }

@@ -14,7 +14,7 @@ contract Deploy is Script {
     using stdJson for string;
 
     struct Config {
-        ZKBridgeToken.ChainConfig[] chainConfigs;
+        ZKBridgeToken.ChainConfig[] chains;
         string name;
         string symbol;
         address zkBridge;
@@ -26,11 +26,12 @@ contract Deploy is Script {
         bytes memory encodedData = vm.parseJson(json);
 
         Config memory config = abi.decode(encodedData, (Config));
-        console.log("chainConfigs: ", config.chainConfigs.length);
-        for (uint256 i = 0; i < config.chainConfigs.length; i++) {
-            ZKBridgeToken.ChainConfig memory chainConfig = config.chainConfigs[i];
+        console.log("chains: ", config.chains.length);
+        for (uint256 i = 0; i < config.chains.length; i++) {
+            ZKBridgeToken.ChainConfig memory chainConfig = config.chains[i];
             console.log("evmChain: ", chainConfig.evmChain);
             console.log("mintAmount: ", chainConfig.mintAmount);
+            console.log("name: ", chainConfig.name);
             console.log("zkChain: ", chainConfig.zkChain);
         }
 
@@ -39,7 +40,7 @@ contract Deploy is Script {
         vm.startBroadcast();
 
         ZKBridgeToken token =
-            new ZKBridgeToken{salt: salt}(msg.sender, config.name, config.symbol, config.zkBridge, config.chainConfigs);
+            new ZKBridgeToken{salt: salt}(msg.sender, config.name, config.symbol, config.zkBridge, config.chains);
 
         console.log("address: ", address(token));
         console.log("name: ", token.name());

@@ -13,12 +13,12 @@ contract ZKBridgeTokenTest is Test {
 
     function setUp() public {
         vm.chainId(11155111); // EVM chain ID for Sepolia
-        ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, 119); // Sepolia, full mint
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103); // BSC Testnet, no mint
+        ZKBridgeToken.ChainConfig[] memory chains = new ZKBridgeToken.ChainConfig[](2);
+        chains[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, "Ethereum Testnet", 119);
+        chains[1] = ZKBridgeToken.ChainConfig(97, 0, "BNB Testnet", 103); // BSC Testnet, no mint
 
         vm.prank(allocTo);
-        token = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        token = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chains);
     }
 
     function testInitialMintOnChainWithMintAmount() public view {
@@ -28,12 +28,12 @@ contract ZKBridgeTokenTest is Test {
 
     function testNoMintOnChainWithZeroMintAmount() public {
         vm.chainId(97); // BSC Testnet EVM chain ID
-        ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, 119);
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
+        ZKBridgeToken.ChainConfig[] memory chains = new ZKBridgeToken.ChainConfig[](2);
+        chains[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, "Ethereum Testnet", 119);
+        chains[1] = ZKBridgeToken.ChainConfig(97, 0, "BNB Testnet", 103);
 
         vm.prank(allocTo);
-        ZKBridgeToken nonMintToken = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        ZKBridgeToken nonMintToken = new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chains);
         assertEq(nonMintToken.balanceOf(allocTo), 0);
         assertEq(nonMintToken.totalSupply(), 0);
     }
@@ -72,11 +72,11 @@ contract ZKBridgeTokenTest is Test {
 
     function test_RevertWhen_LocalChainNotMapped() public {
         vm.chainId(1); // Unsupported EVM chain ID
-        ZKBridgeToken.ChainConfig[] memory chainConfigs = new ZKBridgeToken.ChainConfig[](2);
-        chainConfigs[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, 119);
-        chainConfigs[1] = ZKBridgeToken.ChainConfig(97, 0, 103);
+        ZKBridgeToken.ChainConfig[] memory chains = new ZKBridgeToken.ChainConfig[](2);
+        chains[0] = ZKBridgeToken.ChainConfig(11155111, mintAcount, "Ethereum Testnet", 119);
+        chains[1] = ZKBridgeToken.ChainConfig(97, 0, "BNB Testnet", 103);
 
         vm.expectRevert("Local chain ID not in chains");
-        new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chainConfigs);
+        new ZKBridgeToken(allocTo, "ZKBridgeToken", "ZBT", zkBridgeMock, chains);
     }
 }

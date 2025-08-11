@@ -1,15 +1,15 @@
 {
-    "chainConfigs": [
+    "chains": [
         {
             "evmChain": 1,
             "mintAmount": 100000000,
-            "name": "Ethereum Mainnet",
+            "name": "Ethereum",
             "zkChain": 2
         },
         {
             "evmChain": 56,
             "mintAmount": 100000000,
-            "name": "BNB Smart Chain Mainnet",
+            "name": "BNB Smart Chain",
             "zkChain": 3
         },
         {

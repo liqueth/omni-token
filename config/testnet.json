@@ -1,18 +1,21 @@
 {
-    "chainConfigs": [
+    "chains": [
         {
             "evmChain": 11155111,
             "mintAmount": 3000000000000000000000,
+            "name": "Ethereum Testnet",
             "zkChain": 119
         },
         {
             "evmChain": 97,
             "mintAmount": 2000000000000000000000,
+            "name": "BNB Smart Chain Testnet",
             "zkChain": 103
         },
         {
             "evmChain": 18880,
             "mintAmount": 1000000000000000000000,
+            "name": "EXPChain Testnet",
             "zkChain": 131
         }
     ],

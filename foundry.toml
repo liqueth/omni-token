@@ -17,108 +17,21 @@ bsc_test         = "https://bsc-testnet.drpc.org"
 # EXPchain Testnet
 exp_test         = "https://rpc1-testnet.expchain.ai"
 
-# Polygon
-polygon          = "https://1rpc.io/matic"
-polygon_amoy_test   = "https://1rpc.io/amoy"        # new Polygon testnet
-polygon_mumbai_test = "https://1rpc.io/mumbai"      # legacy Polygon testnet
-
-# Avalanche
-avalanche        = "https://1rpc.io/avax-c"
-avalanche_test   = "https://1rpc.io/fuji"
-
-# Fantom
+polygon          = "https://polygon.drpc.org"
+avalanche        = "https://1rpc.io/avax/c"
 fantom           = "https://1rpc.io/ftm"
-fantom_test      = "https://1rpc.io/ftm-testnet"
-
-# Arbitrum
-arbitrum         = "https://1rpc.io/arb"
-arbitrum_test    = "https://1rpc.io/arb-sepolia"
-arbitrum_nova    = "https://1rpc.io/arb-nova"
-
-# Optimism
-optimism         = "https://1rpc.io/op"
-optimism_test    = "https://1rpc.io/op-sepolia"
-
-# Base
+arbitrum_one     = "https://1rpc.io/arb"
+arbitrum_nova    = "https://nova.arbitrum.io/rpc"
+optimism         = "https://mainnet.optimism.io"
 base             = "https://1rpc.io/base"
-base_test        = "https://1rpc.io/base-sepolia"
-
-# zkSync Era
-zksync_era       = "https://1rpc.io/zksync"
-zksync_era_test  = "https://1rpc.io/zksync-sepolia"
-
-# Scroll
 scroll           = "https://1rpc.io/scroll"
-scroll_test      = "https://1rpc.io/scroll-sepolia"
-
-# Linea
 linea            = "https://1rpc.io/linea"
-linea_test       = "https://1rpc.io/linea-sepolia"
-
-# Mantle
 mantle           = "https://1rpc.io/mantle"
-mantle_test      = "https://1rpc.io/mantle-testnet"
-
-# Polygon zkEVM
-polygon_zkevm    = "https://1rpc.io/polygon-zkevm"
-polygon_zkevm_test = "https://1rpc.io/zkevm-cardona"
-
-# Gnosis
 gnosis           = "https://1rpc.io/gnosis"
-
-# Celo
 celo             = "https://1rpc.io/celo"
-celo_test        = "https://1rpc.io/alfajores"
-
-# Aurora
-aurora           = "https://1rpc.io/aurora"
-aurora_test      = "https://1rpc.io/aurora-testnet"
-
-# Moonbeam/Moonriver
-moonbeam         = "https://1rpc.io/moonbeam"
-moonriver        = "https://1rpc.io/moonriver"
-moonbase_test    = "https://1rpc.io/moonbase-alpha"
-
-# Syscoin
-syscoin          = "https://1rpc.io/syscoin"
-syscoin_test     = "https://1rpc.io/syscoin-testnet"
-
-# Telos EVM
-telos            = "https://1rpc.io/telos"
-telos_test       = "https://1rpc.io/telos-testnet"
-
-# Kava EVM
-kava             = "https://1rpc.io/kava"
-
-# Harmony
-harmony          = "https://1rpc.io/harmony"
-harmony_test     = "https://1rpc.io/harmony-testnet"
-
-# Evmos
-evmos            = "https://1rpc.io/evmos"
-evmos_test       = "https://1rpc.io/evmos-testnet"
-
-# OKX Chain (OKC)
-okc              = "https://1rpc.io/okc"
-
-# Fuse
-fuse             = "https://1rpc.io/fuse"
-fuse_test        = "https://1rpc.io/fuse-testnet"
-
-# Metis
-metis            = "https://1rpc.io/metis"
-
-# Core
+moonbeam         = "https://moonbeam.drpc.org"
+metis            = "https://metis.drpc.org"
 core             = "https://1rpc.io/core"
-
-# BTT Chain
-bttc             = "https://1rpc.io/bttc"
-
-# OPBNB
 opbnb            = "https://1rpc.io/opbnb"
-opbnb_test       = "https://1rpc.io/opbnb-testnet"
-
-# Rollux
-rollux           = "https://1rpc.io/rollux"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

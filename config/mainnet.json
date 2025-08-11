@@ -4,73 +4,109 @@
             "evmChain": 1,
             "mintAmount": 100000000,
             "name": "Ethereum Mainnet",
-            "zkChain": 101
+            "zkChain": 2
         },
         {
             "evmChain": 56,
             "mintAmount": 100000000,
             "name": "BNB Smart Chain Mainnet",
-            "zkChain": 102
-        },
-        {
-            "evmChain": 43114,
-            "mintAmount": 100000000,
-            "name": "Avalanche Mainnet",
-            "zkChain": 106
+            "zkChain": 3
         },
         {
             "evmChain": 137,
             "mintAmount": 100000000,
-            "name": "Polygon Mainnet",
-            "zkChain": 109
+            "name": "Polygon",
+            "zkChain": 4
+        },
+        {
+            "evmChain": 43114,
+            "mintAmount": 100000000,
+            "name": "Avalanche",
+            "zkChain": 5
+        },
+        {
+            "evmChain": 250,
+            "mintAmount": 100000000,
+            "name": "Fantom",
+            "zkChain": 6
+        },
+        {
+            "evmChain": 10,
+            "mintAmount": 100000000,
+            "name": "Optimism",
+            "zkChain": 7
         },
         {
             "evmChain": 42161,
             "mintAmount": 100000000,
             "name": "Arbitrum One",
-            "zkChain": 110
+            "zkChain": 8
         },
         {
-            "evmChain": 10,
+            "evmChain": 1284,
             "mintAmount": 100000000,
-            "name": "Optimism Mainnet",
-            "zkChain": 111
+            "name": "Moonbeam",
+            "zkChain": 9
         },
         {
-            "evmChain": 324,
+            "evmChain": 100,
             "mintAmount": 100000000,
-            "name": "zkSync Era Mainnet",
-            "zkChain": 114
+            "name": "Gnosis",
+            "zkChain": 12
         },
         {
-            "evmChain": 5000,
+            "evmChain": 1116,
             "mintAmount": 100000000,
-            "name": "Mantle Mainnet",
-            "zkChain": 181
+            "name": "Metis",
+            "zkChain": 13
+        },
+        {
+            "evmChain": 42170,
+            "mintAmount": 100000000,
+            "name": "Arbitrum Nova",
+            "zkChain": 14
+        },
+        {
+            "evmChain": 1116,
+            "mintAmount": 100000000,
+            "name": "Core",
+            "zkChain": 17
+        },
+        {
+            "evmChain": 42220,
+            "mintAmount": 100000000,
+            "name": "Celo",
+            "zkChain": 18
         },
         {
             "evmChain": 59144,
             "mintAmount": 100000000,
-            "name": "Linea Mainnet",
-            "zkChain": 183
+            "name": "Linea",
+            "zkChain": 19
         },
         {
-            "evmChain": 8453,
+            "evmChain": 5000,
             "mintAmount": 100000000,
-            "name": "Base Mainnet",
-            "zkChain": 184
+            "name": "Mantle",
+            "zkChain": 20
+        },
+        {
+            "evmChain": 204,
+            "mintAmount": 100000000,
+            "name": "Base",
+            "zkChain": 22
+        },
+        {
+            "evmChain": ,
+            "mintAmount": 100000000,
+            "name": "opBNB",
+            "zkChain": 23
         },
         {
             "evmChain": 534352,
             "mintAmount": 100000000,
-            "name": "Scroll Mainnet",
-            "zkChain": 188
-        },
-        {
-            "evmChain": null,
-            "mintAmount": 100000000,
-            "name": "EXPchain Mainnet",
-            "zkChain": 131
+            "name": "Scroll",
+            "zkChain": 26
         }
     ],
     "name": "ZKBridgeToken",

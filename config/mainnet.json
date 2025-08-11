@@ -55,7 +55,7 @@
             "zkChain": 12
         },
         {
-            "evmChain": 1116,
+            "evmChain": 1088,
             "mintAmount": 1000000000000000000000,
             "name": "Metis",
             "zkChain": 13
@@ -91,13 +91,13 @@
             "zkChain": 20
         },
         {
-            "evmChain": 204,
+            "evmChain": 8453,
             "mintAmount": 1000000000000000000000,
             "name": "Base",
             "zkChain": 22
         },
         {
-            "evmChain": ,
+            "evmChain": 204,
             "mintAmount": 1000000000000000000000,
             "name": "opBNB",
             "zkChain": 23

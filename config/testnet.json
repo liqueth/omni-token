@@ -1,23 +1,31 @@
 {
     "chains": [
-        {
-            "evmChain": 11155111,
-            "mintAmount": 3000000000000000000000,
-            "name": "Ethereum Testnet",
-            "zkChain": 119
-        },
-        {
-            "evmChain": 97,
-            "mintAmount": 2000000000000000000000,
-            "name": "BNB Smart Chain Testnet",
-            "zkChain": 103
-        },
-        {
-            "evmChain": 18880,
-            "mintAmount": 1000000000000000000000,
-            "name": "EXPChain Testnet",
-            "zkChain": 131
-        }
+        [
+            11155111,
+            119
+        ],
+        [
+            97,
+            103
+        ],
+        [
+            18880,
+            131
+        ]
+    ],
+    "mints": [
+        [
+            11155111,
+            3000000000000000000000
+        ],
+        [
+            97,
+            2000000000000000000000
+        ],
+        [
+            18880,
+            1000000000000000000000
+        ]
     ],
     "name": "ZKBridgeToken",
     "symbol": "ZBT",

@@ -26,43 +26,46 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
     mapping(uint16 => uint256) private _zkToEvmChain;
     mapping(bytes32 => bool) private _received;
 
-    struct ChainConfig {
-        uint256 evmChain;
-        uint256 mintAmount;
-        string name;
-        uint16 zkChain;
-    }
-
     /**
      * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
      * @param holder Recipient of the initial mint on this chain.
      * @param name_ ERC-20 name.
      * @param symbol_ ERC-20 symbol.
      * @param zkBridge_ zkBridge endpoint address on this chain.
-     * @param chains Array of per-chain configs; includes this chain and any peers.
+     * @param zkChains Map EVM chain ids to zk bridge chain ids.
+     * @param mintAmounts Map EVM chain ids to amount to mint.
      */
     constructor(
         address holder,
         string memory name_,
         string memory symbol_,
         address zkBridge_,
-        ChainConfig[] memory chains
+        uint256[][] memory zkChains,
+        uint256[][] memory mintAmounts
     ) ERC20(name_, symbol_) {
         _zkBridge = IZKBridge(zkBridge_);
 
         // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
-        for (uint256 i = 0; i < chains.length; i++) {
-            _evmToZkChain[chains[i].evmChain] = chains[i].zkChain;
-            _zkToEvmChain[chains[i].zkChain] = chains[i].evmChain;
-            if (chains[i].evmChain == block.chainid) {
+        for (uint256 i = 0; i < zkChains.length; i++) {
+            uint256 evmChain = zkChains[i][0];
+            uint16 zkChain = uint16(zkChains[i][1]);
+            _evmToZkChain[evmChain] = uint16(zkChain);
+            _zkToEvmChain[zkChain] = evmChain;
+            if (evmChain == block.chainid) {
                 localChainIncluded = true;
-                if (chains[i].mintAmount > 0) {
-                    _mint(holder, chains[i].mintAmount);
-                }
             }
         }
         require(localChainIncluded, "Local chain ID not in chains");
+        for (uint256 i = 0; i < mintAmounts.length; i++) {
+            uint256 evmChain = mintAmounts[i][0];
+            uint256 mintAmount = mintAmounts[i][1];
+            if (evmChain == block.chainid) {
+                if (mintAmount > 0) {
+                    _mint(holder, mintAmount);
+                }
+            }
+        }
     }
 
     /**

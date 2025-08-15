@@ -14,7 +14,8 @@ contract Deploy is Script {
     using stdJson for string;
 
     struct Config {
-        ZKBridgeToken.ChainConfig[] chains;
+        uint256[][] chains;
+        uint256[][] mints;
         string name;
         string symbol;
         address zkBridge;
@@ -26,21 +27,22 @@ contract Deploy is Script {
         bytes memory encodedData = vm.parseJson(json);
 
         Config memory config = abi.decode(encodedData, (Config));
-        console.log("chains: ", config.chains.length);
         for (uint256 i = 0; i < config.chains.length; i++) {
-            ZKBridgeToken.ChainConfig memory chainConfig = config.chains[i];
-            console.log("evmChain: ", chainConfig.evmChain);
-            console.log("mintAmount: ", chainConfig.mintAmount);
-            console.log("name: ", chainConfig.name);
-            console.log("zkChain: ", chainConfig.zkChain);
+            console.log("chain: ", config.chains[i][0]);
+            console.log("zkChain: ", config.chains[i][1]);
+        }
+        for (uint256 i = 0; i < config.mints.length; i++) {
+            console.log("chain: ", config.mints[i][0]);
+            console.log("amount: ", config.mints[i][1]);
         }
 
         bytes32 salt = 0x0;
 
         vm.startBroadcast();
 
-        ZKBridgeToken token =
-            new ZKBridgeToken{salt: salt}(msg.sender, config.name, config.symbol, config.zkBridge, config.chains);
+        ZKBridgeToken token = new ZKBridgeToken{salt: salt}(
+            msg.sender, config.name, config.symbol, config.zkBridge, config.chains, config.mints
+        );
 
         console.log("address: ", address(token));
         console.log("name: ", token.name());

@@ -109,7 +109,7 @@ ZKBridgeToken=<CONTRACT_ADDRESS_DISPLAYED_ABOVE>
 | EXPchain Test | 18880        | 131               | 1000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
 
 ```bash
-CONSTRUCTOR_ARGS=$(cast abi-encode "constructor(address,string,string,address,(uint256,uint256,string,uint16)[])" $DEPLOYER_ADDRESS "ZKBridgeToken" "ZBT" 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 '[(11155111,3000000000000000000000,"Ethereum Testnet",119),(97,2000000000000000000000,"BNB Smart Chain Testnet",103),(18880,1000000000000000000000,"EXPChain Testnet",131)]')
+CONSTRUCTOR_ARGS=$(cast abi-encode "constructor(address,string,string,address,uint256[][],uint256[][])" $DEPLOYER_ADDRESS "ZKBridgeToken" "ZBT" 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 '[[11155111,119],[97,103],[18880,131]]' '[[11155111,3000000000000000000000],[97,2000000000000000000000],[18880,1000000000000000000000]]')
 ```
 
 ---

@@ -1,9 +1,10 @@
 // SPDX-License-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./interfaces/IZKBridgeToken.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
  * @title ZKBridgeToken
@@ -12,15 +13,7 @@ import "./interfaces/IZKBridgeReceiver.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
-    error AlreadyReceived(bytes32 messageHash);
-    error SenderIsNotBridge(address sender);
-    error UnsupportedDestinationChain(uint256 chain);
-    error UnsupportedSourceChain(uint16 zkChain);
-
-    event BridgeInitiated(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
-    event BridgeFinalized(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
-
+contract ZKBridgeToken is ERC20, IZKBridgeToken, IZKBridgeReceiver {
     IZKBridge private _zkBridge;
     mapping(uint256 => uint16) private _evmToZkChain;
     mapping(uint16 => uint256) private _zkToEvmChain;
@@ -68,12 +61,17 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         }
     }
 
-    /**
-     * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.
-     * @dev Reverts if the destination is unsupported or the attached fee is insufficient. Emits a bridge event on success.
-     * @param toChain Destination EVM `chainid`.
-     * @param amount Token amount to bridge (in smallest units).
-     */
+    /// @inheritdoc IZKBridgeToken
+    function clone(address holder, string memory name_, string memory symbol_, uint256[][] memory mints)
+        external
+        returns (IZKBridgeToken)
+    {
+        // TBD: Implement CREATE2 logic to deploy this contract at a deterministic address
+        // For now, we just return the current instance
+        return this;
+    }
+
+    /// @inheritdoc IZKBridgeToken
     function bridge(uint256 toChain, uint256 amount) external payable {
         bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
@@ -109,12 +107,7 @@ contract ZKBridgeToken is ERC20, IZKBridgeReceiver {
         emit BridgeFinalized(holder, evmChain, amount, nonce);
     }
 
-    /**
-     * @notice Returns the native fee required to bridge to a destination chain.
-     * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
-     * @param toChain Destination zkBridge chain ID.
-     * @return fee Estimated native value (wei) the caller should send with {bridge}.
-     */
+    /// @inheritdoc IZKBridgeToken
     function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
         uint16 toZkChain = evmToZkChain(toChain);
         fee = _zkBridge.estimateFee(toZkChain);

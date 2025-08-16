@@ -117,8 +117,14 @@ CONSTRUCTOR_ARGS=$(cast abi-encode "constructor(address,string,string,address,ui
 ## Verification
 
 ```bash
+# Save Standard Json-Input format to input.json
+forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken > input.json
+```
+
+```bash
 # Ethereum Sepolia
-forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
+forge verify-contract --chain 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken
+forge verify-check $GUID --verifier etherscan --chain 11155111 -vvvvv --etherscan-api-key $ETHERSCAN_KEY
 ```
 
 ```bash

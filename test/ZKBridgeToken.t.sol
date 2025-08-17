@@ -10,12 +10,13 @@ contract ZKBridgeTokenTest is Test {
     uint256 constant fromMint = 1_000_000;
     uint256 constant toChain = 97;
     uint256 constant toPk = 103;
+    uint16 unsupportedSourceChain = 999;
     uint256 constant toMint = 1_000_000;
     string constant name = "ZKBridgeToken";
     string constant symbol = "ZKBT";
     IZKBridgeToken factory;
     IZKBridgeToken token;
-    address zkBridgeMock = address(0x123);
+    address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
     address bridgeTo = address(0xDEF);
     uint256[][] chains;
@@ -64,8 +65,16 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(address(0xABC), 1000);
         vm.chainId(toChain);
-        vm.expectRevert();
-        ZKBridgeToken(address(token)).zkReceive(999, address(token), 1, payload);
+        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.UnsupportedSourceChain.selector, unsupportedSourceChain));
+        ZKBridgeToken(address(token)).zkReceive(unsupportedSourceChain, address(token), 1, payload);
+    }
+
+    function test_RevertWhen_ZkReceiveFromDifferentAddress() public {
+        vm.prank(zkBridgeMock);
+        bytes memory payload = abi.encode(address(0xABC), 1000);
+        vm.chainId(toChain);
+        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.SentFromDifferentAddress.selector, address(factory)));
+        ZKBridgeToken(address(token)).zkReceive(uint16(fromPk), address(factory), 1, payload);
     }
 
     function test_RevertWhen_LocalChainNotMapped() public {

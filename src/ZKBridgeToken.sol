@@ -129,6 +129,10 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             revert SenderIsNotBridge(msg.sender);
         }
 
+        if (address(this) != fromAddress) {
+            revert SentFromDifferentAddress(fromAddress);
+        }
+
         // Ensure the message has not been processed before
         bytes32 messageHash = keccak256(abi.encodePacked(fromZkChain, fromAddress, nonce, payload));
         if (_received[messageHash]) {

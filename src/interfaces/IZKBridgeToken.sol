@@ -13,6 +13,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 interface IZKBridgeToken is IERC20Metadata {
     error AlreadyReceived(bytes32 messageHash);
     error SenderIsNotBridge(address sender);
+    error SentFromDifferentAddress(address fromAddress);
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
 

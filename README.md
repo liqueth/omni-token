@@ -58,6 +58,7 @@ foundryup
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
+export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 ```
 
 ### 5. Install dependencies
@@ -77,18 +78,15 @@ forge build
 ## Deployment
 
 ```bash
-# Ethereum Sepolia
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url eth_test --private-key $DEPLOYER_KEY --broadcast
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url eth_test --private-key $DEPLOYER_KEY --broadcast # Ethereum Sepolia
 ```
 
 ```bash
-# BSC (BNB) Testnet
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url bsc_test --private-key $DEPLOYER_KEY --broadcast
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url bsc_test --private-key $DEPLOYER_KEY --broadcast # BSC (BNB) Testnet
 ```
 
 ```bash
-# EXPchain Testnet
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test --private-key $DEPLOYER_KEY --broadcast
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test --private-key $DEPLOYER_KEY --broadcast # EXPchain Testnet
 ```
 
 ```bash

@@ -17,8 +17,13 @@ interface IZKBridgeToken is IERC20Metadata {
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
 
-    event BridgeInitiated(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
-    event BridgeFinalized(address indexed holder, uint256 indexed chain, uint256 amount, uint64 nonce);
+    event BridgeInitiated(
+        address indexed holder, address indexed token, uint256 indexed toChain, uint256 amount, uint64 nonce
+    );
+    event BridgeFinalized(
+        address indexed holder, address indexed token, uint256 indexed fromChain, uint256 amount, uint64 nonce
+    );
+    event Cloned(address indexed holder, address indexed token, string name, string symbol);
 
     /**
      * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
@@ -47,4 +52,10 @@ interface IZKBridgeToken is IERC20Metadata {
      * @return fee Estimated native value (wei) the caller should send with {bridge}.
      */
     function bridgeFeeEstimate(uint256 toChain) external returns (uint256 fee);
+
+    /**
+     * @notice Returns the EVM chain IDs supported by this token.
+     * @return chains Array of EVM chain IDs.
+     */
+    function chains() external view returns (uint256[] memory);
 }

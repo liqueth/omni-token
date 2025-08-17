@@ -74,6 +74,8 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             }
             ZKBridgeToken(proxy).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
         }
+
+        emit Cloned(holder, proxy, name, symbol);
     }
 
     function initialize(
@@ -112,7 +114,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
         uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
-        emit BridgeInitiated(msg.sender, toChain, amount, nonce);
+        emit BridgeInitiated(msg.sender, address(this), toChain, amount, nonce);
     }
 
     /**
@@ -144,7 +146,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         uint256 evmChain = zkToEvmChain(fromZkChain);
         _mint(holder, amount);
 
-        emit BridgeFinalized(holder, evmChain, amount, nonce);
+        emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
     }
 
     /// @inheritdoc IZKBridgeToken

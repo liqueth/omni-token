@@ -22,21 +22,22 @@ interface IZKBridgeToken is IERC20Metadata {
     /**
      * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
      * @param holder Recipient of the initial mint on this chain.
-     * @param name_ ERC-20 name.
-     * @param symbol_ ERC-20 symbol.
+     * @param name ERC-20 name.
+     * @param symbol ERC-20 symbol.
      * @param mints Map EVM chain ids to amount to mint.
      */
-    function clone(address holder, string memory name_, string memory symbol_, uint256[][] memory mints)
+    function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
         returns (IZKBridgeToken);
 
     /**
      * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.
-     * @dev Reverts if the destination is unsupported or the attached fee is insufficient. Emits a bridge event on success.
+     * @dev Reverts if the destination is unsupported or the attached fee is insufficient.
+            Emits a BridgeInitiated event on success.
      * @param toChain Destination EVM `chainid`.
-     * @param amount Token amount to bridge (in smallest units).
+     * @param fee Token amount to bridge (in smallest units).
      */
-    function bridge(uint256 toChain, uint256 amount) external payable;
+    function bridge(uint256 toChain, uint256 fee) external payable;
 
     /**
      * @notice Returns the native fee required to bridge to a destination chain.

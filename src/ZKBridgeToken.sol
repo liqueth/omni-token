@@ -63,9 +63,10 @@ contract ZKBridgeToken is ERC20, IZKBridgeToken, IZKBridgeReceiver {
 
     /// @inheritdoc IZKBridgeToken
     function clone(address holder, string memory name_, string memory symbol_, uint256[][] memory mints)
-        external
+        external view
         returns (IZKBridgeToken)
     {
+        holder; name_; symbol_; mints;
         // TBD: Implement CREATE2 logic to deploy this contract at a deterministic address
         // For now, we just return the current instance
         return this;

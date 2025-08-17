@@ -1,4 +1,4 @@
-// SPDX-License-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
@@ -33,7 +33,7 @@ interface IZKBridgeToken is IERC20Metadata {
     /**
      * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.
      * @dev Reverts if the destination is unsupported or the attached fee is insufficient.
-            Emits a BridgeInitiated event on success.
+     *         Emits a BridgeInitiated event on success.
      * @param toChain Destination EVM `chainid`.
      * @param fee Token amount to bridge (in smallest units).
      */

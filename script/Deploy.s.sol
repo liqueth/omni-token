@@ -1,4 +1,4 @@
-// SPDX-License-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "forge-std/Script.sol";
@@ -15,9 +15,6 @@ contract Deploy is Script {
 
     struct Config {
         uint256[][] chains;
-        uint256[][] mints;
-        string name;
-        string symbol;
         address zkBridge;
     }
 
@@ -31,18 +28,12 @@ contract Deploy is Script {
             console.log("chain: ", config.chains[i][0]);
             console.log("zkChain: ", config.chains[i][1]);
         }
-        for (uint256 i = 0; i < config.mints.length; i++) {
-            console.log("chain: ", config.mints[i][0]);
-            console.log("amount: ", config.mints[i][1]);
-        }
 
         bytes32 salt = 0x0;
 
         vm.startBroadcast();
 
-        ZKBridgeToken token = new ZKBridgeToken{salt: salt}(
-            msg.sender, config.name, config.symbol, config.zkBridge, config.chains, config.mints
-        );
+        ZKBridgeToken token = new ZKBridgeToken{salt: salt}(config.zkBridge, config.chains);
 
         console.log("address: ", address(token));
         console.log("name: ", token.name());

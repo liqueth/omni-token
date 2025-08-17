@@ -1,10 +1,11 @@
-// SPDX-License-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "./interfaces/IZKBridgeToken.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**
  * @title ZKBridgeToken
@@ -13,63 +14,97 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-contract ZKBridgeToken is ERC20, IZKBridgeToken, IZKBridgeReceiver {
+contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
+    ZKBridgeToken private _implementation;
     IZKBridge private _zkBridge;
+    uint256[] private _chains;
     mapping(uint256 => uint16) private _evmToZkChain;
     mapping(uint16 => uint256) private _zkToEvmChain;
     mapping(bytes32 => bool) private _received;
 
     /**
-     * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
-     * @param holder Recipient of the initial mint on this chain.
-     * @param name_ ERC-20 name.
-     * @param symbol_ ERC-20 symbol.
-     * @param zkBridge_ zkBridge endpoint address on this chain.
+     * @notice Initializes zkBridge endpoint, chain ID mappings.
+     * @param zkBridge_ zkBridge endpoint address on all chains.
      * @param zkChains Map EVM chain ids to zk bridge chain ids.
-     * @param mintAmounts Map EVM chain ids to amount to mint.
      */
-    constructor(
-        address holder,
-        string memory name_,
-        string memory symbol_,
-        address zkBridge_,
-        uint256[][] memory zkChains,
-        uint256[][] memory mintAmounts
-    ) ERC20(name_, symbol_) {
+    constructor(address zkBridge_, uint256[][] memory zkChains) {
+        _implementation = this;
         _zkBridge = IZKBridge(zkBridge_);
 
-        // Initialize chain ID mappings and mint on local chain if specified
         bool localChainIncluded = false;
+        for (uint256 i = 0; i < zkChains.length; i++) {
+            uint256 evmChain = zkChains[i][0];
+            localChainIncluded = localChainIncluded || evmChain == block.chainid;
+        }
+        require(localChainIncluded, "Local chain ID not in chains");
+
+        initializeChains(zkChains);
+
+        _disableInitializers();
+    }
+
+    function initializeChains(uint256[][] memory zkChains) internal {
         for (uint256 i = 0; i < zkChains.length; i++) {
             uint256 evmChain = zkChains[i][0];
             uint16 zkChain = uint16(zkChains[i][1]);
             _evmToZkChain[evmChain] = uint16(zkChain);
             _zkToEvmChain[zkChain] = evmChain;
-            if (evmChain == block.chainid) {
-                localChainIncluded = true;
-            }
+            _chains.push(evmChain);
         }
-        require(localChainIncluded, "Local chain ID not in chains");
-        for (uint256 i = 0; i < mintAmounts.length; i++) {
-            uint256 evmChain = mintAmounts[i][0];
-            uint256 mintAmount = mintAmounts[i][1];
-            if (evmChain == block.chainid) {
-                if (mintAmount > 0) {
-                    _mint(holder, mintAmount);
+    }
+
+    /// @inheritdoc IZKBridgeToken
+    function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
+        external
+        returns (IZKBridgeToken token)
+    {
+        if (this != _implementation) {
+            return _implementation.clone(holder, name, symbol, mints);
+        }
+
+        (address proxy, bytes32 salt) = predictAddress(holder, name, symbol, mints);
+        token = IZKBridgeToken(proxy);
+        if (proxy.code.length == 0) {
+            Clones.cloneDeterministic(address(this), salt);
+            uint256[][] memory zkChains = new uint256[][](_chains.length);
+            for (uint256 i = 0; i < _chains.length; i++) {
+                zkChains[i] = new uint256[](2);
+                zkChains[i][0] = _chains[i];
+                zkChains[i][1] = _evmToZkChain[_chains[i]];
+            }
+            ZKBridgeToken(proxy).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
+        }
+    }
+
+    function initialize(
+        address holder,
+        string memory name,
+        string memory symbol,
+        IZKBridge zkBridge_,
+        uint256[][] memory zkChains,
+        uint256[][] memory mints
+    ) public initializer {
+        __ERC20_init(name, symbol);
+        _zkBridge = zkBridge_;
+        initializeChains(zkChains);
+        for (uint256 i = 0; i < mints.length; i++) {
+            uint256 chain = mints[i][0];
+            uint256 mint = mints[i][1];
+            if (chain == block.chainid) {
+                if (mint > 0) {
+                    _mint(holder, mint);
                 }
             }
         }
     }
 
-    /// @inheritdoc IZKBridgeToken
-    function clone(address holder, string memory name_, string memory symbol_, uint256[][] memory mints)
-        external view
-        returns (IZKBridgeToken)
+    function predictAddress(address holder, string memory name, string memory symbol, uint256[][] memory mints)
+        internal
+        view
+        returns (address proxy, bytes32 salt)
     {
-        holder; name_; symbol_; mints;
-        // TBD: Implement CREATE2 logic to deploy this contract at a deterministic address
-        // For now, we just return the current instance
-        return this;
+        salt = keccak256(abi.encode(holder, name, symbol, mints));
+        proxy = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
     /// @inheritdoc IZKBridgeToken
@@ -112,6 +147,10 @@ contract ZKBridgeToken is ERC20, IZKBridgeToken, IZKBridgeReceiver {
     function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
         uint16 toZkChain = evmToZkChain(toChain);
         fee = _zkBridge.estimateFee(toZkChain);
+    }
+
+    function chains() external view returns (uint256[] memory) {
+        return _chains;
     }
 
     function zkToEvmChain(uint16 zkChain) internal view returns (uint256 chainId) {

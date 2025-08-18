@@ -14,6 +14,8 @@ contract ZKBridgeTokenTest is Test {
     uint256 constant toMint = 1_000_000;
     string constant name = "ZKBridgeToken";
     string constant symbol = "ZKBT";
+    string constant clone1Name = "Clone1";
+    string constant clone2Name = "Clone2";
     IZKBridgeToken factory;
     IZKBridgeToken token;
     address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
@@ -30,6 +32,17 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(allocTo);
         factory = new ZKBridgeToken(zkBridgeMock, chains);
         token = factory.clone(allocTo, name, symbol, mints);
+    }
+
+    function test_CloneCanClone() public {
+        vm.chainId(fromChain);
+        IZKBridgeToken clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
+        assertNotEq(address(clone1), address(0));
+        IZKBridgeToken clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
+        assertNotEq(address(clone2a), address(0));
+        IZKBridgeToken clone2b = clone1.clone(allocTo, clone2Name, clone2Name, mints);
+        assertNotEq(address(clone2b), address(0));
+        assertEq(address(clone2a), address(clone2b));
     }
 
     function testInitialMintOnChainWithMintAmount() public view {

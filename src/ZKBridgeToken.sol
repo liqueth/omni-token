@@ -87,6 +87,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         uint256[][] memory mints
     ) public initializer {
         __ERC20_init(name, symbol);
+        _implementation = ZKBridgeToken(msg.sender);
         _zkBridge = zkBridge_;
         initializeChains(zkChains);
         for (uint256 i = 0; i < mints.length; i++) {

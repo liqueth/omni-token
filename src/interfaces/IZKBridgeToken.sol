@@ -73,4 +73,11 @@ interface IZKBridgeToken is IERC20Metadata {
      * @return chains Array of EVM chain IDs.
      */
     function chains() external view returns (uint256[] memory);
+
+    /**
+     * @notice Returns the zkBridge clone data used to deploy this token.
+     * @dev Contains the holder, name, symbol, and mints for the token.
+     * @return cloneData The ABI-encoded clone data.
+     */
+    function cloneData() external view returns (bytes memory);
 }

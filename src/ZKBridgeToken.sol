@@ -180,6 +180,10 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         return _chains;
     }
 
+    function cloneData() external view returns (bytes memory) {
+        return _cloneData;
+    }
+
     function zkToEvmChain(uint16 zkChain) internal view returns (uint256 chainId) {
         chainId = _zkToEvmChain[zkChain];
         if (chainId == 0) {

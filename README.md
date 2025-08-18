@@ -12,14 +12,6 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 * **Omnichain Deployment** – Same contract address across all supported chains using `CREATE2`.
 * **Polyhedra zkBridge Integration** – Secure cross-chain transfers with zero-knowledge proofs.
 * **Configurable Minting** – Initial token supply per chain defined in constructor via `ChainConfig`:
-
-  ```solidity
-  struct ChainConfig {
-      uint256 evmChainId;
-      uint256 mintAmount;
-      uint16 zkBridgeChainId;
-  }
-  ```
 * **Security** – Restricts `zkReceive` to mapped chains and validates same-address deployment.
 * **Built with Foundry** – Deployment scripts, tests, and config via `foundry.toml`.
 
@@ -30,7 +22,6 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 * [Foundry](https://book.getfoundry.sh/) (`forge`, `cast`)
 * Git
 * Environment variables for private key (`DEPLOYER_KEY`) and RPC endpoints (defined in `foundry.toml`)
-* Node.js (optional, for extra scripts)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
 * Environment variables for verifier key (`ETHERSCAN_KEY`) and RPC endpoints (defined in `foundry.toml`)
 
@@ -42,6 +33,15 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 ```bash
 git clone https://github.com/liqueth/ZKBridgeToken.git
+```
+
+or
+
+```bash
+git clone git@github.com:liqueth/ZKBridgeToken.git
+```
+
+```bash
 cd ZKBridgeToken
 ```
 
@@ -61,13 +61,7 @@ export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 ```
 
-### 5. Install dependencies
-
-```bash
-forge install OpenZeppelin/openzeppelin-contracts
-```
-
-### 6. Compile
+### 5. Compile
 
 ```bash
 forge build
@@ -76,6 +70,10 @@ forge build
 ---
 
 ## Deployment
+
+```bash
+CONFIG=config/mainnet.json forge script script/Deploy.s.sol --rpc-url eth --private-key $DEPLOYER_KEY --broadcast # Ethereum
+```
 
 ```bash
 CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url eth_test --private-key $DEPLOYER_KEY --broadcast # Ethereum Sepolia
@@ -98,16 +96,8 @@ ZKBridgeToken=<CONTRACT_ADDRESS_DISPLAYED_ABOVE>
 
 ## Encode constructor arguments
 
-**Configuration per chain:**
-
-| Chain         | EVM Chain ID | zkBridge Chain ID | Mint Amount (ZBT) | zkBridge Address                           |
-| ------------- | ------------ | ----------------- | ----------------- | ------------------------------------------ |
-| Sepolia       | 11155111     | 119               | 3000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
-| BSC Testnet   | 97           | 103               | 2000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
-| EXPchain Test | 18880        | 131               | 1000              | 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 |
-
 ```bash
-CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $DEPLOYER_ADDRESS 0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7 '[[11155111,119],[97,103],[18880,131]]')
+CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $DEPLOYER_ADDRESS $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN/run-latest.json | tr -d ' '))
 ```
 
 ---
@@ -174,6 +164,8 @@ cast send <CONTRACT_ADDRESS> "bridge(uint256,uint256)" \
   --private-key $DEPLOYER_KEY \
   --value <FEE>
 ```
+
+[[11155111,"3000000000000000000000"],[97,"2000000000000000000000"],[18880,"1000000000000000000000"]]
 
 ---
 

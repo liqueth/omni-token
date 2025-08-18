@@ -24,6 +24,8 @@ interface IZKBridgeToken is IERC20Metadata {
         address indexed holder, address indexed token, uint256 indexed fromChain, uint256 amount, uint64 nonce
     );
     event Cloned(address indexed holder, address indexed token, string name, string symbol);
+    event DeployToChainInitiated(address indexed token, uint256 indexed toChain, uint64 nonce);
+    event DeployToChainFinalized(address indexed token, uint256 indexed fromChain, uint64 nonce);
 
     /**
      * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
@@ -35,6 +37,19 @@ interface IZKBridgeToken is IERC20Metadata {
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
         returns (IZKBridgeToken);
+
+    /**
+     * @notice Initialize a clone with encoded parameters.
+     * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
+     * @return token The new token clone.
+     */
+    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token);
+
+    /**
+     * @notice Deploy this token to another network.
+     * @param toChain Destination EVM `chainid`.
+     */
+    function deployToChain(uint256 toChain) external payable;
 
     /**
      * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.

@@ -86,8 +86,8 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(allocTo, 1000);
         vm.chainId(toChain);
-        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.SentFromDifferentAddress.selector, address(factory)));
-        ZKBridgeToken(address(token)).zkReceive(uint16(fromPk), address(factory), 1, payload);
+        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.SentFromDifferentAddress.selector, allocTo));
+        ZKBridgeToken(address(token)).zkReceive(uint16(fromPk), allocTo, 1, payload);
     }
 
     function test_RevertWhen_LocalChainNotMapped() public {

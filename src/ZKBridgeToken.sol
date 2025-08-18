@@ -17,6 +17,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
     ZKBridgeToken private _implementation;
     IZKBridge private _zkBridge;
+    bytes private _cloneData;
     uint256[] private _chains;
     mapping(uint256 => uint16) private _evmToZkChain;
     mapping(uint16 => uint256) private _zkToEvmChain;
@@ -53,9 +54,15 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         }
     }
 
+    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token) {
+        (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
+            abi.decode(cloneData_, (address, string, string, uint256[][]));
+        token = clone(holder, name, symbol, mints);
+    }
+
     /// @inheritdoc IZKBridgeToken
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        external
+        public
         returns (IZKBridgeToken token)
     {
         if (this != _implementation) {
@@ -89,6 +96,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         __ERC20_init(name, symbol);
         _implementation = ZKBridgeToken(msg.sender);
         _zkBridge = zkBridge_;
+        _cloneData = abi.encode(holder, name, symbol, mints);
         initializeChains(zkChains);
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
@@ -108,6 +116,12 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
     {
         salt = keccak256(abi.encode(holder, name, symbol, mints));
         proxy = Clones.predictDeterministicAddress(address(this), salt, address(this));
+    }
+
+    /// @inheritdoc IZKBridgeToken
+    function deployToChain(uint256 toChain) external payable {
+        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(_implementation), _cloneData);
+        emit DeployToChainInitiated(address(this), toChain, nonce);
     }
 
     /// @inheritdoc IZKBridgeToken
@@ -132,10 +146,6 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             revert SenderIsNotBridge(msg.sender);
         }
 
-        if (address(this) != fromAddress) {
-            revert SentFromDifferentAddress(fromAddress);
-        }
-
         // Ensure the message has not been processed before
         bytes32 messageHash = keccak256(abi.encodePacked(fromZkChain, fromAddress, nonce, payload));
         if (_received[messageHash]) {
@@ -143,11 +153,21 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         }
         _received[messageHash] = true;
 
-        (address holder, uint256 amount) = abi.decode(payload, (address, uint256));
-        uint256 evmChain = zkToEvmChain(fromZkChain);
-        _mint(holder, amount);
+        if (fromAddress == address(this)) {
+            (address holder, uint256 amount) = abi.decode(payload, (address, uint256));
+            uint256 evmChain = zkToEvmChain(fromZkChain);
+            _mint(holder, amount);
 
-        emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
+            emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
+        } else if (fromAddress == address(_implementation)) {
+            // This is a bridge callback for a deployToChain message
+            (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
+                abi.decode(_cloneData, (address, string, string, uint256[][]));
+            IZKBridgeToken token = clone(holder, name, symbol, mints);
+            emit DeployToChainFinalized(address(token), zkToEvmChain(fromZkChain), nonce);
+        } else {
+            revert SentFromDifferentAddress(fromAddress);
+        }
     }
 
     /// @inheritdoc IZKBridgeToken

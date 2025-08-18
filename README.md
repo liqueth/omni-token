@@ -77,6 +77,10 @@ CHAIN_ID=11155111 # set to desired chain id
 ```
 
 ```bash
+TO_CHAIN_ID=97 # set destination chain id 
+```
+
+```bash
 CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast # Testnets
 ```
 
@@ -102,16 +106,8 @@ CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $D
 ## Verification
 
 ```bash
-# Save Standard Json-Input format to input.json
-forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken > input.json
-```
-
-```bash
-forge verify-contract --chain $CHAIN_ID --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken
-```
-
-```bash
-forge verify-check $GUID --verifier etherscan --chain $CHAIN_ID -vvvvv --etherscan-api-key $ETHERSCAN_KEY
+# Save Standard Json-Input format to ZKBridgeToken.json
+forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken > ZKBridgeToken.json
 ```
 
 ---
@@ -139,22 +135,34 @@ Covers:
 **Estimate bridge fee:**
 
 ```bash
-# 
-cast call $ZKBridgeToken "bridgeFeeEstimate(uint256)" 97 --rpc-url eth_test
+# Estimate bridge fee
+FEE=$(cast call $CONTRACT_ADDRESS "bridgeFeeEstimate(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID); echo $FEE
 ```
 
 **Bridge out:**
 
 ```bash
-cast send <CONTRACT_ADDRESS> "bridge(uint256,uint256)" \
-  97 \
-  1000000000000000000000 \
-  --rpc-url <CHAIN> \
-  --private-key $DEPLOYER_KEY \
-  --value <FEE>
+# set destination chain id
+TO_CHAIN_ID=97 
 ```
 
-[[11155111,"3000000000000000000000"],[97,"2000000000000000000000"],[18880,"1000000000000000000000"]]
+```bash
+# set destination chain id
+MINTS='[[11155111,2e21],[97,3e21]]'
+```
+
+```bash
+ # set destination chain id
+ BRIDGE_AMOUNT=123e18 
+```
+
+```bash
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "Bridge Clone" "BCLN" $MINTS
+```
+
+```bash
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $FEE $CONTRACT_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
+```
 
 ---
 

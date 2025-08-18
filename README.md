@@ -71,25 +71,22 @@ forge build
 
 ## Deployment
 
+
 ```bash
-CONFIG=config/mainnet.json forge script script/Deploy.s.sol --rpc-url eth --private-key $DEPLOYER_KEY --broadcast # Ethereum
+CHAIN_ID=11155111 # set to desired chain id 
 ```
 
 ```bash
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url eth_test --private-key $DEPLOYER_KEY --broadcast # Ethereum Sepolia
+CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast # Testnets
 ```
 
 ```bash
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url bsc_test --private-key $DEPLOYER_KEY --broadcast # BSC (BNB) Testnet
-```
-
-```bash
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url exp_test --private-key $DEPLOYER_KEY --broadcast # EXPchain Testnet
+CONFIG=config/mainnet.json forge script script/Deploy.s.sol --rpc-url eth --private-key $DEPLOYER_KEY --broadcast # Mainnets
 ```
 
 ```bash
 # Save contract address displayed in commands above in environment variable
-ZKBridgeToken=<CONTRACT_ADDRESS_DISPLAYED_ABOVE>
+CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json)
 ```
 
 ---
@@ -97,7 +94,7 @@ ZKBridgeToken=<CONTRACT_ADDRESS_DISPLAYED_ABOVE>
 ## Encode constructor arguments
 
 ```bash
-CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $DEPLOYER_ADDRESS $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN/run-latest.json | tr -d ' '))
+CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $DEPLOYER_ADDRESS $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json | tr -d ' '))
 ```
 
 ---
@@ -106,23 +103,15 @@ CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $D
 
 ```bash
 # Save Standard Json-Input format to input.json
-forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken > input.json
+forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken > input.json
 ```
 
 ```bash
-# Ethereum Sepolia
-forge verify-contract --chain 11155111 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken
-forge verify-check $GUID --verifier etherscan --chain 11155111 -vvvvv --etherscan-api-key $ETHERSCAN_KEY
+forge verify-contract --chain $CHAIN_ID --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken
 ```
 
 ```bash
-# BSC (BNB) Testnet
-forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 97 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
-```
-
-```bash
-# EXPchain Testnet
-forge verify-contract $ZKBridgeToken src/ZKBridgeToken.sol:ZKBridgeToken --chain-id 18880 --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $CONSTRUCTOR_ARGS
+forge verify-check $GUID --verifier etherscan --chain $CHAIN_ID -vvvvv --etherscan-api-key $ETHERSCAN_KEY
 ```
 
 ---

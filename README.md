@@ -136,7 +136,7 @@ Covers:
 
 ```bash
 # Estimate bridge fee
-FEE=$(cast call $CONTRACT_ADDRESS "bridgeFeeEstimate(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID); echo $FEE
+FEE=$(cast call $CONTRACT_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID); echo $FEE
 ```
 
 **Bridge out:**
@@ -158,6 +158,10 @@ MINTS='[[11155111,2e21],[97,3e21]]'
 
 ```bash
 cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "Bridge Clone" "BCLN" $MINTS
+```
+
+```bash
+cast call --rpc-url $CHAIN_ID $CONTRACT_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_ADDRESS
 ```
 
 ```bash

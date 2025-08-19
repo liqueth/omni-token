@@ -100,6 +100,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         initializeChains(zkChains);
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
+            evmToZkChain(chain); // Ensure chain is valid
             uint256 mint = mints[i][1];
             if (chain == block.chainid) {
                 if (mint > 0) {

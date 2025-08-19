@@ -5,6 +5,7 @@ import "forge-std/Test.sol";
 import "../src/ZKBridgeToken.sol";
 
 contract ZKBridgeTokenTest is Test {
+    uint256 constant unmappedChain = 11155112;
     uint256 constant fromChain = 11155111;
     uint256 constant fromPk = 119;
     uint256 constant fromMint = 1_000_000;
@@ -23,12 +24,13 @@ contract ZKBridgeTokenTest is Test {
     address bridgeTo = address(0xDEF);
     uint256[][] chains;
     uint256[][] mints;
+    uint256[][] badMints;
 
     function setUp() public {
         vm.chainId(fromChain);
         chains = [[fromChain, fromPk], [toChain, toPk]];
         mints = [[fromChain, fromMint], [toChain, toMint]];
-
+        badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         factory = new ZKBridgeToken(zkBridgeMock, chains);
         token = factory.clone(allocTo, name, symbol, mints);
@@ -43,6 +45,12 @@ contract ZKBridgeTokenTest is Test {
         IZKBridgeToken clone2b = clone1.clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2b), address(0));
         assertEq(address(clone2a), address(clone2b));
+    }
+
+    function test_RevertWhen_MintUnmappedChain() public {
+        vm.chainId(fromChain);
+        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.UnsupportedDestinationChain.selector, unmappedChain));
+        factory.clone(allocTo, clone1Name, clone1Name, badMints);
     }
 
     function testInitialMintOnChainWithMintAmount() public view {

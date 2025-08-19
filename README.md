@@ -147,6 +147,11 @@ TO_CHAIN_ID=97
 ```
 
 ```bash
+# swap chains
+TEMP_CHAIN_ID=$TO_CHAIN_ID;TO_CHAIN_ID=$CHAIN_ID;CHAIN_ID=$TEMP_CHAIN_ID
+```
+
+```bash
 # set destination chain id
 MINTS='[[11155111,2e21],[97,3e21]]'
 ```
@@ -165,7 +170,8 @@ cast call --rpc-url $CHAIN_ID $CONTRACT_ADDRESS "balanceOf(address)(uint256)" $D
 ```
 
 ```bash
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $FEE $CONTRACT_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
+# bridge clone token
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $FEE $CLONE_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
 ```
 
 ---

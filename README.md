@@ -66,7 +66,7 @@ export MINTS='[[11155111,2e21],[97,3e21]]' # test
 export BRIDGE_AMOUNT=123e16
 export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
-export CLONE_NAME="Omnicoin test"
+export CLONE_NAME=Omnicoin test
 export CLONE_SYMBOL=OMNIT
 ```
 
@@ -145,7 +145,7 @@ TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CH
 
 ```bash
 # Deploy a cloned token
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS $CLONE_NAME $CLONE_SYMBOL $MINTS
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "$CLONE_NAME" "$CLONE_SYMBOL" $MINTS
 ```
 
 ```bash

@@ -66,7 +66,7 @@ export MINTS='[[11155111,2e21],[97,3e21]]' # test
 export BRIDGE_AMOUNT=123e16
 export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
-export CLONE_NAME=Omnicoin test
+export CLONE_NAME='Omnicoin test'
 export CLONE_SYMBOL=OMNIT
 ```
 

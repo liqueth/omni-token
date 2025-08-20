@@ -15,7 +15,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
 contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
-    ZKBridgeToken private _implementation;
+    ZKBridgeToken private _prototype;
     IZKBridge private _zkBridge;
     bytes private _cloneData;
     uint256[] private _chains;
@@ -29,7 +29,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
      * @param zkChains Map EVM chain ids to zk bridge chain ids.
      */
     constructor(address zkBridge_, uint256[][] memory zkChains) {
-        _implementation = this;
+        _prototype = this;
         _zkBridge = IZKBridge(zkBridge_);
 
         bool localChainIncluded = false;
@@ -65,8 +65,8 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         public
         returns (IZKBridgeToken token)
     {
-        if (this != _implementation) {
-            return _implementation.clone(holder, name, symbol, mints);
+        if (this != _prototype) {
+            return _prototype.clone(holder, name, symbol, mints);
         }
 
         (address proxy, bytes32 salt) = predictAddress(holder, name, symbol, mints);
@@ -94,7 +94,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         uint256[][] memory mints
     ) public initializer {
         __ERC20_init(name, symbol);
-        _implementation = ZKBridgeToken(msg.sender);
+        _prototype = ZKBridgeToken(msg.sender);
         _zkBridge = zkBridge_;
         _cloneData = abi.encode(holder, name, symbol, mints);
         initializeChains(zkChains);
@@ -121,7 +121,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
 
     /// @inheritdoc IZKBridgeToken
     function deployToChain(uint256 toChain) external payable {
-        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(_implementation), _cloneData);
+        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(_prototype), _cloneData);
         emit DeployToChainInitiated(address(this), toChain, nonce);
     }
 
@@ -160,7 +160,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             _mint(holder, amount);
 
             emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
-        } else if (fromAddress == address(_implementation)) {
+        } else if (fromAddress == address(_prototype)) {
             // This is a bridge callback for a deployToChain message
             (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
                 abi.decode(_cloneData, (address, string, string, uint256[][]));
@@ -177,10 +177,17 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         fee = _zkBridge.estimateFee(toZkChain);
     }
 
+    /// @inheritdoc IZKBridgeToken
+    function prototype() external view returns (IZKBridgeToken) {
+        return _prototype;
+    }
+
+    /// @inheritdoc IZKBridgeToken
     function chains() external view returns (uint256[] memory) {
         return _chains;
     }
 
+    /// @inheritdoc IZKBridgeToken
     function cloneData() external view returns (bytes memory) {
         return _cloneData;
     }

@@ -28,7 +28,7 @@ interface IZKBridgeToken is IERC20Metadata {
     event DeployToChainFinalized(address indexed token, uint256 indexed fromChain, uint64 nonce);
 
     /**
-     * @notice Initializes name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
+     * @notice Initialize name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
      * @param holder Recipient of the initial mint on this chain.
      * @param name ERC-20 name.
      * @param symbol ERC-20 symbol.
@@ -61,7 +61,7 @@ interface IZKBridgeToken is IERC20Metadata {
     function bridge(uint256 toChain, uint256 fee) external payable;
 
     /**
-     * @notice Returns the native fee required to bridge to a destination chain.
+     * @notice Return the native fee required to bridge to a destination chain.
      * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
      * @param toChain Destination zkBridge chain ID.
      * @return fee Estimated native value (wei) the caller should send with {bridge}.
@@ -69,13 +69,22 @@ interface IZKBridgeToken is IERC20Metadata {
     function bridgeFeeEstimate(uint256 toChain) external returns (uint256 fee);
 
     /**
-     * @notice Returns the EVM chain IDs supported by this token.
+     * @notice Return the canonical prototype used as both implementation and factory for clone deployments.
+     * @dev The returned address is the code-bearing contract that minimal proxies (EIP-1167/OpenZeppelin Clones)
+     *      delegate to. Treat it as stateless logic; do not send funds here. Useful for tooling and off-chain
+     *      introspection to know which logic/factory this instance points to.
+     * @return Address of the prototype (implementation + factory).
+     */
+    function prototype() external view returns (IZKBridgeToken);
+
+    /**
+     * @notice Return the EVM chain IDs supported by this token.
      * @return chains Array of EVM chain IDs.
      */
     function chains() external view returns (uint256[] memory);
 
     /**
-     * @notice Returns the zkBridge clone data used to deploy this token.
+     * @notice Return the zkBridge clone data used to deploy this token.
      * @dev Contains the holder, name, symbol, and mints for the token.
      * @return cloneData The ABI-encoded clone data.
      */

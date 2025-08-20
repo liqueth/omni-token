@@ -25,7 +25,7 @@ fs_permissions = [{ access = "read", path = "./config" }]
 204        = "https://1rpc.io/opbnb" # opBNB
 534352     = "https://scroll.drpc.org" # Scroll
 11155111   = "https://1rpc.io/sepolia" # Sepolia
-97         = "https://bsc-testnet.drpc.org" # BNB Smart Chain Testnet
+97         = "https://bsc-testnet.therpc.io" # BNB Smart Chain Testnet
 18880      = "https://rpc1-testnet.expchain.ai" # EXPchain Testnet
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

@@ -59,6 +59,15 @@ export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
+export CONFIG=config/mainnet.json
+export CONFIG=config/testnet.json
+export MINTS='[1,1e21],[56,1e21],[137,1e21],[43114,1e21],[250,1e21],[10,1e21],[42161,1e21],[1284,1e21],[100,1e21],[1088,1e21],[42170,1e21],[1116,1e21],[42220,1e21],[59144,1e21],[5000,1e21],[8453,1e21],[204,1e21],[534352,1e21]' # main
+export MINTS='[[11155111,2e21],[97,3e21]]' # test
+export BRIDGE_AMOUNT=123e16
+export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
+export TO_CHAIN_ID=97 # BNB test, set destination chain id
+export CLONE_NAME="Omnicoin test"
+export CLONE_SYMBOLE=OMNIT
 ```
 
 ### 5. Compile
@@ -71,26 +80,14 @@ forge build
 
 ## Deployment
 
-
 ```bash
-CHAIN_ID=11155111 # set to desired chain id 
-```
-
-```bash
-TO_CHAIN_ID=97 # set destination chain id 
-```
-
-```bash
-CONFIG=config/testnet.json forge script script/Deploy.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast # Testnets
-```
-
-```bash
-CONFIG=config/mainnet.json forge script script/Deploy.s.sol --rpc-url eth --private-key $DEPLOYER_KEY --broadcast # Mainnets
+# Deploy the token factory/implementation
+forge script script/Deploy.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 ```
 
 ```bash
 # Save contract address displayed in commands above in environment variable
-CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json)
+export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
 ```
 
 ---
@@ -98,7 +95,7 @@ CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Deploy.s.s
 ## Encode constructor arguments
 
 ```bash
-CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,address,uint256[][])' $DEPLOYER_ADDRESS $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json | tr -d ' '))
+export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $CONSTRUCTOR_ARGS
 ```
 
 ---
@@ -142,36 +139,23 @@ FEE=$(cast call $CONTRACT_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAI
 **Bridge out:**
 
 ```bash
-# set destination chain id
-TO_CHAIN_ID=97 
-```
-
-```bash
 # swap chains
-TEMP_CHAIN_ID=$TO_CHAIN_ID;TO_CHAIN_ID=$CHAIN_ID;CHAIN_ID=$TEMP_CHAIN_ID
+TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CHAIN_ID
 ```
 
 ```bash
-# set destination chain id
-MINTS='[[11155111,2e21],[97,3e21]]'
-```
-
-```bash
- # set destination chain id
- BRIDGE_AMOUNT=123e18 
-```
-
-```bash
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "Bridge Clone" "BCLN" $MINTS
-```
-
-```bash
-cast call --rpc-url $CHAIN_ID $CONTRACT_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_ADDRESS
+# Deploy a cloned token
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS $CLONE_NAME $CLONE_SYMBOL $MINTS
 ```
 
 ```bash
 # bridge clone token
 cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $FEE $CLONE_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
+```
+
+```bash
+# Balance of cloned test
+cast call --rpc-url $CHAIN_ID $CLONE_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_ADDRESS
 ```
 
 ---

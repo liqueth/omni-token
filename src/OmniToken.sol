@@ -8,17 +8,17 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**
- * @title ZKBridgeToken
+ * @title OmniToken
  * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
  * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
-    FixedOmniToken private _prototype;
-    IZKBridge private _zkBridge;
-    bytes private _cloneData;
-    uint256[] private _chains;
+abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
+    address internal _prototype;
+    IZKBridge internal _zkBridge;
+    bytes internal _cloneData;
+    uint256[] internal _chains;
     mapping(uint256 => uint16) private _evmToZkChain;
     mapping(uint16 => uint256) private _zkToEvmChain;
     mapping(bytes32 => bool) private _received;
@@ -29,7 +29,7 @@ contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
      * @param zkChains Map EVM chain ids to zk bridge chain ids.
      */
     constructor(address zkBridge_, uint256[][] memory zkChains) {
-        _prototype = this;
+        _prototype = address(this);
         _zkBridge = IZKBridge(zkBridge_);
 
         bool localChainIncluded = false;
@@ -54,70 +54,21 @@ contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
         }
     }
 
-    function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        public
-        view
-        returns (IOmniToken proxy, bytes32 salt)
-    {
-        salt = keccak256(abi.encode(holder, name, symbol, mints));
-        proxy = IOmniToken(Clones.predictDeterministicAddress(address(_prototype), salt, address(_prototype)));
-    }
-
-    /// @inheritdoc IOmniToken
-    function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        public
-        returns (IOmniToken token)
-    {
-        if (this != _prototype) {
-            return _prototype.clone(holder, name, symbol, mints);
-        }
-
-        bytes32 salt;
-        (token, salt) = clonePrediction(holder, name, symbol, mints);
-        if (address(token).code.length == 0) {
-            Clones.cloneDeterministic(address(this), salt);
-            uint256[][] memory zkChains = new uint256[][](_chains.length);
-            for (uint256 i = 0; i < _chains.length; i++) {
-                zkChains[i] = new uint256[](2);
-                zkChains[i][0] = _chains[i];
-                zkChains[i][1] = _evmToZkChain[_chains[i]];
-            }
-            FixedOmniToken(address(token)).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
-        }
-
-        emit Cloned(holder, address(token), name, symbol);
-    }
-
-    function cloneEncoded(bytes memory cloneData_) external returns (IOmniToken token) {
-        (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
-            abi.decode(cloneData_, (address, string, string, uint256[][]));
-        token = clone(holder, name, symbol, mints);
-    }
-
     function initialize(
-        address holder,
+        bytes memory cloneData_,
         string memory name,
         string memory symbol,
         IZKBridge zkBridge_,
-        uint256[][] memory zkChains,
-        uint256[][] memory mints
+        uint256[][] memory zkChains
     ) public initializer {
         __ERC20_init(name, symbol);
-        _prototype = FixedOmniToken(msg.sender);
+        _cloneData = cloneData_;
+        _prototype = msg.sender;
         _zkBridge = zkBridge_;
-        _cloneData = abi.encode(holder, name, symbol, mints);
         initializeChains(zkChains);
-        for (uint256 i = 0; i < mints.length; i++) {
-            uint256 chain = mints[i][0];
-            evmToZkChain(chain); // Ensure chain is valid
-            uint256 mint = mints[i][1];
-            if (chain == block.chainid) {
-                if (mint > 0) {
-                    _mint(holder, mint);
-                }
-            }
-        }
     }
+
+    function cloneEncoded(bytes memory cloneData_) public virtual returns (address token);
 
     /// @inheritdoc IOmniToken
     function deployToChain(uint256 toChain) external payable {
@@ -161,11 +112,8 @@ contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
 
             emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
         } else if (fromAddress == address(_prototype)) {
-            // This is a bridge callback for a deployToChain message
-            (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
-                abi.decode(_cloneData, (address, string, string, uint256[][]));
-            IOmniToken token = clone(holder, name, symbol, mints);
-            emit DeployToChainFinalized(address(token), zkToEvmChain(fromZkChain), nonce);
+            address token = cloneEncoded(payload);
+            emit DeployToChainFinalized(token, zkToEvmChain(fromZkChain), nonce);
         } else {
             revert SentFromDifferentAddress(fromAddress);
         }
@@ -178,7 +126,7 @@ contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
     }
 
     /// @inheritdoc IOmniToken
-    function prototype() external view returns (IOmniToken) {
+    function prototype() external view returns (address) {
         return _prototype;
     }
 

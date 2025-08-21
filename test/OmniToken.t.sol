@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import "../src/OmniToken.sol";
+import "../src/FixedOmniToken.sol";
 
-contract ZKBridgeTokenTest is Test {
+contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
     uint256 constant fromChain = 11155111;
     uint256 constant fromPk = 119;
@@ -17,8 +17,8 @@ contract ZKBridgeTokenTest is Test {
     string constant symbol = "ZKBT";
     string constant clone1Name = "Clone1";
     string constant clone2Name = "Clone2";
-    IOmniToken factory;
-    IOmniToken token;
+    IFixedOmniToken factory;
+    IFixedOmniToken token;
     address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
     address bridgeTo = address(0xDEF);
@@ -33,16 +33,16 @@ contract ZKBridgeTokenTest is Test {
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         factory = new FixedOmniToken(zkBridgeMock, chains);
-        token = factory.clone(allocTo, name, symbol, mints);
+        token = IFixedOmniToken(factory.clone(allocTo, name, symbol, mints));
     }
 
     function test_CloneCanClone() public {
         vm.chainId(fromChain);
-        IOmniToken clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
+        address clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
         assertNotEq(address(clone1), address(0));
-        IOmniToken clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
+        address clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2a), address(0));
-        IOmniToken clone2b = clone1.clone(allocTo, clone2Name, clone2Name, mints);
+        address clone2b = IFixedOmniToken(clone1).clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2b), address(0));
         assertEq(address(clone2a), address(clone2b));
     }

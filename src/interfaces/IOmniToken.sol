@@ -23,43 +23,15 @@ interface IOmniToken is IERC20Metadata {
     event BridgeFinalized(
         address indexed holder, address indexed token, uint256 indexed fromChain, uint256 amount, uint64 nonce
     );
-    event Cloned(address indexed holder, address indexed token, string name, string symbol);
     event DeployToChainInitiated(address indexed token, uint256 indexed toChain, uint64 nonce);
     event DeployToChainFinalized(address indexed token, uint256 indexed fromChain, uint64 nonce);
-
-    /**
-     * @notice Initialize name/symbol, zkBridge endpoint, chain ID mappings, and mints the local chain’s initial supply.
-     * @param holder Recipient of the initial mint on this chain.
-     * @param name ERC-20 name.
-     * @param symbol ERC-20 symbol.
-     * @param mints Map EVM chain ids to amount to mint.
-     */
-    function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        external
-        returns (IOmniToken);
-
-    /**
-     * @notice Predict the address of a clone with the given parameters.
-     * @dev Returns the address that would be created by cloning this contract with the given parameters.
-     *      Useful for off-chain tools to know where a clone will be deployed.
-     * @param holder Recipient of the initial mint on this chain.
-     * @param name ERC-20 name.
-     * @param symbol ERC-20 symbol.
-     * @param mints Map EVM chain ids to amount to mint.
-     * @return proxy The predicted address of the clone.
-     * @return salt The salt used for the prediction.
-     */
-    function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        external
-        view
-        returns (IOmniToken proxy, bytes32 salt);
 
     /**
      * @notice Initialize a clone with encoded parameters.
      * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
      * @return token The new token clone.
      */
-    function cloneEncoded(bytes memory cloneData_) external returns (IOmniToken token);
+    function cloneEncoded(bytes memory cloneData_) external returns (address token);
 
     /**
      * @notice Deploy this token to another network.
@@ -91,7 +63,7 @@ interface IOmniToken is IERC20Metadata {
      *      introspection to know which logic/factory this instance points to.
      * @return Address of the prototype (implementation + factory).
      */
-    function prototype() external view returns (IOmniToken);
+    function prototype() external view returns (address);
 
     /**
      * @notice Return the EVM chain IDs supported by this token.

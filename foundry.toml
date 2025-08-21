@@ -7,26 +7,28 @@ fs_permissions = [{ access = "read", path = "./config" }]
 optimizer_runs = 1000
 
 [rpc_endpoints]
-1          = "https://1rpc.io/eth" # Ethereum
-56         = "https://1rpc.io/bnb" # BNB Smart Chain
-137        = "https://polygon.drpc.org" # Polygon
-43114      = "https://1rpc.io/avax/c" # Avalanche C-Chain
-250        = "https://1rpc.io/ftm" # Fantom
-10         = "https://mainnet.optimism.io" # Optimism
-42161      = "https://1rpc.io/arb" # Arbitrum One
-1284       = "https://moonbeam.drpc.org" # Moonbeam
-100        = "https://1rpc.io/gnosis" # Gnosis
-1088       = "https://metis.drpc.org" # Metis
-42170      = "https://nova.arbitrum.io/rpc" # Arbitrum Nova
-1116       = "https://1rpc.io/core" # Core
-42220      = "https://1rpc.io/celo" # Celo
-59144      = "https://1rpc.io/linea" # Linea
-5000       = "https://1rpc.io/mantle" # Mantle
-8453       = "https://1rpc.io/base" # Base
-204        = "https://1rpc.io/opbnb" # opBNB
-534352     = "https://scroll.drpc.org" # Scroll
-11155111   = "https://1rpc.io/sepolia" # Sepolia
-97         = "https://bsc-testnet.therpc.io" # BNB Smart Chain Testnet
-18880      = "https://rpc1-testnet.expchain.ai" # EXPchain Testnet
+1        = "https://1rpc.io/eth"               # Ethereum
+10       = "https://mainnet.optimism.io"       # Optimism
+56       = "https://1rpc.io/bnb"               # BNB Smart Chain
+100      = "https://1rpc.io/gnosis"            # Gnosis
+137      = "https://polygon.drpc.org"          # Polygon
+204      = "https://1rpc.io/opbnb"             # opBNB
+250      = "https://1rpc.io/ftm"               # Fantom
+1088     = "https://metis.drpc.org"            # Metis
+1116     = "https://1rpc.io/core"              # Core
+1284     = "https://moonbeam.drpc.org"         # Moonbeam
+5000     = "https://1rpc.io/mantle"            # Mantle
+8453     = "https://1rpc.io/base"              # Base
+42161    = "https://1rpc.io/arb"               # Arbitrum One
+42170    = "https://nova.arbitrum.io/rpc"      # Arbitrum Nova
+42220    = "https://1rpc.io/celo"              # Celo
+43114    = "https://1rpc.io/avax/c"            # Avalanche C-Chain
+59144    = "https://1rpc.io/linea"             # Linea
+534352   = "https://scroll.drpc.org"           # Scroll
+
+# testnets
+97       = "https://bsc-testnet.drpc.org"      # BNB Smart Chain Testnet
+18880    = "https://rpc1-testnet.expchain.ai"  # EXPchain Testnet
+11155111 = "https://1rpc.io/sepolia"           # Sepolia
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

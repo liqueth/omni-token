@@ -19,7 +19,7 @@ contract FixedOmniTokenDeploy is Script {
     }
 
     function run() external {
-        string memory path = vm.envString("CONFIG");
+        string memory path = vm.envString("FixedOmniTokenConfigPath");
         string memory json = vm.readFile(path);
         bytes memory encodedData = vm.parseJson(json);
 

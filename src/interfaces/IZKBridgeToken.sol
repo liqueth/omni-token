@@ -39,6 +39,22 @@ interface IZKBridgeToken is IERC20Metadata {
         returns (IZKBridgeToken);
 
     /**
+     * @notice Predict the address of a clone with the given parameters.
+     * @dev Returns the address that would be created by cloning this contract with the given parameters.
+     *      Useful for off-chain tools to know where a clone will be deployed.
+     * @param holder Recipient of the initial mint on this chain.
+     * @param name ERC-20 name.
+     * @param symbol ERC-20 symbol.
+     * @param mints Map EVM chain ids to amount to mint.
+     * @return proxy The predicted address of the clone.
+     * @return salt The salt used for the prediction.
+     */
+    function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
+        external
+        view
+        returns (IZKBridgeToken proxy, bytes32 salt);
+
+    /**
      * @notice Initialize a clone with encoded parameters.
      * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
      * @return token The new token clone.

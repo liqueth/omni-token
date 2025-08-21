@@ -54,10 +54,13 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         }
     }
 
-    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token) {
-        (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
-            abi.decode(cloneData_, (address, string, string, uint256[][]));
-        token = clone(holder, name, symbol, mints);
+    function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
+        public
+        view
+        returns (IZKBridgeToken proxy, bytes32 salt)
+    {
+        salt = keccak256(abi.encode(holder, name, symbol, mints));
+        proxy = IZKBridgeToken(Clones.predictDeterministicAddress(address(_prototype), salt, address(_prototype)));
     }
 
     /// @inheritdoc IZKBridgeToken
@@ -69,9 +72,9 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             return _prototype.clone(holder, name, symbol, mints);
         }
 
-        (address proxy, bytes32 salt) = predictAddress(holder, name, symbol, mints);
-        token = IZKBridgeToken(proxy);
-        if (proxy.code.length == 0) {
+        bytes32 salt;
+        (token, salt) = clonePrediction(holder, name, symbol, mints);
+        if (address(token).code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
             uint256[][] memory zkChains = new uint256[][](_chains.length);
             for (uint256 i = 0; i < _chains.length; i++) {
@@ -79,10 +82,16 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
                 zkChains[i][0] = _chains[i];
                 zkChains[i][1] = _evmToZkChain[_chains[i]];
             }
-            ZKBridgeToken(proxy).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
+            ZKBridgeToken(address(token)).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
         }
 
-        emit Cloned(holder, proxy, name, symbol);
+        emit Cloned(holder, address(token), name, symbol);
+    }
+
+    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token) {
+        (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
+            abi.decode(cloneData_, (address, string, string, uint256[][]));
+        token = clone(holder, name, symbol, mints);
     }
 
     function initialize(
@@ -108,15 +117,6 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
                 }
             }
         }
-    }
-
-    function predictAddress(address holder, string memory name, string memory symbol, uint256[][] memory mints)
-        internal
-        view
-        returns (address proxy, bytes32 salt)
-    {
-        salt = keccak256(abi.encode(holder, name, symbol, mints));
-        proxy = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
     /// @inheritdoc IZKBridgeToken

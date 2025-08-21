@@ -22,23 +22,23 @@ contract FixedOmniToken is OmniToken, IFixedOmniToken {
     function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         public
         view
-        returns (address proxy, bytes32 salt)
+        returns (address token, bytes32 salt, bytes memory cloneData)
     {
-        salt = keccak256(abi.encode(holder, name, symbol, mints));
-        proxy = Clones.predictDeterministicAddress(_prototype, salt, _prototype);
+        cloneData = abi.encode(holder, name, symbol, mints);
+        salt = keccak256(cloneData);
+        token = Clones.predictDeterministicAddress(_prototype, salt, _prototype);
     }
 
     /// @inheritdoc IFixedOmniToken
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         public
-        returns (address token)
+        returns (address token, bytes32 salt, bytes memory cloneData)
     {
         if (address(this) != _prototype) {
             return IFixedOmniToken(_prototype).clone(holder, name, symbol, mints);
         }
 
-        bytes32 salt;
-        (token, salt) = clonePrediction(holder, name, symbol, mints);
+        (token, salt, cloneData) = clonePrediction(holder, name, symbol, mints);
         if (address(token).code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
             uint256[][] memory zkChains = new uint256[][](_chains.length);
@@ -47,31 +47,32 @@ contract FixedOmniToken is OmniToken, IFixedOmniToken {
                 zkChains[i][0] = _chains[i];
                 zkChains[i][1] = evmToZkChain(_chains[i]);
             }
-            FixedOmniToken(address(token)).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
+            FixedOmniToken(address(token)).initialize(holder, cloneData, name, symbol, _zkBridge, zkChains, mints);
         }
 
         emit Cloned(holder, address(token), name, symbol);
     }
 
-    function cloneEncoded(bytes memory cloneData_) public override(OmniToken, IOmniToken) returns (address token) {
+    function cloneEncoded(bytes memory cloneData_)
+        public
+        override(OmniToken, IOmniToken)
+        returns (address token, bytes32 salt, bytes memory cloneData)
+    {
         (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
             abi.decode(cloneData_, (address, string, string, uint256[][]));
-        token = clone(holder, name, symbol, mints);
+        (token, salt, cloneData) = clone(holder, name, symbol, mints);
     }
 
     function initialize(
         address holder,
+        bytes memory cloneData_,
         string memory name,
         string memory symbol,
         IZKBridge zkBridge_,
         uint256[][] memory zkChains,
         uint256[][] memory mints
     ) public initializer {
-        __ERC20_init(name, symbol);
-        _prototype = msg.sender;
-        _zkBridge = zkBridge_;
-        _cloneData = abi.encode(holder, name, symbol, mints);
-        initializeChains(zkChains);
+        super.initialize(cloneData_, name, symbol, zkBridge_, zkChains);
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
             evmToZkChain(chain); // Ensure chain is valid

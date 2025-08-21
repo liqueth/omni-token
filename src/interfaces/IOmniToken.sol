@@ -30,8 +30,12 @@ interface IOmniToken is IERC20Metadata {
      * @notice Initialize a clone with encoded parameters.
      * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
      * @return token The new token clone.
+     * @return salt The salt used for the prediction.
+     * @return cloneData Encoded data for the clone, used to initialize the contract on other chains.
      */
-    function cloneEncoded(bytes memory cloneData_) external returns (address token);
+    function cloneEncoded(bytes memory cloneData_)
+        external
+        returns (address token, bytes32 salt, bytes memory cloneData);
 
     /**
      * @notice Deploy this token to another network.

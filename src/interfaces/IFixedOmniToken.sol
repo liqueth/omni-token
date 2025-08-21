@@ -19,10 +19,13 @@ interface IFixedOmniToken is IOmniToken {
      * @param name ERC-20 name.
      * @param symbol ERC-20 symbol.
      * @param mints Map EVM chain ids to amount to mint.
+     * @return token The predicted address of the clone.
+     * @return salt The salt used for the prediction.
+     * @return cloneData Encoded data for the clone, used to initialize the contract on other chains.
      */
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
-        returns (address);
+        returns (address token, bytes32 salt, bytes memory cloneData);
 
     /**
      * @notice Predict the address of a clone with the given parameters.
@@ -32,11 +35,12 @@ interface IFixedOmniToken is IOmniToken {
      * @param name ERC-20 name.
      * @param symbol ERC-20 symbol.
      * @param mints Map EVM chain ids to amount to mint.
-     * @return proxy The predicted address of the clone.
+     * @return token The predicted address of the clone.
      * @return salt The salt used for the prediction.
+     * @return cloneData Encoded data for the clone, used to initialize the contract on other chains.
      */
     function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
         view
-        returns (address proxy, bytes32 salt);
+        returns (address token, bytes32 salt, bytes memory cloneData);
 }

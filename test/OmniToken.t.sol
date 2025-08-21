@@ -33,16 +33,17 @@ contract OmniTokenTest is Test {
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         factory = new FixedOmniToken(zkBridgeMock, chains);
-        token = IFixedOmniToken(factory.clone(allocTo, name, symbol, mints));
+        (address proxy,,) = factory.clone(allocTo, name, symbol, mints);
+        token = IFixedOmniToken(proxy);
     }
 
     function test_CloneCanClone() public {
         vm.chainId(fromChain);
-        address clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
+        (address clone1,,) = factory.clone(allocTo, clone1Name, clone1Name, mints);
         assertNotEq(address(clone1), address(0));
-        address clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
+        (address clone2a,,) = factory.clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2a), address(0));
-        address clone2b = IFixedOmniToken(clone1).clone(allocTo, clone2Name, clone2Name, mints);
+        (address clone2b,,) = IFixedOmniToken(clone1).clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2b), address(0));
         assertEq(address(clone2a), address(clone2b));
     }

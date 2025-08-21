@@ -60,7 +60,7 @@ abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
         string memory symbol,
         IZKBridge zkBridge_,
         uint256[][] memory zkChains
-    ) public initializer {
+    ) internal {
         __ERC20_init(name, symbol);
         _cloneData = cloneData_;
         _prototype = msg.sender;
@@ -68,7 +68,10 @@ abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
         initializeChains(zkChains);
     }
 
-    function cloneEncoded(bytes memory cloneData_) public virtual returns (address token);
+    function cloneEncoded(bytes memory cloneData_)
+        public
+        virtual
+        returns (address token, bytes32 salt, bytes memory cloneData);
 
     /// @inheritdoc IOmniToken
     function deployToChain(uint256 toChain) external payable {
@@ -112,7 +115,7 @@ abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
 
             emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
         } else if (fromAddress == address(_prototype)) {
-            address token = cloneEncoded(payload);
+            (address token,,) = cloneEncoded(payload);
             emit DeployToChainFinalized(token, zkToEvmChain(fromZkChain), nonce);
         } else {
             revert SentFromDifferentAddress(fromAddress);

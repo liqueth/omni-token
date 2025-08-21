@@ -37,17 +37,17 @@ foundryup
 ## Clone the repository
 
 ```bash
-git clone https://github.com/liqueth/ZKBridgeToken.git
+git clone https://github.com/liqueth/omni-token.git
 ```
 
 or
 
 ```bash
-git clone git@github.com:liqueth/ZKBridgeToken.git
+git clone git@github.com:liqueth/omni-token.git
 ```
 
 ```bash
-cd ZKBridgeToken
+cd omni-token
 ```
 
 ## Set environment variables

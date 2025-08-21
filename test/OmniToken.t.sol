@@ -13,8 +13,8 @@ contract OmniTokenTest is Test {
     uint256 constant toPk = 103;
     uint16 unsupportedSourceChain = 999;
     uint256 constant toMint = 1_000_000;
-    string constant name = "ZKBridgeToken";
-    string constant symbol = "ZKBT";
+    string constant name = "Omni token";
+    string constant symbol = "OMNI";
     string constant clone1Name = "Clone1";
     string constant clone2Name = "Clone2";
     IFixedOmniToken factory;

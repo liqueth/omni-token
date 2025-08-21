@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
  * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
- * @custom:source https://github.com/liqueth/ZKBridgeToken
+ * @custom:source https://github.com/liqueth/omni-token
  */
 abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
     address internal _prototype;

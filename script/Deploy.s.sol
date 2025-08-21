@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "forge-std/Script.sol";
 import "forge-std/StdJson.sol";
-import "../src/ZKBridgeToken.sol";
+import "../src/OmniToken.sol";
 
 /**
  * @title Deploy Script for ZKBridgeToken

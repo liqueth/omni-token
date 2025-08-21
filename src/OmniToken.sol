@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./interfaces/IZKBridgeToken.sol";
+import "./interfaces/IOmniToken.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import "../src/ZKBridgeToken.sol";
+import "../src/OmniToken.sol";
 
 contract ZKBridgeTokenTest is Test {
     uint256 constant unmappedChain = 11155112;

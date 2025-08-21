@@ -61,10 +61,12 @@ export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 export CONFIG=config/mainnet.json
 export CONFIG=config/testnet.json
-export MINTS='[1,1e21],[56,1e21],[137,1e21],[43114,1e21],[250,1e21],[10,1e21],[42161,1e21],[1284,1e21],[100,1e21],[1088,1e21],[42170,1e21],[1116,1e21],[42220,1e21],[59144,1e21],[5000,1e21],[8453,1e21],[204,1e21],[534352,1e21]' # main
+export MINTS='[[1,1e21],[56,1e21],[137,1e21],[43114,1e21],[250,1e21],[10,1e21],[42161,1e21],[1284,1e21],[100,1e21],[1088,1e21],[42170,1e21],[1116,1e21],[42220,1e21],[59144,1e21],[5000,1e21],[8453,1e21],[204,1e21],[534352,1e21]]' # main
 export MINTS='[[11155111,2e21],[97,3e21]]' # test
 export BRIDGE_AMOUNT=123e16
+export CHAIN_ID=137 # Polygon 
 export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
+export TO_CHAIN_ID=10 # Optimism
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
 export CLONE_NAME='Omnicoin test'
 export CLONE_SYMBOL=OMNIT
@@ -133,7 +135,7 @@ Covers:
 
 ```bash
 # Estimate bridge fee
-FEE=$(cast call $CONTRACT_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID); echo $FEE
+FEE=$(cast call $CLONE_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID | awk '{print $1}'); echo $FEE
 ```
 
 **Bridge out:**

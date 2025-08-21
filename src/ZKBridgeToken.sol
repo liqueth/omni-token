@@ -14,8 +14,8 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
-    ZKBridgeToken private _prototype;
+contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
+    FixedOmniToken private _prototype;
     IZKBridge private _zkBridge;
     bytes private _cloneData;
     uint256[] private _chains;
@@ -82,7 +82,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
                 zkChains[i][0] = _chains[i];
                 zkChains[i][1] = _evmToZkChain[_chains[i]];
             }
-            ZKBridgeToken(address(token)).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
+            FixedOmniToken(address(token)).initialize(holder, name, symbol, _zkBridge, zkChains, mints);
         }
 
         emit Cloned(holder, address(token), name, symbol);
@@ -103,7 +103,7 @@ contract ZKBridgeToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         uint256[][] memory mints
     ) public initializer {
         __ERC20_init(name, symbol);
-        _prototype = ZKBridgeToken(msg.sender);
+        _prototype = FixedOmniToken(msg.sender);
         _zkBridge = zkBridge_;
         _cloneData = abi.encode(holder, name, symbol, mints);
         initializeChains(zkChains);

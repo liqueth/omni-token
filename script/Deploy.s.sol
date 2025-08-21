@@ -33,11 +33,9 @@ contract Deploy is Script {
 
         vm.startBroadcast();
 
-        ZKBridgeToken token = new ZKBridgeToken{salt: salt}(config.zkBridge, config.chains);
+        FixedOmniToken token = new FixedOmniToken{salt: salt}(config.zkBridge, config.chains);
 
         console.log("address: ", address(token));
-        console.log("name: ", token.name());
-        console.log("symbol: ", token.symbol());
 
         vm.stopBroadcast();
     }

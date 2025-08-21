@@ -4,13 +4,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 /**
- * @title IZKBridgeToken
+ * @title IOmniToken
  * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
  * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-interface IZKBridgeToken is IERC20Metadata {
+interface IOmniToken is IERC20Metadata {
     error AlreadyReceived(bytes32 messageHash);
     error SenderIsNotBridge(address sender);
     error SentFromDifferentAddress(address fromAddress);
@@ -36,7 +36,7 @@ interface IZKBridgeToken is IERC20Metadata {
      */
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
-        returns (IZKBridgeToken);
+        returns (IOmniToken);
 
     /**
      * @notice Predict the address of a clone with the given parameters.
@@ -52,14 +52,14 @@ interface IZKBridgeToken is IERC20Metadata {
     function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         external
         view
-        returns (IZKBridgeToken proxy, bytes32 salt);
+        returns (IOmniToken proxy, bytes32 salt);
 
     /**
      * @notice Initialize a clone with encoded parameters.
      * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
      * @return token The new token clone.
      */
-    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token);
+    function cloneEncoded(bytes memory cloneData_) external returns (IOmniToken token);
 
     /**
      * @notice Deploy this token to another network.
@@ -91,7 +91,7 @@ interface IZKBridgeToken is IERC20Metadata {
      *      introspection to know which logic/factory this instance points to.
      * @return Address of the prototype (implementation + factory).
      */
-    function prototype() external view returns (IZKBridgeToken);
+    function prototype() external view returns (IOmniToken);
 
     /**
      * @notice Return the EVM chain IDs supported by this token.

@@ -17,8 +17,8 @@ contract ZKBridgeTokenTest is Test {
     string constant symbol = "ZKBT";
     string constant clone1Name = "Clone1";
     string constant clone2Name = "Clone2";
-    IZKBridgeToken factory;
-    IZKBridgeToken token;
+    IOmniToken factory;
+    IOmniToken token;
     address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
     address bridgeTo = address(0xDEF);
@@ -38,18 +38,18 @@ contract ZKBridgeTokenTest is Test {
 
     function test_CloneCanClone() public {
         vm.chainId(fromChain);
-        IZKBridgeToken clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
+        IOmniToken clone1 = factory.clone(allocTo, clone1Name, clone1Name, mints);
         assertNotEq(address(clone1), address(0));
-        IZKBridgeToken clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
+        IOmniToken clone2a = factory.clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2a), address(0));
-        IZKBridgeToken clone2b = clone1.clone(allocTo, clone2Name, clone2Name, mints);
+        IOmniToken clone2b = clone1.clone(allocTo, clone2Name, clone2Name, mints);
         assertNotEq(address(clone2b), address(0));
         assertEq(address(clone2a), address(clone2b));
     }
 
     function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
-        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.UnsupportedDestinationChain.selector, unmappedChain));
+        vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
         factory.clone(allocTo, clone1Name, clone1Name, badMints);
     }
 
@@ -86,7 +86,7 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(allocTo, 1000);
         vm.chainId(toChain);
-        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.UnsupportedSourceChain.selector, unsupportedSourceChain));
+        vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedSourceChain.selector, unsupportedSourceChain));
         FixedOmniToken(address(token)).zkReceive(unsupportedSourceChain, address(token), 1, payload);
     }
 
@@ -94,7 +94,7 @@ contract ZKBridgeTokenTest is Test {
         vm.prank(zkBridgeMock);
         bytes memory payload = abi.encode(allocTo, 1000);
         vm.chainId(toChain);
-        vm.expectRevert(abi.encodeWithSelector(IZKBridgeToken.SentFromDifferentAddress.selector, allocTo));
+        vm.expectRevert(abi.encodeWithSelector(IOmniToken.SentFromDifferentAddress.selector, allocTo));
         FixedOmniToken(address(token)).zkReceive(uint16(fromPk), allocTo, 1, payload);
     }
 

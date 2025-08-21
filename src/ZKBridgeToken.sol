@@ -14,7 +14,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/ZKBridgeToken
  */
-contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
+contract FixedOmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
     FixedOmniToken private _prototype;
     IZKBridge private _zkBridge;
     bytes private _cloneData;
@@ -57,16 +57,16 @@ contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
     function clonePrediction(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         public
         view
-        returns (IZKBridgeToken proxy, bytes32 salt)
+        returns (IOmniToken proxy, bytes32 salt)
     {
         salt = keccak256(abi.encode(holder, name, symbol, mints));
-        proxy = IZKBridgeToken(Clones.predictDeterministicAddress(address(_prototype), salt, address(_prototype)));
+        proxy = IOmniToken(Clones.predictDeterministicAddress(address(_prototype), salt, address(_prototype)));
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function clone(address holder, string memory name, string memory symbol, uint256[][] memory mints)
         public
-        returns (IZKBridgeToken token)
+        returns (IOmniToken token)
     {
         if (this != _prototype) {
             return _prototype.clone(holder, name, symbol, mints);
@@ -88,7 +88,7 @@ contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         emit Cloned(holder, address(token), name, symbol);
     }
 
-    function cloneEncoded(bytes memory cloneData_) external returns (IZKBridgeToken token) {
+    function cloneEncoded(bytes memory cloneData_) external returns (IOmniToken token) {
         (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
             abi.decode(cloneData_, (address, string, string, uint256[][]));
         token = clone(holder, name, symbol, mints);
@@ -119,13 +119,13 @@ contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
         }
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function deployToChain(uint256 toChain) external payable {
         uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(_prototype), _cloneData);
         emit DeployToChainInitiated(address(this), toChain, nonce);
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function bridge(uint256 toChain, uint256 amount) external payable {
         bytes memory payload = abi.encode(msg.sender, amount);
         _burn(msg.sender, amount);
@@ -164,30 +164,30 @@ contract FixedOmniToken is ERC20Upgradeable, IZKBridgeToken, IZKBridgeReceiver {
             // This is a bridge callback for a deployToChain message
             (address holder, string memory name, string memory symbol, uint256[][] memory mints) =
                 abi.decode(_cloneData, (address, string, string, uint256[][]));
-            IZKBridgeToken token = clone(holder, name, symbol, mints);
+            IOmniToken token = clone(holder, name, symbol, mints);
             emit DeployToChainFinalized(address(token), zkToEvmChain(fromZkChain), nonce);
         } else {
             revert SentFromDifferentAddress(fromAddress);
         }
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
         uint16 toZkChain = evmToZkChain(toChain);
         fee = _zkBridge.estimateFee(toZkChain);
     }
 
-    /// @inheritdoc IZKBridgeToken
-    function prototype() external view returns (IZKBridgeToken) {
+    /// @inheritdoc IOmniToken
+    function prototype() external view returns (IOmniToken) {
         return _prototype;
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function chains() external view returns (uint256[] memory) {
         return _chains;
     }
 
-    /// @inheritdoc IZKBridgeToken
+    /// @inheritdoc IOmniToken
     function cloneData() external view returns (bytes memory) {
         return _cloneData;
     }

@@ -27,9 +27,14 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 ---
 
-## Setup
+## Install Foundry
 
-### 1. Clone the repository
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+```
+
+## Clone the repository
 
 ```bash
 git clone https://github.com/liqueth/ZKBridgeToken.git
@@ -45,14 +50,7 @@ git clone git@github.com:liqueth/ZKBridgeToken.git
 cd ZKBridgeToken
 ```
 
-### 2. Install Foundry
-
-```bash
-curl -L https://foundry.paradigm.xyz | bash
-foundryup
-```
-
-### 4. Set environment variables
+## Set environment variables
 
 ```bash
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
@@ -72,7 +70,14 @@ export CLONE_NAME='Omnicoin test'
 export CLONE_SYMBOL=OMNIT
 ```
 
-### 5. Compile
+```bash
+# swap CHAIN_ID and TO_CHAIN_ID
+TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CHAIN_ID
+```
+
+---
+
+## Compile
 
 ```bash
 forge build
@@ -80,7 +85,15 @@ forge build
 
 ---
 
-## Deployment
+## Test
+
+```bash
+forge test
+```
+
+---
+
+## Deploy
 
 ```bash
 # Deploy the token factory/implementation
@@ -102,62 +115,35 @@ export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(j
 
 ---
 
-## Verification
+## Verify
 
 ```bash
 # Save Standard Json-Input format to ZKBridgeToken.json
 forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken > ZKBridgeToken.json
 ```
 
----
-
-## Testing
-
-```bash
-forge test
-```
-
-Covers:
-
-* Initial minting for each chain’s config.
-* Cross-chain bridging with same address.
-* Valid `zkReceive` from mapped chains.
-* Reverts for invalid source chains.
-* Reverts for deployment on unmapped chains.
+Submit ZKBridgeToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`. 
+For detailed instructions, see: https://docs.etherscan.io/contract-verification.
 
 ---
 
-## Usage
-
-**Minting** (deployment mints to deployer):
-
-**Estimate bridge fee:**
-
-```bash
-# Estimate bridge fee
-FEE=$(cast call $CLONE_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID | awk '{print $1}'); echo $FEE
-```
-
-**Bridge out:**
-
-```bash
-# swap chains
-TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CHAIN_ID
-```
+## Deploy a cloned token
 
 ```bash
 # Deploy a cloned token
 cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "$CLONE_NAME" "$CLONE_SYMBOL" $MINTS
 ```
 
+## Bridge tokens to another chain
+
 ```bash
-# bridge clone token
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $FEE $CLONE_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
+# Estimate bridge fee
+export BRIDGE_FEE=$(cast call $CLONE_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID | awk '{print $1}'); echo $BRIDGE_FEE
 ```
 
 ```bash
-# Balance of cloned test
-cast call --rpc-url $CHAIN_ID $CLONE_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_ADDRESS
+# bridge clone token
+cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $BRIDGE_FEE $CLONE_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
 ```
 
 ---

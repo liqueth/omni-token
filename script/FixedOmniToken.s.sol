@@ -6,11 +6,11 @@ import "forge-std/StdJson.sol";
 import "../src/FixedOmniToken.sol";
 
 /**
- * @title Deploy Script for ZKBridgeToken
- * @notice Deploys the ZKBridgeToken contract with specified configurations
+ * @title Deploy Script for FixedOmniToken
+ * @notice Deploys the FixedOmniToken contract with specified configurations
  *         The deployer account will receive the initial mint amounts across specified chains.
  */
-contract Deploy is Script {
+contract FixedOmniTokenDeploy is Script {
     using stdJson for string;
 
     struct Config {

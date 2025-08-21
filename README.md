@@ -1,6 +1,6 @@
-# ZKBridgeToken
+# OmniToken
 
-**ZKBridgeToken** is an **omnichain ERC-20 token** integrated with **Polyhedra zkBridge** for secure cross-chain transfers.
+**OmniToken** is an **omnichain ERC-20 token** integrated with **Polyhedra zkBridge** for secure cross-chain transfers.
 It is deployed to the **same address** across multiple chains using **CREATE2**, with **initial token minting configured per chain** via a `ChainConfig` array.
 
 Cross-chain transfers are handled by **burning tokens on the source chain** and **minting on the destination chain** via zkBridge.
@@ -97,12 +97,12 @@ forge test
 
 ```bash
 # Deploy the token factory/implementation
-forge script script/Deploy.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+forge script script/FixedOmniToken.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 ```
 
 ```bash
 # Save contract address displayed in commands above in environment variable
-export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
+export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
 ```
 
 ---
@@ -110,7 +110,7 @@ export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Dep
 ## Encode constructor arguments
 
 ```bash
-export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(jq -r '.transactions[0].arguments[]' broadcast/Deploy.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $CONSTRUCTOR_ARGS
+export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(jq -r '.transactions[0].arguments[]' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $CONSTRUCTOR_ARGS
 ```
 
 ---
@@ -118,11 +118,11 @@ export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(j
 ## Verify
 
 ```bash
-# Save Standard Json-Input format to ZKBridgeToken.json
-forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/ZKBridgeToken.sol:ZKBridgeToken > ZKBridgeToken.json
+# Save Standard Json-Input format to FixedOmniToken.json
+forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/FixedOmniToken.sol:FixedOmniToken > FixedOmniToken.json
 ```
 
-Submit ZKBridgeToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`. 
+Submit FixedOmniToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`. 
 For detailed instructions, see: https://docs.etherscan.io/contract-verification.
 
 ---

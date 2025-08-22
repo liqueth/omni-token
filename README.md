@@ -66,8 +66,8 @@ export CHAIN_ID=137 # Polygon
 export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
 export TO_CHAIN_ID=10 # Optimism
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
-export CLONE_NAME='Omnicoin test'
-export CLONE_SYMBOL=OMNIT
+export CLONE_NAME='Omnicoin Alpha'
+export CLONE_SYMBOL=OMNIA
 ```
 
 ```bash

@@ -41,7 +41,6 @@ contract Layer0V2Meta {
         uint8 chainLayer; // 0=NONE,1=L1,2=L2,3=L3
         uint8 chainStack; // 0=NONE,1=OPSTACK,2=ARBSTACK,3=AVALANCHESTACK
         uint8 decimals;
-        bool isTestnet;
         // strings
         string chainKey; // LayerZero chain key (short)
         string chainName; // human-readable name

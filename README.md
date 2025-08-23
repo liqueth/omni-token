@@ -56,6 +56,8 @@ cd omni-token
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
+export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_mainnet.json
+export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_testnet.json
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
@@ -90,6 +92,22 @@ forge build
 ```bash
 forge test
 ```
+
+---
+
+## Deploy Layer0V2Meta
+
+```bash
+# Deploy the token factory/implementation
+forge script script/Layer0V2Meta.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+```
+
+```bash
+# Save contract address displayed in commands above in environment variable
+export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
+```
+
+---
 
 ---
 

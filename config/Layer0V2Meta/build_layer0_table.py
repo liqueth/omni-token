@@ -73,7 +73,6 @@ def build_rows(meta: Dict[str, Any]) -> List[Dict[str, Any]]:
                 "sendUln302": addr(d.get("sendUln302")),
                 "receiveUln302": addr(d.get("receiveUln302")),
                 "blockedMessageLib": addr(d.get("blockedMessageLib")),
-                "deadDVN": addr(d.get("deadDVN")),
             }
             out.append(row)
     return out
@@ -87,6 +86,17 @@ def transform(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     # Drop rows with missing nativeChainId
     rows = [r for r in rows if r.get("nativeChainId") is not None]
+
+    # Dedupe by nativeChainId (first occurrence wins)
+    seen = set()
+    deduped = []
+    for r in rows:
+        cid = r.get("nativeChainId")
+        if cid in seen:
+            continue
+        seen.add(cid)
+        deduped.append(r)
+    rows = deduped
 
     # Add isTestnet, map chainLayer/chainStack, drop stage/deadDVN/chainStatus later
     for r in rows:

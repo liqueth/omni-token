@@ -34,26 +34,23 @@ contract Layer0V2Meta {
 
     /// @notice Input row ONLY for constructor ingestion; not stored as a struct.
     struct Row {
-        uint256 nativeChainId;
-        // packed scalars
-        uint32 eid;
+        address blockedMessageLib;
+        string cgId;
+        string chainKey;
+        uint8 chainLayer;
+        string chainName;
+        uint8 chainStack;
         uint32 cmcId;
-        uint8 chainLayer; // 0=NONE,1=L1,2=L2,3=L3
-        uint8 chainStack; // 0=NONE,1=OPSTACK,2=ARBSTACK,3=AVALANCHESTACK
+        string currency;
         uint8 decimals;
-        // strings
-        string chainKey; // LayerZero chain key (short)
-        string chainName; // human-readable name
-        string currency; // native currency symbol (e.g., ETH)
-        string cgId; // CoinGecko id (string)
-        // addresses
+        uint32 eid;
         address endpointV2;
         address endpointV2View;
         address executor;
         address lzExecutor;
-        address sendUln302;
+        uint256 nativeChainId;
         address receiveUln302;
-        address blockedMessageLib;
+        address sendUln302;
     }
 
     // -------------------- Storage --------------------

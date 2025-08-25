@@ -5,6 +5,7 @@ import "./interfaces/IOmniToken.sol";
 import "./interfaces/IZKBridge.sol";
 import "./interfaces/IZKBridgeReceiver.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**

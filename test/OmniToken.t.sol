@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import "../src/FixedOmniToken.sol";
+import "../src/OmniToken.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
@@ -15,10 +15,15 @@ contract OmniTokenTest is Test {
     uint256 constant toMint = 1_000_000;
     string constant name = "Omni token";
     string constant symbol = "OMNI";
-    string constant clone1Name = "Clone1";
-    string constant clone2Name = "Clone2";
-    IFixedOmniToken factory;
-    IFixedOmniToken token;
+    string constant name1 = "Clone1";
+    string constant name2 = "Clone2";
+    OmniToken factory;
+    OmniToken token;
+    OmniAppConfig appConfig;
+    OmniToken.Config config;
+    OmniToken.Config config1;
+    OmniToken.Config config2a;
+    OmniToken.Config config2b;
     address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
     address bridgeTo = address(0xDEF);
@@ -32,18 +37,22 @@ contract OmniTokenTest is Test {
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
-        factory = new FixedOmniToken(zkBridgeMock, chains);
-        (address proxy,,) = factory.clone(allocTo, name, symbol, mints);
-        token = IFixedOmniToken(proxy);
+        factory = new OmniToken(appConfig);
+        config = OmniToken.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
+        config1 = OmniToken.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
+        config2a = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+        config2b = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+        (address proxy,) = factory.clone(config);
+        token = OmniToken(proxy);
     }
 
     function test_CloneCanClone() public {
         vm.chainId(fromChain);
-        (address clone1,,) = factory.clone(allocTo, clone1Name, clone1Name, mints);
+        (address clone1,) = factory.clone(config1);
         assertNotEq(address(clone1), address(0));
-        (address clone2a,,) = factory.clone(allocTo, clone2Name, clone2Name, mints);
+        (address clone2a,) = factory.clone(config2a);
         assertNotEq(address(clone2a), address(0));
-        (address clone2b,,) = IFixedOmniToken(clone1).clone(allocTo, clone2Name, clone2Name, mints);
+        (address clone2b,) = OmniToken(clone1).clone(config2b);
         assertNotEq(address(clone2b), address(0));
         assertEq(address(clone2a), address(clone2b));
     }
@@ -51,7 +60,9 @@ contract OmniTokenTest is Test {
     function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
         vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
-        factory.clone(allocTo, clone1Name, clone1Name, badMints);
+        OmniToken.Config memory badConfig =
+            OmniToken.Config({mints: badMints, owner: allocTo, name: name, symbol: symbol});
+        factory.clone(badConfig);
     }
 
     function testInitialMintOnChainWithMintAmount() public view {
@@ -59,49 +70,9 @@ contract OmniTokenTest is Test {
         assertEq(token.totalSupply(), fromMint);
     }
 
-    function testBridgeOutSameAddress() public {
-        vm.chainId(fromChain);
-        vm.deal(address(this), 1 ether);
-        vm.prank(allocTo);
-        token.transfer(address(this), 1000);
-
-        vm.mockCall(
-            zkBridgeMock, abi.encodeWithSelector(IZKBridge.send.selector, toPk, address(token)), abi.encode(1234)
-        );
-        token.bridge{value: 0.1 ether}(toChain, 1000);
-        assertEq(token.balanceOf(address(this)), 0);
-    }
-
-    function testZkReceiveFromValidChain() public {
-        vm.prank(zkBridgeMock);
-        bytes memory payload = abi.encode(
-            bridgeTo, // to
-            1000 // amount
-        );
-        vm.chainId(toChain); // BSC Testnet
-        FixedOmniToken(address(token)).zkReceive(uint16(fromPk), address(token), 1, payload);
-        assertEq(token.balanceOf(bridgeTo), 1000);
-    }
-
-    function test_RevertWhen_ZkReceiveFromUnmappedChain() public {
-        vm.prank(zkBridgeMock);
-        bytes memory payload = abi.encode(allocTo, 1000);
-        vm.chainId(toChain);
-        vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedSourceChain.selector, unsupportedSourceChain));
-        FixedOmniToken(address(token)).zkReceive(unsupportedSourceChain, address(token), 1, payload);
-    }
-
-    function test_RevertWhen_ZkReceiveFromDifferentAddress() public {
-        vm.prank(zkBridgeMock);
-        bytes memory payload = abi.encode(allocTo, 1000);
-        vm.chainId(toChain);
-        vm.expectRevert(abi.encodeWithSelector(IOmniToken.SentFromDifferentAddress.selector, allocTo));
-        FixedOmniToken(address(token)).zkReceive(uint16(fromPk), allocTo, 1, payload);
-    }
-
     function test_RevertWhen_LocalChainNotMapped() public {
         vm.chainId(1); // Unsupported EVM chain ID
         vm.expectRevert("Local chain ID not in chains");
-        new FixedOmniToken(zkBridgeMock, chains);
+        new OmniToken(appConfig);
     }
 }

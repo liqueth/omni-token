@@ -17,48 +17,15 @@ interface IOmniToken is IERC20Metadata {
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
 
-    event BridgeInitiated(
-        address indexed holder, address indexed token, uint256 indexed toChain, uint256 amount, uint64 nonce
-    );
-    event BridgeFinalized(
-        address indexed holder, address indexed token, uint256 indexed fromChain, uint256 amount, uint64 nonce
-    );
-    event DeployToChainInitiated(address indexed token, uint256 indexed toChain, uint64 nonce);
-    event DeployToChainFinalized(address indexed token, uint256 indexed fromChain, uint64 nonce);
+    event Cloned(address indexed owner, address indexed token, string name, string symbol);
 
     /**
      * @notice Initialize a clone with encoded parameters.
      * @param cloneData_ ABI encoded (address,string,string,uint256[][]) tuple of holder, name, symbol, mints.
      * @return token The new token clone.
      * @return salt The salt used for the prediction.
-     * @return cloneData Encoded data for the clone, used to initialize the contract on other chains.
      */
-    function cloneEncoded(bytes memory cloneData_)
-        external
-        returns (address token, bytes32 salt, bytes memory cloneData);
-
-    /**
-     * @notice Deploy this token to another network.
-     * @param toChain Destination EVM `chainid`.
-     */
-    function deployToChain(uint256 toChain) external payable;
-
-    /**
-     * @notice Burn tokens here and send a cross-chain message to mint on the destination chain.
-     * @dev Reverts if the destination is unsupported or the attached fee is insufficient.
-     *         Emits a BridgeInitiated event on success.
-     * @param toChain Destination EVM `chainid`.
-     * @param fee Token amount to bridge (in smallest units).
-     */
-    function bridge(uint256 toChain, uint256 fee) external payable;
-
-    /**
-     * @notice Return the native fee required to bridge to a destination chain.
-     * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
-     * @param toChain Destination zkBridge chain ID.
-     * @return fee Estimated native value (wei) the caller should send with {bridge}.
-     */
-    function bridgeFeeEstimate(uint256 toChain) external returns (uint256 fee);
+    function cloneEncoded(bytes memory cloneData_) external returns (address token, bytes32 salt);
 
     /**
      * @notice Return the canonical prototype used as both implementation and factory for clone deployments.

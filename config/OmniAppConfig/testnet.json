@@ -1,0 +1,22 @@
+{
+    "chains": [
+        {
+            "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
+            "chainId": 97,
+            "eid": 40102,
+            "endpoint": "0x6EDCE65403992e310A62460808c4b910D972f10f",
+            "executor": "0x31894b190a8bAbd9A067Ce59fde0BfCFD2B18470",
+            "receiveLib": "0x188d4bbCeD671A7aA2b5055937F79510A32e9683",
+            "sendLib": "0x55f16c442907e86D764AFdc2a07C2de3BdAc8BB7"
+        },
+        {
+            "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
+            "chainId": 11155111,
+            "eid": 40161,
+            "endpoint": "0x6EDCE65403992e310A62460808c4b910D972f10f",
+            "executor": "0x718B92b5CB0a5552039B593faF724D182A881eDA",
+            "receiveLib": "0xdAf00F5eE2158dD58E0d3857851c432E34A3A851",
+            "sendLib": "0xcc1ae8Cf5D3904Cef3360A9532B477529b177cCE"
+        }
+    ]
+}

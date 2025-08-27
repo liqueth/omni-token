@@ -8,7 +8,7 @@ import "./OmniConfig.sol";
 contract OmniAppConfig is OmniConfig {
     error UnsupportedDestinationChain(uint256 chain);
 
-    struct ChainConfig {
+    struct Chain {
         address blockedMessageLib;
         uint256 chainId;
         uint32 eid;
@@ -18,8 +18,8 @@ contract OmniAppConfig is OmniConfig {
         address sendLib;
     }
 
-    struct GlobalConfig {
-        ChainConfig[] chainConfigs;
+    struct Global {
+        Chain[] chains;
     }
 
     mapping(uint256 => uint32) private _chainToEndpoint;
@@ -29,12 +29,12 @@ contract OmniAppConfig is OmniConfig {
     address public immutable receiveLib;
     address public immutable sendLib;
 
-    constructor(GlobalConfig memory config) {
-        uint256 n = config.chainConfigs.length;
+    constructor(Global memory global) {
+        uint256 n = global.chains.length;
         _chains = new uint256[](n);
 
         for (uint256 i = 0; i < n; i++) {
-            ChainConfig memory r = config.chainConfigs[i];
+            Chain memory r = global.chains[i];
             _chains[i] = r.chainId;
             if (r.chainId == block.chainid) {
                 blockedMessageLib = r.blockedMessageLib;

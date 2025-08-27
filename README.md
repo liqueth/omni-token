@@ -59,6 +59,8 @@ export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_mainnet.json
 export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_testnet.json
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
+export OmniAppConfigPath=config/OmniAppConfig/mainnet.json
+export OmniAppConfigPath=config/OmniAppConfig/testnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
 export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
@@ -108,6 +110,18 @@ export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Fix
 ```
 
 ---
+
+## Deploy OmniAppConfig
+
+```bash
+# Deploy the token factory/implementation
+forge script script/OmniAppConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+```
+
+```bash
+# Save contract address displayed in commands above in environment variable
+export OmniAppConfig=$(jq -r '.transactions[0].contractAddress' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json); echo $OmniAppConfig
+```
 
 ---
 

@@ -22,7 +22,7 @@ contract OmniAppConfig is OmniConfig {
         Chain[] chains;
     }
 
-    mapping(uint256 => uint32) private _chainToEndpoint;
+    mapping(uint256 => uint32) public _chainToEndpoint;
     address public immutable blockedMessageLib;
     address public immutable endpoint;
     address public immutable executor;
@@ -36,6 +36,7 @@ contract OmniAppConfig is OmniConfig {
         for (uint256 i = 0; i < n; i++) {
             Chain memory r = global.chains[i];
             _chains[i] = r.chainId;
+            _chainToEndpoint[r.chainId] = r.eid;
             if (r.chainId == block.chainid) {
                 blockedMessageLib = r.blockedMessageLib;
                 endpoint = r.endpoint;
@@ -50,7 +51,7 @@ contract OmniAppConfig is OmniConfig {
         }
     }
 
-    function chainToEndpoint(uint256 chain) internal view returns (uint32 eid) {
+    function chainToEndpoint(uint256 chain) external view returns (uint32 eid) {
         eid = _chainToEndpoint[chain];
         if (eid == 0) {
             revert UnsupportedDestinationChain(chain);

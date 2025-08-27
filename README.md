@@ -66,6 +66,7 @@ export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
 export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
 export MINTS='[[97,3e21],[11155111,2e21]]' # test
 export BRIDGE_AMOUNT=123e16
+export CHAIN_ID=97 # BNB testnet 
 export CHAIN_ID=137 # Polygon 
 export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
 export TO_CHAIN_ID=10 # Optimism
@@ -120,7 +121,16 @@ forge script script/OmniAppConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLO
 
 ```bash
 # Save contract address displayed in commands above in environment variable
-export OmniAppConfig=$(jq -r '.transactions[0].contractAddress' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json); echo $OmniAppConfig
+export OmniAppConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json); echo $OmniAppConfigAddress
+```
+
+```bash
+export OmniAppConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint32,address,address,address,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $OmniAppConfigArgs
+```
+
+```bash
+# Save Standard Json-Input format to OmniAppConfig.json
+forge verify-contract --show-standard-json-input --constructor-args  $OmniAppConfigArgs $OmniAppConfigAddress src/OmniAppConfig.sol:OmniAppConfig > OmniAppConfig.json
 ```
 
 ---

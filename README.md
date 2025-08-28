@@ -118,7 +118,7 @@ export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Fix
 
 ```bash
 export CHAIN_ENV=testnet
-jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/lzendpoint.jq config/Layer0V2Meta/metadata.json > config/EndpointConfig/$CHAIN_ENV.json
+jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/Layer0V2Meta/metadata.json > config/EndpointConfig/$CHAIN_ENV.json
 ```
 
 ---

@@ -158,6 +158,29 @@ forge verify-contract --show-standard-json-input --constructor-args  $EndpointCo
 
 ---
 
+## Deploy VerifierConfig
+
+```bash
+# Deploy the token factory/implementation
+forge script script/VerifierConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+```
+
+```bash
+# Save contract address displayed in commands above in environment variable
+export VerifierConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcast/VerifierConfig.s.sol/$CHAIN_ID/run-latest.json); echo $VerifierConfigAddress
+```
+
+```bash
+export VerifierConfigArgs=$(cast abi-encode 'constructor((uint32,string,(uint32,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/VerifierConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $VerifierConfigArgs
+```
+
+```bash
+# Save Standard Json-Input format to EndpointConfig.json
+forge verify-contract --show-standard-json-input --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig > EndpointConfig.json
+```
+
+---
+
 ## Deploy
 
 ```bash

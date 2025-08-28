@@ -11,9 +11,9 @@ contract VerifierConfig is OmniConfig {
     }
 
     struct Global {
-        uint256 version;
-        string id;
         Chain[] chains;
+        string id;
+        uint256 version;
     }
 
     string internal _id;

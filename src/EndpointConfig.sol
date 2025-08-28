@@ -19,6 +19,7 @@ contract EndpointConfig is OmniConfig {
     }
 
     struct Global {
+        uint256 version;
         Chain[] chains;
     }
 
@@ -30,6 +31,7 @@ contract EndpointConfig is OmniConfig {
     address public immutable sendLib;
 
     constructor(Global memory global) {
+        version = global.version;
         uint256 n = global.chains.length;
         _chains = new uint256[](n);
 

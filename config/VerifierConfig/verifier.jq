@@ -1,5 +1,6 @@
-# verifier-structs.jq
+# verifier.jq
 {
+    version: $version,
     id: $id,
     chains: (
         [

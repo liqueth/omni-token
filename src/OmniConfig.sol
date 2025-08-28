@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 contract OmniConfig {
     error UnsupportedChain();
 
+    uint256 public immutable version;
     uint256[] internal _chains;
 
     function chains() external view returns (uint256[] memory) {

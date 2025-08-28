@@ -13,5 +13,7 @@
             receiveLib: .receiveUln302.address,
             sendLib: .sendUln302.address
         }
+        | select(all(.[]?; . != null))
     ]
+    | sort_by(.chainId)
 }

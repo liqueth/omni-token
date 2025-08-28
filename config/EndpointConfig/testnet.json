@@ -1,4 +1,5 @@
 {
+    "version": 2,
     "chains": [
         {
             "blockedMessageLib": "0x7f2e3456388687825f0d6f1c5daab1ba07bf17d5",

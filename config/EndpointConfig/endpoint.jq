@@ -1,4 +1,5 @@
 {
+    version: $version,
     chains: [
         .[] as $c
         | select($c.environment == $env)

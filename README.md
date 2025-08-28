@@ -129,7 +129,7 @@ jq --arg env $CHAIN_ENV --indent 4 -f config/EndpointConfig/lzendpoint.jq config
 
 ```bash
 export CHAIN_ENV=testnet; export DVN_ID=polyhedra-network;
-jq --arg id $DVN_ID --arg env $CHAIN_ENV --indent 4 -f config/VerifierConfig/verifier.jq config/Layer0V2Meta/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
+jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/Layer0V2Meta/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
 ```
 
 ---

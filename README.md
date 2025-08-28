@@ -123,6 +123,17 @@ jq --arg env $CHAIN_ENV --indent 4 -f config/EndpointConfig/lzendpoint.jq config
 
 ---
 
+---
+
+## Generate DVN data
+
+```bash
+export CHAIN_ENV=testnet; export DVN_ID=polyhedra-network;
+jq --arg id $DVN_ID --arg env $CHAIN_ENV --indent 4 -f config/VerifierConfig/verifier.jq config/Layer0V2Meta/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
+```
+
+---
+
 
 ## Deploy EndpointConfig
 

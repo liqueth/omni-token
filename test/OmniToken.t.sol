@@ -19,7 +19,7 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
     OmniToken factory;
     OmniToken token;
-    OmniAppConfig appConfig;
+    EndpointConfig appConfig;
     OmniToken.Config config;
     OmniToken.Config config1;
     OmniToken.Config config2a;

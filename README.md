@@ -61,8 +61,8 @@ export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_testnet.json
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 export CHAIN_ENV=mainnet
 export CHAIN_ENV=testnet
-export OmniAppConfigPath=config/OmniAppConfig/mainnet.json
-export OmniAppConfigPath=config/OmniAppConfig/testnet.json
+export EndpointConfigPath=config/EndpointConfig/mainnet.json
+export EndpointConfigPath=config/EndpointConfig/testnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
 export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
@@ -114,37 +114,35 @@ export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Fix
 
 ---
 
-## Generate OmniAppConfig data
+## Generate EndpointConfig data
 
 ```bash
 export CHAIN_ENV=testnet
-jq --indent 4 -f config/OmniAppConfig/lzendpoint.jq config/Layer0V2Meta/metadata.json > config/OmniAppConfig/$CHAIN_ENV.json  # jq reads env.CHAIN_ENV
-bash
-Copy code
+jq --indent 4 -f config/EndpointConfig/lzendpoint.jq config/Layer0V2Meta/metadata.json > config/EndpointConfig/$CHAIN_ENV.json  # jq reads env.CHAIN_ENV
 ```
 
 ---
 
 
-## Deploy OmniAppConfig
+## Deploy EndpointConfig
 
 ```bash
 # Deploy the token factory/implementation
-forge script script/OmniAppConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+forge script script/EndpointConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 ```
 
 ```bash
 # Save contract address displayed in commands above in environment variable
-export OmniAppConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json); echo $OmniAppConfigAddress
+export EndpointConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcast/EndpointConfig.s.sol/$CHAIN_ID/run-latest.json); echo $EndpointConfigAddress
 ```
 
 ```bash
-export OmniAppConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint32,address,address,address,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/OmniAppConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $OmniAppConfigArgs
+export EndpointConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint32,address,address,address,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/EndpointConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $EndpointConfigArgs
 ```
 
 ```bash
-# Save Standard Json-Input format to OmniAppConfig.json
-forge verify-contract --show-standard-json-input --constructor-args  $OmniAppConfigArgs $OmniAppConfigAddress src/OmniAppConfig.sol:OmniAppConfig > OmniAppConfig.json
+# Save Standard Json-Input format to EndpointConfig.json
+forge verify-contract --show-standard-json-input --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig > EndpointConfig.json
 ```
 
 ---

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./interfaces/IOmniToken.sol";
-import "./OmniAppConfig.sol";
+import "./EndpointConfig.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
@@ -24,9 +24,9 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
 
     address internal _prototype;
     bytes internal _cloneData;
-    OmniAppConfig internal _appConfig;
+    EndpointConfig internal _appConfig;
 
-    constructor(OmniAppConfig appConfig) OFTUpgradeable(address(appConfig.endpoint())) {
+    constructor(EndpointConfig appConfig) OFTUpgradeable(address(appConfig.endpoint())) {
         _prototype = address(this);
         _appConfig = appConfig;
         _disableInitializers();

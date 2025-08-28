@@ -5,7 +5,7 @@ import "./OmniConfig.sol";
 
 /// @notice Contain initialization parameters customized per chain.
 /// @dev Immutable after construction. No setters. Uses a small Packed bucket per chain to co-locate sub-32B scalars.
-contract OmniAppConfig is OmniConfig {
+contract EndpointConfig is OmniConfig {
     error UnsupportedDestinationChain(uint256 chain);
 
     struct Chain {

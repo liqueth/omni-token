@@ -3,10 +3,10 @@
     version: $version,
     chains: [
         .[]? as $c
-        | select(($env // "") == "" or $c.environment == $env)
+        | select($c.environment == $env)
         | ($c.deployments // [])[]?
         | select(.version == $version)
-        | ($c.chainDetails.nativeChainId // $c.nativeChainId) as $cid
+        | $c.chainDetails.nativeChainId as $cid
         | select($cid != null and .eid != null
                  and .endpointV2?.address?
                  and .executor?.address?

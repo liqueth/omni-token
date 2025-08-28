@@ -1,7 +1,7 @@
 {
     chains: [
         .[] as $c
-        | select($c.environment == env.CHAIN_ENV)
+        | select($c.environment == $env)
         | $c.deployments[]
         | select(.version == 2)
         | {

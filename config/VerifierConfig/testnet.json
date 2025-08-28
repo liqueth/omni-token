@@ -1,13 +1,13 @@
 {
     "id": "polyhedra-network",
     "chains": [
-        {
-            "chainId": 97,
-            "address": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
-        },
-        {
-            "chainId": 11155111,
-            "address": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
-        }
+        [
+            97,
+            "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
+        ],
+        [
+            11155111,
+            "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
+        ]
     ]
 }

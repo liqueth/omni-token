@@ -1,109 +1,109 @@
 {
     "id": "polyhedra-network",
     "chains": [
-        {
-            "chainId": 1,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 10,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 14,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 56,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 100,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 137,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 169,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 196,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 204,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 250,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1088,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1116,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1284,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 4200,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 5000,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 7560,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 8217,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 8453,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 34443,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42161,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42170,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42220,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 43114,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 59144,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 81457,
-            "address": "0x0ff4cc28826356503bb79c00637bec0ee006f237"
-        },
-        {
-            "chainId": 534352,
-            "address": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        }
+        [
+            1,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            10,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            14,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            56,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            100,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            137,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            169,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            196,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            204,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            250,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            1088,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            1116,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            1284,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            4200,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            5000,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            7560,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            8217,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            8453,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            34443,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            42161,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            42170,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            42220,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            43114,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            59144,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ],
+        [
+            81457,
+            "0x0ff4cc28826356503bb79c00637bec0ee006f237"
+        ],
+        [
+            534352,
+            "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+        ]
     ]
 }

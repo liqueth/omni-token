@@ -6,15 +6,15 @@
         | select($c.environment == $env)
         | ($c.deployments // [])[]?
         | select(.version == $version)
-        | $c.chainDetails.nativeChainId as $cid
-        | select($cid != null and .eid != null
+        | $c.chainDetails.nativeChainId as $chainId
+        | select($chainId != null and .eid != null
                  and .endpointV2?.address?
                  and .executor?.address?
                  and .sendUln302?.address?
                  and .receiveUln302?.address?)
         | {
             blockedMessageLib: .blockedMessageLib.address,
-            chainId: ($cid | tonumber),
+            chainId: $chainId,
             eid: (.eid | tonumber),
             endpoint: .endpointV2.address,
             executor: .executor.address,

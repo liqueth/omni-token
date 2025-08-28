@@ -56,15 +56,9 @@ cd omni-token
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
-export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_mainnet.json
-export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_testnet.json
-export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
 export CHAIN_ENV=mainnet
 export CHAIN_ENV=testnet
-export EndpointConfigPath=config/EndpointConfig/mainnet.json
-export EndpointConfigPath=config/EndpointConfig/testnet.json
-export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
-export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
+export DVN_ID=polyhedra-network
 export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
 export MINTS='[[97,3e21],[11155111,2e21]]' # test
 export BRIDGE_AMOUNT=123e16
@@ -100,25 +94,11 @@ forge test
 
 ---
 
-## Deploy Layer0V2Meta
-
-```bash
-# Deploy the token factory/implementation
-forge script script/Layer0V2Meta.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
-```
-
-```bash
-# Save contract address displayed in commands above in environment variable
-export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
-```
-
----
-
 ## Generate EndpointConfig data
 
 ```bash
 export CHAIN_ENV=testnet
-jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/Layer0V2Meta/metadata.json > config/EndpointConfig/$CHAIN_ENV.json
+jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/metadata.json > config/EndpointConfig/$CHAIN_ENV.json
 ```
 
 ---
@@ -129,7 +109,7 @@ jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/
 
 ```bash
 export CHAIN_ENV=testnet; export DVN_ID=polyhedra-network;
-jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/Layer0V2Meta/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
+jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
 ```
 
 ---

@@ -5,11 +5,12 @@
     chains: (
         [
             .[]? as $c
-            | select(($env // "") == "" or $c.environment == $env)
+            | select($c.environment == $env)
             | ($c.dvns // {}) | to_entries[]
-            | select(.value.version == $version and .value.id == $id)
+            | $c.chainDetails.nativeChainId as $chainId
+            | select(.value.version == $version and .value.id == $id and $chainId)
             | {
-                chainId: ($c.chainDetails.nativeChainId | tonumber),
+                chainId: $chainId,
                 dvn: .key
             }
         ]

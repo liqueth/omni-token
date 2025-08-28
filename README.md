@@ -110,6 +110,12 @@ jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/
 ```bash
 export CHAIN_ENV=testnet; export DVN_ID=polyhedra-network;
 jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
+jq --arg id polyhedra-network --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/polyhedra-network-testnet.json
+jq --arg id polyhedra-network --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/polyhedra-network-mainnet.json
+jq --arg id google-cloud --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/google-cloud-testnet.json
+jq --arg id google-cloud --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/google-cloud-mainnet.json
+jq --arg id layerzero-labs --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/layerzero-labs-testnet.json
+jq --arg id layerzero-labs --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/layerzero-labs-mainnet.json
 ```
 
 ---

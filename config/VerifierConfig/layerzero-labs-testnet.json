@@ -1,0 +1,626 @@
+{
+    "version": 2,
+    "id": "layerzero-labs",
+    "chains": [
+        {
+            "chainId": 2,
+            "dvn": "0x756f8ab056688d22687740f4a9aeec3b361170b28d08b719e28c4d38eed1043e"
+        },
+        {
+            "chainId": 31,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 41,
+            "dvn": "0x5b11f3833393e9be06fa702c68453ad31976866e"
+        },
+        {
+            "chainId": 47,
+            "dvn": "0x0747d0dabb284e5fbaeeea427bba7b2fba507120"
+        },
+        {
+            "chainId": 65,
+            "dvn": "0xdbdc042321a87dff222c6bf26be68ad7b3d7543f"
+        },
+        {
+            "chainId": 71,
+            "dvn": "0x62a731f0840d23970d5ec36fb7a586e1d61db9b6"
+        },
+        {
+            "chainId": 81,
+            "dvn": "0x190deb4f8555872b454920d6047a04006eee4ca9"
+        },
+        {
+            "chainId": 83,
+            "dvn": "0xe3a4539200e8906c957cd85b3e7a515c9883fd81"
+        },
+        {
+            "chainId": 89,
+            "dvn": "0x37d03c8d27d7928546b5b773566ec9c2847054d2"
+        },
+        {
+            "chainId": 97,
+            "dvn": "0x0ee552262f7b562efced6dd4a7e2878ab897d405"
+        },
+        {
+            "chainId": 103,
+            "dvn": "4VDjp6XQaxoZf5RGwiPU9NR1EXSZn2TP4ATMmiSzLfhb"
+        },
+        {
+            "chainId": 111,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 114,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 123,
+            "dvn": "0x955412c07d9bc1027eb4d481621ee063bfd9f4c6"
+        },
+        {
+            "chainId": 155,
+            "dvn": "0x74582424b8b92be2ec17c192f6976b2effefab7c"
+        },
+        {
+            "chainId": 195,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 233,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 240,
+            "dvn": "0x6869b4348fae6a911fdb5bae5e0d153b2aa261f6"
+        },
+        {
+            "chainId": 296,
+            "dvn": "0xec7ee1f9e9060e08df969dc08ee72674afd5e14d"
+        },
+        {
+            "chainId": 300,
+            "dvn": "0xf0326814d47c2a2a4e34fc0ad066683b1100a875"
+        },
+        {
+            "chainId": 335,
+            "dvn": "0x685e66cb79b4864ce0a01173f2c5efbf103715ad"
+        },
+        {
+            "chainId": 338,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 478,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 545,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 901,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 919,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 945,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 998,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 999,
+            "dvn": "0xd52e4d3cdad28d7714ab6d56a7c9aa02ee45ab7f"
+        },
+        {
+            "chainId": 1001,
+            "dvn": "0xe4fe9782b809b7d66f0dcd10157275d2c4e4898d"
+        },
+        {
+            "chainId": 1075,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 1115,
+            "dvn": "0xae9bbf877bf1bd41edd5dfc3473d263171cf3b9e"
+        },
+        {
+            "chainId": 1287,
+            "dvn": "0x90ccfdcd75a66dac697ab9c49f9ee0e32fd77e9f"
+        },
+        {
+            "chainId": 1300,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 1301,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 1337,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 1414,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 1439,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 1442,
+            "dvn": "0x45e8f8c14e792e9d9cff576b6b34150a403f3ad8"
+        },
+        {
+            "chainId": 1513,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 1516,
+            "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
+        },
+        {
+            "chainId": 1811,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 1891,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 1924,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 1946,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 1992,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 2201,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 2221,
+            "dvn": "0x433daf5e5fba834de2c3d06a82403c9e96df6b42"
+        },
+        {
+            "chainId": 2391,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 2442,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 2522,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 2552,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 2810,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 3636,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 3939,
+            "dvn": "0x9e35059b08dca75f0f3c3940e4217b8dc73f4fda"
+        },
+        {
+            "chainId": 4002,
+            "dvn": "0xfffc92a6abe6480adc574901ebfde108a7077eb8"
+        },
+        {
+            "chainId": 4202,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 4460,
+            "dvn": "0x175d2b829604b82270d384393d25c666a822ab60"
+        },
+        {
+            "chainId": 4801,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 5001,
+            "dvn": "0x988d898a9acf43f61fdbc72aad6eb3f0542e19e1"
+        },
+        {
+            "chainId": 5003,
+            "dvn": "0x9454f0eabc7c4ea9ebf89190b8bf9051a0468e03"
+        },
+        {
+            "chainId": 5115,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 5611,
+            "dvn": "0x15e62434aadd26acc8a045e89404eceb4f6d2a52"
+        },
+        {
+            "chainId": 6000,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 6342,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 6900,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 7210,
+            "dvn": "0xc5191de5f224fb78c2ad0f0b66159b09cc6baea6"
+        },
+        {
+            "chainId": 7672,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 7701,
+            "dvn": "0x032457e2c87376ad1d0ae8bbada45d178c9968b3"
+        },
+        {
+            "chainId": 9000,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 9070,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 9746,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 9990,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 10081,
+            "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
+        },
+        {
+            "chainId": 10143,
+            "dvn": "0xfef495e5e7e3d26844a393b77efb3a1fbf27ff90"
+        },
+        {
+            "chainId": 10200,
+            "dvn": "0xabfa1f7c3586eaff6958dc85baebbab7d3908fd2"
+        },
+        {
+            "chainId": 10888,
+            "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
+        },
+        {
+            "chainId": 11124,
+            "dvn": "0x5dfcab27c1eec1eb07ff987846013f19355a04cb"
+        },
+        {
+            "chainId": 11503,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 13337,
+            "dvn": "0x51b5ba90288c2253cfa03ca71bd1f04b53c423dd"
+        },
+        {
+            "chainId": 14800,
+            "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
+        },
+        {
+            "chainId": 17000,
+            "dvn": "0x3e43f8ff0175580f7644da043071c289ddf98118"
+        },
+        {
+            "chainId": 18026,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 18230,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 18233,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 33111,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 37111,
+            "dvn": "0x9c0b5520e3ec0cce919ceaa1fb5aaa7cdab437d4"
+        },
+        {
+            "chainId": 40875,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 43113,
+            "dvn": "0x9f0e79aeb198750f963b6f30b99d87c6ee5a0467"
+        },
+        {
+            "chainId": 43521,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 44787,
+            "dvn": "0xbef132bc69c87f52d173d093a3f8b5b98842275f"
+        },
+        {
+            "chainId": 48795,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 48816,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 48899,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 49321,
+            "dvn": "0x8f337d230a5088e2a448515eab263735181a9039"
+        },
+        {
+            "chainId": 50312,
+            "dvn": "0x9fc33fbbdea0e188baa1770af6ca2bc38bda65d6"
+        },
+        {
+            "chainId": 57054,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 59140,
+            "dvn": "0x411a883ef017dfdbf026e2d4a54371039ff8aa09"
+        },
+        {
+            "chainId": 59141,
+            "dvn": "0x701f3927871efcea1235db722f9e608ae120d243"
+        },
+        {
+            "chainId": 59902,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 64002,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 68775,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 78600,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 80000,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 80001,
+            "dvn": "0x67a822f55c5f6e439550b9c4ea39e406480a40f3"
+        },
+        {
+            "chainId": 80002,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 80069,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 80084,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 84532,
+            "dvn": "0xbf6ff58f60606edb2f190769b951d825bcb214e2"
+        },
+        {
+            "chainId": 98882,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 98985,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 103454,
+            "dvn": "0xc1868e054425d378095a003ecba3823a5d0135c9"
+        },
+        {
+            "chainId": 128123,
+            "dvn": "0x4d97186cd94047e285b7cb78fa63c93e69e7aad0"
+        },
+        {
+            "chainId": 129399,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 161201,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 167009,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 179205,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 200810,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 325000,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 421614,
+            "dvn": "0x5c8c267174e1f345234ff5315d6cfd6716763bac"
+        },
+        {
+            "chainId": 432201,
+            "dvn": "0x433daf5e5fba834de2c3d06a82403c9e96df6b42"
+        },
+        {
+            "chainId": 534351,
+            "dvn": "0xb186f85d0604fe58af2ea33fe40244f5eef7351b"
+        },
+        {
+            "chainId": 656476,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 657468,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 686868,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 713715,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 743111,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 763373,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 810181,
+            "dvn": "0x6869b4348fae6a911fdb5bae5e0d153b2aa261f6"
+        },
+        {
+            "chainId": 978658,
+            "dvn": "0x6869b4348fae6a911fdb5bae5e0d153b2aa261f6"
+        },
+        {
+            "chainId": 996353,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 3441006,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 6038361,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 6513784,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 7080969,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 7849306,
+            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
+        },
+        {
+            "chainId": 8101902,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 9088912,
+            "dvn": "0x09c3ff7df4f480f329cbee2df6f66c9a2e7f5a63"
+        },
+        {
+            "chainId": 11155111,
+            "dvn": "0x8eebf8b423b73bfca51a1db4b7354aa0bfca9193"
+        },
+        {
+            "chainId": 11155420,
+            "dvn": "0xd680ec569f269aa7015f7979b4f1239b5aa4582c"
+        },
+        {
+            "chainId": 21000001,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 52085143,
+            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
+        },
+        {
+            "chainId": 52085144,
+            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
+        },
+        {
+            "chainId": 89346162,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 111557560,
+            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
+        },
+        {
+            "chainId": 161221135,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 168587773,
+            "dvn": "0x939afd54a8547078dbea02b683a7f1fdc929f853"
+        },
+        {
+            "chainId": 531050104,
+            "dvn": "0xe2f60a4cb9445a3e3d1a7e76a5f46cb8139838b8"
+        },
+        {
+            "chainId": 999999999,
+            "dvn": "0x701f3927871efcea1235db722f9e608ae120d243"
+        },
+        {
+            "chainId": 1313161555,
+            "dvn": "0x988d898a9acf43f61fdbc72aad6eb3f0542e19e1"
+        },
+        {
+            "chainId": 1444673419,
+            "dvn": "0x955412c07d9bc1027eb4d481621ee063bfd9f4c6"
+        },
+        {
+            "chainId": 1918988905,
+            "dvn": "0xfc7c4b995a9293a1123bdd425531cfcd71082de4"
+        },
+        {
+            "chainId": 2494104990,
+            "dvn": "0xc6b1a264d9bb30a8d19575b0bb3ba525a3a6fc93"
+        },
+        {
+            "chainId": 37714555429,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        },
+        {
+            "chainId": 71461164656,
+            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
+        }
+    ]
+}

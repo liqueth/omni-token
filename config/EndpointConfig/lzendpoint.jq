@@ -15,5 +15,7 @@
         }
         | select(all(.[]?; . != null))
     ]
+    | group_by(.chainId)
+    | map(max_by(.eid))
     | sort_by(.chainId)
 }

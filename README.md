@@ -59,6 +59,8 @@ export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
 export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_mainnet.json
 export Layer0V2MetaConfigPath=config/Layer0V2Meta/layer0_testnet.json
 export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
+export CHAIN_ENV=mainnet
+export CHAIN_ENV=testnet
 export OmniAppConfigPath=config/OmniAppConfig/mainnet.json
 export OmniAppConfigPath=config/OmniAppConfig/testnet.json
 export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
@@ -111,6 +113,18 @@ export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/Fix
 ```
 
 ---
+
+## Generate OmniAppConfig data
+
+```bash
+export CHAIN_ENV=testnet
+jq --indent 4 -f config/OmniAppConfig/lzendpoint.jq config/Layer0V2Meta/metadata.json > config/OmniAppConfig/$CHAIN_ENV.json  # jq reads env.CHAIN_ENV
+bash
+Copy code
+```
+
+---
+
 
 ## Deploy OmniAppConfig
 

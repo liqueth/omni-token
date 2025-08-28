@@ -19,8 +19,8 @@ contract EndpointConfig is OmniConfig {
     }
 
     struct Global {
-        uint256 version;
         Chain[] chains;
+        uint256 version;
     }
 
     mapping(uint256 => uint32) public _chainToEndpoint;

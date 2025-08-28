@@ -1,0 +1,59 @@
+{
+    "language": "Solidity",
+    "sources": {
+        "src/VerifierConfig.sol": {
+            "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"./OmniConfig.sol\";\n\n/// @notice Customize per chain.\ncontract VerifierConfig is OmniConfig {\n    struct Chain {\n        uint256 chainId;\n        address dvn;\n    }\n\n    struct Global {\n        Chain[] chains;\n        string id;\n        uint256 version;\n    }\n\n    string internal _id;\n    address public immutable dvn;\n\n    constructor(Global memory global) {\n        version = global.version;\n        _id = global.id;\n        uint256 n = global.chains.length;\n        _chains = new uint256[](n);\n\n        for (uint256 i = 0; i < n; i++) {\n            Chain memory r = global.chains[i];\n            _chains[i] = r.chainId;\n            if (r.chainId == block.chainid) {\n                dvn = r.dvn;\n            }\n        }\n\n        if (dvn == address(0)) {\n            revert UnsupportedChain();\n        }\n    }\n\n    function id() external view returns (string memory) {\n        return _id;\n    }\n}\n"
+        },
+        "src/OmniConfig.sol": {
+            "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n/// @notice a base class for storing immutable configuration data at a predictable address across chains.\ncontract OmniConfig {\n    error UnsupportedChain();\n\n    uint256 public immutable version;\n    uint256[] internal _chains;\n\n    function chains() external view returns (uint256[] memory) {\n        return _chains;\n    }\n}\n"
+        }
+    },
+    "settings": {
+        "remappings": [
+            "forge-std/=lib/forge-std/src/",
+            "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+            "@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
+            "@layerzerolabs/oft-evm/=lib/devtools/packages/oft-evm/",
+            "@layerzerolabs/oapp-evm/=lib/LayerZero-v2/packages/layerzero-v2/evm/oapp/",
+            "@layerzerolabs/oft-evm-upgradeable/=lib/devtools/packages/oft-evm-upgradeable/",
+            "@layerzerolabs/oapp-evm-upgradeable/=lib/devtools/packages/oapp-evm-upgradeable/",
+            "@layerzerolabs/lz-evm-protocol-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/protocol/",
+            "@layerzerolabs/lz-evm-messagelib-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/messagelib/",
+            "LayerZero-v2/=lib/LayerZero-v2/",
+            "devtools/=lib/devtools/packages/toolbox-foundry/src/",
+            "ds-test/=lib/LayerZero-v2/lib/forge-std/lib/ds-test/src/",
+            "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+            "halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/",
+            "openzeppelin-contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/",
+            "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+        ],
+        "optimizer": {
+            "enabled": true,
+            "runs": 1000
+        },
+        "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+        },
+        "outputSelection": {
+            "*": {
+                "*": [
+                    "abi",
+                    "evm.bytecode.object",
+                    "evm.bytecode.sourceMap",
+                    "evm.bytecode.linkReferences",
+                    "evm.deployedBytecode.object",
+                    "evm.deployedBytecode.sourceMap",
+                    "evm.deployedBytecode.linkReferences",
+                    "evm.deployedBytecode.immutableReferences",
+                    "evm.methodIdentifiers",
+                    "metadata"
+                ]
+            }
+        },
+        "evmVersion": "cancun",
+        "viaIR": false,
+        "libraries": {}
+    }
+}

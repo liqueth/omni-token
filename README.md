@@ -171,12 +171,12 @@ export VerifierConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcas
 ```
 
 ```bash
-export VerifierConfigArgs=$(cast abi-encode 'constructor((uint32,string,(uint32,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/VerifierConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $VerifierConfigArgs
+export VerifierConfigArgs=$(cast abi-encode 'constructor(((uint32,address)[],string,uint256))' $(jq -r '.transactions[0].arguments[]' broadcast/VerifierConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $VerifierConfigArgs
 ```
 
 ```bash
-# Save Standard Json-Input format to EndpointConfig.json
-forge verify-contract --show-standard-json-input --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig > EndpointConfig.json
+# Save Standard Json-Input format to VerifierConfig.json
+forge verify-contract --show-standard-json-input --constructor-args  $VerifierConfigArgs $VerifierConfigAddress src/VerifierConfig.sol:VerifierConfig > VerifierConfig.json
 ```
 
 ---

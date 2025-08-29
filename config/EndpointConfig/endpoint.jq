@@ -14,10 +14,11 @@
                 and .executor.address
                 and .sendUln302.address
                 and .receiveUln302.address)
+        | .eid |= tonumber
         | {
             blockedMessageLib: .blockedMessageLib.address,
             chainId: .nativeChainId,
-            eid: (.eid | tonumber),
+            eid: .eid,
             endpoint: .endpointV2.address,
             executor: .executor.address,
             receiveLib: .receiveUln302.address,

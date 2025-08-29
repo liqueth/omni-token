@@ -8,7 +8,11 @@
             | select($c.environment == $env)
             | ($c.dvns // {}) | to_entries[]
             | $c.chainDetails.nativeChainId as $chainId
-            | select(.value.version == $version and .value.id == $id and $chainId)
+            | $c.chainDetails.chainStatus as $chainStatus
+            | select(.value.version == $version
+                    and $chainStatus != "DEPRECATED"
+                    and .value.id == $id
+                    and $chainId)
             | {
                 chainId: $chainId,
                 dvn: .key

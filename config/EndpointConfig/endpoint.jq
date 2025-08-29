@@ -8,6 +8,7 @@
         | select(.version == $version)
         | $c.chainDetails.nativeChainId as $chainId
         | select($chainId != null
+                and $c.chainDetails.chainStatus != "DEPRECATED"
                 and .eid != null
                 and .endpointV2?.address?
                 and .executor?.address?

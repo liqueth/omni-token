@@ -542,15 +542,6 @@
             "sendLib": "0x45841dd1ca50265Da7614fC43A361e526c0e6160"
         },
         {
-            "blockedMessageLib": "0x926984a57b10a3a5c4cfdbac04daaa0309e78932",
-            "chainId": 9990,
-            "eid": 40299,
-            "endpoint": "0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff",
-            "executor": "0x701f3927871EfcEa1235dB722f9E608aE120d243",
-            "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
-            "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
-        },
-        {
             "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
             "chainId": 10081,
             "eid": 40242,
@@ -630,15 +621,6 @@
             "executor": "0xBc0C24E6f24eC2F1fd7E859B8322A1277F80aaD5",
             "receiveLib": "0xbAe52D605770aD2f0D17533ce56D146c7C964A0d",
             "sendLib": "0x21F33EcF7F65D61f77e554B4B4380829908cD076"
-        },
-        {
-            "blockedMessageLib": "0x926984a57b10a3a5c4cfdbac04daaa0309e78932",
-            "chainId": 18026,
-            "eid": 40301,
-            "endpoint": "0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff",
-            "executor": "0x701f3927871EfcEa1235dB722f9E608aE120d243",
-            "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
-            "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
         },
         {
             "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
@@ -785,33 +767,6 @@
             "sendLib": "0x45841dd1ca50265Da7614fC43A361e526c0e6160"
         },
         {
-            "blockedMessageLib": "0xa229b65cc2191bf60bc24efcda3487d7b5c0c9f0",
-            "chainId": 68775,
-            "eid": 40321,
-            "endpoint": "0x3aCAAf60502791D199a5a5F0B173D78229eBFe32",
-            "executor": "0x55c175DD5b039331dB251424538169D8495C18d1",
-            "receiveLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21",
-            "sendLib": "0x45841dd1ca50265Da7614fC43A361e526c0e6160"
-        },
-        {
-            "blockedMessageLib": "0x926984a57b10a3a5c4cfdbac04daaa0309e78932",
-            "chainId": 78600,
-            "eid": 40298,
-            "endpoint": "0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff",
-            "executor": "0x701f3927871EfcEa1235dB722f9E608aE120d243",
-            "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
-            "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
-        },
-        {
-            "blockedMessageLib": "0x926984a57b10a3a5c4cfdbac04daaa0309e78932",
-            "chainId": 80000,
-            "eid": 40346,
-            "endpoint": "0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff",
-            "executor": "0x9dB9Ca3305B48F196D18082e91cB64663b13d014",
-            "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
-            "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
-        },
-        {
             "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
             "chainId": 80002,
             "eid": 40267,
@@ -826,15 +781,6 @@
             "eid": 40371,
             "endpoint": "0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff",
             "executor": "0x9dB9Ca3305B48F196D18082e91cB64663b13d014",
-            "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
-            "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
-        },
-        {
-            "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",
-            "chainId": 80084,
-            "eid": 40291,
-            "endpoint": "0x6EDCE65403992e310A62460808c4b910D972f10f",
-            "executor": "0x55c175DD5b039331dB251424538169D8495C18d1",
             "receiveLib": "0xcF1B0F4106B0324F96fEfcC31bA9498caa80701C",
             "sendLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
         },
@@ -1044,15 +990,6 @@
             "executor": "0x701f3927871EfcEa1235dB722f9E608aE120d243",
             "receiveLib": "0xd682ECF100f6F4284138AA925348633B0611Ae21",
             "sendLib": "0x45841dd1ca50265Da7614fC43A361e526c0e6160"
-        },
-        {
-            "blockedMessageLib": "0x6f09f1430c4c204c4b5433abe24c15f342b70699",
-            "chainId": 7849306,
-            "eid": 40323,
-            "endpoint": "0x145C041566B21Bec558B2A37F1a5Ff261aB55998",
-            "executor": "0xe1a12515F9AB2764b887bF60B923Ca494EBbB2d6",
-            "receiveLib": "0x53fd4C4fBBd53F6bC58CaE6704b92dB1f360A648",
-            "sendLib": "0x1d186C560281B8F1AF831957ED5047fD3AB902F9"
         },
         {
             "blockedMessageLib": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0",

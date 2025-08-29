@@ -19,10 +19,6 @@
             "dvn": "0x0747d0dabb284e5fbaeeea427bba7b2fba507120"
         },
         {
-            "chainId": 65,
-            "dvn": "0xdbdc042321a87dff222c6bf26be68ad7b3d7543f"
-        },
-        {
             "chainId": 71,
             "dvn": "0x62a731f0840d23970d5ec36fb7a586e1d61db9b6"
         },
@@ -33,10 +29,6 @@
         {
             "chainId": 83,
             "dvn": "0xe3a4539200e8906c957cd85b3e7a515c9883fd81"
-        },
-        {
-            "chainId": 89,
-            "dvn": "0x37d03c8d27d7928546b5b773566ec9c2847054d2"
         },
         {
             "chainId": 97,
@@ -115,10 +107,6 @@
             "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
         },
         {
-            "chainId": 999,
-            "dvn": "0xd52e4d3cdad28d7714ab6d56a7c9aa02ee45ab7f"
-        },
-        {
             "chainId": 1001,
             "dvn": "0xe4fe9782b809b7d66f0dcd10157275d2c4e4898d"
         },
@@ -143,28 +131,12 @@
             "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
         },
         {
-            "chainId": 1337,
-            "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
-        },
-        {
             "chainId": 1414,
             "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
         },
         {
             "chainId": 1439,
             "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
-            "chainId": 1442,
-            "dvn": "0x45e8f8c14e792e9d9cff576b6b34150a403f3ad8"
-        },
-        {
-            "chainId": 1513,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
-            "chainId": 1516,
-            "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
         },
         {
             "chainId": 1811,
@@ -239,10 +211,6 @@
             "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
         },
         {
-            "chainId": 5001,
-            "dvn": "0x988d898a9acf43f61fdbc72aad6eb3f0542e19e1"
-        },
-        {
             "chainId": 5003,
             "dvn": "0x9454f0eabc7c4ea9ebf89190b8bf9051a0468e03"
         },
@@ -291,10 +259,6 @@
             "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
         },
         {
-            "chainId": 9990,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
             "chainId": 10081,
             "dvn": "0x9db9ca3305b48f196d18082e91cb64663b13d014"
         },
@@ -329,14 +293,6 @@
         {
             "chainId": 17000,
             "dvn": "0x3e43f8ff0175580f7644da043071c289ddf98118"
-        },
-        {
-            "chainId": 18026,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
-            "chainId": 18230,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
         },
         {
             "chainId": 18233,
@@ -391,10 +347,6 @@
             "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
         },
         {
-            "chainId": 59140,
-            "dvn": "0x411a883ef017dfdbf026e2d4a54371039ff8aa09"
-        },
-        {
             "chainId": 59141,
             "dvn": "0x701f3927871efcea1235db722f9e608ae120d243"
         },
@@ -407,22 +359,6 @@
             "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
         },
         {
-            "chainId": 68775,
-            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
-        },
-        {
-            "chainId": 78600,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
-            "chainId": 80000,
-            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
-        },
-        {
-            "chainId": 80001,
-            "dvn": "0x67a822f55c5f6e439550b9c4ea39e406480a40f3"
-        },
-        {
             "chainId": 80002,
             "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
         },
@@ -431,24 +367,12 @@
             "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
         },
         {
-            "chainId": 80084,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
             "chainId": 84532,
             "dvn": "0xbf6ff58f60606edb2f190769b951d825bcb214e2"
         },
         {
-            "chainId": 98882,
-            "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
-        },
-        {
             "chainId": 98985,
             "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
-            "chainId": 103454,
-            "dvn": "0xc1868e054425d378095a003ecba3823a5d0135c9"
         },
         {
             "chainId": 128123,
@@ -531,28 +455,12 @@
             "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
         },
         {
-            "chainId": 6038361,
-            "dvn": "0x12523de19dc41c91f7d2093e0cfbb76b17012c8d"
-        },
-        {
-            "chainId": 6513784,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
-        },
-        {
             "chainId": 7080969,
             "dvn": "0xa78a78a13074ed93ad447a26ec57121f29e8fec2"
         },
         {
-            "chainId": 7849306,
-            "dvn": "0x55c175dd5b039331db251424538169d8495c18d1"
-        },
-        {
             "chainId": 8101902,
             "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
-        },
-        {
-            "chainId": 9088912,
-            "dvn": "0x09c3ff7df4f480f329cbee2df6f66c9a2e7f5a63"
         },
         {
             "chainId": 11155111,
@@ -581,10 +489,6 @@
         {
             "chainId": 111557560,
             "dvn": "0x88b27057a9e00c5f05dda29241027aff63f9e6e0"
-        },
-        {
-            "chainId": 161221135,
-            "dvn": "0xf49d162484290eaead7bb8c2c7e3a6f8f52e32d6"
         },
         {
             "chainId": 168587773,

@@ -99,6 +99,8 @@ forge test
 ```bash
 export CHAIN_ENV=testnet
 jq --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/metadata.json > config/EndpointConfig/$CHAIN_ENV.json
+jq --arg env testnet --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/metadata.json > config/EndpointConfig/testnet.json
+jq --arg env mainnet --argjson version 2 --indent 4 -f config/EndpointConfig/endpoint.jq config/metadata.json > config/EndpointConfig/mainnet.json
 ```
 
 ---

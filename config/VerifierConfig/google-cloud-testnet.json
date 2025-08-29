@@ -7,24 +7,12 @@
             "dvn": "0x6f99ea3fc9206e2779249e15512d7248dab0b52e"
         },
         {
-            "chainId": 420,
-            "dvn": "0xd9777221e6acc6e13f745da6ee1849c774fe8ed9"
-        },
-        {
             "chainId": 4002,
             "dvn": "0xbdb61339dc1cd02982ab459fa46f858decf3cec6"
         },
         {
             "chainId": 43113,
             "dvn": "0xa4652582077afc447ea7c9e984d656ee4963fe95"
-        },
-        {
-            "chainId": 80001,
-            "dvn": "0x89d01aa6abf72facc05ef88c82e415b2e4024a0c"
-        },
-        {
-            "chainId": 421613,
-            "dvn": "0x33f5e99ea89b1c67887553c04928bda8c1301171"
         },
         {
             "chainId": 11155111,

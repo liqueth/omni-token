@@ -2,12 +2,11 @@
 pragma solidity ^0.8.0;
 
 import "./OmniConfig.sol";
+import "./interfaces/IEndpointConfig.sol";
 
 /// @notice Contain initialization parameters customized per chain.
 /// @dev Immutable after construction. No setters. Uses a small Packed bucket per chain to co-locate sub-32B scalars.
-contract EndpointConfig is OmniConfig {
-    error UnsupportedDestinationChain(uint256 chain);
-
+contract EndpointConfig is OmniConfig, IEndpointConfig {
     struct Chain {
         address blocker;
         uint256 chainId;

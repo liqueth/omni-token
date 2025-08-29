@@ -10,6 +10,5 @@ interface IEndpointConfig is IOmniConfig {
     function endpoint() external returns (address);
     function executor() external returns (address);
     function sender() external returns (address);
-    function chainToEndpoint() external returns (address);
     function chainToEndpoint(uint256 chain) external returns (uint32 eid);
 }

@@ -3,20 +3,18 @@
     version: $version,
     id: $id,
     chains: [
-        .[]? as $c
-        | select($c.environment == $env)
-        | ($c.dvns // {}) | to_entries[]
-        | $c.chainDetails.nativeChainId as $chainId
-        | $c.chainDetails.chainStatus as $chainStatus
+        .[]?
+        | . +.chainDetails + ((.dvns // {}) | to_entries[])
         | select(.value.version == $version
-                and $chainStatus != "DEPRECATED"
+                and .chainStatus != "DEPRECATED"
+                and .environment == $env
                 and .value.id == $id
-                and $chainId)
+                and .nativeChainId)
         | {
-            chainId: $chainId,
+            chainId: .nativeChainId,
             dvn: .key
         }
     ]
-    | sort_by(.chainId)     # numeric sort
-    | unique_by(.chainId)   # drop dups
+    | sort_by(.chainId)
+    | unique_by(.chainId)
 }

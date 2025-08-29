@@ -55,7 +55,7 @@ contract EndpointConfig is OmniConfig, IEndpointConfig {
         uint256 version;
     }
 
-    mapping(uint256 => uint32) public _chainToEndpoint;
+    mapping(uint256 => uint32) public _eidOf;
     address public immutable blocker;
     address public immutable endpoint;
     address public immutable executor;
@@ -70,7 +70,7 @@ contract EndpointConfig is OmniConfig, IEndpointConfig {
         for (uint256 i = 0; i < n; i++) {
             Chain memory r = global.chains[i];
             _chains[i] = r.chainId;
-            _chainToEndpoint[r.chainId] = r.eid;
+            _eidOf[r.chainId] = r.eid;
             if (r.chainId == block.chainid) {
                 blocker = r.blocker;
                 endpoint = r.endpoint;
@@ -87,8 +87,8 @@ contract EndpointConfig is OmniConfig, IEndpointConfig {
 
     /// @notice Lookup the remote EID for a native `chain`.
     /// @dev Revert with `UnsupportedDestinationChain` if the mapping is empty (0 sentinel).
-    function chainToEndpoint(uint256 chain) external view returns (uint32 eid) {
-        eid = _chainToEndpoint[chain];
+    function eidOf(uint256 chain) external view returns (uint32 eid) {
+        eid = _eidOf[chain];
         if (eid == 0) {
             revert UnsupportedDestinationChain(chain);
         }

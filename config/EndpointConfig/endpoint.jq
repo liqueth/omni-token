@@ -7,11 +7,12 @@
         | ($c.deployments // [])[]?
         | select(.version == $version)
         | $c.chainDetails.nativeChainId as $chainId
-        | select($chainId != null and .eid != null
-                 and .endpointV2?.address?
-                 and .executor?.address?
-                 and .sendUln302?.address?
-                 and .receiveUln302?.address?)
+        | select($chainId != null
+                and .eid != null
+                and .endpointV2?.address?
+                and .executor?.address?
+                and .sendUln302?.address?
+                and .receiveUln302?.address?)
         | {
             blockedMessageLib: .blockedMessageLib.address,
             chainId: $chainId,

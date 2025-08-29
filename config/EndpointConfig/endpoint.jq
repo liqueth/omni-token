@@ -3,11 +3,10 @@
     version: $version,
     chains: [
         .[]? as $c
-        | select($c.environment == $env)
-        | $c.deployments[]?
-        | select(.version == $version) + $c.chainDetails
-        | select(.nativeChainId != null
+        | select($c.environment == $env) + $c.deployments[]? + $c.chainDetails
+        | select(.version == $version
                 and .chainStatus != "DEPRECATED"
+                and .nativeChainId
                 and .eid
                 and .blockedMessageLib.address
                 and .endpointV2.address

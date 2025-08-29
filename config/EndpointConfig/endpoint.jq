@@ -5,7 +5,7 @@
         .[]?
         | . + .deployments[]? + .chainDetails
         | select(.version == $version
-                and .chainStatus != "DEPRECATED"
+                and .chainStatus == "ACTIVE"
                 and .environment == $env
                 and .nativeChainId
                 and .eid

@@ -6,7 +6,7 @@
         .[]?
         | . +.chainDetails + ((.dvns // {}) | to_entries[])
         | select(.value.version == $version
-                and .chainStatus != "DEPRECATED"
+                and .chainStatus == "ACTIVE"
                 and .environment == $env
                 and .value.id == $id
                 and .nativeChainId)

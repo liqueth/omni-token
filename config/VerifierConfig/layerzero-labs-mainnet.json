@@ -275,10 +275,6 @@
             "dvn": "0x28b6140ead70cb2fb669705b3598ffb4beaa060b"
         },
         {
-            "chainId": 5165,
-            "dvn": "0x282b3386571f7f794450d5789911a9804fa346b4"
-        },
-        {
             "chainId": 6001,
             "dvn": "0x9c061c9a4782294eef65ef28cb88233a987f4bdd"
         },
@@ -400,10 +396,6 @@
         },
         {
             "chainId": 60808,
-            "dvn": "0x6788f52439aca6bff597d3eec2dc9a44b8fee842"
-        },
-        {
-            "chainId": 68770,
             "dvn": "0x6788f52439aca6bff597d3eec2dc9a44b8fee842"
         },
         {

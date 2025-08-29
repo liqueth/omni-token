@@ -9,6 +9,7 @@
         | select(.nativeChainId != null
                 and .chainStatus != "DEPRECATED"
                 and .eid != null
+                and .blockedMessageLib.address
                 and .endpointV2?.address?
                 and .executor?.address?
                 and .sendUln302?.address?
@@ -22,7 +23,6 @@
             receiveLib: .receiveUln302.address,
             sendLib: .sendUln302.address
         }
-        | select(all(.[]?; . != null))
     ]
     | group_by(.chainId)
     | map(max_by(.eid))        # keep the largest eid per chainId

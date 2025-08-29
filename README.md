@@ -108,8 +108,8 @@ jq --arg env mainnet --argjson version 2 --indent 4 -f config/EndpointConfig/end
 ## Find all dvns
 
 ```bash
-jq --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifiers.jq config/metadata.json > config/VerifierConfig/dvns-testnet.json
-jq --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifiers.jq config/metadata.json > config/VerifierConfig/dvns-mainnet.json
+jq --arg env testnet --argjson version 2 --indent 4 -f config/dvn/dvns.jq config/metadata.json > config/dvn/dvns-testnet.json
+jq --arg env mainnet --argjson version 2 --indent 4 -f config/dvn/dvns.jq config/metadata.json > config/dvn/dvns-mainnet.json
 ```
 
 ---
@@ -117,14 +117,12 @@ jq --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/ver
 ## Generate DVN data
 
 ```bash
-export CHAIN_ENV=testnet; export DVN_ID=polyhedra-network;
-jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/$CHAIN_ENV.json
-jq --arg id polyhedra-network --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/polyhedra-network-testnet.json
-jq --arg id polyhedra-network --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/polyhedra-network-mainnet.json
-jq --arg id google-cloud --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/google-cloud-testnet.json
-jq --arg id google-cloud --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/google-cloud-mainnet.json
-jq --arg id layerzero-labs --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/layerzero-labs-testnet.json
-jq --arg id layerzero-labs --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifier.jq config/metadata.json > config/VerifierConfig/layerzero-labs-mainnet.json
+jq --arg id polyhedra-network --arg env testnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/polyhedra-network-testnet.json
+jq --arg id polyhedra-network --arg env mainnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/polyhedra-network-mainnet.json
+jq --arg id google-cloud --arg env testnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/google-cloud-testnet.json
+jq --arg id google-cloud --arg env mainnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/google-cloud-mainnet.json
+jq --arg id layerzero-labs --arg env testnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/layerzero-labs-testnet.json
+jq --arg id layerzero-labs --arg env mainnet --argjson version 2 --indent 4 -f config/dvn/dvn.jq config/metadata.json > config/dvn/layerzero-labs-mainnet.json
 ```
 
 ---

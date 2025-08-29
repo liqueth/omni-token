@@ -2,8 +2,8 @@
 {
     version: $version,
     chains: [
-        .[]? as $c
-        | select($c.environment == $env) + $c.deployments[]? + $c.chainDetails
+        .[]?
+        | select(.environment == $env) + .deployments[]? + .chainDetails
         | select(.version == $version
                 and .chainStatus != "DEPRECATED"
                 and .nativeChainId

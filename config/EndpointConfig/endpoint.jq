@@ -5,8 +5,7 @@
         .[]? as $c
         | select($c.environment == $env)
         | $c.deployments[]?
-        | select(.version == $version)
-        | . + $c.chainDetails                            # <-- merge chainDetails into this object
+        | select(.version == $version) + $c.chainDetails
         | select(.nativeChainId != null
                 and .chainStatus != "DEPRECATED"
                 and .eid != null

@@ -134,12 +134,14 @@ export EndpointConfigAddress=$(jq -r '.transactions[0].contractAddress' broadcas
 ```
 
 ```bash
-export EndpointConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint32,address,address,address,address)[]))' $(jq -r '.transactions[0].arguments[]' broadcast/EndpointConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $EndpointConfigArgs
+export EndpointConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint32,address,address,address,address)[],uint256))' $(jq -r '.transactions[0].arguments[]' broadcast/EndpointConfig.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $EndpointConfigArgs
 ```
 
 ```bash
 # Save Standard Json-Input format to EndpointConfig.json
 forge verify-contract --show-standard-json-input --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig > EndpointConfig.json
+forge verify-contract --chain $CHAIN_ID --rpc-url $CHAIN_ID --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig
+
 ```
 
 ---

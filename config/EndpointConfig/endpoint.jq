@@ -8,12 +8,12 @@
         | select(.version == $version) + $c.chainDetails
         | select(.nativeChainId != null
                 and .chainStatus != "DEPRECATED"
-                and .eid != null
+                and .eid
                 and .blockedMessageLib.address
-                and .endpointV2?.address?
-                and .executor?.address?
-                and .sendUln302?.address?
-                and .receiveUln302?.address?)
+                and .endpointV2.address
+                and .executor.address
+                and .sendUln302.address
+                and .receiveUln302.address)
         | {
             blockedMessageLib: .blockedMessageLib.address,
             chainId: .nativeChainId,

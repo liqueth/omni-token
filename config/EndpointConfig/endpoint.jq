@@ -6,9 +6,9 @@
         | select($c.environment == $env)
         | $c.deployments[]?
         | select(.version == $version)
-        | $c.chainDetails.nativeChainId as $chainId
-        | select($chainId != null
-                and $c.chainDetails.chainStatus != "DEPRECATED"
+        | . + $c.chainDetails                            # <-- merge chainDetails into this object
+        | select(.nativeChainId != null
+                and .chainStatus != "DEPRECATED"
                 and .eid != null
                 and .endpointV2?.address?
                 and .executor?.address?
@@ -16,7 +16,7 @@
                 and .receiveUln302?.address?)
         | {
             blockedMessageLib: .blockedMessageLib.address,
-            chainId: $chainId,
+            chainId: .nativeChainId,
             eid: (.eid | tonumber),
             endpoint: .endpointV2.address,
             executor: .executor.address,

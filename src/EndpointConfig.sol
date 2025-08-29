@@ -9,13 +9,13 @@ contract EndpointConfig is OmniConfig {
     error UnsupportedDestinationChain(uint256 chain);
 
     struct Chain {
-        address blockedMessageLib;
+        address blocker;
         uint256 chainId;
         uint32 eid;
         address endpoint;
         address executor;
-        address receiveLib;
-        address sendLib;
+        address receiver;
+        address sender;
     }
 
     struct Global {
@@ -24,11 +24,11 @@ contract EndpointConfig is OmniConfig {
     }
 
     mapping(uint256 => uint32) public _chainToEndpoint;
-    address public immutable blockedMessageLib;
+    address public immutable blocker;
     address public immutable endpoint;
     address public immutable executor;
-    address public immutable receiveLib;
-    address public immutable sendLib;
+    address public immutable receiver;
+    address public immutable sender;
 
     constructor(Global memory global) {
         version = global.version;
@@ -40,11 +40,11 @@ contract EndpointConfig is OmniConfig {
             _chains[i] = r.chainId;
             _chainToEndpoint[r.chainId] = r.eid;
             if (r.chainId == block.chainid) {
-                blockedMessageLib = r.blockedMessageLib;
+                blocker = r.blocker;
                 endpoint = r.endpoint;
                 executor = r.executor;
-                sendLib = r.sendLib;
-                receiveLib = r.receiveLib;
+                receiver = r.receiver;
+                sender = r.sender;
             }
         }
 

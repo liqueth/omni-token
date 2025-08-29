@@ -10,10 +10,10 @@ import "../src/EndpointConfig.sol";
 contract EndpointConfigDeploy is Script {
     function run() external {
         string memory env = vm.envString("CHAIN_ENV");
-        string memory path = string.concat("config/EndpointConfig/", env, ".json");        
+        string memory path = string.concat("config/endpoint/", env, ".json");        
         string memory json = vm.readFile(path);
         bytes memory encodedData = vm.parseJson(json);
-        console.log("encodedData length: ", encodedData.length);
+        console.log("encoded data length: ", encodedData.length);
         EndpointConfig.Global memory config = abi.decode(encodedData, (EndpointConfig.Global));
         console.log("config.chains.length: ", config.chains.length);
         bytes32 salt = 0x0;

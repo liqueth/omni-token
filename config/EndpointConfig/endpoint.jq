@@ -4,7 +4,7 @@
     chains: [
         .[]? as $c
         | select($c.environment == $env)
-        | ($c.deployments // [])[]?
+        | $c.deployments[]?
         | select(.version == $version)
         | $c.chainDetails.nativeChainId as $chainId
         | select($chainId != null

@@ -130,7 +130,7 @@ jq --arg id layerzero-labs --arg env mainnet --argjson version 2 --indent 4 -f c
 
 ```bash
 # Deploy the token factory/implementation
-forge script script/EndpointConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+forge script script/EndpointConfig.s.sol --sig "run(string)" config/endpoint/testnet.json --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 ```
 
 ```bash

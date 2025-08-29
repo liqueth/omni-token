@@ -146,7 +146,11 @@ export EndpointConfigArgs=$(cast abi-encode 'constructor(((address,uint256,uint3
 # Save Standard Json-Input format to EndpointConfig.json
 forge verify-contract --show-standard-json-input --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig > EndpointConfig.json
 forge verify-contract --chain $CHAIN_ID --rpc-url $CHAIN_ID --etherscan-api-key $ETHERSCAN_KEY --constructor-args  $EndpointConfigArgs $EndpointConfigAddress src/EndpointConfig.sol:EndpointConfig
+```
 
+```bash
+# All of the above
+./script/EndpointConfig.sh
 ```
 
 ---

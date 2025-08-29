@@ -105,6 +105,13 @@ jq --arg env mainnet --argjson version 2 --indent 4 -f config/EndpointConfig/end
 
 ---
 
+## Find all dvns
+
+```bash
+jq --arg env testnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifiers.jq config/metadata.json > config/VerifierConfig/dvns-testnet.json
+jq --arg env mainnet --argjson version 2 --indent 4 -f config/VerifierConfig/verifiers.jq config/metadata.json > config/VerifierConfig/dvns-mainnet.json
+```
+
 ---
 
 ## Generate DVN data

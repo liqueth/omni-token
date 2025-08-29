@@ -1,0 +1,102 @@
+{
+    "version": 2,
+    "env": "testnet",
+    "chains": [
+        {
+            "id": "altlayer",
+            "canonicalName": "AltLayer"
+        },
+        {
+            "id": "bitgo",
+            "canonicalName": "Bitgo"
+        },
+        {
+            "id": "blockdaemon",
+            "canonicalName": "Blockdaemon"
+        },
+        {
+            "id": "bware-labs",
+            "canonicalName": "BWare"
+        },
+        {
+            "id": "citrea",
+            "canonicalName": "Citrea"
+        },
+        {
+            "id": "delegate",
+            "canonicalName": "Delegate"
+        },
+        {
+            "id": "frax",
+            "canonicalName": "Frax"
+        },
+        {
+            "id": "gitcoin",
+            "canonicalName": "Gitcoin"
+        },
+        {
+            "id": "google-cloud",
+            "canonicalName": "Google"
+        },
+        {
+            "id": "horizen-labs",
+            "canonicalName": "Horizen"
+        },
+        {
+            "id": "joc",
+            "canonicalName": "Japan Blockchain Foundation"
+        },
+        {
+            "id": "layerzero-labs",
+            "canonicalName": "LayerZero"
+        },
+        {
+            "id": "layerzero-labs",
+            "canonicalName": "LayerZero Labs"
+        },
+        {
+            "id": "lz-dead-dvn",
+            "canonicalName": "LZDeadDVN"
+        },
+        {
+            "id": "mantle01",
+            "canonicalName": "Mantle01"
+        },
+        {
+            "id": "mantle02",
+            "canonicalName": "Mantle02"
+        },
+        {
+            "id": "nethermind",
+            "canonicalName": "Nethermind"
+        },
+        {
+            "id": "p2p",
+            "canonicalName": "P2P"
+        },
+        {
+            "id": "paxos",
+            "canonicalName": "Paxos"
+        },
+        {
+            "id": "polyhedra-network",
+            "canonicalName": "Polyhedra"
+        },
+        {
+            "id": "predicate",
+            "canonicalName": "Predicate"
+        },
+        {
+            "id": "republic-crypto",
+            "canonicalName": "Republic"
+        },
+        {
+            "id": "stablelab",
+            "canonicalName": "Stablelab"
+        },
+        {
+            "id": "switchboard",
+            "canonicalName": "Switchboard"
+        }
+    ]
+}

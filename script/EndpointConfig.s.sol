@@ -9,7 +9,8 @@ import "../src/EndpointConfig.sol";
  */
 contract EndpointConfigDeploy is Script {
     function run() external {
-        string memory path = vm.envString("EndpointConfigPath");
+        string memory env = vm.envString("CHAIN_ENV");
+        string memory path = string.concat("config/EndpointConfig/", env, ".json");        
         string memory json = vm.readFile(path);
         bytes memory encodedData = vm.parseJson(json);
         console.log("encodedData length: ", encodedData.length);

@@ -15,13 +15,13 @@
                 and .sendUln302.address
                 and .receiveUln302.address)
         | {
-            blockedMessageLib: .blockedMessageLib.address,
+            blocker: .blockedMessageLib.address,
             chainId: .nativeChainId,
             eid: .eid | tonumber,
             endpoint: .endpointV2.address,
             executor: .executor.address,
-            receiveLib: .receiveUln302.address,
-            sendLib: .sendUln302.address
+            receiver: .receiveUln302.address,
+            sender: .sendUln302.address
         }
     ]
     | group_by(.chainId)

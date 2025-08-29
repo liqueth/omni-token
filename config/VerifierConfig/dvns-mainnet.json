@@ -1,7 +1,7 @@
 {
     "version": 2,
     "env": "mainnet",
-    "chains": [
+    "dvns": [
         {
             "id": "01node",
             "canonicalName": "01node"

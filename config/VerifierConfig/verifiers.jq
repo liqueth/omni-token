@@ -2,7 +2,7 @@
 {
     version: $version,
     env: $env,
-    chains: [
+    dvns: [
         .[]?
         | . +.chainDetails + ((.dvns // {}) | to_entries[])
         | select(.value.version == $version

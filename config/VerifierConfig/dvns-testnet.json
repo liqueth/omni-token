@@ -1,7 +1,7 @@
 {
     "version": 2,
     "env": "testnet",
-    "chains": [
+    "dvns": [
         {
             "id": "altlayer",
             "canonicalName": "AltLayer"

@@ -14,9 +14,8 @@ contract EndpointConfigDeploy is Script {
         console.log("encoded data length: ", encodedData.length);
         EndpointConfig.Global memory config = abi.decode(encodedData, (EndpointConfig.Global));
         console.log("config.chains.length: ", config.chains.length);
-        bytes32 salt = 0x0;
         vm.startBroadcast();
-        EndpointConfig deployed = new EndpointConfig{salt: salt}(config);
+        EndpointConfig deployed = new EndpointConfig{salt: 0x0}(config);
         vm.stopBroadcast();
         console.log("address: ", address(deployed));
     }

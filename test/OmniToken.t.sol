@@ -37,13 +37,22 @@ contract OmniTokenTest is Test {
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
+        appConfig = loadEndpointConfig("./config/endpoint/testnet.json");
         factory = new OmniToken(appConfig);
+
         config = OmniToken.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
         config1 = OmniToken.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
         config2a = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
         config2b = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
         (address proxy,) = factory.clone(config);
         token = OmniToken(proxy);
+    }
+
+    function loadEndpointConfig(string memory path) public returns (EndpointConfig cfg) {
+        string memory json = vm.readFile(path);
+        bytes memory encodedData = vm.parseJson(json);
+        EndpointConfig.Global memory global = abi.decode(encodedData, (EndpointConfig.Global));
+        cfg = new EndpointConfig{salt: 0x0}(global);
     }
 
     function test_CloneCanClone() public {

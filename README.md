@@ -94,6 +94,15 @@ forge test
 
 ---
 
+## Generate LayerZero data
+
+```bash
+jq --arg env testnet --argjson version 2 --indent 4 -f config/lz/lz.jq config/metadata.json > config/lz/testnet.json
+jq --arg env mainnet --argjson version 2 --indent 4 -f config/lz/lz.jq config/metadata.json > config/lz/mainnet.json
+```
+
+---
+
 ## Generate EndpointConfig data
 
 ```bash

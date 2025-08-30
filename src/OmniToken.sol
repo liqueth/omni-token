@@ -16,9 +16,9 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  */
 contract OmniToken is OFTUpgradeable, IOmniToken {
     struct Config {
+        uint256[][] mints;
         string name;
         address owner;
-        uint256[][] mints;
         string symbol;
     }
 

@@ -5,6 +5,11 @@ pragma solidity ^0.8.20;
 import "./interfaces/IOmniRef.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
+/// @title OmniRef
+/// @notice Immutable reference contract that deploys identically across chains.
+/// @dev Stores a single target address derived from chain-specific init data.
+/// Acts as the canonical "prototype" instance from which others may be created.
+/// The code is identical across all chains, but the state (the target) differs.
 contract OmniRef is IOmniRef {
     event Referenced(address indexed target);
 
@@ -17,6 +22,11 @@ contract OmniRef is IOmniRef {
 
     /// @notice The chain‑specific address for this chain.
     address private _target;
+
+    constructor() {
+        // Prevent the implementation contract from being initialized.
+        _target = address(this);
+    }
 
     function initialize(Entry[] memory entries) public {
         if (_target != address(0)) revert AlreadyInitialized();

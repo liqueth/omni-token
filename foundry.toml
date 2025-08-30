@@ -5,6 +5,7 @@ libs = ["lib"]
 private_key = "${DEPLOYER_KEY}"
 fs_permissions = [{ access = "read", path = "./config" }]
 optimizer_runs = 1000
+bytecode_hash = "ipfs"
 
 [rpc_endpoints]
 1        = "https://1rpc.io/eth"               # Ethereum

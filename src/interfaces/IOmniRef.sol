@@ -35,18 +35,23 @@ interface IOmniRef {
     }
 
     /// @notice Predict the address of a created OmniRef.
-    /// @dev Does not validate the entries or whether the clone exists.
+    /// @dev Revert if the entries would cause create to revert.
     /// @param entries The array of chainId/target pairs to choose from.
     /// @return ref The address of the created or existing clone.
     /// @return salt The salt used to create the clone.
-    function createPrediction(Entry[] memory entries) external view returns (address ref, bytes32 salt);
+    /// @return target_ The target address for the current chain.
+    function createPrediction(Entry[] memory entries)
+        external
+        view
+        returns (address ref, bytes32 salt, address target_);
 
     /// @notice Create a new OmniRef clone for the current chain if it doesn't already exist.
     /// @dev Reverts if the current chain is not supported.
     /// @param entries The array of chainId/target pairs to choose from.
     /// @return ref The address of the created or existing clone.
     /// @return salt The salt used to create the clone.
-    function create(Entry[] memory entries) external returns (address ref, bytes32 salt);
+    /// @return target_ The target address for the current chain.
+    function create(Entry[] memory entries) external returns (address ref, bytes32 salt, address target_);
 
     /// @notice Return the chain‑specific address for this chain.
     function target() external view returns (address);

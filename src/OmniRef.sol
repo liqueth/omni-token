@@ -25,36 +25,38 @@ contract OmniRef is IOmniRef {
 
     /// @dev Initialize the target address with the entry for the current chain.
     /// Can only be called once by the prototype during creation.
-    /// @param entries The array of chainId/target pairs to choose from.
-    function __OmniRef_init(Entry[] memory entries) public {
+    /// @param target_ The target address for the current chain.
+    function __OmniRef_init(address target_) public {
         if (_target != address(0)) revert AlreadyInitialized();
+        _target = target_;
+        emit Created(address(this), target_);
+    }
 
-        address t;
+    /// @inheritdoc IOmniRef
+    function createPrediction(Entry[] memory entries)
+        public
+        view
+        returns (address ref, bytes32 salt, address target_)
+    {
+        salt = keccak256(abi.encode(entries));
+        ref = Clones.predictDeterministicAddress(address(this), salt, address(this));
 
         for (uint256 i; i < entries.length; ++i) {
             if (entries[i].chainId == block.chainid) {
-                if (t != address(0)) revert DuplicateChainId();
-                t = entries[i].target;
-                if (t == address(0)) revert TargetIsZero();
+                if (target_ != address(0)) revert DuplicateChainId();
+                target_ = entries[i].target;
+                if (target_ == address(0)) revert TargetIsZero();
             }
         }
-        if (t == address(0)) revert UnsupportedChain();
-        _target = t;
-        emit Created(address(this), _target);
+        if (target_ == address(0)) revert UnsupportedChain();
     }
 
     /// @inheritdoc IOmniRef
-    function createPrediction(Entry[] memory entries) public view returns (address ref, bytes32 salt) {
-        salt = keccak256(abi.encode(entries));
-        ref = Clones.predictDeterministicAddress(address(this), salt, address(this));
-    }
-
-    /// @inheritdoc IOmniRef
-    function create(Entry[] memory entries) public returns (address ref, bytes32 salt) {
-        (ref, salt) = createPrediction(entries);
+    function create(Entry[] memory entries) public returns (address ref, bytes32 salt, address target_) {
+        (ref, salt, target_) = createPrediction(entries);
         if (ref.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
-            OmniRef(ref).__OmniRef_init(entries);
+            OmniRef(ref).__OmniRef_init(target_);
         }
     }
 

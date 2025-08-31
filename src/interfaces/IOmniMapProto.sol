@@ -2,17 +2,17 @@
 
 pragma solidity ^0.8.20;
 
-/// @title IOmniRefProto
+/// @title IOmniMapProto
 /// @notice Ensures the same contract address exists on every chain, with each instance
 /// immutably referencing its chain’s designated local.
-/// @dev Deployed deterministically with CREATE2, OmniRef binds immutably to the local
+/// @dev Deployed deterministically with CREATE2, OmniMap binds immutably to the local
 /// local for the current chain. This provides a trustless reference with no governance
 /// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
-interface IOmniRefProto {
+interface IOmniMapProto {
     /// @notice Revert if someone tries to reinitialize an instance.
     error AlreadyInitialized();
 
@@ -34,7 +34,7 @@ interface IOmniRefProto {
         address local;
     }
 
-    /// @notice Predict the address of a cloned OmniRef.
+    /// @notice Predict the address of a cloned OmniMap.
     /// @dev Revert on any of the error conditions described above.
     /// @param entries The array of chainId/local pairs to choose from.
     /// @return global The predicted address of the clone.
@@ -42,7 +42,7 @@ interface IOmniRefProto {
     /// @return local The local address for the current chain.
     function locate(Entry[] memory entries) external view returns (address global, bytes32 salt, address local);
 
-    /// @notice Create a new OmniRef clone for the current chain if it doesn't already exist.
+    /// @notice Create a new OmniMap clone for the current chain if it doesn't already exist.
     /// @dev Revert if locate does.
     /// @param entries The array of chainId/local pairs to choose from.
     /// @return global The predicted address of the clone.

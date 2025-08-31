@@ -3,15 +3,15 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Script.sol";
-import "../src/OmniRef.sol";
+import "../src/OmniMap.sol";
 
 /**
- * @notice Deploy the OmniRef factory/implementation contract.
+ * @notice Deploy the OmniMap factory/implementation contract.
  */
-contract OmniRefFactory is Script {
+contract OmniMapFactory is Script {
     function run() external {
         vm.startBroadcast();
-        OmniRef deployed = new OmniRef{salt: 0x0}();
+        OmniMap deployed = new OmniMap{salt: 0x0}();
         vm.stopBroadcast();
         console.log("address: ", address(deployed));
     }

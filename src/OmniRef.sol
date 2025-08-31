@@ -3,6 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "./interfaces/IOmniRef.sol";
+import "./interfaces/IOmniRefProto.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @title OmniRef
@@ -15,7 +16,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
-contract OmniRef is IOmniRef {
+contract OmniRef is IOmniRef, IOmniRefProto {
     address private _target;
 
     constructor() {
@@ -32,7 +33,7 @@ contract OmniRef is IOmniRef {
         emit Created(address(this), target_);
     }
 
-    /// @inheritdoc IOmniRef
+    /// @inheritdoc IOmniRefProto
     function createPrediction(Entry[] memory entries)
         public
         view
@@ -51,7 +52,7 @@ contract OmniRef is IOmniRef {
         if (target_ == address(0)) revert UnsupportedChain();
     }
 
-    /// @inheritdoc IOmniRef
+    /// @inheritdoc IOmniRefProto
     function create(Entry[] memory entries) public returns (address ref, bytes32 salt, address target_) {
         (ref, salt, target_) = createPrediction(entries);
         if (ref.code.length == 0) {

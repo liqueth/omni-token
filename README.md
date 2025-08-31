@@ -94,6 +94,14 @@ forge test
 
 ---
 
+## Generate Normalized data
+
+```bash
+jq --argjson version 2 --indent 4 -f config/norm.jq config/metadata.json > config/norm.json
+```
+
+---
+
 ## Generate LayerZero data
 
 ```bash

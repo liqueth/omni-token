@@ -48,13 +48,12 @@ contract OmniRef is IOmniRef, IOmniRefProto {
 
     address private _local;
 
+    /// @dev Prevent the implementation contract from being initialized.
     constructor() {
-        // Prevent the implementation contract from being initialized.
         _local = address(this);
     }
 
-    /// @dev Initialize the local address with the entry for the current chain.
-    /// Can only be called once by the prototype during cloning.
+    /// @dev Only let the protofactory set the local address after cloning.
     /// @param local_ The local address for the current chain.
     function __OmniRef_init(address local_) public {
         if (_local != address(0)) revert AlreadyInitialized();

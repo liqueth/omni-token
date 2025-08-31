@@ -42,7 +42,7 @@ contract OmniRef is IOmniRef, IOmniRefProto {
             if (entries[i].chainId == block.chainid) {
                 if (local_ != address(0)) revert DuplicateChainId();
                 local_ = entries[i].local;
-                if (local_ == address(0)) revert TargetIsZero();
+                if (local_ == address(0)) revert LocalIsZero();
             }
         }
         if (local_ == address(0)) revert UnsupportedChain();

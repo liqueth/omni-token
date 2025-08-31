@@ -13,17 +13,17 @@ pragma solidity ^0.8.20;
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
 interface IOmniRefProto {
-    /// @notice Revert if someone tries to reinitialize.
+    /// @notice Revert if someone tries to reinitialize an instance.
     error AlreadyInitialized();
 
-    /// @notice Revert when the current chain is not supported.
+    /// @notice Revert if the current chain is not supported.
     error UnsupportedChain();
 
     /// @notice Revert if there is more than one entry with the same chainId.
     error DuplicateChainId();
 
     /// @notice Revert if any local address is zero.
-    error TargetIsZero();
+    error LocalIsZero();
 
     /// @notice Emit when a clone is created.
     event Cloned(address indexed referrer, address indexed local);
@@ -34,18 +34,18 @@ interface IOmniRefProto {
         address local;
     }
 
-    /// @notice Predict the address of a created OmniRef.
-    /// @dev Revert if clone would revert.
+    /// @notice Predict the address of a cloned OmniRef.
+    /// @dev Revert on any of the error conditions described above.
     /// @param entries The array of chainId/local pairs to choose from.
-    /// @return global The address of the created or existing clone.
+    /// @return global The predicted address of the clone.
     /// @return salt The salt used to create the clone.
     /// @return local The local address for the current chain.
     function locate(Entry[] memory entries) external view returns (address global, bytes32 salt, address local);
 
     /// @notice Create a new OmniRef clone for the current chain if it doesn't already exist.
-    /// @dev Reverts if the current chain is not supported.
+    /// @dev Revert if locate does.
     /// @param entries The array of chainId/local pairs to choose from.
-    /// @return global The address of the created or existing clone.
+    /// @return global The predicted address of the clone.
     /// @return salt The salt used to create the clone.
     /// @return local The local address for the current chain.
     function clone(Entry[] memory entries) external returns (address global, bytes32 salt, address local);

@@ -33,7 +33,7 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
     }
 
     function initialize(Config memory config) public initializer {
-        __OFT_init(config.name, config.symbol, config.owner);
+        //__OFT_init(config.name, config.symbol, config.owner);
         _prototype = msg.sender;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {

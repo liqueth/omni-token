@@ -31,7 +31,7 @@ interface IOmniRefProto {
     /// @notice Map a chainId to a target.
     struct Entry {
         uint256 chainId;
-        address target;
+        address local;
     }
 
     /// @notice Predict the address of a created OmniRef.
@@ -39,14 +39,14 @@ interface IOmniRefProto {
     /// @param entries The array of chainId/target pairs to choose from.
     /// @return global The address of the created or existing clone.
     /// @return salt The salt used to create the clone.
-    /// @return local The target address for the current chain.
+    /// @return local The local address for the current chain.
     function locate(Entry[] memory entries) external view returns (address global, bytes32 salt, address local);
 
     /// @notice Create a new OmniRef clone for the current chain if it doesn't already exist.
     /// @dev Reverts if the current chain is not supported.
-    /// @param entries The array of chainId/target pairs to choose from.
+    /// @param entries The array of chainId/local pairs to choose from.
     /// @return global The address of the created or existing clone.
     /// @return salt The salt used to create the clone.
-    /// @return local The target address for the current chain.
+    /// @return local The local address for the current chain.
     function clone(Entry[] memory entries) external returns (address global, bytes32 salt, address local);
 }

@@ -26,38 +26,34 @@ contract OmniRef is IOmniRef, IOmniRefProto {
 
     /// @dev Initialize the target address with the entry for the current chain.
     /// Can only be called once by the prototype during creation.
-    /// @param target_ The target address for the current chain.
-    function __OmniRef_init(address target_) public {
+    /// @param local_ The target address for the current chain.
+    function __OmniRef_init(address local_) public {
         if (_local != address(0)) revert AlreadyInitialized();
-        _local = target_;
-        emit Cloned(address(this), target_);
+        _local = local_;
+        emit Cloned(address(this), local_);
     }
 
     /// @inheritdoc IOmniRefProto
-    function locate(Entry[] memory entries)
-        public
-        view
-        returns (address ref, bytes32 salt, address target_)
-    {
+    function locate(Entry[] memory entries) public view returns (address global, bytes32 salt, address local_) {
         salt = keccak256(abi.encode(entries));
-        ref = Clones.predictDeterministicAddress(address(this), salt, address(this));
+        global = Clones.predictDeterministicAddress(address(this), salt, address(this));
 
         for (uint256 i; i < entries.length; ++i) {
             if (entries[i].chainId == block.chainid) {
-                if (target_ != address(0)) revert DuplicateChainId();
-                target_ = entries[i].target;
-                if (target_ == address(0)) revert TargetIsZero();
+                if (local_ != address(0)) revert DuplicateChainId();
+                local_ = entries[i].local;
+                if (local_ == address(0)) revert TargetIsZero();
             }
         }
-        if (target_ == address(0)) revert UnsupportedChain();
+        if (local_ == address(0)) revert UnsupportedChain();
     }
 
     /// @inheritdoc IOmniRefProto
-    function clone(Entry[] memory entries) public returns (address ref, bytes32 salt, address target_) {
-        (ref, salt, target_) = locate(entries);
-        if (ref.code.length == 0) {
+    function clone(Entry[] memory entries) public returns (address global, bytes32 salt, address local_) {
+        (global, salt, local_) = locate(entries);
+        if (global.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
-            OmniRef(ref).__OmniRef_init(target_);
+            OmniRef(global).__OmniRef_init(local_);
         }
     }
 

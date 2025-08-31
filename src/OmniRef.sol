@@ -17,24 +17,24 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
 contract OmniRef is IOmniRef, IOmniRefProto {
-    address private _target;
+    address private _local;
 
     constructor() {
         // Prevent the implementation contract from being initialized.
-        _target = address(this);
+        _local = address(this);
     }
 
     /// @dev Initialize the target address with the entry for the current chain.
     /// Can only be called once by the prototype during creation.
     /// @param target_ The target address for the current chain.
     function __OmniRef_init(address target_) public {
-        if (_target != address(0)) revert AlreadyInitialized();
-        _target = target_;
-        emit Created(address(this), target_);
+        if (_local != address(0)) revert AlreadyInitialized();
+        _local = target_;
+        emit Cloned(address(this), target_);
     }
 
     /// @inheritdoc IOmniRefProto
-    function createPrediction(Entry[] memory entries)
+    function locate(Entry[] memory entries)
         public
         view
         returns (address ref, bytes32 salt, address target_)
@@ -53,8 +53,8 @@ contract OmniRef is IOmniRef, IOmniRefProto {
     }
 
     /// @inheritdoc IOmniRefProto
-    function create(Entry[] memory entries) public returns (address ref, bytes32 salt, address target_) {
-        (ref, salt, target_) = createPrediction(entries);
+    function clone(Entry[] memory entries) public returns (address ref, bytes32 salt, address target_) {
+        (ref, salt, target_) = locate(entries);
         if (ref.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
             OmniRef(ref).__OmniRef_init(target_);
@@ -62,7 +62,7 @@ contract OmniRef is IOmniRef, IOmniRefProto {
     }
 
     /// @inheritdoc IOmniRef
-    function target() external view returns (address) {
-        return _target;
+    function local() external view returns (address) {
+        return _local;
     }
 }

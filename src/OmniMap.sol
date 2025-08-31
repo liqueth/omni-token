@@ -6,15 +6,14 @@ import "./interfaces/IOmniMap.sol";
 import "./interfaces/IOmniMapProto.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @title OmniMap
-/// @notice Ensures the same contract address exists on every chain, with each instance
-/// immutably referencing its chain’s designated local.
-/// @dev Deployed deterministically with CREATE2, OmniMap binds immutably to the local
-/// local for the current chain. This provides a trustless reference with no governance
+/// @notice Map a global immutable contract address existing on many chains
+/// to a local immutable address unique to each individual chain.
+/// @dev Deployed deterministically with CREATE2, OmniMap provides a trustless reference with no governance
 /// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
+/// @dev The implementation contract is also a protofactory, allowing anyone to deploy new OmniMaps.
 /// @author Paul Reinholdtsen
 contract OmniMap is IOmniMap, IOmniMapProto {
     /// @inheritdoc IOmniMap

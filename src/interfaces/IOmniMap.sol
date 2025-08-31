@@ -2,17 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-/// @title OmniMap
-/// @notice Ensures the same contract address exists on every chain, with each instance
-/// immutably referencing its chain’s designated local.
-/// @dev Deployed deterministically with CREATE2, OmniMap binds immutably to the local
-/// local for the current chain. This provides a trustless reference with no governance
-/// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
-/// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
-/// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
-/// bridges, and explorers that require a single uniform reference across chains.
+/// @notice Map a global immutable contract address existing on many chains
+/// to a local immutable address unique to each individual chain.
 /// @author Paul Reinholdtsen
 interface IOmniMap {
-    /// @notice Return the chain‑specific address for this chain.
+    /// @notice Return the chain‑specific address.
     function local() external view returns (address);
 }

@@ -4,9 +4,9 @@ pragma solidity ^0.8.20;
 
 /// @title IOmniRefProto
 /// @notice Ensures the same contract address exists on every chain, with each instance
-/// immutably referencing its chain’s designated target.
+/// immutably referencing its chain’s designated local.
 /// @dev Deployed deterministically with CREATE2, OmniRef binds immutably to the local
-/// target for the current chain. This provides a trustless reference with no governance
+/// local for the current chain. This provides a trustless reference with no governance
 /// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
@@ -22,13 +22,13 @@ interface IOmniRefProto {
     /// @notice Revert if there is more than one entry with the same chainId.
     error DuplicateChainId();
 
-    /// @notice Revert if any target address is zero.
+    /// @notice Revert if any local address is zero.
     error TargetIsZero();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed referrer, address indexed target);
+    event Cloned(address indexed referrer, address indexed local);
 
-    /// @notice Map a chainId to a target.
+    /// @notice Map a chainId to a local.
     struct Entry {
         uint256 chainId;
         address local;
@@ -36,7 +36,7 @@ interface IOmniRefProto {
 
     /// @notice Predict the address of a created OmniRef.
     /// @dev Revert if clone would revert.
-    /// @param entries The array of chainId/target pairs to choose from.
+    /// @param entries The array of chainId/local pairs to choose from.
     /// @return global The address of the created or existing clone.
     /// @return salt The salt used to create the clone.
     /// @return local The local address for the current chain.

@@ -8,9 +8,9 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @title OmniRef
 /// @notice Ensures the same contract address exists on every chain, with each instance
-/// immutably referencing its chain’s designated target.
+/// immutably referencing its chain’s designated local.
 /// @dev Deployed deterministically with CREATE2, OmniRef binds immutably to the local
-/// target for the current chain. This provides a trustless reference with no governance
+/// local for the current chain. This provides a trustless reference with no governance
 /// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
@@ -24,9 +24,9 @@ contract OmniRef is IOmniRef, IOmniRefProto {
         _local = address(this);
     }
 
-    /// @dev Initialize the target address with the entry for the current chain.
-    /// Can only be called once by the prototype during creation.
-    /// @param local_ The target address for the current chain.
+    /// @dev Initialize the local address with the entry for the current chain.
+    /// Can only be called once by the prototype during cloning.
+    /// @param local_ The local address for the current chain.
     function __OmniRef_init(address local_) public {
         if (_local != address(0)) revert AlreadyInitialized();
         _local = local_;

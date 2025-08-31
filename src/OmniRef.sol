@@ -5,22 +5,14 @@ pragma solidity ^0.8.20;
 import "./interfaces/IOmniRef.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @title OmniRef
-/// @notice Immutable reference contract that deploys identically across chains.
-/// @dev Stores a single target address derived from chain-specific init data.
-/// Acts as the canonical "prototype" instance from which others may be created.
-/// The code is identical across all chains, but the state (the target) differs.
+/// @notice OmniRef maps a uniform contract address across chains to a chain specific address.
+/// @dev Deployed at the same address on every chain, OmniRef immutably binds to
+/// the chain’s local target, providing a trustless reference with no governance
+/// or upgrade risk. This removes off-chain registries and per-chain config,
+/// letting contracts, SDKs, and UIs hardcode one address and always resolve locally.
+/// Applications: cross-chain endpoints (oracles/messengers/executors), wallets/bridges
+/// and explorers needing a single, immutable address that maps to the correct local contract.
 contract OmniRef is IOmniRef {
-    event Referenced(address indexed target);
-
-    error AlreadyInitialized();
-
-    struct Entry {
-        uint256 chainId;
-        address target;
-    }
-
-    /// @notice The chain‑specific address for this chain.
     address private _target;
 
     constructor() {
@@ -28,32 +20,42 @@ contract OmniRef is IOmniRef {
         _target = address(this);
     }
 
-    function initialize(Entry[] memory entries) public {
+    /// @dev Initialize the target address with the entry for the current chain.
+    /// Can only be called once by the prototype during creation.
+    /// @param entries The array of chainId/target pairs to choose from.
+    function __OmniRef_init(Entry[] memory entries) public {
         if (_target != address(0)) revert AlreadyInitialized();
+
+        address t;
 
         for (uint256 i; i < entries.length; ++i) {
             if (entries[i].chainId == block.chainid) {
-                _target = entries[i].target;
-                emit Referenced(_target);
-                return;
+                if (t != address(0)) revert DuplicateChainId();
+                t = entries[i].target;
+                if (t == address(0)) revert TargetIsZero();
             }
         }
-        revert UnsupportedChain();
+        if (t == address(0)) revert UnsupportedChain();
+        _target = t;
+        emit Referenced(_target);
     }
 
+    /// @inheritdoc IOmniRef
     function createPrediction(Entry[] memory entries) public view returns (address ref, bytes32 salt) {
         salt = keccak256(abi.encode(entries));
         ref = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
+    /// @inheritdoc IOmniRef
     function create(Entry[] memory entries) public returns (address ref, bytes32 salt) {
         (ref, salt) = createPrediction(entries);
-        if (address(ref).code.length == 0) {
+        if (ref.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
-            OmniRef(address(ref)).initialize(entries);
+            OmniRef(ref).__OmniRef_init(entries);
         }
     }
 
+    /// @inheritdoc IOmniRef
     function target() external view returns (address) {
         return _target;
     }

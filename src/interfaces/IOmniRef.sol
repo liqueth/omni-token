@@ -2,13 +2,15 @@
 
 pragma solidity ^0.8.20;
 
-/// @notice OmniRef maps a uniform contract address across chains to a chain specific address.
-/// @dev Deployed at the same address on every chain, OmniRef immutably binds to
-/// the chain’s local target, providing a trustless reference with no governance
-/// or upgrade risk. This removes off-chain registries and per-chain config,
-/// letting contracts, SDKs, and UIs hardcode one address and always resolve locally.
-/// Applications: cross-chain endpoints (oracles/messengers/executors), wallets/bridges
-/// and explorers needing a single, immutable address that maps to the correct local contract.
+/// @title OmniRef
+/// @notice Ensures the same contract address exists on every chain, with each instance
+/// immutably referencing its chain’s designated target.
+/// @dev Deployed deterministically with CREATE2, OmniRef binds immutably to the local
+/// target for the current chain. This provides a trustless reference with no governance
+/// or upgrade risk, eliminating the need for off-chain registries or per-chain config.
+/// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
+/// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
+/// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
 interface IOmniRef {
     /// @notice Revert if someone tries to reinitialize.
@@ -23,8 +25,8 @@ interface IOmniRef {
     /// @notice Revert if any target address is zero.
     error TargetIsZero();
 
-    /// @notice Emit when the target address is referenced during initialization.
-    event Referenced(address indexed target);
+    /// @notice Emit when a clone is created.
+    event Created(address indexed referrer, address indexed target);
 
     /// @notice Map a chainId to a target.
     struct Entry {

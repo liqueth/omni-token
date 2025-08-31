@@ -17,20 +17,9 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @author Paul Reinholdtsen
 contract OmniRef is IOmniRef, IOmniRefProto {
-    address private _local;
-
-    constructor() {
-        // Prevent the implementation contract from being initialized.
-        _local = address(this);
-    }
-
-    /// @dev Initialize the local address with the entry for the current chain.
-    /// Can only be called once by the prototype during cloning.
-    /// @param local_ The local address for the current chain.
-    function __OmniRef_init(address local_) public {
-        if (_local != address(0)) revert AlreadyInitialized();
-        _local = local_;
-        emit Cloned(address(this), local_);
+    /// @inheritdoc IOmniRef
+    function local() external view returns (address) {
+        return _local;
     }
 
     /// @inheritdoc IOmniRefProto
@@ -57,8 +46,19 @@ contract OmniRef is IOmniRef, IOmniRefProto {
         }
     }
 
-    /// @inheritdoc IOmniRef
-    function local() external view returns (address) {
-        return _local;
+    address private _local;
+
+    constructor() {
+        // Prevent the implementation contract from being initialized.
+        _local = address(this);
+    }
+
+    /// @dev Initialize the local address with the entry for the current chain.
+    /// Can only be called once by the prototype during cloning.
+    /// @param local_ The local address for the current chain.
+    function __OmniRef_init(address local_) public {
+        if (_local != address(0)) revert AlreadyInitialized();
+        _local = local_;
+        emit Cloned(address(this), local_);
     }
 }

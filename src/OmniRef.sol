@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// letting contracts, SDKs, and UIs hardcode one address and always resolve locally.
 /// Applications: cross-chain endpoints (oracles/messengers/executors), wallets/bridges
 /// and explorers needing a single, immutable address that maps to the correct local contract.
+/// @author Paul Reinholdtsen
 contract OmniRef is IOmniRef {
     address private _target;
 

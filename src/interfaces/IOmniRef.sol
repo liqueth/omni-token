@@ -9,6 +9,7 @@ pragma solidity ^0.8.20;
 /// letting contracts, SDKs, and UIs hardcode one address and always resolve locally.
 /// Applications: cross-chain endpoints (oracles/messengers/executors), wallets/bridges
 /// and explorers needing a single, immutable address that maps to the correct local contract.
+/// @author Paul Reinholdtsen
 interface IOmniRef {
     /// @notice Revert if someone tries to reinitialize.
     error AlreadyInitialized();

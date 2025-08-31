@@ -16,11 +16,12 @@
             | select(.value.version == $version and .value.deprecated != true)
             | {
                 id: .value.id,
+                name: .value.canonicalName,
                 dvn: .key
             }
         ]
         | sort_by(.id),
-        rpcs: .rpcs
+        rpcs: (.rpcs // []) | sort_by(.weight) | reverse
     }
     | select(.deployments | length == 1)
 ]

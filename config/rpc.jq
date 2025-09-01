@@ -18,4 +18,4 @@ def rpad($len; $ch):
     }
 ]
 | sort_by(.chainId)
-| .[] | (.chainId | tostring | rpad(11; " ")) + " = " + (.rpc | rpad(70; " ")) + " # " + .chainName
+| .[] | (.chainId | tostring | rpad(11; " ")) + " = \"" + (.rpc + "\"" | rpad(70; " ")) + " # " + .chainName

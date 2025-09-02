@@ -1,0 +1,1682 @@
+[
+  {
+    "rpc": "https://eth.drpc.org",
+    "chainId": 1,
+    "order": 0
+  },
+  {
+    "rpc": "https://ethereum.publicnode.com",
+    "chainId": 1,
+    "order": 1
+  },
+  {
+    "rpc": "https://eth-mainnet.public.blastapi.io",
+    "chainId": 1,
+    "order": 2
+  },
+  {
+    "rpc": "https://eth.llamarpc.com/rpc/${LLAMANODES_API_KEY}",
+    "chainId": 1,
+    "order": 3
+  },
+  {
+    "rpc": "https://cloudflare-eth.com",
+    "chainId": 1,
+    "order": 4
+  },
+  {
+    "rpc": "https://eth-mainnet.alchemyapi.io/v2/84tGz8xVIWFkagsaSzNjObh7aSPbxeXD",
+    "chainId": 1,
+    "order": 5
+  },
+  {
+    "rpc": "https://eth-mainnet.alchemyapi.io/v2/VsPzIezK0AtqsnrWAuV0Gew-MS7H_E5E",
+    "chainId": 1,
+    "order": 6
+  },
+  {
+    "rpc": "https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API_KEY}",
+    "chainId": 1,
+    "order": 7
+  },
+  {
+    "rpc": "https://mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 1,
+    "order": 8
+  },
+  {
+    "rpc": "https://eth-pokt.nodies.app",
+    "chainId": 1,
+    "order": 9
+  },
+  {
+    "rpc": "https://optimism.drpc.org",
+    "chainId": 10,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.optimism.io",
+    "chainId": 10,
+    "order": 1
+  },
+  {
+    "rpc": "https://opt-mainnet.g.alchemy.com/v2/3glkhRJRgzHCB2NbDwiQa7G_FTdqn3-T",
+    "chainId": 10,
+    "order": 2
+  },
+  {
+    "rpc": "https://opt-mainnet.g.alchemy.com/v2/7urLa-8k2RR_UYc0exh-b0qg4xySL5KA",
+    "chainId": 10,
+    "order": 3
+  },
+  {
+    "rpc": "https://optimism-mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 10,
+    "order": 4
+  },
+  {
+    "rpc": "https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}",
+    "chainId": 10,
+    "order": 5
+  },
+  {
+    "rpc": "https://op-pokt.nodies.app",
+    "chainId": 10,
+    "order": 6
+  },
+  {
+    "rpc": "https://flare.rpc.thirdweb.com",
+    "chainId": 14,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/flare",
+    "chainId": 14,
+    "order": 1
+  },
+  {
+    "rpc": "https://evm.cronos.org",
+    "chainId": 25,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-dev.cronos.org",
+    "chainId": 25,
+    "order": 1
+  },
+  {
+    "rpc": "https://dimension-evm-rpc.xpla.dev",
+    "chainId": 37,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.telos.net/evm",
+    "chainId": 40,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet.telos.net/evm",
+    "chainId": 41,
+    "order": 0
+  },
+  {
+    "rpc": "https://cube-evm-rpc.xpla.dev",
+    "chainId": 47,
+    "order": 0
+  },
+  {
+    "rpc": "https://bsc.drpc.org",
+    "chainId": 56,
+    "order": 0
+  },
+  {
+    "rpc": "https://bscrpc.com",
+    "chainId": 56,
+    "order": 1
+  },
+  {
+    "rpc": "https://binance.nodereal.io",
+    "chainId": 56,
+    "order": 2
+  },
+  {
+    "rpc": "https://bsc-dataseed.binance.org",
+    "chainId": 56,
+    "order": 3
+  },
+  {
+    "rpc": "https://bsc-dataseed1.binance.org",
+    "chainId": 56,
+    "order": 4
+  },
+  {
+    "rpc": "https://bsc-dataseed2.binance.org",
+    "chainId": 56,
+    "order": 5
+  },
+  {
+    "rpc": "https://bsc-dataseed3.binance.org",
+    "chainId": 56,
+    "order": 6
+  },
+  {
+    "rpc": "https://bsc-dataseed4.binance.org",
+    "chainId": 56,
+    "order": 7
+  },
+  {
+    "rpc": "https://bsc-pokt.nodies.app",
+    "chainId": 56,
+    "order": 8
+  },
+  {
+    "rpc": "https://exchainrpc.okex.org",
+    "chainId": 66,
+    "order": 0
+  },
+  {
+    "rpc": "https://evmtestnet.confluxrpc.com",
+    "chainId": 71,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-2.japanopenchain.org:8545",
+    "chainId": 81,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-1.japanopenchain.org:8545",
+    "chainId": 81,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-1.japanopenchain.org:8545",
+    "chainId": 81,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc-2.japanopenchain.org:8545",
+    "chainId": 81,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.meter.io",
+    "chainId": 82,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpctest.meter.io",
+    "chainId": 83,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.tomochain.com",
+    "chainId": 88,
+    "order": 0
+  },
+  {
+    "rpc": "https://data-seed-prebsc-1-s3.binance.org:8545",
+    "chainId": 97,
+    "order": 0
+  },
+  {
+    "rpc": "https://data-seed-prebsc-2-s2.binance.org:8545",
+    "chainId": 97,
+    "order": 1
+  },
+  {
+    "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545",
+    "chainId": 97,
+    "order": 2
+  },
+  {
+    "rpc": "https://data-seed-prebsc-1-s2.binance.org:8545",
+    "chainId": 97,
+    "order": 3
+  },
+  {
+    "rpc": "https://data-seed-prebsc-2-s1.binance.org:8545",
+    "chainId": 97,
+    "order": 4
+  },
+  {
+    "rpc": "https://gnosis.drpc.org",
+    "chainId": 100,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.gnosischain.com",
+    "chainId": 100,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.ankr.com/gnosis",
+    "chainId": 100,
+    "order": 2
+  },
+  {
+    "rpc": "https://gnosis-pokt.nodies.app",
+    "chainId": 100,
+    "order": 3
+  },
+  {
+    "rpc": "https://gnosis-mainnet.public.blastapi.io",
+    "chainId": 100,
+    "order": 4
+  },
+  {
+    "rpc": "wss://rpc.gnosischain.com/wss",
+    "chainId": 100,
+    "order": 5
+  },
+  {
+    "rpc": "https://testnet.rpc.gobob.xyz",
+    "chainId": 111,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.fuse.io",
+    "chainId": 122,
+    "order": 0
+  },
+  {
+    "rpc": "https://fuse-pokt.nodies.app",
+    "chainId": 122,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.fusespark.io",
+    "chainId": 123,
+    "order": 0
+  },
+  {
+    "rpc": "https://polygon.drpc.org",
+    "chainId": 137,
+    "order": 0
+  },
+  {
+    "rpc": "https://matic-mainnet.chainstacklabs.com",
+    "chainId": 137,
+    "order": 1
+  },
+  {
+    "rpc": "https://polygon-rpc.com",
+    "chainId": 137,
+    "order": 2
+  },
+  {
+    "rpc": "https://polygon.llamarpc.com/rpc/${LLAMANODES_API_KEY}",
+    "chainId": 137,
+    "order": 3
+  },
+  {
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/me6Q04fTd2kTT74BUYAp82d_3KL-ObCw",
+    "chainId": 137,
+    "order": 4
+  },
+  {
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/q3f-QpPeM_g7rL3G21Cr9tFeuYAquyYl",
+    "chainId": 137,
+    "order": 5
+  },
+  {
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}",
+    "chainId": 137,
+    "order": 6
+  },
+  {
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}",
+    "chainId": 137,
+    "order": 7
+  },
+  {
+    "rpc": "https://polygon-pokt.nodies.app",
+    "chainId": 137,
+    "order": 8
+  },
+  {
+    "rpc": "https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 137,
+    "order": 9
+  },
+  {
+    "rpc": "https://json-rpc.evm.shimmer.network",
+    "chainId": 148,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.testnet.tenet.org",
+    "chainId": 155,
+    "order": 0
+  },
+  {
+    "rpc": "https://pacific-rpc.manta.network/http",
+    "chainId": 169,
+    "order": 0
+  },
+  {
+    "rpc": "https://testrpc.xlayer.tech",
+    "chainId": 195,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.xlayer.tech",
+    "chainId": 196,
+    "order": 0
+  },
+  {
+    "rpc": "https://opbnb.drpc.org",
+    "chainId": 204,
+    "order": 0
+  },
+  {
+    "rpc": "https://opbnb-mainnet-rpc.bnbchain.org",
+    "chainId": 204,
+    "order": 1
+  },
+  {
+    "rpc": "https://opbnb.publicnode.com",
+    "chainId": 204,
+    "order": 2
+  },
+  {
+    "rpc": "wss://opbnb.publicnode.com",
+    "chainId": 204,
+    "order": 3
+  },
+  {
+    "rpc": "https://testnet.zkevm.cronos.org",
+    "chainId": 240,
+    "order": 0
+  },
+  {
+    "rpc": "https://seed.testnet.zkevm.cronos.org",
+    "chainId": 240,
+    "order": 1
+  },
+  {
+    "rpc": "https://fantom.drpc.org",
+    "chainId": 250,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ftm.tools",
+    "chainId": 250,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc2.fantom.network",
+    "chainId": 250,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc3.fantom.network",
+    "chainId": 250,
+    "order": 3
+  },
+  {
+    "rpc": "https://fantom-pokt.nodies.app",
+    "chainId": 250,
+    "order": 4
+  },
+  {
+    "rpc": "https://rpc.frax.com",
+    "chainId": 252,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.orderly.network",
+    "chainId": 291,
+    "order": 0
+  },
+  {
+    "rpc": "https://l2-orderly-mainnet-0.t.conduit.xyz",
+    "chainId": 291,
+    "order": 1
+  },
+  {
+    "rpc": "https://mainnet.hashio.io/api",
+    "chainId": 295,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet.hashio.io/api",
+    "chainId": 296,
+    "order": 0
+  },
+  {
+    "rpc": "https://zksync-sepolia.drpc.org",
+    "chainId": 300,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia.era.zksync.dev",
+    "chainId": 300,
+    "order": 1
+  },
+  {
+    "rpc": "https://zksync-era-sepolia.blockpi.network/v1/rpc/public",
+    "chainId": 300,
+    "order": 2
+  },
+  {
+    "rpc": "https://zksync.drpc.org",
+    "chainId": 324,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.era.zksync.io",
+    "chainId": 324,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/defi-kingdoms/dfk-chain-testnet/rpc",
+    "chainId": 335,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-t3.cronos.org",
+    "chainId": 338,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-dev-t3.cronos.org",
+    "chainId": 338,
+    "order": 1
+  },
+  {
+    "rpc": "https://mainnet.zkevm.cronos.org",
+    "chainId": 388,
+    "order": 0
+  },
+  {
+    "rpc": "https://seed.zkevm.cronos.org",
+    "chainId": 388,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.form.network/infra-partner-http",
+    "chainId": 478,
+    "order": 0
+  },
+  {
+    "rpc": "https://worldchain-mainnet.g.alchemy.com/public",
+    "chainId": 480,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm.astar.network",
+    "chainId": 592,
+    "order": 0
+  },
+  {
+    "rpc": "https://astar.public.blastapi.io",
+    "chainId": 592,
+    "order": 1
+  },
+  {
+    "rpc": "https://mainnet.evm.nodes.onflow.org",
+    "chainId": 747,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia.mode.network",
+    "chainId": 919,
+    "order": 0
+  },
+  {
+    "rpc": "https://api.baobab.klaytn.net:8651",
+    "chainId": 1001,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm.confluxrpc.com",
+    "chainId": 1030,
+    "order": 0
+  },
+  {
+    "rpc": "https://json-rpc.evm.iotaledger.net",
+    "chainId": 1075,
+    "order": 0
+  },
+  {
+    "rpc": "https://andromeda.metis.io/?owner=1088",
+    "chainId": 1088,
+    "order": 0
+  },
+  {
+    "rpc": "https://metis.drpc.org",
+    "chainId": 1088,
+    "order": 1
+  },
+  {
+    "rpc": "https://metis-pokt.nodies.app",
+    "chainId": 1088,
+    "order": 2
+  },
+  {
+    "rpc": "https://zkevm-rpc.com",
+    "chainId": 1101,
+    "order": 0
+  },
+  {
+    "rpc": "https://polygon-zkevm.drpc.org",
+    "chainId": 1101,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.test.btcs.network/",
+    "chainId": 1115,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.coredao.org/",
+    "chainId": 1116,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-core.icecreamswap.com",
+    "chainId": 1116,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.api.lisk.com",
+    "chainId": 1135,
+    "order": 0
+  },
+  {
+    "rpc": "https://lisk.drpc.org",
+    "chainId": 1135,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.api.moonbeam.network",
+    "chainId": 1284,
+    "order": 0
+  },
+  {
+    "rpc": "wss://wss.api.moonbeam.network",
+    "chainId": 1284,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.api.moonriver.moonbeam.network",
+    "chainId": 1285,
+    "order": 0
+  },
+  {
+    "rpc": "wss://wss.api.moonriver.moonbeam.network",
+    "chainId": 1285,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.api.moonbase.moonbeam.network",
+    "chainId": 1287,
+    "order": 0
+  },
+  {
+    "rpc": "wss://wss.api.moonbase.moonbeam.network",
+    "chainId": 1287,
+    "order": 1
+  },
+  {
+    "rpc": "https://mainnet-node.m9.glue.net",
+    "chainId": 1300,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet-node-1.server-1.glue.net",
+    "chainId": 1300,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-rpc.sei-apis.com",
+    "chainId": 1329,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.islander.vana.org",
+    "chainId": 1480,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.vana.org",
+    "chainId": 1480,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.tenet.org",
+    "chainId": 1559,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.gravity.xyz",
+    "chainId": 1625,
+    "order": 0
+  },
+  {
+    "rpc": "https://gobi-rpc.horizenlabs.io/ethv1",
+    "chainId": 1663,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/horizen_gobi_testnet",
+    "chainId": 1663,
+    "order": 1
+  },
+  {
+    "rpc": "https://testnet-evm.lif3.com",
+    "chainId": 1811,
+    "order": 0
+  },
+  {
+    "rpc": "https://replicator.pegasus.lightlink.io/rpc/v1",
+    "chainId": 1891,
+    "order": 0
+  },
+  {
+    "rpc": "https://endpoints.omniatech.io/v1/lightlink/pegasus/public",
+    "chainId": 1891,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.ankr.com/swell",
+    "chainId": 1923,
+    "order": 0
+  },
+  {
+    "rpc": "https://swell-mainnet.alt.technology",
+    "chainId": 1923,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.minato.soneium.org/",
+    "chainId": 1946,
+    "order": 0
+  },
+  {
+    "rpc": "https://sanko-arb-sepolia.rpc.caldera.xyz/http",
+    "chainId": 1992,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.sanko.xyz",
+    "chainId": 1996,
+    "order": 0
+  },
+  {
+    "rpc": "https://subnets.avax.network/kiwi/testnet/rpc",
+    "chainId": 2037,
+    "order": 0
+  },
+  {
+    "rpc": "https://subnets.avax.network/shrapnel/testnet/rpc",
+    "chainId": 2038,
+    "order": 0
+  },
+  {
+    "rpc": "https://subnets.avax.network/shrapnel/mainnet/rpc",
+    "chainId": 2044,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm.testnet.kava.io",
+    "chainId": 2221,
+    "order": 0
+  },
+  {
+    "rpc": "wss://wevm.testnet.kava.io",
+    "chainId": 2221,
+    "order": 1
+  },
+  {
+    "rpc": "https://kava.drpc.org",
+    "chainId": 2222,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm.kava.io",
+    "chainId": 2222,
+    "order": 1
+  },
+  {
+    "rpc": "https://evm2.kava.io",
+    "chainId": 2222,
+    "order": 2
+  },
+  {
+    "rpc": "wss://wevm.kava.io",
+    "chainId": 2222,
+    "order": 3
+  },
+  {
+    "rpc": "wss://wevm2.kava.io",
+    "chainId": 2222,
+    "order": 4
+  },
+  {
+    "rpc": "https://kava-pokt.nodies.app",
+    "chainId": 2222,
+    "order": 5
+  },
+  {
+    "rpc": "https://rpc.goat.network",
+    "chainId": 2345,
+    "order": 0
+  },
+  {
+    "rpc": "https://polygon-zkevm-cardona.blockpi.network/v1/rpc/public",
+    "chainId": 2442,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.cardona.zkevm-rpc.com",
+    "chainId": 2442,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.testnet.frax.com",
+    "chainId": 2522,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.rpc.inevm.com/http",
+    "chainId": 2525,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc1.ocean.bahamut.io",
+    "chainId": 2552,
+    "order": 0
+  },
+  {
+    "rpc": "https://api.raas.matterhosted.dev",
+    "chainId": 2741,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-holesky.morphl2.io",
+    "chainId": 2810,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.morphl2.io",
+    "chainId": 2818,
+    "order": 0
+  },
+  {
+    "rpc": "https://node.botanixlabs.dev",
+    "chainId": 3636,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.btxtestchain.com",
+    "chainId": 3637,
+    "order": 0
+  },
+  {
+    "rpc": "https://test.doschain.com",
+    "chainId": 3939,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.testnet.fantom.network/",
+    "chainId": 4002,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/fantom_testnet",
+    "chainId": 4002,
+    "order": 1
+  },
+  {
+    "rpc": "https://fantom-testnet.public.blastapi.io",
+    "chainId": 4002,
+    "order": 2
+  },
+  {
+    "rpc": "https://merlin.blockpi.network/v1/rpc/public",
+    "chainId": 4200,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.merlinchain.io",
+    "chainId": 4200,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/beam/mainnet/rpc",
+    "chainId": 4337,
+    "order": 0
+  },
+  {
+    "rpc": "https://l2-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz",
+    "chainId": 4460,
+    "order": 0
+  },
+  {
+    "rpc": "https://worldchain-sepolia.g.alchemy.com/public",
+    "chainId": 4801,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.mantle.xyz",
+    "chainId": 5000,
+    "order": 0
+  },
+  {
+    "rpc": "https://mantle.drpc.org",
+    "chainId": 5000,
+    "order": 1
+  },
+  {
+    "rpc": "https://mantle.publicnode.com",
+    "chainId": 5000,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.testnet.citrea.xyz",
+    "chainId": 5115,
+    "order": 0
+  },
+  {
+    "rpc": "https://opbnb-testnet-rpc.bnbchain.org",
+    "chainId": 5611,
+    "order": 0
+  },
+  {
+    "rpc": "https://fullnode-mainnet.bouncebitapi.com",
+    "chainId": 6001,
+    "order": 0
+  },
+  {
+    "rpc": "https://carrot.megaeth.com/rpc",
+    "chainId": 6342,
+    "order": 0
+  },
+  {
+    "rpc": "https://cyber.alt.technology",
+    "chainId": 7560,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.cyber.co",
+    "chainId": 7560,
+    "order": 1
+  },
+  {
+    "rpc": "https://canto.slingshot.finance",
+    "chainId": 7700,
+    "order": 0
+  },
+  {
+    "rpc": "https://canto.neobase.one",
+    "chainId": 7700,
+    "order": 1
+  },
+  {
+    "rpc": "https://mainnode.plexnode.org:8545",
+    "chainId": 7700,
+    "order": 2
+  },
+  {
+    "rpc": "https://testnet-archive.plexnode.wtf",
+    "chainId": 7701,
+    "order": 0
+  },
+  {
+    "rpc": "https://main.doschain.com",
+    "chainId": 7979,
+    "order": 0
+  },
+  {
+    "rpc": "https://public-node-api.klaytnapi.com/v1/cypress",
+    "chainId": 8217,
+    "order": 0
+  },
+  {
+    "rpc": "https://klaytn-pokt.nodies.app",
+    "chainId": 8217,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/space/mainnet/rpc",
+    "chainId": 8227,
+    "order": 0
+  },
+  {
+    "rpc": "https://base.drpc.org",
+    "chainId": 8453,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.base.org",
+    "chainId": 8453,
+    "order": 1
+  },
+  {
+    "rpc": "https://base.meowrpc.com",
+    "chainId": 8453,
+    "order": 2
+  },
+  {
+    "rpc": "https://base-pokt.nodies.app",
+    "chainId": 8453,
+    "order": 3
+  },
+  {
+    "rpc": "https://base.blockpi.network/v1/rpc/public",
+    "chainId": 8453,
+    "order": 4
+  },
+  {
+    "rpc": "https://json-rpc.evm.iotaledger.net",
+    "chainId": 8822,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-1.testnet.japanopenchain.org:8545",
+    "chainId": 10081,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-2.testnet.japanopenchain.org:8545",
+    "chainId": 10081,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.chiadochain.net",
+    "chainId": 10200,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.chiado.gnosis.gateway.fm",
+    "chainId": 10200,
+    "order": 1
+  },
+  {
+    "rpc": "wss://rpc.chiadochain.net/wss",
+    "chainId": 10200,
+    "order": 2
+  },
+  {
+    "rpc": "https://gnosis-chiado.publicnode.com",
+    "chainId": 10200,
+    "order": 3
+  },
+  {
+    "rpc": "wss://gnosis-chiado.publicnode.com",
+    "chainId": 10200,
+    "order": 4
+  },
+  {
+    "rpc": "https://rpc-gs-testnet.gameswift.io",
+    "chainId": 10888,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-testnet.gameswift.io",
+    "chainId": 10888,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc-mainnet-1.bevm.io/",
+    "chainId": 11501,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-mainnet-2.bevm.io/",
+    "chainId": 11501,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/beam/testnet/rpc",
+    "chainId": 13337,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.moksha.vana.org",
+    "chainId": 14800,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.holesky.ethpandaops.io",
+    "chainId": 17000,
+    "order": 0
+  },
+  {
+    "rpc": "https://ethereum-holesky.publicnode.com",
+    "chainId": 17000,
+    "order": 1
+  },
+  {
+    "rpc": "wss://ethereum-holesky.publicnode.com",
+    "chainId": 17000,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.unreal-orbit.gelato.digital",
+    "chainId": 18233,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.mainnet.oasys.homeverse.games",
+    "chainId": 19011,
+    "order": 0
+  },
+  {
+    "rpc": "https://curtis.rpc.caldera.xyz/http",
+    "chainId": 33111,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.mode.network",
+    "chainId": 34443,
+    "order": 0
+  },
+  {
+    "rpc": "https://1rpc.io/mode",
+    "chainId": 34443,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.testnet.oasys.homeverse.games",
+    "chainId": 40875,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.edu-chain.raas.gelato.cloud",
+    "chainId": 41923,
+    "order": 0
+  },
+  {
+    "rpc": "https://arbitrum.drpc.org",
+    "chainId": 42161,
+    "order": 0
+  },
+  {
+    "rpc": "https://arb1.arbitrum.io/rpc",
+    "chainId": 42161,
+    "order": 1
+  },
+  {
+    "rpc": "https://arb-mainnet.g.alchemy.com/v2/N71NRfHZGk2jbnDkW-GiM6fTe6ysJOmp",
+    "chainId": 42161,
+    "order": 2
+  },
+  {
+    "rpc": "https://arb-mainnet.g.alchemy.com/v2/KhVdIItVH0ttiQvBYYO5NPL-De-gLWoW",
+    "chainId": 42161,
+    "order": 3
+  },
+  {
+    "rpc": "https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}",
+    "chainId": 42161,
+    "order": 4
+  },
+  {
+    "rpc": "https://arbitrum-mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 42161,
+    "order": 5
+  },
+  {
+    "rpc": "https://arb-pokt.nodies.app",
+    "chainId": 42161,
+    "order": 6
+  },
+  {
+    "rpc": "https://arbitrum-nova.drpc.org",
+    "chainId": 42170,
+    "order": 0
+  },
+  {
+    "rpc": "https://nova.arbitrum.io/rpc",
+    "chainId": 42170,
+    "order": 1
+  },
+  {
+    "rpc": "https://celo.drpc.org",
+    "chainId": 42220,
+    "order": 0
+  },
+  {
+    "rpc": "https://forno.celo.org",
+    "chainId": 42220,
+    "order": 1
+  },
+  {
+    "rpc": "wss://forno.celo.org/ws",
+    "chainId": 42220,
+    "order": 2
+  },
+  {
+    "rpc": "https://node.mainnet.etherlink.com",
+    "chainId": 42793,
+    "order": 0
+  },
+  {
+    "rpc": "https://etherlink-mainnet-pub-l5p9tu.zeeve.net/rpc",
+    "chainId": 42793,
+    "order": 1
+  },
+  {
+    "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
+    "chainId": 43113,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/avalanche_fuji",
+    "chainId": 43113,
+    "order": 1
+  },
+  {
+    "rpc": "https://avalanche.drpc.org",
+    "chainId": 43114,
+    "order": 0
+  },
+  {
+    "rpc": "https://api.avax.network/ext/bc/C/rpc",
+    "chainId": 43114,
+    "order": 1
+  },
+  {
+    "rpc": "https://avalanche-mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 43114,
+    "order": 2
+  },
+  {
+    "rpc": "https://avax-pokt.nodies.app/ext/bc/C/rpc",
+    "chainId": 43114,
+    "order": 3
+  },
+  {
+    "rpc": "https://alfajores-forno.celo-testnet.org",
+    "chainId": 44787,
+    "order": 0
+  },
+  {
+    "rpc": "wss://alfajores-forno.celo-testnet.org/ws",
+    "chainId": 44787,
+    "order": 1
+  },
+  {
+    "rpc": "https://zircuit1.p2pify.com",
+    "chainId": 48899,
+    "order": 0
+  },
+  {
+    "rpc": "https://zircuit-mainnet.drpc.org",
+    "chainId": 48900,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.aurora.dev",
+    "chainId": 48900,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc",
+    "chainId": 53935,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.superposition.so",
+    "chainId": 55244,
+    "order": 0
+  },
+  {
+    "rpc": "https://linea-sepolia.blockpi.network/v1/rpc/public",
+    "chainId": 59141,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.sepolia.linea.build",
+    "chainId": 59141,
+    "order": 1
+  },
+  {
+    "rpc": "https://linea-sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+    "chainId": 59141,
+    "order": 2
+  },
+  {
+    "rpc": "https://linea.drpc.org",
+    "chainId": 59144,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.linea.build",
+    "chainId": 59144,
+    "order": 1
+  },
+  {
+    "rpc": "wss://rpc.linea.build",
+    "chainId": 59144,
+    "order": 2
+  },
+  {
+    "rpc": "https://linea-mainnet.infura.io/v3/${INFURA_API_KEY}",
+    "chainId": 59144,
+    "order": 3
+  },
+  {
+    "rpc": "wss://linea-mainnet.infura.io/ws/v3/${INFURA_API_KEY}",
+    "chainId": 59144,
+    "order": 4
+  },
+  {
+    "rpc": "https://sepolia.metisdevops.link",
+    "chainId": 59902,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.gobob.xyz",
+    "chainId": 60808,
+    "order": 0
+  },
+  {
+    "rpc": "https://bob-mainnet.blastapi.io/278bd36b-e02e-4391-a2b6-54e68e6695fd",
+    "chainId": 60808,
+    "order": 1
+  },
+  {
+    "rpc": "https://xchain-testnet-rpc.idex.io",
+    "chainId": 64002,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/polygon_amoy",
+    "chainId": 80002,
+    "order": 0
+  },
+  {
+    "rpc": "https://polygon-amoy.drpc.org",
+    "chainId": 80002,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc-amoy.polygon.technology",
+    "chainId": 80002,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.blast.io",
+    "chainId": 81457,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/blast",
+    "chainId": 81457,
+    "order": 1
+  },
+  {
+    "rpc": "https://blast.din.dev/rpc",
+    "chainId": 81457,
+    "order": 2
+  },
+  {
+    "rpc": "https://blastl2-mainnet.public.blastapi.io",
+    "chainId": 81457,
+    "order": 3
+  },
+  {
+    "rpc": "https://blast.blockpi.network/v1/rpc/public",
+    "chainId": 81457,
+    "order": 4
+  },
+  {
+    "rpc": "https://sepolia.base.org",
+    "chainId": 84532,
+    "order": 0
+  },
+  {
+    "rpc": "https://public.stackup.sh/api/v1/node/base-sepolia",
+    "chainId": 84532,
+    "order": 1
+  },
+  {
+    "rpc": "https://base-sepolia-rpc.publicnode.com",
+    "chainId": 84532,
+    "order": 2
+  },
+  {
+    "rpc": "https://xchain-rpc.idex.io",
+    "chainId": 94524,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-plume-mainnet-0.t.conduit.xyz",
+    "chainId": 98865,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet-rpc.superposition.so",
+    "chainId": 98985,
+    "order": 0
+  },
+  {
+    "rpc": "https://node.ghostnet.etherlink.com",
+    "chainId": 128123,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.taiko.xyz",
+    "chainId": 167000,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.taiko.tools",
+    "chainId": 167000,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.ankr.com/taiko",
+    "chainId": 167000,
+    "order": 2
+  },
+  {
+    "rpc": "https://taiko.blockpi.network/v1/rpc/public",
+    "chainId": 167000,
+    "order": 3
+  },
+  {
+    "rpc": "https://rpc.hekla.taiko.xyz",
+    "chainId": 167009,
+    "order": 0
+  },
+  {
+    "rpc": "https://taiko-hekla.4everland.org/v1/37fa9972c1b1cd5fab542c7bdd4cde2f",
+    "chainId": 167009,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc.ankr.com/taiko_hekla",
+    "chainId": 167009,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.bitlayer.org",
+    "chainId": 200901,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc-camp-network-4xje7wy105.t.conduit.xyz",
+    "chainId": 325000,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia-rollup.arbitrum.io/rpc",
+    "chainId": 421614,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia-rollup.arbitrum.io/rpc",
+    "chainId": 421614,
+    "order": 1
+  },
+  {
+    "rpc": "https://subnets.avax.network/dexalot/testnet/rpc",
+    "chainId": 432201,
+    "order": 0
+  },
+  {
+    "rpc": "https://subnets.avax.network/dexalot/mainnet/rpc",
+    "chainId": 432204,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia-rpc.scroll.io",
+    "chainId": 534351,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.ankr.com/scroll_sepolia_testnet",
+    "chainId": 534351,
+    "order": 1
+  },
+  {
+    "rpc": "https://scroll-sepolia.chainstacklabs.com",
+    "chainId": 534351,
+    "order": 2
+  },
+  {
+    "rpc": "https://scroll-testnet-public.unifra.io",
+    "chainId": 534351,
+    "order": 3
+  },
+  {
+    "rpc": "https://scroll.drpc.org",
+    "chainId": 534352,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.scroll.io",
+    "chainId": 534352,
+    "order": 1
+  },
+  {
+    "rpc": "https://rpc-scroll.icecreamswap.com",
+    "chainId": 534352,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.ankr.com/scroll",
+    "chainId": 534352,
+    "order": 3
+  },
+  {
+    "rpc": "https://scroll-mainnet.chainstacklabs.com",
+    "chainId": 534352,
+    "order": 4
+  },
+  {
+    "rpc": "https://xai-chain.net/rpc",
+    "chainId": 660279,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet-rpc.merlinchain.io",
+    "chainId": 686868,
+    "order": 0
+  },
+  {
+    "rpc": "https://subnets.avax.network/tiltyard/mainnet/rpc",
+    "chainId": 710420,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-rpc-arctic-1.sei-apis.com",
+    "chainId": 713715,
+    "order": 0
+  },
+  {
+    "rpc": "https://evm-rpc.arctic-1.seinetwork.io",
+    "chainId": 713715,
+    "order": 1
+  },
+  {
+    "rpc": "https://testnet.rpc.hemi.network/rpc",
+    "chainId": 743111,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.zklink.io",
+    "chainId": 810180,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia.rpc.zklink.io",
+    "chainId": 810181,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.lootchain.com/http",
+    "chainId": 5151706,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.zora.energy/",
+    "chainId": 7777777,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.sepolia.org",
+    "chainId": 11155111,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc2.sepolia.org",
+    "chainId": 11155111,
+    "order": 1
+  },
+  {
+    "rpc": "https://sepolia.drpc.org",
+    "chainId": 11155111,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc-sepolia.rockx.com",
+    "chainId": 11155111,
+    "order": 3
+  },
+  {
+    "rpc": "https://op-sepolia-pokt.nodies.app",
+    "chainId": 11155111,
+    "order": 4
+  },
+  {
+    "rpc": "https://sepolia.optimism.io",
+    "chainId": 11155420,
+    "order": 0
+  },
+  {
+    "rpc": "https://optimism-sepolia.drpc.org",
+    "chainId": 11155420,
+    "order": 1
+  },
+  {
+    "rpc": "https://endpoints.omniatech.io/v1/op/sepolia/public",
+    "chainId": 11155420,
+    "order": 2
+  },
+  {
+    "rpc": "https://optimism-sepolia.blockpi.network/v1/rpc/public",
+    "chainId": 11155420,
+    "order": 3
+  },
+  {
+    "rpc": "https://maizenet-rpc.usecorn.com",
+    "chainId": 21000000,
+    "order": 0
+  },
+  {
+    "rpc": "https://cyber-testnet.alt.technology",
+    "chainId": 111557560,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.testnet.cyber.co",
+    "chainId": 111557560,
+    "order": 1
+  },
+  {
+    "rpc": "https://sepolia.blast.io",
+    "chainId": 168587773,
+    "order": 0
+  },
+  {
+    "rpc": "https://blast-sepolia.drpc.org",
+    "chainId": 168587773,
+    "order": 1
+  },
+  {
+    "rpc": "https://blast-sepolia.blockpi.network/v1/rpc/public",
+    "chainId": 168587773,
+    "order": 2
+  },
+  {
+    "rpc": "https://rpc.testnet.sophon.xyz",
+    "chainId": 531050104,
+    "order": 0
+  },
+  {
+    "rpc": "https://rpc.degen.tips",
+    "chainId": 666666666,
+    "order": 0
+  },
+  {
+    "rpc": "https://sepolia.rpc.zora.energy",
+    "chainId": 999999999,
+    "order": 0
+  },
+  {
+    "rpc": "https://aurora.drpc.org",
+    "chainId": 1313161554,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.aurora.dev",
+    "chainId": 1313161554,
+    "order": 1
+  },
+  {
+    "rpc": "https://testnet.aurora.dev/",
+    "chainId": 1313161555,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.rpc.rarichain.org/http",
+    "chainId": 1380012617,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet.skalenodes.com/v1/juicy-low-small-testnet",
+    "chainId": 1444673419,
+    "order": 0
+  },
+  {
+    "rpc": "https://harmony-mainnet.chainstacklabs.com",
+    "chainId": 1666600000,
+    "order": 0
+  },
+  {
+    "rpc": "https://api.harmony.one",
+    "chainId": 1666600000,
+    "order": 1
+  },
+  {
+    "rpc": "https://api.s0.t.hmny.io",
+    "chainId": 1666600000,
+    "order": 2
+  },
+  {
+    "rpc": "https://a.api.s0.t.hmny.io",
+    "chainId": 1666600000,
+    "order": 3
+  },
+  {
+    "rpc": "https://rpc.ankr.com/harmony",
+    "chainId": 1666600000,
+    "order": 4
+  },
+  {
+    "rpc": "https://hmyone-pokt.nodies.app",
+    "chainId": 1666600000,
+    "order": 5
+  },
+  {
+    "rpc": "https://api.s0.ps.hmny.io",
+    "chainId": 1666900000,
+    "order": 0
+  },
+  {
+    "rpc": "https://mainnet.skalenodes.com/v1/elated-tan-skat",
+    "chainId": 2046399126,
+    "order": 0
+  },
+  {
+    "rpc": "https://testnet-v2.xai-chain.net/rpc",
+    "chainId": 37714555429,
+    "order": 0
+  }
+]

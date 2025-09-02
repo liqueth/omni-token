@@ -1,5 +1,6 @@
 # config/rpc.jq
-# jq -r -f config/rpc.jq config/metadata.json > config/rpc.json
+# jq -f config/rpc.jq config/metadata.json > config/rpc.json
+# jq -f config/rpc.jq config/metadata.json | jq -r '.[] | join(",")' > config/rpc.csv
 def rpad($len; $ch):
   (. + ($ch * $len))[:$len];
 [
@@ -20,4 +21,3 @@ def rpad($len; $ch):
     }
 ]
 | sort_by(.chainId, .order)
-

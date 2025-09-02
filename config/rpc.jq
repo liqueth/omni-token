@@ -15,7 +15,8 @@ def rpad($len; $ch):
     | {
         rpc: .url,
         chainId: .nativeChainId,
-        order: .rpcrank
+        order: .rpcrank,
+        chainName: .chainName
     }
 ]
 | sort_by(.chainId, .order)

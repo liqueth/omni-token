@@ -21,20 +21,20 @@ contract OmniMap is IOmniMap, IOmniMapProto {
     }
 
     /// @inheritdoc IOmniMapProto
-    function predictAddress(Entry[] memory entries) public view returns (address global, bytes32 salt) {
+    function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(entries));
-        global = Clones.predictDeterministicAddress(address(this), salt, address(this));
+        clone_ = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
     /// @inheritdoc IOmniMapProto
-    function clone(Entry[] memory entries) public returns (address global, bytes32 salt) {
-        (global, salt) = predictAddress(entries);
-        if (global.code.length == 0) {
+    function clone(Entry[] memory entries) public returns (address clone_, bytes32 salt) {
+        (clone_, salt) = cloneAddress(entries);
+        if (clone_.code.length == 0) {
             for (uint256 i; i < entries.length; ++i) {
                 if (entries[i].chainId == block.chainid) {
                     Clones.cloneDeterministic(address(this), salt);
-                    OmniMap(global).__OmniMap_init(entries[i].local);
-                    return (global, salt);
+                    OmniMap(clone_).__OmniMap_init(entries[i].local);
+                    return (clone_, salt);
                 }
             }
         }

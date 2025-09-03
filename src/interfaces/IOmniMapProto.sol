@@ -14,16 +14,16 @@ interface IOmniMapProto {
     /// @notice Predict the address of a cloned OmniMap.
     /// @dev Revert on any of the error conditions described below.
     /// @param entries The array of chainId/local pairs to choose from.
-    /// @return global The predicted address of the clone.
+    /// @return clone_ The predicted address of the clone.
     /// @return salt The salt used to create the clone.
-    function predictAddress(Entry[] memory entries) external view returns (address global, bytes32 salt);
+    function cloneAddress(Entry[] memory entries) external view returns (address clone_, bytes32 salt);
 
     /// @notice Create a new OmniMap clone for the current chain if it doesn't already exist.
     /// @dev Revert if locate does.
     /// @param entries The array of chainId/local pairs to choose from.
-    /// @return global The predicted address of the clone.
+    /// @return clone_ The predicted address of the clone.
     /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(entries));
-    function clone(Entry[] memory entries) external returns (address global, bytes32 salt);
+    function clone(Entry[] memory entries) external returns (address clone_, bytes32 salt);
 
     /// @notice Revert if someone tries to reinitialize an instance.
     error AlreadyInitialized();

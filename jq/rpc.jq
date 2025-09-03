@@ -1,6 +1,6 @@
 # config/rpc.jq
-# jq -f config/rpc.jq config/metadata.json > config/rpc.json
-# jq -f config/rpc.jq config/metadata.json | jq -r '.[] | join(",")' > config/rpc.csv
+# jq -f jq/rpc.jq config/metadata.json > config/rpc.json
+# jq -f jq/rpc.jq config/metadata.json | jq -r '.[] | join(",")' > config/rpc.csv
 [
     .[]?
     | select(.chainDetails.chainStatus == "ACTIVE"
@@ -13,7 +13,7 @@
         rpc: .url,
         chainId: .chainDetails.nativeChainId,
         order: .rpcrank,
-        chainName: .chainName
+        chainKey: .chainKey
     }
 ]
 | sort_by(.chainId, .order)

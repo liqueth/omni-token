@@ -1,6 +1,6 @@
 # config/rpc_endpoints.jq
 # jq -f jq/rpc_endpoints.jq config/active.json > config/rpc_endpoints.json
-# jq -f jq/rpc_endpoints.jq config/active.json | jq -r '.[] | "\(.key) = \"\(.rpcs)\""' | sed '1i[rpc_endpoints]' > config/rpc_endpoints.toml
+# jq -f jq/rpc_endpoints.jq config/active.json | jq -r '.[] | "\(.key) = \(.rpcs)"' | sed '1i[rpc_endpoints]' > rpc_endpoints.toml
 [
     .[]
     | select(((.rpcs // []) | length) > 0)

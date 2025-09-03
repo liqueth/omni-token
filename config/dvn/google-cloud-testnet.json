@@ -1,22 +1,22 @@
 {
-    "version": 2,
-    "id": "google-cloud",
-    "chains": [
-        {
-            "chainId": 97,
-            "dvn": "0x6f99ea3fc9206e2779249e15512d7248dab0b52e"
-        },
-        {
-            "chainId": 4002,
-            "dvn": "0xbdb61339dc1cd02982ab459fa46f858decf3cec6"
-        },
-        {
-            "chainId": 43113,
-            "dvn": "0xa4652582077afc447ea7c9e984d656ee4963fe95"
-        },
-        {
-            "chainId": 11155111,
-            "dvn": "0x4f675c48fad936cb4c3ca07d7cbf421ceeae0c75"
-        }
-    ]
+  "version": 2,
+  "id": "google-cloud",
+  "chains": [
+    {
+      "chainId": 97,
+      "dvn": "0x6f99ea3fc9206e2779249e15512d7248dab0b52e"
+    },
+    {
+      "chainId": 4002,
+      "dvn": "0xbdb61339dc1cd02982ab459fa46f858decf3cec6"
+    },
+    {
+      "chainId": 43113,
+      "dvn": "0xa4652582077afc447ea7c9e984d656ee4963fe95"
+    },
+    {
+      "chainId": 11155111,
+      "dvn": "0x4f675c48fad936cb4c3ca07d7cbf421ceeae0c75"
+    }
+  ]
 }

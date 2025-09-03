@@ -1,110 +1,110 @@
 {
-    "version": 2,
-    "id": "polyhedra-network",
-    "chains": [
-        {
-            "chainId": 1,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 10,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 14,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 56,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 100,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 137,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 169,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 196,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 204,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 250,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1088,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1116,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 1284,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 4200,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 5000,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 7560,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 8217,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 8453,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 34443,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42161,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42170,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 42220,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 43114,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 59144,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        },
-        {
-            "chainId": 81457,
-            "dvn": "0x0ff4cc28826356503bb79c00637bec0ee006f237"
-        },
-        {
-            "chainId": 534352,
-            "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
-        }
-    ]
+  "version": 2,
+  "id": "polyhedra-network",
+  "chains": [
+    {
+      "chainId": 1,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 10,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 14,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 56,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 100,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 137,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 169,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 196,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 204,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 250,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 1088,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 1116,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 1284,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 4200,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 5000,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 7560,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 8217,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 8453,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 34443,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 42161,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 42170,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 42220,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 43114,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 59144,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    },
+    {
+      "chainId": 81457,
+      "dvn": "0x0ff4cc28826356503bb79c00637bec0ee006f237"
+    },
+    {
+      "chainId": 534352,
+      "dvn": "0x8ddf05f9a5c488b4973897e278b58895bf87cb24"
+    }
+  ]
 }

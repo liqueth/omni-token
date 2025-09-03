@@ -1,10 +1,10 @@
 {
-    "version": 2,
-    "id": "polyhedra-network",
-    "chains": [
-        {
-            "chainId": 97,
-            "dvn": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
-        }
-    ]
+  "version": 2,
+  "id": "polyhedra-network",
+  "chains": [
+    {
+      "chainId": 97,
+      "dvn": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
+    }
+  ]
 }

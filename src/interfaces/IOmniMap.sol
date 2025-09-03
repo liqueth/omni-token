@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-/// @notice Map a global immutable contract address existing on many chains
-/// to a local immutable address unique to each individual chain.
+/// @notice Map a single predictable contract address to many unique chain local addresses.
 /// @author Paul Reinholdtsen
 interface IOmniMap {
     /// @notice Return the chain‑specific address.

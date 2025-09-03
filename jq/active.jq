@@ -6,3 +6,5 @@
         and .chainDetails.nativeChainId)
 ]
 | sort_by(.chainDetails.nativeChainId)
+| unique_by(.chainDetails.nativeChainId)
+

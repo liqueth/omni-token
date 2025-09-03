@@ -62,9 +62,9 @@ export DVN_ID=polyhedra-network
 export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
 export MINTS='[[97,3e21],[11155111,2e21]]' # test
 export BRIDGE_AMOUNT=123e16
-export CHAIN_ID=97 # BNB testnet 
-export CHAIN_ID=137 # Polygon 
-export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
+export CHAIN_ID=97 # BNB testnet
+export CHAIN_ID=137 # Polygon
+export CHAIN_ID=11155111 # Sepolia, set to desired chain id
 export TO_CHAIN_ID=10 # Optimism
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
 export CLONE_NAME='Omnicoin Alpha'
@@ -224,7 +224,7 @@ export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(j
 forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/FixedOmniToken.sol:FixedOmniToken > FixedOmniToken.json
 ```
 
-Submit FixedOmniToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`. 
+Submit FixedOmniToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`.
 For detailed instructions, see: https://docs.etherscan.io/contract-verification.
 
 ---

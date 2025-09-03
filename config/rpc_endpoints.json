@@ -1,6 +1,6 @@
 [
   {
-    "chainKey": "ethereum",
+    "key": "ethereum",
     "chainId": 1,
     "rpcs": [
       "https://eth.drpc.org",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "chainKey": "optimism",
+    "key": "optimism",
     "chainId": 10,
     "rpcs": [
       "https://optimism.drpc.org",
@@ -29,7 +29,7 @@
     ]
   },
   {
-    "chainKey": "flare",
+    "key": "flare",
     "chainId": 14,
     "rpcs": [
       "https://flare.rpc.thirdweb.com",
@@ -37,7 +37,7 @@
     ]
   },
   {
-    "chainKey": "cronosevm",
+    "key": "cronosevm",
     "chainId": 25,
     "rpcs": [
       "https://evm.cronos.org",
@@ -45,27 +45,27 @@
     ]
   },
   {
-    "chainKey": "xpla",
+    "key": "xpla",
     "chainId": 37,
     "rpcs": "https://dimension-evm-rpc.xpla.dev"
   },
   {
-    "chainKey": "telos",
+    "key": "telos",
     "chainId": 40,
     "rpcs": "https://mainnet.telos.net/evm"
   },
   {
-    "chainKey": "telos-testnet",
+    "key": "telos-testnet",
     "chainId": 41,
     "rpcs": "https://testnet.telos.net/evm"
   },
   {
-    "chainKey": "xpla-testnet",
+    "key": "xpla-testnet",
     "chainId": 47,
     "rpcs": "https://cube-evm-rpc.xpla.dev"
   },
   {
-    "chainKey": "bsc",
+    "key": "bsc",
     "chainId": 56,
     "rpcs": [
       "https://bsc.drpc.org",
@@ -80,17 +80,17 @@
     ]
   },
   {
-    "chainKey": "okx",
+    "key": "okx",
     "chainId": 66,
     "rpcs": "https://exchainrpc.okex.org"
   },
   {
-    "chainKey": "conflux-testnet",
+    "key": "conflux-testnet",
     "chainId": 71,
     "rpcs": "https://evmtestnet.confluxrpc.com"
   },
   {
-    "chainKey": "joc",
+    "key": "joc",
     "chainId": 81,
     "rpcs": [
       "https://rpc-2.japanopenchain.org:8545",
@@ -98,7 +98,7 @@
     ]
   },
   {
-    "chainKey": "astar-testnet",
+    "key": "astar-testnet",
     "chainId": 81,
     "rpcs": [
       "https://rpc-1.japanopenchain.org:8545",
@@ -106,22 +106,22 @@
     ]
   },
   {
-    "chainKey": "meter",
+    "key": "meter",
     "chainId": 82,
     "rpcs": "https://rpc.meter.io"
   },
   {
-    "chainKey": "meter-testnet",
+    "key": "meter-testnet",
     "chainId": 83,
     "rpcs": "https://rpctest.meter.io"
   },
   {
-    "chainKey": "tomo",
+    "key": "tomo",
     "chainId": 88,
     "rpcs": "https://rpc.tomochain.com"
   },
   {
-    "chainKey": "bsc-testnet",
+    "key": "bsc-testnet",
     "chainId": 97,
     "rpcs": [
       "https://data-seed-prebsc-1-s3.binance.org:8545",
@@ -132,7 +132,7 @@
     ]
   },
   {
-    "chainKey": "gnosis",
+    "key": "gnosis",
     "chainId": 100,
     "rpcs": [
       "https://gnosis.drpc.org",
@@ -144,12 +144,12 @@
     ]
   },
   {
-    "chainKey": "bob-testnet",
+    "key": "bob-testnet",
     "chainId": 111,
     "rpcs": "https://testnet.rpc.gobob.xyz"
   },
   {
-    "chainKey": "fuse",
+    "key": "fuse",
     "chainId": 122,
     "rpcs": [
       "https://rpc.fuse.io",
@@ -157,12 +157,12 @@
     ]
   },
   {
-    "chainKey": "fusespark",
+    "key": "fusespark",
     "chainId": 123,
     "rpcs": "https://rpc.fusespark.io"
   },
   {
-    "chainKey": "polygon",
+    "key": "polygon",
     "chainId": 137,
     "rpcs": [
       "https://polygon.drpc.org",
@@ -178,32 +178,32 @@
     ]
   },
   {
-    "chainKey": "shimmer",
+    "key": "shimmer",
     "chainId": 148,
     "rpcs": "https://json-rpc.evm.shimmer.network"
   },
   {
-    "chainKey": "tenet-testnet",
+    "key": "tenet-testnet",
     "chainId": 155,
     "rpcs": "https://rpc.testnet.tenet.org"
   },
   {
-    "chainKey": "manta",
+    "key": "manta",
     "chainId": 169,
     "rpcs": "https://pacific-rpc.manta.network/http"
   },
   {
-    "chainKey": "xlayer-testnet",
+    "key": "xlayer-testnet",
     "chainId": 195,
     "rpcs": "https://testrpc.xlayer.tech"
   },
   {
-    "chainKey": "xlayer",
+    "key": "xlayer",
     "chainId": 196,
     "rpcs": "https://rpc.xlayer.tech"
   },
   {
-    "chainKey": "opbnb",
+    "key": "opbnb",
     "chainId": 204,
     "rpcs": [
       "https://opbnb.drpc.org",
@@ -213,7 +213,7 @@
     ]
   },
   {
-    "chainKey": "cronoszkevm-testnet",
+    "key": "cronoszkevm-testnet",
     "chainId": 240,
     "rpcs": [
       "https://testnet.zkevm.cronos.org",
@@ -221,7 +221,7 @@
     ]
   },
   {
-    "chainKey": "fantom",
+    "key": "fantom",
     "chainId": 250,
     "rpcs": [
       "https://fantom.drpc.org",
@@ -232,12 +232,12 @@
     ]
   },
   {
-    "chainKey": "fraxtal",
+    "key": "fraxtal",
     "chainId": 252,
     "rpcs": "https://rpc.frax.com"
   },
   {
-    "chainKey": "orderly",
+    "key": "orderly",
     "chainId": 291,
     "rpcs": [
       "https://rpc.orderly.network",
@@ -245,17 +245,17 @@
     ]
   },
   {
-    "chainKey": "hedera",
+    "key": "hedera",
     "chainId": 295,
     "rpcs": "https://mainnet.hashio.io/api"
   },
   {
-    "chainKey": "hedera-testnet",
+    "key": "hedera-testnet",
     "chainId": 296,
     "rpcs": "https://testnet.hashio.io/api"
   },
   {
-    "chainKey": "zksync-sepolia",
+    "key": "zksync-sepolia",
     "chainId": 300,
     "rpcs": [
       "https://zksync-sepolia.drpc.org",
@@ -264,7 +264,7 @@
     ]
   },
   {
-    "chainKey": "zksync",
+    "key": "zksync",
     "chainId": 324,
     "rpcs": [
       "https://zksync.drpc.org",
@@ -272,12 +272,12 @@
     ]
   },
   {
-    "chainKey": "dfk-testnet",
+    "key": "dfk-testnet",
     "chainId": 335,
     "rpcs": "https://subnets.avax.network/defi-kingdoms/dfk-chain-testnet/rpc"
   },
   {
-    "chainKey": "cronosevm-testnet",
+    "key": "cronosevm-testnet",
     "chainId": 338,
     "rpcs": [
       "https://evm-t3.cronos.org",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "chainKey": "cronoszkevm",
+    "key": "cronoszkevm",
     "chainId": 388,
     "rpcs": [
       "https://mainnet.zkevm.cronos.org",
@@ -293,17 +293,17 @@
     ]
   },
   {
-    "chainKey": "form-testnet",
+    "key": "form-testnet",
     "chainId": 478,
     "rpcs": "https://rpc.form.network/infra-partner-http"
   },
   {
-    "chainKey": "worldchain",
+    "key": "worldchain",
     "chainId": 480,
     "rpcs": "https://worldchain-mainnet.g.alchemy.com/public"
   },
   {
-    "chainKey": "astar",
+    "key": "astar",
     "chainId": 592,
     "rpcs": [
       "https://evm.astar.network",
@@ -311,32 +311,32 @@
     ]
   },
   {
-    "chainKey": "flow",
+    "key": "flow",
     "chainId": 747,
     "rpcs": "https://mainnet.evm.nodes.onflow.org"
   },
   {
-    "chainKey": "mode-testnet",
+    "key": "mode-testnet",
     "chainId": 919,
     "rpcs": "https://sepolia.mode.network"
   },
   {
-    "chainKey": "klaytn-baobab",
+    "key": "klaytn-baobab",
     "chainId": 1001,
     "rpcs": "https://api.baobab.klaytn.net:8651"
   },
   {
-    "chainKey": "conflux",
+    "key": "conflux",
     "chainId": 1030,
     "rpcs": "https://evm.confluxrpc.com"
   },
   {
-    "chainKey": "iota-testnet",
+    "key": "iota-testnet",
     "chainId": 1075,
     "rpcs": "https://json-rpc.evm.iotaledger.net"
   },
   {
-    "chainKey": "metis",
+    "key": "metis",
     "chainId": 1088,
     "rpcs": [
       "https://andromeda.metis.io/?owner=1088",
@@ -345,7 +345,7 @@
     ]
   },
   {
-    "chainKey": "zkevm",
+    "key": "zkevm",
     "chainId": 1101,
     "rpcs": [
       "https://zkevm-rpc.com",
@@ -353,12 +353,12 @@
     ]
   },
   {
-    "chainKey": "coredao-testnet",
+    "key": "coredao-testnet",
     "chainId": 1115,
     "rpcs": "https://rpc.test.btcs.network/"
   },
   {
-    "chainKey": "coredao",
+    "key": "coredao",
     "chainId": 1116,
     "rpcs": [
       "https://rpc.coredao.org/",
@@ -366,7 +366,7 @@
     ]
   },
   {
-    "chainKey": "lisk",
+    "key": "lisk",
     "chainId": 1135,
     "rpcs": [
       "https://rpc.api.lisk.com",
@@ -374,7 +374,7 @@
     ]
   },
   {
-    "chainKey": "moonbeam",
+    "key": "moonbeam",
     "chainId": 1284,
     "rpcs": [
       "https://rpc.api.moonbeam.network",
@@ -382,7 +382,7 @@
     ]
   },
   {
-    "chainKey": "moonriver",
+    "key": "moonriver",
     "chainId": 1285,
     "rpcs": [
       "https://rpc.api.moonriver.moonbeam.network",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "chainKey": "moonbase",
+    "key": "moonbase",
     "chainId": 1287,
     "rpcs": [
       "https://rpc.api.moonbase.moonbeam.network",
@@ -398,22 +398,22 @@
     ]
   },
   {
-    "chainKey": "glue",
+    "key": "glue",
     "chainId": 1300,
     "rpcs": "https://mainnet-node.m9.glue.net"
   },
   {
-    "chainKey": "glue-testnet",
+    "key": "glue-testnet",
     "chainId": 1300,
     "rpcs": "https://testnet-node-1.server-1.glue.net"
   },
   {
-    "chainKey": "sei",
+    "key": "sei",
     "chainId": 1329,
     "rpcs": "https://evm-rpc.sei-apis.com"
   },
   {
-    "chainKey": "islander",
+    "key": "islander",
     "chainId": 1480,
     "rpcs": [
       "https://rpc.islander.vana.org",
@@ -421,17 +421,17 @@
     ]
   },
   {
-    "chainKey": "tenet",
+    "key": "tenet",
     "chainId": 1559,
     "rpcs": "https://rpc.tenet.org"
   },
   {
-    "chainKey": "gravity",
+    "key": "gravity",
     "chainId": 1625,
     "rpcs": "https://rpc.gravity.xyz"
   },
   {
-    "chainKey": "eon-testnet",
+    "key": "eon-testnet",
     "chainId": 1663,
     "rpcs": [
       "https://gobi-rpc.horizenlabs.io/ethv1",
@@ -439,12 +439,12 @@
     ]
   },
   {
-    "chainKey": "lif3-testnet",
+    "key": "lif3-testnet",
     "chainId": 1811,
     "rpcs": "https://testnet-evm.lif3.com"
   },
   {
-    "chainKey": "lightlink-testnet",
+    "key": "lightlink-testnet",
     "chainId": 1891,
     "rpcs": [
       "https://replicator.pegasus.lightlink.io/rpc/v1",
@@ -452,7 +452,7 @@
     ]
   },
   {
-    "chainKey": "swell",
+    "key": "swell",
     "chainId": 1923,
     "rpcs": [
       "https://rpc.ankr.com/swell",
@@ -460,37 +460,37 @@
     ]
   },
   {
-    "chainKey": "minato-testnet",
+    "key": "minato-testnet",
     "chainId": 1946,
     "rpcs": "https://rpc.minato.soneium.org/"
   },
   {
-    "chainKey": "sanko-testnet",
+    "key": "sanko-testnet",
     "chainId": 1992,
     "rpcs": "https://sanko-arb-sepolia.rpc.caldera.xyz/http"
   },
   {
-    "chainKey": "sanko",
+    "key": "sanko",
     "chainId": 1996,
     "rpcs": "https://mainnet.sanko.xyz"
   },
   {
-    "chainKey": "kiwi-testnet",
+    "key": "kiwi-testnet",
     "chainId": 2037,
     "rpcs": "https://subnets.avax.network/kiwi/testnet/rpc"
   },
   {
-    "chainKey": "shrapnel-testnet",
+    "key": "shrapnel-testnet",
     "chainId": 2038,
     "rpcs": "https://subnets.avax.network/shrapnel/testnet/rpc"
   },
   {
-    "chainKey": "shrapnel",
+    "key": "shrapnel",
     "chainId": 2044,
     "rpcs": "https://subnets.avax.network/shrapnel/mainnet/rpc"
   },
   {
-    "chainKey": "kava-testnet",
+    "key": "kava-testnet",
     "chainId": 2221,
     "rpcs": [
       "https://evm.testnet.kava.io",
@@ -498,7 +498,7 @@
     ]
   },
   {
-    "chainKey": "kava",
+    "key": "kava",
     "chainId": 2222,
     "rpcs": [
       "https://kava.drpc.org",
@@ -510,12 +510,12 @@
     ]
   },
   {
-    "chainKey": "goat",
+    "key": "goat",
     "chainId": 2345,
     "rpcs": "https://rpc.goat.network"
   },
   {
-    "chainKey": "zkpolygon-sepolia",
+    "key": "zkpolygon-sepolia",
     "chainId": 2442,
     "rpcs": [
       "https://polygon-zkevm-cardona.blockpi.network/v1/rpc/public",
@@ -523,52 +523,52 @@
     ]
   },
   {
-    "chainKey": "fraxtal-testnet",
+    "key": "fraxtal-testnet",
     "chainId": 2522,
     "rpcs": "https://rpc.testnet.frax.com"
   },
   {
-    "chainKey": "bb1",
+    "key": "bb1",
     "chainId": 2525,
     "rpcs": "https://mainnet.rpc.inevm.com/http"
   },
   {
-    "chainKey": "bahamut-testnet",
+    "key": "bahamut-testnet",
     "chainId": 2552,
     "rpcs": "https://rpc1.ocean.bahamut.io"
   },
   {
-    "chainKey": "abstract",
+    "key": "abstract",
     "chainId": 2741,
     "rpcs": "https://api.raas.matterhosted.dev"
   },
   {
-    "chainKey": "morph-testnet",
+    "key": "morph-testnet",
     "chainId": 2810,
     "rpcs": "https://rpc-holesky.morphl2.io"
   },
   {
-    "chainKey": "morph",
+    "key": "morph",
     "chainId": 2818,
     "rpcs": "https://rpc.morphl2.io"
   },
   {
-    "chainKey": "botanix-testnet",
+    "key": "botanix-testnet",
     "chainId": 3636,
     "rpcs": "https://node.botanixlabs.dev"
   },
   {
-    "chainKey": "botanix",
+    "key": "botanix",
     "chainId": 3637,
     "rpcs": "https://rpc.btxtestchain.com"
   },
   {
-    "chainKey": "dos-testnet",
+    "key": "dos-testnet",
     "chainId": 3939,
     "rpcs": "https://test.doschain.com"
   },
   {
-    "chainKey": "fantom-testnet",
+    "key": "fantom-testnet",
     "chainId": 4002,
     "rpcs": [
       "https://rpc.testnet.fantom.network/",
@@ -577,7 +577,7 @@
     ]
   },
   {
-    "chainKey": "merlin",
+    "key": "merlin",
     "chainId": 4200,
     "rpcs": [
       "https://merlin.blockpi.network/v1/rpc/public",
@@ -585,22 +585,22 @@
     ]
   },
   {
-    "chainKey": "beam",
+    "key": "beam",
     "chainId": 4337,
     "rpcs": "https://subnets.avax.network/beam/mainnet/rpc"
   },
   {
-    "chainKey": "orderly-testnet",
+    "key": "orderly-testnet",
     "chainId": 4460,
     "rpcs": "https://l2-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
   },
   {
-    "chainKey": "worldcoin-testnet",
+    "key": "worldcoin-testnet",
     "chainId": 4801,
     "rpcs": "https://worldchain-sepolia.g.alchemy.com/public"
   },
   {
-    "chainKey": "mantle",
+    "key": "mantle",
     "chainId": 5000,
     "rpcs": [
       "https://rpc.mantle.xyz",
@@ -609,27 +609,27 @@
     ]
   },
   {
-    "chainKey": "citrea-testnet",
+    "key": "citrea-testnet",
     "chainId": 5115,
     "rpcs": "https://rpc.testnet.citrea.xyz"
   },
   {
-    "chainKey": "opbnb-testnet",
+    "key": "opbnb-testnet",
     "chainId": 5611,
     "rpcs": "https://opbnb-testnet-rpc.bnbchain.org"
   },
   {
-    "chainKey": "bouncebit",
+    "key": "bouncebit",
     "chainId": 6001,
     "rpcs": "https://fullnode-mainnet.bouncebitapi.com"
   },
   {
-    "chainKey": "megaeth-testnet",
+    "key": "megaeth-testnet",
     "chainId": 6342,
     "rpcs": "https://carrot.megaeth.com/rpc"
   },
   {
-    "chainKey": "cyber",
+    "key": "cyber",
     "chainId": 7560,
     "rpcs": [
       "https://cyber.alt.technology",
@@ -637,7 +637,7 @@
     ]
   },
   {
-    "chainKey": "canto",
+    "key": "canto",
     "chainId": 7700,
     "rpcs": [
       "https://canto.slingshot.finance",
@@ -646,17 +646,17 @@
     ]
   },
   {
-    "chainKey": "canto-testnet",
+    "key": "canto-testnet",
     "chainId": 7701,
     "rpcs": "https://testnet-archive.plexnode.wtf"
   },
   {
-    "chainKey": "dos",
+    "key": "dos",
     "chainId": 7979,
     "rpcs": "https://main.doschain.com"
   },
   {
-    "chainKey": "klaytn",
+    "key": "klaytn",
     "chainId": 8217,
     "rpcs": [
       "https://public-node-api.klaytnapi.com/v1/cypress",
@@ -664,12 +664,12 @@
     ]
   },
   {
-    "chainKey": "space",
+    "key": "space",
     "chainId": 8227,
     "rpcs": "https://subnets.avax.network/space/mainnet/rpc"
   },
   {
-    "chainKey": "base",
+    "key": "base",
     "chainId": 8453,
     "rpcs": [
       "https://base.drpc.org",
@@ -680,12 +680,12 @@
     ]
   },
   {
-    "chainKey": "iota",
+    "key": "iota",
     "chainId": 8822,
     "rpcs": "https://json-rpc.evm.iotaledger.net"
   },
   {
-    "chainKey": "joc-testnet",
+    "key": "joc-testnet",
     "chainId": 10081,
     "rpcs": [
       "https://rpc-1.testnet.japanopenchain.org:8545",
@@ -693,7 +693,7 @@
     ]
   },
   {
-    "chainKey": "chiado",
+    "key": "chiado",
     "chainId": 10200,
     "rpcs": [
       "https://rpc.chiadochain.net",
@@ -704,7 +704,7 @@
     ]
   },
   {
-    "chainKey": "gameswift-testnet",
+    "key": "gameswift-testnet",
     "chainId": 10888,
     "rpcs": [
       "https://rpc-gs-testnet.gameswift.io",
@@ -712,7 +712,7 @@
     ]
   },
   {
-    "chainKey": "bevm",
+    "key": "bevm",
     "chainId": 11501,
     "rpcs": [
       "https://rpc-mainnet-1.bevm.io/",
@@ -720,17 +720,17 @@
     ]
   },
   {
-    "chainKey": "beam-testnet",
+    "key": "beam-testnet",
     "chainId": 13337,
     "rpcs": "https://subnets.avax.network/beam/testnet/rpc"
   },
   {
-    "chainKey": "moksha-testnet",
+    "key": "moksha-testnet",
     "chainId": 14800,
     "rpcs": "https://rpc.moksha.vana.org"
   },
   {
-    "chainKey": "holesky-testnet",
+    "key": "holesky-testnet",
     "chainId": 17000,
     "rpcs": [
       "https://rpc.holesky.ethpandaops.io",
@@ -739,22 +739,22 @@
     ]
   },
   {
-    "chainKey": "unreal-testnet",
+    "key": "unreal-testnet",
     "chainId": 18233,
     "rpcs": "https://rpc.unreal-orbit.gelato.digital"
   },
   {
-    "chainKey": "homeverse",
+    "key": "homeverse",
     "chainId": 19011,
     "rpcs": "https://rpc.mainnet.oasys.homeverse.games"
   },
   {
-    "chainKey": "curtis-testnet",
+    "key": "curtis-testnet",
     "chainId": 33111,
     "rpcs": "https://curtis.rpc.caldera.xyz/http"
   },
   {
-    "chainKey": "mode",
+    "key": "mode",
     "chainId": 34443,
     "rpcs": [
       "https://mainnet.mode.network",
@@ -762,17 +762,17 @@
     ]
   },
   {
-    "chainKey": "homeverse-testnet",
+    "key": "homeverse-testnet",
     "chainId": 40875,
     "rpcs": "https://rpc.testnet.oasys.homeverse.games"
   },
   {
-    "chainKey": "edu",
+    "key": "edu",
     "chainId": 41923,
     "rpcs": "https://rpc.edu-chain.raas.gelato.cloud"
   },
   {
-    "chainKey": "arbitrum",
+    "key": "arbitrum",
     "chainId": 42161,
     "rpcs": [
       "https://arbitrum.drpc.org",
@@ -785,7 +785,7 @@
     ]
   },
   {
-    "chainKey": "nova",
+    "key": "nova",
     "chainId": 42170,
     "rpcs": [
       "https://arbitrum-nova.drpc.org",
@@ -793,7 +793,7 @@
     ]
   },
   {
-    "chainKey": "celo",
+    "key": "celo",
     "chainId": 42220,
     "rpcs": [
       "https://celo.drpc.org",
@@ -802,7 +802,7 @@
     ]
   },
   {
-    "chainKey": "etherlink",
+    "key": "etherlink",
     "chainId": 42793,
     "rpcs": [
       "https://node.mainnet.etherlink.com",
@@ -810,7 +810,7 @@
     ]
   },
   {
-    "chainKey": "fuji",
+    "key": "fuji",
     "chainId": 43113,
     "rpcs": [
       "https://api.avax-test.network/ext/bc/C/rpc",
@@ -818,7 +818,7 @@
     ]
   },
   {
-    "chainKey": "avalanche",
+    "key": "avalanche",
     "chainId": 43114,
     "rpcs": [
       "https://avalanche.drpc.org",
@@ -828,7 +828,7 @@
     ]
   },
   {
-    "chainKey": "alfajores",
+    "key": "alfajores",
     "chainId": 44787,
     "rpcs": [
       "https://alfajores-forno.celo-testnet.org",
@@ -836,12 +836,12 @@
     ]
   },
   {
-    "chainKey": "zircuit-testnet",
+    "key": "zircuit-testnet",
     "chainId": 48899,
     "rpcs": "https://zircuit1.p2pify.com"
   },
   {
-    "chainKey": "zircuit",
+    "key": "zircuit",
     "chainId": 48900,
     "rpcs": [
       "https://zircuit-mainnet.drpc.org",
@@ -849,17 +849,17 @@
     ]
   },
   {
-    "chainKey": "dfk",
+    "key": "dfk",
     "chainId": 53935,
     "rpcs": "https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc"
   },
   {
-    "chainKey": "superposition",
+    "key": "superposition",
     "chainId": 55244,
     "rpcs": "https://rpc.superposition.so"
   },
   {
-    "chainKey": "lineasep-testnet",
+    "key": "lineasep-testnet",
     "chainId": 59141,
     "rpcs": [
       "https://linea-sepolia.blockpi.network/v1/rpc/public",
@@ -868,7 +868,7 @@
     ]
   },
   {
-    "chainKey": "linea",
+    "key": "linea",
     "chainId": 59144,
     "rpcs": [
       "https://linea.drpc.org",
@@ -879,12 +879,12 @@
     ]
   },
   {
-    "chainKey": "metissep-testnet",
+    "key": "metissep-testnet",
     "chainId": 59902,
     "rpcs": "https://sepolia.metisdevops.link"
   },
   {
-    "chainKey": "bob",
+    "key": "bob",
     "chainId": 60808,
     "rpcs": [
       "https://rpc.gobob.xyz",
@@ -892,12 +892,12 @@
     ]
   },
   {
-    "chainKey": "xchain-testnet",
+    "key": "xchain-testnet",
     "chainId": 64002,
     "rpcs": "https://xchain-testnet-rpc.idex.io"
   },
   {
-    "chainKey": "amoy-testnet",
+    "key": "amoy-testnet",
     "chainId": 80002,
     "rpcs": [
       "https://rpc.ankr.com/polygon_amoy",
@@ -906,7 +906,7 @@
     ]
   },
   {
-    "chainKey": "blast",
+    "key": "blast",
     "chainId": 81457,
     "rpcs": [
       "https://rpc.blast.io",
@@ -917,7 +917,7 @@
     ]
   },
   {
-    "chainKey": "base-sepolia",
+    "key": "base-sepolia",
     "chainId": 84532,
     "rpcs": [
       "https://sepolia.base.org",
@@ -926,27 +926,27 @@
     ]
   },
   {
-    "chainKey": "xchain",
+    "key": "xchain",
     "chainId": 94524,
     "rpcs": "https://xchain-rpc.idex.io"
   },
   {
-    "chainKey": "plume",
+    "key": "plume",
     "chainId": 98865,
     "rpcs": "https://rpc-plume-mainnet-0.t.conduit.xyz"
   },
   {
-    "chainKey": "superposition-testnet",
+    "key": "superposition-testnet",
     "chainId": 98985,
     "rpcs": "https://testnet-rpc.superposition.so"
   },
   {
-    "chainKey": "etherlink-testnet",
+    "key": "etherlink-testnet",
     "chainId": 128123,
     "rpcs": "https://node.ghostnet.etherlink.com"
   },
   {
-    "chainKey": "taiko",
+    "key": "taiko",
     "chainId": 167000,
     "rpcs": [
       "https://rpc.taiko.xyz",
@@ -956,7 +956,7 @@
     ]
   },
   {
-    "chainKey": "taiko-testnet",
+    "key": "taiko-testnet",
     "chainId": 167009,
     "rpcs": [
       "https://rpc.hekla.taiko.xyz",
@@ -965,17 +965,17 @@
     ]
   },
   {
-    "chainKey": "bitlayer",
+    "key": "bitlayer",
     "chainId": 200901,
     "rpcs": "https://rpc.bitlayer.org"
   },
   {
-    "chainKey": "camp-testnet",
+    "key": "camp-testnet",
     "chainId": 325000,
     "rpcs": "https://rpc-camp-network-4xje7wy105.t.conduit.xyz"
   },
   {
-    "chainKey": "arbitrum-sepolia",
+    "key": "arbitrum-sepolia",
     "chainId": 421614,
     "rpcs": [
       "https://sepolia-rollup.arbitrum.io/rpc",
@@ -983,17 +983,17 @@
     ]
   },
   {
-    "chainKey": "dexalot-testnet",
+    "key": "dexalot-testnet",
     "chainId": 432201,
     "rpcs": "https://subnets.avax.network/dexalot/testnet/rpc"
   },
   {
-    "chainKey": "dexalot",
+    "key": "dexalot",
     "chainId": 432204,
     "rpcs": "https://subnets.avax.network/dexalot/mainnet/rpc"
   },
   {
-    "chainKey": "scroll-testnet",
+    "key": "scroll-testnet",
     "chainId": 534351,
     "rpcs": [
       "https://sepolia-rpc.scroll.io",
@@ -1003,7 +1003,7 @@
     ]
   },
   {
-    "chainKey": "scroll",
+    "key": "scroll",
     "chainId": 534352,
     "rpcs": [
       "https://scroll.drpc.org",
@@ -1014,22 +1014,22 @@
     ]
   },
   {
-    "chainKey": "xai",
+    "key": "xai",
     "chainId": 660279,
     "rpcs": "https://xai-chain.net/rpc"
   },
   {
-    "chainKey": "merlin-testnet",
+    "key": "merlin-testnet",
     "chainId": 686868,
     "rpcs": "https://testnet-rpc.merlinchain.io"
   },
   {
-    "chainKey": "tiltyard",
+    "key": "tiltyard",
     "chainId": 710420,
     "rpcs": "https://subnets.avax.network/tiltyard/mainnet/rpc"
   },
   {
-    "chainKey": "sei-testnet",
+    "key": "sei-testnet",
     "chainId": 713715,
     "rpcs": [
       "https://evm-rpc-arctic-1.sei-apis.com",
@@ -1037,32 +1037,32 @@
     ]
   },
   {
-    "chainKey": "hemi-testnet",
+    "key": "hemi-testnet",
     "chainId": 743111,
     "rpcs": "https://testnet.rpc.hemi.network/rpc"
   },
   {
-    "chainKey": "zklink",
+    "key": "zklink",
     "chainId": 810180,
     "rpcs": "https://rpc.zklink.io"
   },
   {
-    "chainKey": "zklink-testnet",
+    "key": "zklink-testnet",
     "chainId": 810181,
     "rpcs": "https://sepolia.rpc.zklink.io"
   },
   {
-    "chainKey": "loot",
+    "key": "loot",
     "chainId": 5151706,
     "rpcs": "https://rpc.lootchain.com/http"
   },
   {
-    "chainKey": "zora",
+    "key": "zora",
     "chainId": 7777777,
     "rpcs": "https://rpc.zora.energy/"
   },
   {
-    "chainKey": "sepolia",
+    "key": "sepolia",
     "chainId": 11155111,
     "rpcs": [
       "https://rpc.sepolia.org",
@@ -1073,7 +1073,7 @@
     ]
   },
   {
-    "chainKey": "optimism-sepolia",
+    "key": "optimism-sepolia",
     "chainId": 11155420,
     "rpcs": [
       "https://sepolia.optimism.io",
@@ -1083,12 +1083,12 @@
     ]
   },
   {
-    "chainKey": "mp1",
+    "key": "mp1",
     "chainId": 21000000,
     "rpcs": "https://maizenet-rpc.usecorn.com"
   },
   {
-    "chainKey": "cyber-testnet",
+    "key": "cyber-testnet",
     "chainId": 111557560,
     "rpcs": [
       "https://cyber-testnet.alt.technology",
@@ -1096,7 +1096,7 @@
     ]
   },
   {
-    "chainKey": "blast-testnet",
+    "key": "blast-testnet",
     "chainId": 168587773,
     "rpcs": [
       "https://sepolia.blast.io",
@@ -1105,22 +1105,22 @@
     ]
   },
   {
-    "chainKey": "sophon-testnet",
+    "key": "sophon-testnet",
     "chainId": 531050104,
     "rpcs": "https://rpc.testnet.sophon.xyz"
   },
   {
-    "chainKey": "degen",
+    "key": "degen",
     "chainId": 666666666,
     "rpcs": "https://rpc.degen.tips"
   },
   {
-    "chainKey": "zora-sepolia",
+    "key": "zora-sepolia",
     "chainId": 999999999,
     "rpcs": "https://sepolia.rpc.zora.energy"
   },
   {
-    "chainKey": "aurora",
+    "key": "aurora",
     "chainId": 1313161554,
     "rpcs": [
       "https://aurora.drpc.org",
@@ -1128,22 +1128,22 @@
     ]
   },
   {
-    "chainKey": "aurora-testnet",
+    "key": "aurora-testnet",
     "chainId": 1313161555,
     "rpcs": "https://testnet.aurora.dev/"
   },
   {
-    "chainKey": "rarible",
+    "key": "rarible",
     "chainId": 1380012617,
     "rpcs": "https://mainnet.rpc.rarichain.org/http"
   },
   {
-    "chainKey": "skale-testnet",
+    "key": "skale-testnet",
     "chainId": 1444673419,
     "rpcs": "https://testnet.skalenodes.com/v1/juicy-low-small-testnet"
   },
   {
-    "chainKey": "harmony",
+    "key": "harmony",
     "chainId": 1666600000,
     "rpcs": [
       "https://harmony-mainnet.chainstacklabs.com",
@@ -1155,17 +1155,17 @@
     ]
   },
   {
-    "chainKey": "harmony-testnet",
+    "key": "harmony-testnet",
     "chainId": 1666900000,
     "rpcs": "https://api.s0.ps.hmny.io"
   },
   {
-    "chainKey": "skale",
+    "key": "skale",
     "chainId": 2046399126,
     "rpcs": "https://mainnet.skalenodes.com/v1/elated-tan-skat"
   },
   {
-    "chainKey": "xai-testnet",
+    "key": "xai-testnet",
     "chainId": 37714555429,
     "rpcs": "https://testnet-v2.xai-chain.net/rpc"
   }

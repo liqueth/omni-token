@@ -1,6 +1,6 @@
 #!/bin/bash
 # Find which chains have the arachnid deployer contract
-# Usage: script/arachnid.sh < config/rpc.csv > config/arachnid.csv
+# Usage: script/nick.sh < config/rpc.csv > config/nick.csv
 
 while read line; do
   IFS=, read -r rpc rest <<< "$line"

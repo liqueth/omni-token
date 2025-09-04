@@ -8,7 +8,7 @@
     | select(.[4] == "present")
     | {
         url: .[0],
-        chainId: .[1],
+        chainId: .[1] | tonumber,
         key: .[3]
     }
 ]

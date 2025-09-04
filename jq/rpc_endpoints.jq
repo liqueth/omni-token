@@ -1,14 +1,8 @@
 # config/rpc_endpoints.jq
-# jq -f jq/rpc_endpoints.jq config/active.json > config/rpc_endpoints.json
+# jq -rf jq/rpc_endpoints.jq config/arachnid.json > rpc_endpoints.toml
 # jq -f jq/rpc_endpoints.jq config/active.json | jq -r '.[] | "\(.chainId) = \(.rpcs)"' | sed '1i[rpc_endpoints]' > rpc_endpoints.toml
-[
-    .[]
-    | select(((.rpcs // []) | length) > 0)
-    | {
-        key: .chainKey,
-        chainId: .chainDetails.nativeChainId,
-        rpcs: [((.rpcs // [])[] | . + {weight: -(.weight // 0)})]
-        | sort_by(.weight)
-        | [.[] | .url]
-    }
-]
+def rpad($len; $ch):
+  (. + ($ch * $len))[:$len];
+.[]
+| .
+| (.chainId | tostring | rpad(11; " ")) + " = \"" + (.url + "\"" | rpad(70; " ")) + " # " + .key

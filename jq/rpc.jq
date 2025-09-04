@@ -1,6 +1,6 @@
 # config/rpc.jq
-# jq -f jq/rpc.jq config/metadata.json > config/rpc.json
-# jq -f jq/rpc.jq config/metadata.json | jq -r '.[] | join(",")' > config/rpc.csv
+# jq -f jq/rpc.jq config/active.json > config/rpc.json
+# jq -f jq/rpc.jq config/active.json | jq -r '.[] | join(",")' > config/rpc.csv
 [
     .[]?
     | select(.chainDetails.chainStatus == "ACTIVE"

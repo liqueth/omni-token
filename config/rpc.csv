@@ -35,9 +35,7 @@ https://bsc-pokt.nodies.app,56,8,bsc
 https://exchainrpc.okex.org,66,0,okx
 https://evmtestnet.confluxrpc.com,71,0,conflux-testnet
 https://rpc-2.japanopenchain.org:8545,81,0,joc
-https://rpc-1.japanopenchain.org:8545,81,0,astar-testnet
 https://rpc-1.japanopenchain.org:8545,81,1,joc
-https://rpc-2.japanopenchain.org:8545,81,1,astar-testnet
 https://rpc.meter.io,82,0,meter
 https://rpctest.meter.io,83,0,meter-testnet
 https://rpc.tomochain.com,88,0,tomo
@@ -123,7 +121,6 @@ wss://wss.api.moonriver.moonbeam.network,1285,1,moonriver
 https://rpc.api.moonbase.moonbeam.network,1287,0,moonbase
 wss://wss.api.moonbase.moonbeam.network,1287,1,moonbase
 https://mainnet-node.m9.glue.net,1300,0,glue
-https://testnet-node-1.server-1.glue.net,1300,0,glue-testnet
 https://evm-rpc.sei-apis.com,1329,0,sei
 https://rpc.islander.vana.org,1480,0,islander
 https://rpc.vana.org,1480,1,islander

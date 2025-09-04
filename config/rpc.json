@@ -224,20 +224,8 @@
   {
     "rpc": "https://rpc-1.japanopenchain.org:8545",
     "chainId": 81,
-    "order": 0,
-    "chainKey": "astar-testnet"
-  },
-  {
-    "rpc": "https://rpc-1.japanopenchain.org:8545",
-    "chainId": 81,
     "order": 1,
     "chainKey": "joc"
-  },
-  {
-    "rpc": "https://rpc-2.japanopenchain.org:8545",
-    "chainId": 81,
-    "order": 1,
-    "chainKey": "astar-testnet"
   },
   {
     "rpc": "https://rpc.meter.io",
@@ -748,12 +736,6 @@
     "chainId": 1300,
     "order": 0,
     "chainKey": "glue"
-  },
-  {
-    "rpc": "https://testnet-node-1.server-1.glue.net",
-    "chainId": 1300,
-    "order": 0,
-    "chainKey": "glue-testnet"
   },
   {
     "rpc": "https://evm-rpc.sei-apis.com",

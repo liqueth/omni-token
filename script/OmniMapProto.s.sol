@@ -7,6 +7,7 @@ import "../src/OmniMap.sol";
 
 /**
  * @notice Deploy the OmniMap factory/implementation contract.
+ * @dev Usage: forge script script/OmniMapProto.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract OmniMapFactory is Script {
     function run() external {

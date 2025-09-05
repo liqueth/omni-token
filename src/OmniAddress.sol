@@ -2,38 +2,38 @@
 
 pragma solidity ^0.8.20;
 
-import "./interfaces/IOmniMap.sol";
-import "./interfaces/IOmniMapProto.sol";
+import "./interfaces/IOmniAddress.sol";
+import "./interfaces/IOmniAddressProto.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Map a single predictable contract address to many unique chain local addresses.
 /// @dev Deployed by the deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
-/// OmniMap provides a trustless reference with no governance or upgrade risk.
+/// OmniAddress provides a trustless reference with no governance or upgrade risk.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
-/// @dev The implementation contract is also a protofactory, allowing anyone to deploy new OmniMaps.
+/// @dev The implementation contract is also a protofactory, allowing anyone to deploy new OmniAddresss.
 /// @author Paul Reinholdtsen
-contract OmniMap is IOmniMap, IOmniMapProto {
-    /// @inheritdoc IOmniMap
+contract OmniAddress is IOmniAddress, IOmniAddressProto {
+    /// @inheritdoc IOmniAddress
     function local() external view returns (address) {
         return _local;
     }
 
-    /// @inheritdoc IOmniMapProto
+    /// @inheritdoc IOmniAddressProto
     function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(entries));
         clone_ = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
-    /// @inheritdoc IOmniMapProto
+    /// @inheritdoc IOmniAddressProto
     function clone(Entry[] memory entries) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(entries);
         if (clone_.code.length == 0) {
             for (uint256 i; i < entries.length; ++i) {
                 if (entries[i].chainId == block.chainid) {
                     Clones.cloneDeterministic(address(this), salt);
-                    OmniMap(clone_).__OmniMap_init(entries[i].local);
+                    OmniAddress(clone_).__OmniAddress_init(entries[i].local);
                     return (clone_, salt);
                 }
             }
@@ -50,7 +50,7 @@ contract OmniMap is IOmniMap, IOmniMapProto {
 
     /// @dev Only let the protofactory set the local address after cloning.
     /// @param local_ The local address for the current chain.
-    function __OmniMap_init(address local_) public {
+    function __OmniAddress_init(address local_) public {
         if (_initialized) revert AlreadyInitialized();
         _initialized = true;
         _local = local_;

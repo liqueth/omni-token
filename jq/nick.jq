@@ -1,5 +1,5 @@
-# arachnid.jq
-# usage: jq -Rf jq/arachnid.jq < config/arachnid.csv > config/arachnid.json
+# nick.jq
+# usage: jq -Rf jq/nick.jq < config/nick.csv > config/nick.json
 .
 | split("\n")
 | map(split(","))
@@ -9,6 +9,7 @@
     | {
         url: .[0],
         chainId: .[1] | tonumber,
+        rank: .[2],
         key: .[3]
     }
 ]

@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// @notice Map a single predictable contract address to many chain local addresses.
 /// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
 /// OmniAddress provides a trustless reference with no governance or upgrade risk.
-/// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
+/// Contracts, SDKs, and UIs can hardcode one address and resolve everywhere.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @dev The implementation is also a factory, allowing anyone to easily deploy an OmniAddresss.

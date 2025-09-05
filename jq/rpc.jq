@@ -7,13 +7,13 @@
         and .chainDetails.chainType == "evm"
         and .chainDetails.nativeChainId)
     | select(((.rpcs // []) | length) > 0)
-    | . + {rpcs: [((.rpcs // [])[] | . + {weight: -(.weight // 0)})] | sort_by(.weight) | [to_entries[] | {rpcrank: .key} + .value]}
+    | . + {rpcs: [((.rpcs // [])[] | . + {rank: (.rank // 0)})] | sort_by(.rank) | [to_entries[] | {rank: .key} + .value]}
     | . + (.rpcs[])
     | {
         rpc: .url,
         chainId: .chainDetails.nativeChainId,
-        order: .rpcrank,
+        rank: .rank,
         chainKey: .chainKey
     }
 ]
-| sort_by(.chainId, .order)
+| sort_by(.chainId, .rank)

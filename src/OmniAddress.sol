@@ -6,13 +6,13 @@ import "./interfaces/IOmniAddress.sol";
 import "./interfaces/IOmniAddressCloner.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @notice Map a single predictable contract address to many unique chain local addresses.
-/// @dev Deployed by the deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
+/// @notice Map a single predictable contract address to many chain local addresses.
+/// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
 /// OmniAddress provides a trustless reference with no governance or upgrade risk.
 /// Contracts, SDKs, and UIs can hardcode one address and always resolve correctly.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.
-/// @dev The implementation contract is also a protofactory, allowing anyone to deploy new OmniAddresss.
+/// @dev The implementation is also a factory, allowing anyone to easily deploy an OmniAddresss.
 /// @author Paul Reinholdtsen
 contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     /// @inheritdoc IOmniAddress
@@ -23,7 +23,7 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     /// @inheritdoc IOmniAddressCloner
     function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(entries));
-        clone_ = Clones.predictDeterministicAddress(address(this), salt, address(this));
+        clone_ = Clones.predictDeterministicAddress(address(this), salt);
     }
 
     /// @inheritdoc IOmniAddressCloner
@@ -48,7 +48,7 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
         _initialized = true;
     }
 
-    /// @dev Only let the protofactory set the local address after cloning.
+    /// @dev Only let the cloner set the local address after cloning.
     /// @param local_ The local address for the current chain.
     function __OmniAddress_init(address local_) public {
         if (_initialized) revert AlreadyInitialized();

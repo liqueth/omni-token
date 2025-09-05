@@ -16,4 +16,4 @@
         chainKey: .chainKey
     }
 ]
-| sort_by(.chainId, .rank)
+| sort_by(.chainId, .rank, .rpc | length)

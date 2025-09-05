@@ -1,5 +1,5 @@
 # nick.jq
-# usage: jq -Rf jq/nick.jq < config/nick.csv > config/nick.json
+# usage: jq -sRf jq/nick.jq < config/nick.csv > config/nick.json
 .
 | split("\n")
 | map(split(","))

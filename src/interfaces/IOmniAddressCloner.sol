@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 /// @notice Deploy clones of the OmniAddress protofactory.
 /// @author Paul Reinholdtsen
-interface IOmniAddressProto {
+interface IOmniAddressCloner {
     /// @notice Map a chainId to a local address.
     struct Entry {
         uint256 chainId;

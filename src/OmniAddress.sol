@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "./interfaces/IOmniAddress.sol";
-import "./interfaces/IOmniAddressProto.sol";
+import "./interfaces/IOmniAddressCloner.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Map a single predictable contract address to many unique chain local addresses.
@@ -14,19 +14,19 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @dev The implementation contract is also a protofactory, allowing anyone to deploy new OmniAddresss.
 /// @author Paul Reinholdtsen
-contract OmniAddress is IOmniAddress, IOmniAddressProto {
+contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     /// @inheritdoc IOmniAddress
     function local() external view returns (address) {
         return _local;
     }
 
-    /// @inheritdoc IOmniAddressProto
+    /// @inheritdoc IOmniAddressCloner
     function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(entries));
         clone_ = Clones.predictDeterministicAddress(address(this), salt, address(this));
     }
 
-    /// @inheritdoc IOmniAddressProto
+    /// @inheritdoc IOmniAddressCloner
     function clone(Entry[] memory entries) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(entries);
         if (clone_.code.length == 0) {

@@ -27,5 +27,5 @@ interface IOmniAddressCloner {
     error AlreadyInitialized();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed clone, address indexed local);
+    event Cloned(address indexed clone, address indexed value);
 }

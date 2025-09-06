@@ -21,19 +21,19 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     }
 
     /// @inheritdoc IOmniAddressCloner
-    function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
-        salt = keccak256(abi.encode(entries));
+    function cloneAddress(KeyValue[] memory keyValues) public view returns (address clone_, bytes32 salt) {
+        salt = keccak256(abi.encode(keyValues));
         clone_ = Clones.predictDeterministicAddress(address(this), salt);
     }
 
     /// @inheritdoc IOmniAddressCloner
-    function clone(Entry[] memory entries) public returns (address clone_, bytes32 salt) {
-        (clone_, salt) = cloneAddress(entries);
+    function clone(KeyValue[] memory keyValues) public returns (address clone_, bytes32 salt) {
+        (clone_, salt) = cloneAddress(keyValues);
         if (clone_.code.length == 0) {
-            for (uint256 i; i < entries.length; ++i) {
-                if (entries[i].chainId == block.chainid) {
+            for (uint256 i; i < keyValues.length; ++i) {
+                if (keyValues[i].chainId == block.chainid) {
                     Clones.cloneDeterministic(address(this), salt);
-                    OmniAddress(clone_).__OmniAddress_init(entries[i].local);
+                    OmniAddress(clone_).__OmniAddress_init(keyValues[i].local);
                     return (clone_, salt);
                 }
             }

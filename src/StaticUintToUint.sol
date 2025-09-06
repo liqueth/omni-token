@@ -28,17 +28,17 @@ contract StaticUintToUint is IUintToUint, IUintToUintCloner {
     }
 
     /// @inheritdoc IUintToUintCloner
-    function cloneAddress(Entry[] memory entries) public view returns (address clone_, bytes32 salt) {
-        salt = keccak256(abi.encode(entries));
+    function cloneAddress(KeyValue[] memory keyValues) public view returns (address clone_, bytes32 salt) {
+        salt = keccak256(abi.encode(keyValues));
         clone_ = Clones.predictDeterministicAddress(address(this), salt);
     }
 
     /// @inheritdoc IUintToUintCloner
-    function clone(Entry[] memory entries) public returns (address clone_, bytes32 salt) {
-        (clone_, salt) = cloneAddress(entries);
+    function clone(KeyValue[] memory keyValues) public returns (address clone_, bytes32 salt) {
+        (clone_, salt) = cloneAddress(keyValues);
         if (clone_.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
-            StaticUintToUint(clone_).__init(entries);
+            StaticUintToUint(clone_).__init(keyValues);
             return (clone_, salt);
         }
     }
@@ -53,13 +53,13 @@ contract StaticUintToUint is IUintToUint, IUintToUintCloner {
     }
 
     /// @dev Only the cloner should call __init.
-    /// @param entries The array of key value pairs sorted by key.
-    function __init(Entry[] memory entries) public {
+    /// @param keyValues The array of key value pairs sorted by key.
+    function __init(KeyValue[] memory keyValues) public {
         if (_initialized) revert AlreadyInitialized();
         _initialized = true;
-        for (uint256 i; i < entries.length; ++i) {
-            keys.push(entries[i].key);
-            values[entries[i].key] = entries[i].value;
+        for (uint256 i; i < keyValues.length; ++i) {
+            keys.push(keyValues[i].key);
+            values[keyValues[i].key] = keyValues[i].value;
         }
         emit Cloned(address(this));
     }

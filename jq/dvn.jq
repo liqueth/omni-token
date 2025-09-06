@@ -1,20 +1,22 @@
-# verifier.jq
+# dvn.jq
+# usage: jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 -f jq/dvn.jq config/nickmeta.json > config/dvn/$DVN_ID-$CHAIN_ENV.json
+
 {
     version: $version,
+    env: $env,
     id: $id,
-    chains: [
+    map: [
         .[]?
         | . +.chainDetails + ((.dvns // {}) | to_entries[])
         | select(.value.version == $version
-                and .chainStatus == "ACTIVE"
                 and .environment == $env
                 and .value.id == $id
                 and .nativeChainId)
         | {
-            chainId: .nativeChainId,
-            dvn: .key
+            key: .nativeChainId,
+            value: .key
         }
     ]
-    | sort_by(.chainId)
-    | unique_by(.chainId)
+    | sort_by(.key)
+    | unique_by(.key)
 }

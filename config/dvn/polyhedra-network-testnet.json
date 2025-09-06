@@ -1,10 +1,11 @@
 {
   "version": 2,
+  "env": "testnet",
   "id": "polyhedra-network",
-  "chains": [
+  "map": [
     {
-      "chainId": 97,
-      "dvn": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
+      "key": 97,
+      "value": "0x2ddf08e397541721acd82e5b8a1d0775454a180b"
     }
   ]
 }

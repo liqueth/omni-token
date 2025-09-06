@@ -6,5 +6,5 @@ pragma solidity ^0.8.20;
 /// @author Paul Reinholdtsen
 interface IOmniAddress {
     /// @notice Return the chain‑specific address.
-    function local() external view returns (address);
+    function value() external view returns (address);
 }

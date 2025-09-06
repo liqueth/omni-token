@@ -6,7 +6,7 @@ import "./interfaces/IOmniAddress.sol";
 import "./interfaces/IOmniAddressCloner.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @notice Map a single predictable contract address to many chain local addresses.
+/// @notice Map a single predictable contract address to many chain value addresses.
 /// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
 /// OmniAddress provides a trustless reference with no governance or upgrade risk.
 /// Contracts, SDKs, and UIs can hardcode one address and resolve everywhere.
@@ -16,8 +16,8 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// @author Paul Reinholdtsen
 contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     /// @inheritdoc IOmniAddress
-    function local() external view returns (address) {
-        return _local;
+    function value() external view returns (address) {
+        return _value;
     }
 
     /// @inheritdoc IOmniAddressCloner
@@ -31,16 +31,16 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
         (clone_, salt) = cloneAddress(keyValues);
         if (clone_.code.length == 0) {
             for (uint256 i; i < keyValues.length; ++i) {
-                if (keyValues[i].chainId == block.chainid) {
+                if (keyValues[i].key == block.chainid) {
                     Clones.cloneDeterministic(address(this), salt);
-                    OmniAddress(clone_).__OmniAddress_init(keyValues[i].local);
+                    OmniAddress(clone_).__OmniAddress_init(keyValues[i].value);
                     return (clone_, salt);
                 }
             }
         }
     }
 
-    address private _local;
+    address private _value;
     bool private _initialized;
 
     /// @dev Prevent the implementation contract from being initialized.
@@ -48,12 +48,12 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
         _initialized = true;
     }
 
-    /// @dev Only let the cloner set the local address after cloning.
-    /// @param local_ The local address for the current chain.
-    function __OmniAddress_init(address local_) public {
+    /// @dev Only let the cloner set the value address after cloning.
+    /// @param value_ The value address for the current chain.
+    function __OmniAddress_init(address value_) public {
         if (_initialized) revert AlreadyInitialized();
         _initialized = true;
-        _local = local_;
-        emit Cloned(address(this), local_);
+        _value = value_;
+        emit Cloned(address(this), value_);
     }
 }

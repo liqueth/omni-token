@@ -1,10 +1,9 @@
 # dvn.jq
-# usage: jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 -f jq/dvn.jq config/nickmeta.json > config/$CHAIN_ENV/$DVN_ID.json
+# usage:
 {
-    version: $version,
     env: $env,
     id: $id,
-    map: [
+    keyValues: [
         .[]?
         | . +.chainDetails + ((.dvns // {}) | to_entries[])
         | select(.value.version == $version

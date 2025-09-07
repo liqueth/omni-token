@@ -1,0 +1,26 @@
+{
+  "env": "testnet",
+  "id": "mantle01",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0x1337afd780b599b0af07fb0043226f02bc7fe92f"
+    },
+    {
+      "key": 998,
+      "value": "0x003bd8adc7ba8a7353b950541904b61011e38dae"
+    },
+    {
+      "key": 5003,
+      "value": "0xec428b5d75d5d0b44ff58cd4b3d3e12aef3e2c1f"
+    },
+    {
+      "key": 10143,
+      "value": "0x7d7640982fe23482ee6d11f1e5636644ba186d1d"
+    },
+    {
+      "key": 11155111,
+      "value": "0xa6bcc8c553ea756c8ad393d2cf379bfb59856499"
+    }
+  ]
+}

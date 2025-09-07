@@ -1,0 +1,14 @@
+{
+  "env": "testnet",
+  "id": "mantle02",
+  "keyValues": [
+    {
+      "key": 5003,
+      "value": "0x3fbe85cc14b34c9515a1b27dfc9d46fd4b4dbd4c"
+    },
+    {
+      "key": 11155111,
+      "value": "0x15f5a70fc078279d7d4a7dd94811189364810111"
+    }
+  ]
+}

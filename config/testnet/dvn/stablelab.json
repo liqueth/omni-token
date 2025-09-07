@@ -1,0 +1,22 @@
+{
+  "env": "testnet",
+  "id": "stablelab",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0xd05c27f2e47fbba82adaac2a5adb71ba57a5b933"
+    },
+    {
+      "key": 4002,
+      "value": "0x134dc38ae8c853d1aa2103d5047591acdaa16682"
+    },
+    {
+      "key": 43113,
+      "value": "0xfde647565009b33b1df02689d5873bffff15d907"
+    },
+    {
+      "key": 11155111,
+      "value": "0xf21f0282b55b4143251d8e39d3d93e78a78389ab"
+    }
+  ]
+}

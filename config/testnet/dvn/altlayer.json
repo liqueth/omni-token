@@ -1,0 +1,14 @@
+{
+  "env": "testnet",
+  "id": "altlayer",
+  "keyValues": [
+    {
+      "key": 421614,
+      "value": "0x47cee39389206557f88118a54efdbce13b28b6a4"
+    },
+    {
+      "key": 11155111,
+      "value": "0x25f492a35ec1e60ebcf8a3dd52a815c2d167f4c3"
+    }
+  ]
+}

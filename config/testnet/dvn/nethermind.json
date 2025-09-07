@@ -1,0 +1,74 @@
+{
+  "env": "testnet",
+  "id": "nethermind",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0x6334290b7b4a365f3c0e79c85b1b42f078db78e4"
+    },
+    {
+      "key": 195,
+      "value": "0x4bc3343593c0bb0e70639d5c0fdbc67e05fe4183"
+    },
+    {
+      "key": 1115,
+      "value": "0x4bb65bdb2c5d9bbaf25574a882c12fd98f5f994a"
+    },
+    {
+      "key": 1946,
+      "value": "0xeab9a73194501424372d468970cd5e37529ea971"
+    },
+    {
+      "key": 2522,
+      "value": "0x14ccb1a6ebb0b6f669fce087a2dbf664a1f57251"
+    },
+    {
+      "key": 4002,
+      "value": "0x39ed64e4e063d22f69fb09d5a84ed6582aff120f"
+    },
+    {
+      "key": 10143,
+      "value": "0xb365da66084d135e9bfaef73eb8be06029271681"
+    },
+    {
+      "key": 10200,
+      "value": "0xb186f85d0604fe58af2ea33fe40244f5eef7351b"
+    },
+    {
+      "key": 43113,
+      "value": "0x7883f83ea40a56137a63baf93bfee5b9b8c1c447"
+    },
+    {
+      "key": 44787,
+      "value": "0x449391d6812bce0b0b86d32d752035ff5be3f159"
+    },
+    {
+      "key": 84532,
+      "value": "0xd9222cc3ccd1df7c070d700ea377d4ada2b86eb5"
+    },
+    {
+      "key": 200810,
+      "value": "0x743178c017952aa88d7f17c1676dcb81d308acb6"
+    },
+    {
+      "key": 421614,
+      "value": "0x3a74f7174709842d3b8a14ce60b4aa2499f2a2f2"
+    },
+    {
+      "key": 686868,
+      "value": "0x3bd9af5aa8c33b1e71c94cae7c009c36413e08fd"
+    },
+    {
+      "key": 11155111,
+      "value": "0x715a4451be19106bb7cefd81e507813e23c30768"
+    },
+    {
+      "key": 11155420,
+      "value": "0x2d15d4e61558480a9300632772e68d8b5e7cc7e5"
+    },
+    {
+      "key": 1918988905,
+      "value": "0x48cd672a603615c6bef4598646b33382844d1830"
+    }
+  ]
+}

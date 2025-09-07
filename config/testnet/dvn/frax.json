@@ -1,0 +1,26 @@
+{
+  "env": "testnet",
+  "id": "frax",
+  "keyValues": [
+    {
+      "key": 2522,
+      "value": "0x560a78eae34d9f184a5c65dbfbdc53d2b8b96563"
+    },
+    {
+      "key": 80002,
+      "value": "0x5364192803e9c6da2e937ed602ac1854d4f223cb"
+    },
+    {
+      "key": 421614,
+      "value": "0xc7e652a4ac4f3a872024ba10b13ea0c53731af83"
+    },
+    {
+      "key": 11155111,
+      "value": "0x4386167355cda5dbb434e6997fe38fe1f4822c12"
+    },
+    {
+      "key": 11155420,
+      "value": "0xfdd7dabc2f892bbf8e9abd2ba580ddcd85c7c055"
+    }
+  ]
+}

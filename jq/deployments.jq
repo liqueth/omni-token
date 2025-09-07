@@ -1,6 +1,7 @@
 # jq/deployments.jq
-# usage: jq --arg env testnet -f jq/deployments.jq config/nickmeta.json > config/deployments-testnet.json
-# usage: jq --arg env mainnet -f jq/deployments.jq config/nickmeta.json > config/deployments-mainnet.json
+# usage: jq --arg env testnet -f jq/deployments.jq config/nickmeta.json > config/testnet/deployments.json
+# usage: jq --arg env mainnet -f jq/deployments.jq config/nickmeta.json > config/mainnet/deployments.json
+# usage: jq --arg env $CHAIN_ENV -f jq/deployments.jq config/nickmeta.json > config/$CHAIN_ENV/deployments.json
 [
     .[]
     | . + .deployments[]? + .chainDetails

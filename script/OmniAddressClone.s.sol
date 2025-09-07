@@ -16,6 +16,7 @@ import "../src/OmniAddress.sol";
  *
  * @dev Example:
  *   forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
+ *   OmniAddressPath=config/testnet/dvn/google-cloud.json forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
  *
  * @dev Output:
  *   - Human-readable logs with the resolved/created clone address and context.

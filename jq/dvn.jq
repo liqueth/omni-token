@@ -1,6 +1,5 @@
 # dvn.jq
-# usage: jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 -f jq/dvn.jq config/nickmeta.json > config/dvn/$DVN_ID-$CHAIN_ENV.json
-
+# usage: jq --arg id $DVN_ID --arg env $CHAIN_ENV --argjson version 2 -f jq/dvn.jq config/nickmeta.json > config/$CHAIN_ENV/$DVN_ID.json
 {
     version: $version,
     env: $env,

@@ -1,20 +1,13 @@
-# verifiers.jq
-{
-    version: $version,
-    env: $env,
-    dvns: [
-        .[]?
-        | . +.chainDetails + ((.dvns // {}) | to_entries[])
-        | select(.value.version == $version
-                and .chainStatus == "ACTIVE"
-                and .environment == $env
-                and .value.id
-                and .nativeChainId)
-        | {
-            id: .value.id,
-            canonicalName: .value.canonicalName
-        }
-    ]
-    | sort_by(.id)
-    | unique_by(.id, .canonicalName)
-}
+# dvns.jq
+# Usage: jq --arg env $CHAIN_ENV -r -f jq/dvns.jq config/nickmeta.json > config/$CHAIN_ENV/dvns.txt
+[
+.[]
+| select(.environment == $env)
+| (.dvns // {})
+| to_entries[]
+| .value.id
+| select(.)
+]
+| sort_by(.)
+| unique_by(.)
+| .[]

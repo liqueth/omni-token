@@ -15,11 +15,7 @@ import "../src/OmniAddress.sol";
  *   - DEPLOYER_ADDRESS  : (for logging only) the EVM address of the broadcaster
  *
  * @dev Example:
- *   forge script script/OmniAddressClone.s.sol \
- *     --rpc-url $CHAIN_ID \
- *     --private-key $DEPLOYER_KEY \
- *     --etherscan-api-key $ETHERSCAN_KEY \
- *     --broadcast
+ *   forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
  *
  * @dev Output:
  *   - Human-readable logs with the resolved/created clone address and context.

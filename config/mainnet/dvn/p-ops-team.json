@@ -1,0 +1,54 @@
+{
+  "env": "mainnet",
+  "id": "p-ops-team",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x94aafe0a92a8300f0a2100a7f3de47d6845747a9"
+    },
+    {
+      "key": 10,
+      "value": "0xe552485d02edd3067fe7fcbd4dd56bb1d3a998d2"
+    },
+    {
+      "key": 56,
+      "value": "0x33e5fcc13d7439cc62d54c41aa966197145b3cd7"
+    },
+    {
+      "key": 100,
+      "value": "0x790d7b1e97a086eb0012393b65a5b32ce58a04dc"
+    },
+    {
+      "key": 137,
+      "value": "0xa75abcc0fab6ae09c8fd808bec7be7e88fe31d6b"
+    },
+    {
+      "key": 250,
+      "value": "0x78203678d264063815dac114ea810e9837cd80f7"
+    },
+    {
+      "key": 1284,
+      "value": "0x7fe673201724925b5c477d4e1a4bd3e954688cf5"
+    },
+    {
+      "key": 8453,
+      "value": "0xa9d11632ec5f9502d39aff28d66415f6cca37544"
+    },
+    {
+      "key": 42161,
+      "value": "0x8fa9eef18c2a1459024f0b44714e5acc1ce7f5e8"
+    },
+    {
+      "key": 43114,
+      "value": "0x2b8cbea81315130a4c422e875063362640ddfeb0"
+    },
+    {
+      "key": 80094,
+      "value": "0x4055fad06ded1f57a1b4d07455665a9bbc33c700"
+    },
+    {
+      "key": 534352,
+      "value": "0x34730f2570e6cff8b1c91faabf37d0dd917c4367"
+    }
+  ]
+}

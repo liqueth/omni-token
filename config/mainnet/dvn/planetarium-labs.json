@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "planetarium-labs",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x972ed7bd3d42d9c0bea3632992ebf7e97186ea4a"
+    },
+    {
+      "key": 10,
+      "value": "0x021e401c2a1a60618c5e6353a40524971eba1e8d"
+    },
+    {
+      "key": 56,
+      "value": "0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e"
+    },
+    {
+      "key": 137,
+      "value": "0x2ac038606fff3fb00317b8f0ccfb4081694acdd0"
+    },
+    {
+      "key": 250,
+      "value": "0xf7ddee427507cdb6885e53caaaa1973b1fe29357"
+    },
+    {
+      "key": 42161,
+      "value": "0xe6cd8c2e46ef396df88048449e5b1c75172b40c3"
+    },
+    {
+      "key": 43114,
+      "value": "0x2ac038606fff3fb00317b8f0ccfb4081694acdd0"
+    }
+  ]
+}

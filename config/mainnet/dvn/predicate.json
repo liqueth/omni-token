@@ -1,0 +1,14 @@
+{
+  "env": "mainnet",
+  "id": "predicate",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x006e1248be5e40b4a4e7099397719df7ab872de7"
+    },
+    {
+      "key": 98866,
+      "value": "0xd7bb44516b476ca805fb9d6fc5b508ef3ee9448d"
+    }
+  ]
+}

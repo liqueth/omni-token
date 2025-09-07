@@ -1,0 +1,14 @@
+{
+  "env": "mainnet",
+  "id": "mantle01",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x7cc59b5062a8291804a21a2a793c6ce9ea2f0eb9"
+    },
+    {
+      "key": 5000,
+      "value": "0x0d7cb4033e0c193f65b3639e61b6986a29bf1dd4"
+    }
+  ]
+}

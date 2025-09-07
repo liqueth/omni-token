@@ -1,0 +1,14 @@
+{
+  "env": "mainnet",
+  "id": "quantoz",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x2c97f92eb72dcb3cf1b13d8a14b9d599482fc90d"
+    },
+    {
+      "key": 137,
+      "value": "0xa773b91c42fc8e77c37d7396b2814b8fa485b2c3"
+    }
+  ]
+}

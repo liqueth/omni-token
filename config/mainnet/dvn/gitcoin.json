@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "gitcoin",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x38179d3bfa6ef1d69a8a7b0b671ba3d8836b2ae8"
+    },
+    {
+      "key": 10,
+      "value": "0x37a37d958a43810ec169eece501c525664ddf890"
+    },
+    {
+      "key": 56,
+      "value": "0x2afa3787cd95fee5d5753cd717ef228eb259f4ea"
+    },
+    {
+      "key": 137,
+      "value": "0xecb3ac94976f11a53ae74af1f36fb89e247faeef"
+    },
+    {
+      "key": 250,
+      "value": "0xf4213560f316007082731e8574e1a9630f91f1b1"
+    },
+    {
+      "key": 42161,
+      "value": "0x313328609a9c38459cae56625fff7f2ad6dcde3b"
+    },
+    {
+      "key": 43114,
+      "value": "0xcced05c3667877b545285b25f19f794436a1c481"
+    }
+  ]
+}

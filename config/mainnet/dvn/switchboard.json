@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "switchboard",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x276e6b1138d2d49c0cda86658765d12ef84550c1"
+    },
+    {
+      "key": 10,
+      "value": "0x313328609a9c38459cae56625fff7f2ad6dcde3b"
+    },
+    {
+      "key": 56,
+      "value": "0xf0809f6e760a5452ee567975eda7a28da4a83d38"
+    },
+    {
+      "key": 137,
+      "value": "0xc6d46f63578635e4a7140cdf4d0eea0fd7bb50ec"
+    },
+    {
+      "key": 250,
+      "value": "0xf0809f6e760a5452ee567975eda7a28da4a83d38"
+    },
+    {
+      "key": 42161,
+      "value": "0xcced05c3667877b545285b25f19f794436a1c481"
+    },
+    {
+      "key": 43114,
+      "value": "0x92ef4381a03372985985e70fb15e9f081e2e8d14"
+    }
+  ]
+}

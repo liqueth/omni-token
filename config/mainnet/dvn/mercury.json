@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "mercury",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0xce97511db880571a7c31821eb026ef12fcac892e"
+    },
+    {
+      "key": 10,
+      "value": "0xd36246c322ee102a2203bca9cafb84c179d306f6"
+    },
+    {
+      "key": 56,
+      "value": "0xb4fa7f1c67e5ec99b556ec92cbddbcdd384106f2"
+    },
+    {
+      "key": 137,
+      "value": "0x54dd79f5ce72b51fcbbcb170dd01e32034323565"
+    },
+    {
+      "key": 250,
+      "value": "0xb4fa7f1c67e5ec99b556ec92cbddbcdd384106f2"
+    },
+    {
+      "key": 42161,
+      "value": "0x7b8a0fd9d6ae5011d5cbd3e85ed6d5510f98c9bf"
+    },
+    {
+      "key": 43114,
+      "value": "0x6a110d94e1baa6984a3d904bab37ae49b90e6b4f"
+    }
+  ]
+}

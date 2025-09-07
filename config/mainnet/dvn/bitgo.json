@@ -1,0 +1,74 @@
+{
+  "env": "mainnet",
+  "id": "bitgo",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x05d78174b97cf2ec223ee578cd1f401ff792ca31"
+    },
+    {
+      "key": 10,
+      "value": "0xf24dc834039a1e39f6b99a51df05df9c91e35b2d"
+    },
+    {
+      "key": 40,
+      "value": "0x2a22804cfa992d5cb1324863ec4ada920256b908"
+    },
+    {
+      "key": 56,
+      "value": "0xd791948db16ab4373fa394b74c727ddb7fb02520"
+    },
+    {
+      "key": 130,
+      "value": "0x6a4c9096f162f0ab3c0517b0a40dc1ce44785e16"
+    },
+    {
+      "key": 137,
+      "value": "0xc30291521305bc76115de7bca8034ea7147abe36"
+    },
+    {
+      "key": 146,
+      "value": "0xdfbb5c677db41b5ef3a180509cde27b5c9784655"
+    },
+    {
+      "key": 250,
+      "value": "0x3b247f1b48f055ebf2db593672b98c9597e3081e"
+    },
+    {
+      "key": 999,
+      "value": "0xf55e9daef79eec17f76e800f059495f198ef8348"
+    },
+    {
+      "key": 1329,
+      "value": "0xe40d78243074711e21ca5290ee190062bdce09b5"
+    },
+    {
+      "key": 1868,
+      "value": "0xd251d8a85cdfc84518b9454ee6a8d017e503f56c"
+    },
+    {
+      "key": 1923,
+      "value": "0x1269d1777ba8cf7498fe741869ed4b73f2a47e93"
+    },
+    {
+      "key": 8453,
+      "value": "0x133e9fb2d339d8428476a714b1113b024343811e"
+    },
+    {
+      "key": 42161,
+      "value": "0x4a6b9962945d866f53fd114bb76b38b8791b8c1d"
+    },
+    {
+      "key": 43114,
+      "value": "0x07ff86c392588254ad10f0811dbbcad45f4c7d87"
+    },
+    {
+      "key": 60808,
+      "value": "0xaa391622e42ae501371cd745ce0bad588a8c65fd"
+    },
+    {
+      "key": 80094,
+      "value": "0xdff3f73c260b3361d4f006b02972c6af6c5c5417"
+    }
+  ]
+}

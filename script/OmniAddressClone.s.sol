@@ -22,9 +22,12 @@ contract OmniAddressClone is Script {
         string memory json = vm.readFile(path);
         bytes memory raw = vm.parseJson(json);
         Config memory config = abi.decode(raw, (Config));
-        vm.startBroadcast();
-        (address clone,) = cloner.clone(config.keyValues);
-        vm.stopBroadcast();
+        (address clone,) = cloner.cloneAddress(config.keyValues);
+        if (clone.code.length == 0) {
+            vm.startBroadcast();
+            (clone,) = cloner.clone(config.keyValues);
+            vm.stopBroadcast();
+        }
         console2.log("address:", clone);
     }
 }

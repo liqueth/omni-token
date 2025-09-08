@@ -1,22 +1,5 @@
 {
   "env": "mainnet",
   "id": "ondo",
-  "keyValues": [
-    {
-      "key": 1,
-      "value": "0x241c66a979125f230c239e79d103e0c2128c6618"
-    },
-    {
-      "key": 5000,
-      "value": "0xdeb742e71d57603d8f769ce36f4353468007fc02"
-    },
-    {
-      "key": 42161,
-      "value": "0x4708a19824bfe71262a91cdefa36ce21cbffafe1"
-    },
-    {
-      "key": 98865,
-      "value": "0x54dd79f5ce72b51fcbbcb170dd01e32034323565"
-    }
-  ]
+  "keyValues": []
 }

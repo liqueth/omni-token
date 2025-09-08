@@ -9,6 +9,7 @@
         | select(.value.version == 2
                 and .environment == $env
                 and .value.id == $id
+                and .value.deprecated != true
                 and .nativeChainId)
         | {
             key: .nativeChainId,

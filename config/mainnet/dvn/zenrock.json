@@ -1,58 +1,5 @@
 {
   "env": "mainnet",
   "id": "zenrock",
-  "keyValues": [
-    {
-      "key": 1,
-      "value": "0xd42306df1a805d8053bc652ce0cd9f62bde80146"
-    },
-    {
-      "key": 10,
-      "value": "0xaf75bfd402f3d4ee84978179a6c87d16c4bd1724"
-    },
-    {
-      "key": 56,
-      "value": "0xe5491fac6965aa664efd6d1ae5e7d1d56da4fdda"
-    },
-    {
-      "key": 100,
-      "value": "0x07c05eab7716acb6f83ebf6268f8eecda8892ba1"
-    },
-    {
-      "key": 137,
-      "value": "0xcd8ea69bbca0a2bb221aed59fa2704f01fc76a9f"
-    },
-    {
-      "key": 250,
-      "value": "0xae675d8a97a06dea4e74253d429bd324606ded24"
-    },
-    {
-      "key": 324,
-      "value": "0xc4a1f52fda034a9a5e1b3b27d14451d15776fef6"
-    },
-    {
-      "key": 8453,
-      "value": "0x9e930731cb4a6bf7ecc11f695a295c60bdd212eb"
-    },
-    {
-      "key": 42161,
-      "value": "0x3b65e87e2a4690f14cae0483014259ded8215adc"
-    },
-    {
-      "key": 42220,
-      "value": "0x1383981c78393b36f59c4f8f4f12f1b4eb249ebf"
-    },
-    {
-      "key": 43114,
-      "value": "0xe552485d02edd3067fe7fcbd4dd56bb1d3a998d2"
-    },
-    {
-      "key": 81457,
-      "value": "0x1383981c78393b36f59c4f8f4f12f1b4eb249ebf"
-    },
-    {
-      "key": 534352,
-      "value": "0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e"
-    }
-  ]
+  "keyValues": []
 }

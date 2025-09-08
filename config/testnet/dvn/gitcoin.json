@@ -1,22 +1,5 @@
 {
   "env": "testnet",
   "id": "gitcoin",
-  "keyValues": [
-    {
-      "key": 97,
-      "value": "0x6f978ee5bfd7b1a8085a3ea9e54eb76e668e195a"
-    },
-    {
-      "key": 4002,
-      "value": "0x97f671e60196ff62279dd06c393948f5b0b90c05"
-    },
-    {
-      "key": 43113,
-      "value": "0x071fbf35b35d48afc3edf84f0397980c25531560"
-    },
-    {
-      "key": 11155111,
-      "value": "0x28b92d35407caa791531cd7f7d215044f4c0cbdd"
-    }
-  ]
+  "keyValues": []
 }

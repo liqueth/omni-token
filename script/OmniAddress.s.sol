@@ -12,15 +12,18 @@ import "../src/OmniAddress.sol";
 contract OmniAddressScript is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(OmniAddress).creationCode));
-        bool exists = predicted.code.length != 0;
-        if (!exists) {
+        console2.log("predicted:", predicted);
+        if (predicted.code.length == 0) {
             vm.startBroadcast();
-            new OmniAddress{salt: 0x0}();
+            OmniAddress deployed = new OmniAddress{salt: 0x0}();
             vm.stopBroadcast();
+            console2.log("deployed:", address(deployed));
+        } else {
+            console2.log("already deployed");
         }
 
-        // machine-parsable
-        console.log("address:", predicted);
-        console.log("status:", exists ? "exists" : "deployed");
+        string memory env = vm.envString("CHAIN_ENV");
+        string memory jsonPath = string.concat("./config/", env, "/addresses.json");
+        vm.writeJson(vm.toString(predicted), jsonPath, ".OmniAddress");
     }
 }

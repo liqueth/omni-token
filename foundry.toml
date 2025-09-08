@@ -7,8 +7,8 @@ optimizer_runs = 1000
 bytecode_hash = "ipfs"
 
 fs_permissions = [
-    { access = "read-write", path = "./config/mainnet/omni.json" },
-    { access = "read-write", path = "./config/testnet/omni.json" },
+    { access = "read-write", path = "./config/mainnet/addresses.json" },
+    { access = "read-write", path = "./config/testnet/addresses.json" },
     { access = "read", path = "./config/" }
 ]
 

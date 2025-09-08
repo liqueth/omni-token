@@ -67,6 +67,9 @@ contract OmniAddressClone is Script {
         console2.log("id         :", cfg.id);
         console2.log("env        :", cfg.env);
 
+        string memory jsonPath = string.concat("./config/", cfg.env, "/omni.json");
+        vm.writeJson(vm.toString(clone), jsonPath, string.concat(".", cfg.id));
+
         // Machine-friendly final line (compact JSON)
         console2.log(
             string.concat(

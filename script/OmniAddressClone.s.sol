@@ -73,12 +73,18 @@ contract OmniAddressClone is Script {
         // Machine-friendly final line (compact JSON)
         console2.log(
             string.concat(
-                '{"action":"', action,
-                '","address":"', vm.toString(clone),
-                '","env":"', cfg.env,
-                '","id":"', cfg.id,
-                '","chainId":"', vm.toString(block.chainid),
-                '","deployer":"', vm.toString(deployer),
+                '{"action":"',
+                action,
+                '","address":"',
+                vm.toString(clone),
+                '","env":"',
+                cfg.env,
+                '","id":"',
+                cfg.id,
+                '","chainId":"',
+                vm.toString(block.chainid),
+                '","deployer":"',
+                vm.toString(deployer),
                 '"}'
             )
         );

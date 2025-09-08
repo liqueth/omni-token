@@ -30,13 +30,15 @@ contract OmniAddress is IOmniAddress, IOmniAddressCloner {
     function clone(KeyValue[] memory keyValues) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(keyValues);
         if (clone_.code.length == 0) {
+            address value_;
             for (uint256 i; i < keyValues.length; ++i) {
                 if (keyValues[i].key == block.chainid) {
-                    Clones.cloneDeterministic(address(this), salt);
-                    OmniAddress(clone_).__OmniAddress_init(keyValues[i].value);
-                    return (clone_, salt);
+                    value_ = keyValues[i].value;
+                    break;
                 }
             }
+            Clones.cloneDeterministic(address(this), salt);
+            OmniAddress(clone_).__OmniAddress_init(value_);
         }
     }
 

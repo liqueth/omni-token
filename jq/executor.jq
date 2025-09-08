@@ -1,13 +1,13 @@
-# endpoint.jq
-# Usage: jq --arg env $CHAIN_ENV -f jq/endpoint.jq config/$CHAIN_ENV/deployments.json > config/$CHAIN_ENV/endpoint.json
+# executor.jq
+# Usage: jq --arg env $CHAIN_ENV -f jq/executor.jq config/$CHAIN_ENV/deployments.json > config/$CHAIN_ENV/executor.json
 {
     env: $env,
-    id: "endpoint",
+    id: "executor",
     keyValues: [
         .[]
         | {
             key: .chainId,
-            value: .endpoint
+            value: .executor
         }
     ]
 }

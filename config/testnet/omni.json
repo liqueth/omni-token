@@ -1,6 +1,6 @@
 {
-  "blocker": null,
-  "endpoint": null,
+  "blocker": "0x7a5A5B4550ba3B2eDE4e9b957dd1a10B3C846C6a",
+  "endpoint": "0xdDeB617AE79a9c1EeDd24708F84334167df28951",
   "executor": null,
   "receiver": null,
   "sender": null,

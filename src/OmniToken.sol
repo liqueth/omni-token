@@ -47,9 +47,9 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
         }
     }
 
-    function clonePrediction(Config memory config) public view returns (address token, bytes32 salt) {
+    function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        token = Clones.predictDeterministicAddress(_prototype, salt, _prototype);
+        token = Clones.predictDeterministicAddress(_prototype, salt);
     }
 
     function clone(Config memory config) public returns (address token, bytes32 salt) {
@@ -57,13 +57,12 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
             return OmniToken(_prototype).clone(config);
         }
 
-        (token, salt) = clonePrediction(config);
+        (token, salt) = cloneAddress(config);
         if (address(token).code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
             OmniToken(address(token)).initialize(config);
+            emit Cloned(config.owner, address(token), config.name, config.symbol);
         }
-
-        emit Cloned(config.owner, address(token), config.name, config.symbol);
     }
 
     function cloneEncoded(bytes memory cloneData_) public returns (address token, bytes32 salt) {

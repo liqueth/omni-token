@@ -47,6 +47,14 @@ interface IEndpointConfig is IOmniConfig {
     function executor() external returns (address);
 
     /**
+     * @notice Address of the chain’s configured receive library.
+     * @dev Library used when receiving inbound messages to this chain.
+     * Implementations SHOULD make this a pure accessor (no state changes).
+     * @return The receive-library address for this chain.
+     */
+    function receiver() external returns (address);
+
+    /**
      * @notice Address of the chain’s configured “send” library.
      * @dev Library used when composing outbound messages from this chain.
      * Implementations SHOULD make this a pure accessor (no state changes).

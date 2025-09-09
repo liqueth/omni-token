@@ -9,6 +9,12 @@ bytecode_hash = "ipfs"
 fs_permissions = [
     { access = "read-write", path = "./config/mainnet/addresses.json" },
     { access = "read-write", path = "./config/testnet/addresses.json" },
+    { access = "read-write", path = "./config/mainnet/OmniAddress.json" },
+    { access = "read-write", path = "./config/testnet/OmniAddress.json" },
+    { access = "read-write", path = "./config/mainnet/UintToUint.json" },
+    { access = "read-write", path = "./config/testnet/UintToUint.json" },
+    { access = "read-write", path = "./config/mainnet/UintToAddress.json" },
+    { access = "read-write", path = "./config/testnet/UintToAddress.json" },
     { access = "read", path = "./config/" }
 ]
 

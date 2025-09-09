@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/OmniAddress.sol";
+import "../src/interfaces/IUintToAddressCloner.sol";
 
 /**
  * @title OmniAddressClone
@@ -11,22 +11,22 @@ import "../src/OmniAddress.sol";
  *
  * @dev Environment variables (required):
  *   - OmniAddress       : address of the IOmniAddressCloner contract
- *   - OmniAddressPath   : path to JSON config file with { env, id, keyValues }
+ *   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   OmniAddressPath=config/testnet/dvn/google-cloud.json forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
+ *   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
  */
-contract OmniAddressClone is Script {
+contract UintToAddressClone is Script {
     struct Config {
         string env;
         string id;
-        OmniAddress.KeyValue[] keyValues;
+        IUintToAddress.KeyValue[] keyValues;
     }
 
     function run() external {
         // Inputs from environment
-        IOmniAddressCloner cloner = IOmniAddressCloner(vm.envAddress("OmniAddress"));
-        string memory path = vm.envString("OmniAddressPath");
+        IUintToAddressCloner cloner = IUintToAddressCloner(vm.envAddress("UintToAddress"));
+        string memory path = vm.envString("UintToAddressPath");
 
         // Read & decode config
         bytes memory raw = vm.parseJson(vm.readFile(path));
@@ -36,7 +36,7 @@ contract OmniAddressClone is Script {
         (address expected,) = cloner.cloneAddress(cfg.keyValues);
 
         // Basic context logs (human-friendly)
-        console2.log("== OmniAddressClone ==");
+        console2.log("== UintToAddressClone ==");
         console2.log("config file:", path);
         console2.log("cloner     :", address(cloner));
         console2.log("expected   :", expected);
@@ -58,7 +58,7 @@ contract OmniAddressClone is Script {
         console2.log("id         :", cfg.id);
         console2.log("env        :", cfg.env);
 
-        string memory jsonPath = string.concat("./config/", cfg.env, "/addresses.json");
+        string memory jsonPath = string.concat("./config/", cfg.env, "/UintToAddress.json");
         vm.writeJson(vm.toString(clone), jsonPath, string.concat(".", cfg.id));
     }
 }

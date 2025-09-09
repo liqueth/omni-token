@@ -1,3 +1,7 @@
 #!/bin/bash
+# Deploy DVN configs for all the dvns for a specified environment
+# Usage: script/UintToAddress.sh < config/$CHAIN_ENV/dvns.txt
 
-UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
+while read dvn; do
+    UintToAddressPath=config/$CHAIN_ENV/dvn/$dvn.json forge script script/UintToAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
+done

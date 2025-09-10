@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
 import "../src/OmniToken.sol";
+import "../src/MessagingConfig.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
@@ -19,7 +20,7 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
     OmniToken factory;
     OmniToken token;
-    EndpointConfig appConfig;
+    IMessagingConfig appConfig;
     OmniToken.Config config;
     OmniToken.Config config1;
     OmniToken.Config config2a;
@@ -48,11 +49,11 @@ contract OmniTokenTest is Test {
         token = OmniToken(proxy);
     }
 
-    function loadEndpointConfig(string memory path) public returns (EndpointConfig cfg) {
+    function loadEndpointConfig(string memory path) public returns (IMessagingConfig cfg) {
         string memory json = vm.readFile(path);
         bytes memory encodedData = vm.parseJson(json);
-        EndpointConfig.Global memory global = abi.decode(encodedData, (EndpointConfig.Global));
-        cfg = new EndpointConfig{salt: 0x0}(global);
+        IMessagingConfig.Struct memory global = abi.decode(encodedData, (IMessagingConfig.Struct));
+        cfg = new MessagingConfig{salt: 0x0}(global);
     }
 
     function test_CloneCanClone() public {

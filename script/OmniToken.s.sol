@@ -10,7 +10,7 @@ import "../src/OmniToken.sol";
  */
 contract OmniTokenDeploy is Script {
     function run() external {
-        EndpointConfig appConfig = EndpointConfig(vm.envAddress("EndpointConfig"));
+        IMessagingConfig appConfig = IMessagingConfig(vm.envAddress("EndpointConfig"));
         bytes32 salt = 0x0;
         vm.startBroadcast();
         OmniToken token = new OmniToken{salt: salt}(appConfig);

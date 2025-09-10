@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-import "./OmniConfig.sol";
-import "./interfaces/IEndpointConfig.sol";
+pragma solidity ^0.8.20;
+
+import "./interfaces/IMessagingConfig.sol";
 
 /**
  * @title EndpointConfig
@@ -37,60 +37,20 @@ import "./interfaces/IEndpointConfig.sol";
  *      • Inputs must be byte-for-byte identical across chains to preserve the CREATE2 address; adding
  *        new chains later requires a new version (new salt and/or bytecode).
  */
-contract EndpointConfig is OmniConfig, IEndpointConfig {
-    /// @notice Hold chain specific configuration data.
-    struct Chain {
-        address blocker;
-        uint256 chainId;
-        uint32 eid;
-        address endpoint;
-        address executor;
-        address receiver;
-        address sender;
-    }
+contract MessagingConfig is IMessagingConfig {
+    IOmniAddress public immutable blocker;
+    IOmniAddress public immutable endpoint;
+    IUintToUint public immutable endpointMapper;
+    IOmniAddress public immutable executor;
+    IOmniAddress public immutable receiver;
+    IOmniAddress public immutable sender;
 
-    /// @notice Hold configuration data common to all chains.
-    struct Global {
-        Chain[] chains;
-        uint256 version;
-    }
-
-    mapping(uint256 => uint32) public _eidOf;
-    address public immutable blocker;
-    address public immutable endpoint;
-    address public immutable executor;
-    address public immutable receiver;
-    address public immutable sender;
-
-    constructor(Global memory global) {
-        version = global.version;
-        uint256 n = global.chains.length;
-        _chains = new uint256[](n);
-
-        for (uint256 i = 0; i < n; i++) {
-            Chain memory r = global.chains[i];
-            _chains[i] = r.chainId;
-            _eidOf[r.chainId] = r.eid;
-            if (r.chainId == block.chainid) {
-                blocker = r.blocker;
-                endpoint = r.endpoint;
-                executor = r.executor;
-                receiver = r.receiver;
-                sender = r.sender;
-            }
-        }
-
-        if (endpoint == address(0)) {
-            revert UnsupportedChain();
-        }
-    }
-
-    /// @notice Lookup the remote EID for a native `chain`.
-    /// @dev Revert with `UnsupportedDestinationChain` if the mapping is empty (0 sentinel).
-    function eidOf(uint256 chain) external view returns (uint32 eid) {
-        eid = _eidOf[chain];
-        if (eid == 0) {
-            revert UnsupportedDestinationChain(chain);
-        }
+    constructor(IMessagingConfig.Struct memory s) {
+        blocker = s.blocker;
+        endpoint = s.endpoint;
+        endpointMapper = s.endpointMapper;
+        executor = s.executor;
+        receiver = s.receiver;
+        sender = s.sender;
     }
 }

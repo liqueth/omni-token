@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "./interfaces/IMessagingConfig.sol";
 import "./interfaces/IOmniToken.sol";
-import "./EndpointConfig.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
@@ -24,9 +24,9 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
 
     address internal _prototype;
     bytes internal _cloneData;
-    EndpointConfig internal _appConfig;
+    IMessagingConfig internal _appConfig;
 
-    constructor(EndpointConfig appConfig) OFTUpgradeable(address(appConfig.endpoint())) {
+    constructor(IMessagingConfig appConfig) OFTUpgradeable(appConfig.endpoint().value()) {
         _prototype = address(this);
         _appConfig = appConfig;
         _disableInitializers();
@@ -73,10 +73,6 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
     /// @inheritdoc IOmniToken
     function prototype() external view returns (address) {
         return _prototype;
-    }
-
-    function chains() external view returns (uint256[] memory) {
-        return _appConfig.chains();
     }
 
     /// @inheritdoc IOmniToken

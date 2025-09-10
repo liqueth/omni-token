@@ -40,7 +40,7 @@ interface IOmniToken is IERC20Metadata {
      * @notice Return the EVM chain IDs supported by this token.
      * @return chains Array of EVM chain IDs.
      */
-    function chains() external view returns (uint256[] memory);
+    //function chains() external view returns (uint256[] memory);
 
     /**
      * @notice Return the zkBridge clone data used to deploy this token.

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "forge-std/src/Test.sol";
+import "@forge-std/src/Test.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 

@@ -1,6 +1,6 @@
 {
   "OmniAddress": null,
-  "StaticUintToUint": null,
+  "ImmutableUintToUint": null,
   "blocker": null,
   "endpoint": null,
   "executor": null,

@@ -38,7 +38,7 @@ contract OmniTokenTest is Test {
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
-        appConfig = loadEndpointConfig("./config/endpoint/testnet.json");
+        appConfig = loadEndpointConfig("./config/testnet/messaging.json");
         factory = new OmniToken(appConfig);
 
         config = OmniToken.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});

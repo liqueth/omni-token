@@ -1,27 +1,4 @@
 {
   "UintToUint": "0x6E5d84F32E83d378CBB4125D573eAf447A4F9d43",
-  "altlayer": null,
-  "bitgo": null,
-  "blockdaemon": null,
-  "bware-labs": null,
-  "citrea": null,
-  "delegate": null,
-  "frax": null,
-  "gitcoin": null,
-  "google-cloud": null,
-  "horizen-labs": null,
-  "joc": null,
-  "layerzero-labs": null,
-  "lz-dead-dvn": null,
-  "mantle01": null,
-  "mantle02": null,
-  "nethermind": null,
-  "p2p": null,
-  "paxos": null,
-  "polyhedra-network": null,
-  "predicate": null,
-  "republic-crypto": null,
-  "stablelab": null,
-  "switchboard": null,
-  "tss": null
+  "eid": "0x0E0b5f23378744BB21f8EF5Fa057245F400453dd"
 }

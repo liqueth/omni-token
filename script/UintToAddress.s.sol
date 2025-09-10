@@ -24,6 +24,6 @@ contract UintToAddress is Script {
 
         string memory env = vm.envString("CHAIN_ENV");
         string memory jsonPath = string.concat("./config/", env, "/UintToAddress.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".ImmutableUintToAddress");
+        vm.writeJson(vm.toString(predicted), jsonPath, ".UintToAddress");
     }
 }

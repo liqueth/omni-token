@@ -6,7 +6,7 @@ import "forge-std/Script.sol";
 import "../src/ImmutableUintToUint.sol";
 
 /**
- * @notice Deploy the OmniAddress factory/implementation contract.
+ * @notice Deploy the ImmutableUintToUint protofactory contract.
  * @dev Usage: forge script script/UintToUint.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract UintToUint is Script {
@@ -23,7 +23,7 @@ contract UintToUint is Script {
         }
 
         string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/addresses.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".ImmutableUintToUint");
+        string memory jsonPath = string.concat("./config/", env, "/UintToUint.json");
+        vm.writeJson(vm.toString(predicted), jsonPath, ".UintToUint");
     }
 }

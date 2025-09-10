@@ -1,11 +1,5 @@
 {
-  "OmniAddress": null,
-  "ImmutableUintToUint": null,
-  "blocker": null,
-  "endpoint": null,
-  "executor": null,
-  "receiver": null,
-  "sender": null,
+  "UintToUint": null,
   "01node": null,
   "altlayer": null,
   "animoca-blockdaemon": null,

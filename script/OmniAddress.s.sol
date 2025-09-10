@@ -23,7 +23,7 @@ contract OmniAddressScript is Script {
         }
 
         string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/addresses.json");
+        string memory jsonPath = string.concat("./config/", env, "/OmniAddress.json");
         vm.writeJson(vm.toString(predicted), jsonPath, ".OmniAddress");
     }
 }

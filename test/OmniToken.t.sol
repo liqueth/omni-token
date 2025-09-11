@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
+import "../src/OmniAddress.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 
@@ -18,6 +19,7 @@ contract OmniTokenTest is Test {
     string constant symbol = "OMNI";
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
+    OmniAddress omniAddress;
     OmniToken factory;
     OmniToken token;
     IMessagingConfig appConfig;
@@ -32,14 +34,36 @@ contract OmniTokenTest is Test {
     uint256[][] mints;
     uint256[][] badMints;
 
+    struct OmniAddressConfig {
+        string env;
+        string id;
+        OmniAddress.KeyValue[] keyValues;
+    }
+
     function setUp() public {
         vm.chainId(fromChain);
+
+        omniAddress = new OmniAddress{salt: 0x0}();
+        console.log("OmniAddress: ", address(omniAddress));
+
+
+        string memory endpointPath = "config/testnet/endpoint.json";
+        bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
+        OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
+        (address endpoint1,) = omniAddress.clone(cfg.keyValues);
+        console.log("endpoint1: ", address(endpoint1));
+
         chains = [[fromChain, fromPk], [toChain, toPk]];
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
+        console.log("before loadEndpointConfig");
         appConfig = loadEndpointConfig("./config/testnet/messaging.json");
+        console.log("App config address: ", address(appConfig));
+        address endpoint = address(appConfig.endpoint());
+        console.log("endpoint: ", address(endpoint));
         factory = new OmniToken(appConfig);
+        console.log("config: ");
 
         config = OmniToken.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
         config1 = OmniToken.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});

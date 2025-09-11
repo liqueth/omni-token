@@ -46,7 +46,6 @@ contract OmniTokenTest is Test {
         omniAddress = new OmniAddress{salt: 0x0}();
         console.log("OmniAddress: ", address(omniAddress));
 
-
         string memory endpointPath = "config/testnet/endpoint.json";
         bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
         OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));

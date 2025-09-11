@@ -33,7 +33,7 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
     }
 
     function initialize(Config memory config) public initializer {
-        //__OFT_init(config.name, config.symbol, config.owner);
+        __OFT_init(config.name, config.symbol, config.owner);
         _prototype = msg.sender;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
@@ -43,6 +43,16 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
                 if (mint > 0) {
                     _mint(config.owner, mint);
                 }
+            }
+        }
+
+        IUintToUint endpointMapper = IUintToUint(_appConfig.endpointMapper());
+        IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();
+        for (uint256 i = 0; i < c2e.length; i++) {
+            uint256 chain = c2e[i].key;
+            if (chain != block.chainid) {
+                uint256 eid = c2e[i].value;
+                setPeer(uint32(eid), bytes32(uint256(uint160(address(this)))));
             }
         }
     }

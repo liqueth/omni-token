@@ -5,6 +5,7 @@ import "forge-std/Test.sol";
 import "../src/OmniAddress.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
+import "../src/ImmutableUintToUint.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
@@ -40,8 +41,16 @@ contract OmniTokenTest is Test {
         OmniAddress.KeyValue[] keyValues;
     }
 
+    struct UintToUintConfig {
+        string env;
+        string id;
+        IUintToUint.KeyValue[] keyValues;
+    }
+
     function setUp() public {
         vm.chainId(fromChain);
+
+        deployEndpointMapper();
 
         omniAddress = new OmniAddress{salt: 0x0}();
         console.log("OmniAddress: ", address(omniAddress));
@@ -72,11 +81,27 @@ contract OmniTokenTest is Test {
         token = OmniToken(proxy);
     }
 
+    function deployEndpointMapper() private {
+        ImmutableUintToUint cloner = new ImmutableUintToUint{salt: 0x0}();
+        string memory path = "config/testnet/eid.json";
+
+        // Read & decode config
+        bytes memory raw = vm.parseJson(vm.readFile(path));
+        UintToUintConfig memory cfg = abi.decode(raw, (UintToUintConfig));
+
+        // Resolve expected clone address (pure/read-only)
+        cloner.cloneAddress(cfg.keyValues);
+    }
+
     function loadEndpointConfig(string memory path) public returns (IMessagingConfig cfg) {
         string memory json = vm.readFile(path);
         bytes memory encodedData = vm.parseJson(json);
         IMessagingConfig.Struct memory global = abi.decode(encodedData, (IMessagingConfig.Struct));
         cfg = new MessagingConfig{salt: 0x0}(global);
+    }
+
+    function test_Dummy() public {
+        assertTrue(true);
     }
 
     function test_CloneCanClone() public {

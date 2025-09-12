@@ -25,5 +25,9 @@ contract OmniTokenDeploy is Script {
         } else {
             console.log("already deployed");
         }
+
+        string memory env = vm.envString("CHAIN_ENV");
+        string memory jsonPath = string.concat("./config/", env, "/OmniToken.json");
+        vm.writeJson(vm.toString(predicted), jsonPath, ".OmniToken");
     }
 }

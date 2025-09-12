@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./interfaces/IMessagingConfig.sol";
-import "./interfaces/IOmniToken.sol";
+import "./interfaces/IOmniTokenCloner.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
@@ -14,14 +14,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/omni-token
  */
-contract OmniToken is OFTUpgradeable, IOmniToken {
-    struct Config {
-        uint256[][] mints;
-        string name;
-        address owner;
-        string symbol;
-    }
-
+contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
     address internal _prototype;
     bytes internal _cloneData;
     IMessagingConfig internal _appConfig;
@@ -32,7 +25,7 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
         _disableInitializers();
     }
 
-    function initialize(Config memory config) public initializer {
+    function __OmniToken_init(Config memory config) public initializer {
         __OFT_init(config.name, config.symbol, config.owner);
         _prototype = msg.sender;
         uint256[][] memory mints = config.mints;
@@ -70,7 +63,7 @@ contract OmniToken is OFTUpgradeable, IOmniToken {
         (token, salt) = cloneAddress(config);
         if (address(token).code.length == 0) {
             Clones.cloneDeterministic(address(this), salt);
-            OmniToken(address(token)).initialize(config);
+            OmniToken(address(token)).__OmniToken_init(config);
             emit Cloned(config.owner, address(token), config.name, config.symbol);
         }
     }

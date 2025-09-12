@@ -5,9 +5,9 @@ import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 /**
  * @title IOmniToken
- * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
+ * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination.
  * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
- *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
+ *      and chain ID mappings.
  * @custom:source https://github.com/liqueth/omni-token
  */
 interface IOmniToken is IERC20Metadata {

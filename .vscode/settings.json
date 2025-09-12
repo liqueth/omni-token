@@ -4,6 +4,8 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false
   },
+  "solidity.packageDefaultDependenciesDirectory": "lib",
+  "solidity.packageDefaultDependenciesContractsDirectory": "src",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true
 }

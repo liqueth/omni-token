@@ -73,10 +73,10 @@ contract OmniTokenTest is Test {
         factory = new OmniToken(appConfig);
         console.log("config: ");
 
-        config = OmniToken.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
-        config1 = OmniToken.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
-        config2a = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
-        config2b = OmniToken.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+        config = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
+        config1 = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
+        config2a = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+        config2b = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
         (address proxy,) = factory.clone(config);
         token = OmniToken(proxy);
     }
@@ -100,7 +100,7 @@ contract OmniTokenTest is Test {
         cfg = new MessagingConfig{salt: 0x0}(global);
     }
 
-    function test_Dummy() public {
+    function test_Dummy() public pure {
         assertTrue(true);
     }
 
@@ -119,7 +119,7 @@ contract OmniTokenTest is Test {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig =
-            OmniToken.Config({mints: badMints, owner: allocTo, name: name, symbol: symbol});
+            IOmniTokenCloner.Config({mints: badMints, owner: allocTo, name: name, symbol: symbol});
         factory.clone(badConfig);
     }
 

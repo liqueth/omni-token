@@ -1,0 +1,15 @@
+{
+  "mints": [
+    [
+      97,
+      1000
+    ],
+    [
+      11155111,
+      2000
+    ]
+  ],
+  "name": "Omni Alpha Token",
+  "owner": "0xE396da99091B535B65384914B178b9264c7426da",
+  "symbol": "OMNI_ALPHA"
+}

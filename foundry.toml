@@ -1,4 +1,5 @@
 [profile.default]
+revert-strings = "debug"
 create2_deployer = "0x4e59b44847b379578588920cA78FbF26c0B4956C"
 always_use_create_2_factory = true
 src = "src"
@@ -9,6 +10,9 @@ optimizer_runs = 1000
 bytecode_hash = "ipfs"
 
 fs_permissions = [
+    { access = "read", path = "./test/eid.json" },
+    { access = "read", path = "./test/endpoint.json" },
+    { access = "read", path = "./test/messaging.json" },
     { access = "read-write", path = "./config/mainnet/addresses.json" },
     { access = "read-write", path = "./config/testnet/addresses.json" },
     { access = "read", path = "./config/mainnet/messaging.json" },

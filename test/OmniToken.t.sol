@@ -22,7 +22,6 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
     OmniAddress omniAddress;
     OmniToken factory;
-    OmniToken token;
     IMessagingConfig appConfig;
     OmniToken.Config config;
     OmniToken.Config config1;
@@ -55,7 +54,7 @@ contract OmniTokenTest is Test {
         omniAddress = new OmniAddress{salt: 0x0}();
         console.log("OmniAddress: ", address(omniAddress));
 
-        string memory endpointPath = "config/testnet/endpoint.json";
+        string memory endpointPath = "test/endpoint.json";
         bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
         OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
         (address endpoint1,) = omniAddress.clone(cfg.keyValues);
@@ -66,7 +65,7 @@ contract OmniTokenTest is Test {
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         console.log("before loadEndpointConfig");
-        appConfig = loadEndpointConfig("./config/testnet/messaging.json");
+        appConfig = loadEndpointConfig("test/messaging.json");
         console.log("App config address: ", address(appConfig));
         address endpoint = address(appConfig.endpoint());
         console.log("endpoint: ", address(endpoint));
@@ -77,20 +76,19 @@ contract OmniTokenTest is Test {
         config1 = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
         config2a = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
         config2b = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
-        (address proxy,) = factory.clone(config);
-        token = OmniToken(proxy);
     }
 
-    function deployEndpointMapper() private {
+    function deployEndpointMapper() private returns (address mapper) {
         ImmutableUintToUint cloner = new ImmutableUintToUint{salt: 0x0}();
-        string memory path = "config/testnet/eid.json";
+        string memory path = "test/eid.json";
 
         // Read & decode config
         bytes memory raw = vm.parseJson(vm.readFile(path));
         UintToUintConfig memory cfg = abi.decode(raw, (UintToUintConfig));
 
         // Resolve expected clone address (pure/read-only)
-        cloner.cloneAddress(cfg.keyValues);
+        (mapper,) = cloner.cloneAddress(cfg.keyValues);
+        console.log("endpointMapper: ", mapper);
     }
 
     function loadEndpointConfig(string memory path) public returns (IMessagingConfig cfg) {
@@ -102,6 +100,12 @@ contract OmniTokenTest is Test {
 
     function test_Dummy() public pure {
         assertTrue(true);
+    }
+
+    function test_Clone1() public {
+        vm.chainId(fromChain);
+        (address clone1,) = factory.clone(config1);
+        assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
@@ -123,7 +127,9 @@ contract OmniTokenTest is Test {
         factory.clone(badConfig);
     }
 
-    function testInitialMintOnChainWithMintAmount() public view {
+    function testInitialMintOnChainWithMintAmount() public {
+        (address proxy,) = factory.clone(config);
+        OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);
         assertEq(token.totalSupply(), fromMint);
     }

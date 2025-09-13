@@ -9,6 +9,18 @@ private_key = "${DEPLOYER_KEY}"
 optimizer_runs = 1000
 bytecode_hash = "ipfs"
 
+remappings = [
+  "forge-std/=lib/forge-std/src/",
+  "@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+  "@layerzerolabs/oft-evm-upgradeable/=lib/devtools/packages/oft-evm-upgradeable/",
+  "@layerzerolabs/oft-evm/=lib/devtools/packages/oft-evm/",
+  "@layerzerolabs/oapp-evm-upgradeable/=lib/devtools/packages/oapp-evm-upgradeable/",
+  "@layerzerolabs/oapp-evm/=lib/devtools/packages/oapp-evm/",
+  "@layerzerolabs/lz-evm-protocol-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/protocol/",
+  "@layerzerolabs/lz-evm-messagelib-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/messagelib/"
+]
+
 fs_permissions = [
     { access = "read", path = "./test/eid.json" },
     { access = "read", path = "./test/endpoint.json" },

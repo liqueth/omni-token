@@ -22,9 +22,9 @@ remappings = [
 ]
 
 fs_permissions = [
-    { access = "read", path = "./test/eid.json" },
-    { access = "read", path = "./test/endpoint.json" },
-    { access = "read", path = "./test/messaging.json" },
+    { access = "read-write", path = "./test/eid.json" },
+    { access = "read-write", path = "./test/endpoint.json" },
+    { access = "read-write", path = "./test/messaging.json" },
     { access = "read-write", path = "./config/mainnet/addresses.json" },
     { access = "read-write", path = "./config/testnet/addresses.json" },
     { access = "read", path = "./config/mainnet/messaging.json" },

@@ -4,6 +4,8 @@
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
     },
+    "editor.formatOnSave": true,
+    "solidity.formatter": "forge",
     "solidity.remappings": [
         "forge-std/=lib/forge-std/src/",
         "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",

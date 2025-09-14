@@ -20,6 +20,7 @@ contract OmniTokenTest is Test {
     string constant symbol = "OMNI";
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
+    string constant messagingPath = "test/messaging.json";
     OmniAddress omniAddress;
     OmniToken factory;
     IMessagingConfig appConfig;
@@ -54,21 +55,18 @@ contract OmniTokenTest is Test {
         omniAddress = new OmniAddress{salt: 0x0}();
         console.log("OmniAddress: ", address(omniAddress));
 
-        string memory endpointPath = "test/endpoint.json";
-        bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
-        OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
-        (address endpoint1,) = omniAddress.clone(cfg.keyValues);
-        console.log("endpoint1: ", address(endpoint1));
+        newEndpoint();
 
         chains = [[fromChain, fromPk], [toChain, toPk]];
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         console.log("before loadEndpointConfig");
-        appConfig = loadEndpointConfig("test/messaging.json");
+        appConfig = loadEndpointConfig(messagingPath);
         console.log("App config address: ", address(appConfig));
         address endpoint = address(appConfig.endpoint());
         console.log("endpoint: ", address(endpoint));
+
         factory = new OmniToken(appConfig);
         console.log("config: ");
 
@@ -76,6 +74,15 @@ contract OmniTokenTest is Test {
         config1 = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
         config2a = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
         config2b = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+    }
+
+    function newEndpoint() private returns (address endpointAlias) {
+        string memory endpointPath = "test/endpoint.json";
+        bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
+        OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
+        (endpointAlias,) = omniAddress.clone(cfg.keyValues);
+        console.log("endpointAlias: ", address(endpointAlias));
+        vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
     }
 
     function deployEndpointMapper() private returns (address mapper) {

@@ -25,7 +25,8 @@ contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
     }
 
     function __OmniToken_init(Config memory config) public initializer {
-        //__OFT_init(config.name, config.symbol, config.owner);
+        __OFT_init(config.name, config.symbol, config.owner);
+        __Ownable_init(msg.sender);
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
@@ -43,9 +44,11 @@ contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
             uint256 chain = c2e[i].key;
             if (chain != block.chainid) {
                 uint256 eid = c2e[i].value;
-                //setPeer(uint32(eid), bytes32(uint256(uint160(address(this)))));
+                setPeer(uint32(eid), bytes32(uint256(uint160(address(this)))));
             }
         }
+
+        transferOwnership(config.owner);
     }
 
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {

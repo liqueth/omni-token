@@ -21,6 +21,8 @@ contract OmniTokenTest is Test {
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
     string constant messagingPath = "test/messaging.json";
+    string constant endpointMapperPath = "test/eid.json";
+    string constant messagingPath3 = "test/messaging.json";
     OmniAddress omniAddress;
     OmniToken factory;
     IMessagingConfig appConfig;
@@ -50,10 +52,9 @@ contract OmniTokenTest is Test {
     function setUp() public {
         vm.chainId(fromChain);
 
-        deployEndpointMapper();
+        newEndpointMapper(endpointMapperPath);
 
         omniAddress = new OmniAddress{salt: 0x0}();
-        console.log("OmniAddress: ", address(omniAddress));
 
         newEndpoint();
 
@@ -61,14 +62,9 @@ contract OmniTokenTest is Test {
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
-        console.log("before loadEndpointConfig");
         appConfig = loadEndpointConfig(messagingPath);
-        console.log("App config address: ", address(appConfig));
-        address endpoint = address(appConfig.endpoint());
-        console.log("endpoint: ", address(endpoint));
 
         factory = new OmniToken(appConfig);
-        console.log("config: ");
 
         config = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
         config1 = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
@@ -81,21 +77,19 @@ contract OmniTokenTest is Test {
         bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
         OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
         (endpointAlias,) = omniAddress.clone(cfg.keyValues);
-        console.log("endpointAlias: ", address(endpointAlias));
         vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
     }
 
-    function deployEndpointMapper() private returns (address mapper) {
+    function newEndpointMapper(string memory path) private returns (address mapper) {
         ImmutableUintToUint cloner = new ImmutableUintToUint{salt: 0x0}();
-        string memory path = "test/eid.json";
 
         // Read & decode config
         bytes memory raw = vm.parseJson(vm.readFile(path));
         UintToUintConfig memory cfg = abi.decode(raw, (UintToUintConfig));
 
         // Resolve expected clone address (pure/read-only)
-        (mapper,) = cloner.cloneAddress(cfg.keyValues);
-        console.log("endpointMapper: ", mapper);
+        (mapper,) = cloner.clone(cfg.keyValues);
+        vm.writeJson(vm.toString(mapper), messagingPath, ".endpointMapper");
     }
 
     function loadEndpointConfig(string memory path) public returns (IMessagingConfig cfg) {

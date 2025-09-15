@@ -23,7 +23,7 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 * Git
 * Environment variables for private key (`DEPLOYER_KEY`) and RPC endpoints (defined in `foundry.toml`)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
-* Environment variables for verifier key (`ETHERSCAN_KEY`) and RPC endpoints (defined in `foundry.toml`)
+* Environment variables for verifier key (`ETHERSCAN_API_KEY`) and RPC endpoints (defined in `foundry.toml`)
 
 ---
 
@@ -59,12 +59,12 @@ Set the following environment variables (in your .bashrc).
 ```bash
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
-export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
+export ETHERSCAN_API_KEY=<YOUR_ETHERSCAN_API_KEY>
 ```
 
 DEPLOYER_ADDRESS is the Ethereum account address you want to use to deploy contract.
 DEPLOYER_KEY is the corresponding private key to DEPLOYER_ADDRESS.
-Get your ETHERSCAN_KEY at [Etherscan](https://etherscan.io/myaccount).
+Get your ETHERSCAN_API_KEY at [Etherscan](https://etherscan.io/myaccount).
 
 Other environment variables that will come into play include the following.
 

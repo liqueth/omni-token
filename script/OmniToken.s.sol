@@ -7,7 +7,7 @@ import "../src/OmniToken.sol";
 /**
  * @title Deploy Script for OmniToken
  * @notice Deploys the OmniToken contract with specified configuration
- * @dev Usage: forge script script/OmniToken.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: forge script script/OmniToken.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract OmniTokenDeploy is Script {
     function run() external {

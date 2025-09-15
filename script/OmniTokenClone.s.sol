@@ -7,14 +7,14 @@ import "../src/interfaces/IOmniTokenCloner.sol";
 
 /**
  * @title OmniAddressClone
- * @notice Deploy an OmniAddress clone ONLY if it doesn't already exist (idempotent).
+ * @notice Deploy an OmniAddress clone if it doesn't exist (idempotent).
  *
  * @dev Environment variables (required):
  *   - OmniAddress       : address of the IOmniAddressCloner contract
  *   - OmniAddressPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_KEY --broadcast
+ * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast
  */
 contract OmniTokenClone is Script {
     function run() external {

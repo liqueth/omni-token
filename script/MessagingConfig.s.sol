@@ -7,7 +7,7 @@ import "../src/MessagingConfig.sol";
 
 /**
  * @notice Deploy the OmniAddress factory/implementation contract.
- * @dev Usage: MessagingConfigPath=config/testnet/messaging.json forge script script/MessagingConfig.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: MessagingConfigPath=config/testnet/messaging.json forge script script/MessagingConfig.s.sol --rpc-url $CHAIN_ID --broadcast --verify --delay 10 --retries 10
  */
 contract MessagingConfigDeploy is Script {
     function run() external {

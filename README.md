@@ -58,7 +58,7 @@ Set the following environment variables (in your .bashrc).
 
 ```bash
 export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
-export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
+export RAW_PRIVATE_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_API_KEY=<YOUR_ETHERSCAN_API_KEY>
 ```
 

@@ -14,7 +14,7 @@ import "../src/OmniAddress.sol";
  *   - OmniAddressPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   OmniAddressPath=config/testnet/dvn/google-cloud.json forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast
+ *   OmniAddressPath=config/testnet/dvn/google-cloud.json forge script script/OmniAddressClone.s.sol --rpc-url $CHAIN_ID --broadcast
  */
 contract OmniAddressClone is Script {
     struct Config {

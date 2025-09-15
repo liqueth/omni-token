@@ -34,6 +34,8 @@ curl -L https://foundry.paradigm.xyz | bash
 foundryup
 ```
 
+Restart your shell to recognize the updated path.
+
 ## Clone the repository
 
 ```bash

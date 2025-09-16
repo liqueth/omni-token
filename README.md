@@ -57,13 +57,11 @@ cd omni-token
 Set the following environment variables (in your .bashrc).
 
 ```bash
-export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
 export RAW_PRIVATE_KEY=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_API_KEY=<YOUR_ETHERSCAN_API_KEY>
 ```
 
-DEPLOYER_ADDRESS is the Ethereum account address you want to use to deploy contract.
-DEPLOYER_KEY is the corresponding private key to DEPLOYER_ADDRESS.
+RAW_PRIVATE_KEY is the private key of the Ethereum account you want to use to initiate transactions such as deploying contracts.
 Get your ETHERSCAN_API_KEY at [Etherscan](https://etherscan.io/myaccount).
 
 Other environment variables that will come into play include the following.

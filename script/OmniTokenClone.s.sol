@@ -6,12 +6,11 @@ import "forge-std/Script.sol";
 import "../src/interfaces/IOmniTokenCloner.sol";
 
 /**
- * @title OmniAddressClone
- * @notice Deploy an OmniAddress clone if it doesn't exist (idempotent).
+ * @notice Deploy an OmniToken clone if it doesn't exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - OmniAddress       : address of the IOmniAddressCloner contract
- *   - OmniAddressPath   : path to JSON config file with { env, id, keyValues }
+ *   - OmniToken       : address of the IOmniTokenCloner contract
+ *   - OmniTokenPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
  * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --broadcast

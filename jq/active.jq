@@ -1,6 +1,6 @@
 # Filters LayerZero API metadata downloaded from https://metadata.layerzero-api.com/v1/metadata
 # to retain active EVM chain objects with valid nativeChainId, sorted and deduplicated by chain ID.
-# Usage: jq -f jq/active.jq config/metadata.json > config/active.json
+# Usage: jq -f jq/active.jq io/metadata.json > io/active.json
 [
     .[]?
     | select(.chainDetails.chainStatus == "ACTIVE"

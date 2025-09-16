@@ -3,5 +3,5 @@
 # Usage: script/dvn.sh < config/$CHAIN_ENV/dvns.txt
 
 while read dvn; do
-    jq --arg env $CHAIN_ENV --arg id $dvn -f jq/dvn.jq config/nickmeta.json > config/$CHAIN_ENV/dvn/$dvn.json
+    jq --arg env $CHAIN_ENV --arg id $dvn -f jq/dvn.jq io/nickmeta.json > io/$CHAIN_ENV/dvn/$dvn.json
 done

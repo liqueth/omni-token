@@ -1,5 +1,5 @@
 # endpoint.jq
-# Usage: jq --arg env $CHAIN_ENV -f jq/endpoint.jq config/$CHAIN_ENV/deployments.json > config/$CHAIN_ENV/endpoint.json
+# Usage: jq --arg env $CHAIN_ENV -f jq/endpoint.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/endpoint.json
 {
     env: $env,
     id: "endpoint",

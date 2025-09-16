@@ -1,5 +1,5 @@
 # config/rpc_endpoints.jq
-# jq -rf jq/rpc_endpoints.jq config/nick.json > rpc_endpoints.toml
+# jq -rf jq/rpc_endpoints.jq io/nick.json > rpc_endpoints.toml
 def rpad($len; $ch):
   (. + ($ch * $len))[:$len];
 .[]

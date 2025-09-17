@@ -39,6 +39,7 @@ fs_permissions = [
     { access = "read-write", path = "./config/testnet/UintToUint.json" },
     { access = "read-write", path = "./config/mainnet/UintToAddress.json" },
     { access = "read-write", path = "./config/testnet/UintToAddress.json" },
+    { access = "read-write", path = "./io/" },
     { access = "read", path = "./config/" }
 ]
 

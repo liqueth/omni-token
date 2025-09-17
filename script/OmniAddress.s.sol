@@ -7,7 +7,7 @@ import "../src/OmniAddress.sol";
 
 /**
  * @notice Deploy the OmniAddress factory/implementation contract.
- * @dev Usage: forge script script/OmniAddress.s.sol --rpc-url $CHAIN_ID --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: OUT=io/$CHAIN_ID/OmniAddress.json forge script script/OmniAddress.s.sol --rpc-url $CHAIN_ID --broadcast --verify --delay 10 --retries 10
  */
 contract OmniAddressScript is Script {
     function run() external {
@@ -22,8 +22,7 @@ contract OmniAddressScript is Script {
             console2.log("already deployed");
         }
 
-        string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/OmniAddress.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".OmniAddress");
+        string memory jsonPath = vm.envString("OUT");
+        vm.writeJson(vm.toString(predicted), jsonPath);
     }
 }

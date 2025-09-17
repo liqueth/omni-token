@@ -7,7 +7,7 @@ import "../src/ImmutableUintToUint.sol";
 
 /**
  * @notice Deploy the ImmutableUintToUint protofactory contract.
- * @dev Usage: forge script script/UintToUint.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: OUT=io/$CHAIN_ID/UintToUint.json forge script script/UintToUint.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract UintToUint is Script {
     function run() external {
@@ -22,8 +22,6 @@ contract UintToUint is Script {
             console.log("already deployed");
         }
 
-        string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/UintToUint.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".UintToUint");
+        vm.writeJson(vm.toString(predicted), vm.envString("OUT"));
     }
 }

@@ -28,12 +28,12 @@ contract UintToUintClone is Script {
         console2.log("cloner     :", cloner);
 
         Config memory cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Config));
-        (address expected,) = IUintToUintCloner(cloner).cloneAddress(cfg.keyValues);
-        console2.log("expected   :", expected);
+        (address predicted,) = IUintToUintCloner(cloner).cloneAddress(cfg.keyValues);
+        console2.log("predicted   :", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
-        address clone = expected;
+        address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
             (clone,) = IUintToUintCloner(cloner).clone(cfg.keyValues);

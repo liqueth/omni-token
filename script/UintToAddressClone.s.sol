@@ -32,19 +32,19 @@ contract UintToAddressClone is Script {
         bytes memory raw = vm.parseJson(vm.readFile(path));
         Config memory cfg = abi.decode(raw, (Config));
 
-        // Resolve expected clone address (pure/read-only)
-        (address expected,) = cloner.cloneAddress(cfg.keyValues);
+        // Resolve predicted clone address (pure/read-only)
+        (address predicted,) = cloner.cloneAddress(cfg.keyValues);
 
         // Basic context logs (human-friendly)
         console2.log("== UintToAddressClone ==");
         console2.log("config file:", path);
         console2.log("cloner     :", address(cloner));
-        console2.log("expected   :", expected);
+        console2.log("predicted   :", predicted);
         console2.log("chainId    :", block.chainid);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
-        address clone = expected;
+        address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
             (clone,) = cloner.clone(cfg.keyValues);

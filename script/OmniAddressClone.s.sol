@@ -28,15 +28,15 @@ contract OmniAddressClone is Script {
         console2.log("cloner     :", cloner);
         Config memory cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Config));
 
-        // Resolve expected clone address (pure/read-only)
-        (address expected,) = IOmniAddressCloner(cloner).cloneAddress(cfg.keyValues);
+        // Resolve predicted clone address (pure/read-only)
+        (address predicted,) = IOmniAddressCloner(cloner).cloneAddress(cfg.keyValues);
 
         // Basic context logs (human-friendly)
-        console2.log("expected   :", expected);
+        console2.log("predicted   :", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
-        address clone = expected;
+        address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
             (clone,) = IOmniAddressCloner(cloner).clone(cfg.keyValues);

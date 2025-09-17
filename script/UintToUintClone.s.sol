@@ -14,7 +14,7 @@ import "../src/interfaces/IUintToUintCloner.sol";
  *   - UintToUintPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   UintToUintPath=config/testnet/eid.json forge script script/UintToUintClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+ *   CLN=io/$CHAIN_ID/UintToUint.json IN=io/testnet/endpointMapper.json OUT=io/$CHAIN_ID/messaging.json forge script script/UintToUintClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract UintToUintClone is Script {
     struct Config {
@@ -24,30 +24,19 @@ contract UintToUintClone is Script {
     }
 
     function run() external {
-        // Inputs from environment
-        IUintToUintCloner cloner = IUintToUintCloner(vm.envAddress("UintToUint"));
-        string memory path = vm.envString("UintToUintPath");
+        address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("CLN"))), (address));
+        console2.log("cloner     :", cloner);
 
-        // Read & decode config
-        bytes memory raw = vm.parseJson(vm.readFile(path));
-        Config memory cfg = abi.decode(raw, (Config));
-
-        // Resolve expected clone address (pure/read-only)
-        (address expected,) = cloner.cloneAddress(cfg.keyValues);
-
-        // Basic context logs (human-friendly)
-        console2.log("== UintToUintClone ==");
-        console2.log("config file:", path);
-        console2.log("cloner     :", address(cloner));
+        Config memory cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Config));
+        (address expected,) = IUintToUintCloner(cloner).cloneAddress(cfg.keyValues);
         console2.log("expected   :", expected);
-        console2.log("chainId    :", block.chainid);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
         address clone = expected;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = cloner.clone(cfg.keyValues);
+            (clone,) = IUintToUintCloner(cloner).clone(cfg.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }
@@ -58,7 +47,6 @@ contract UintToUintClone is Script {
         console2.log("id         :", cfg.id);
         console2.log("env        :", cfg.env);
 
-        string memory jsonPath = string.concat("./config/", cfg.env, "/UintToUint.json");
-        vm.writeJson(vm.toString(clone), jsonPath, string.concat(".", cfg.id));
+        vm.writeJson(vm.toString(clone), vm.envString("OUT"), string.concat(".", cfg.id));
     }
 }

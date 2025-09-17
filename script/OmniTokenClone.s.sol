@@ -14,33 +14,23 @@ import "../src/interfaces/IOmniTokenCloner.sol";
  *
  * @dev Example:
  * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+ *   CLN=io/$CHAIN_ID/OmniToken.json IN=io/testnet/OMNI_ALPHA.json OUT=io/$CHAIN_ID/OmniTokens.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract OmniTokenClone is Script {
     function run() external {
-        // Inputs from environment
-        IOmniTokenCloner cloner = IOmniTokenCloner(vm.envAddress("OmniToken"));
-        string memory path = vm.envString("OmniTokenPath");
-
-        // Read & decode config
-        bytes memory raw = vm.parseJson(vm.readFile(path));
-        IOmniTokenCloner.Config memory cfg = abi.decode(raw, (IOmniTokenCloner.Config));
-
-        // Resolve predicted clone address (pure/read-only)
-        (address predicted,) = cloner.cloneAddress(cfg);
-
-        // Basic context logs (human-friendly)
-        console2.log("== OmniTokenClone ==");
-        console2.log("config file:", path);
-        console2.log("cloner     :", address(cloner));
+        address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("CLN"))), (address));
+        console2.log("cloner     :", cloner);
+        IOmniTokenCloner.Config memory cfg =
+            abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (IOmniTokenCloner.Config));
+        (address predicted,) = IOmniTokenCloner(cloner).cloneAddress(cfg);
         console2.log("predicted   :", predicted);
-        console2.log("chainId    :", block.chainid);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
         address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = cloner.clone(cfg);
+            (clone,) = IOmniTokenCloner(cloner).clone(cfg);
             vm.stopBroadcast();
             action = "deployed";
         }
@@ -50,8 +40,6 @@ contract OmniTokenClone is Script {
         console2.log("address    :", clone);
         console2.log("symbol     :", cfg.symbol);
 
-        string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/OmniToken.json");
-        vm.writeJson(vm.toString(clone), jsonPath, string.concat(".", cfg.symbol));
+        vm.writeJson(vm.toString(clone), vm.envString("OUT"), string.concat(".", cfg.symbol));
     }
 }

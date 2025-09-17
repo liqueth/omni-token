@@ -21,7 +21,7 @@ contract OmniTokenTest is Test {
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
     string constant messagingPath = "test/messaging.json";
-    string constant endpointMapperPath = "test/eid.json";
+    string constant endpointMapperPath = "test/endpointMapper.json";
     string constant messagingPath3 = "test/messaging.json";
     OmniAddress omniAddress;
     OmniToken factory;

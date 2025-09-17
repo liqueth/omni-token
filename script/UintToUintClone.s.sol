@@ -14,7 +14,7 @@ import "../src/interfaces/IUintToUintCloner.sol";
  *   - UintToUintPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   UintToUintPath=config/testnet/eid.json forge script script/UintToUintClone.s.sol --rpc-url $CHAIN_ID --broadcast
+ *   UintToUintPath=config/testnet/eid.json forge script script/UintToUintClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract UintToUintClone is Script {
     struct Config {

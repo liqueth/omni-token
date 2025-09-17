@@ -13,7 +13,7 @@ import "../src/interfaces/IOmniTokenCloner.sol";
  *   - OmniTokenPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --broadcast
+ * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract OmniTokenClone is Script {
     function run() external {

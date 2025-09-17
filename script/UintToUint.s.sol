@@ -7,7 +7,7 @@ import "../src/ImmutableUintToUint.sol";
 
 /**
  * @notice Deploy the ImmutableUintToUint protofactory contract.
- * @dev Usage: forge script script/UintToUint.s.sol --rpc-url $CHAIN_ID --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: forge script script/UintToUint.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract UintToUint is Script {
     function run() external {

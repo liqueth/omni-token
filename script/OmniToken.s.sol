@@ -7,27 +7,25 @@ import "../src/OmniToken.sol";
 /**
  * @title Deploy Script for OmniToken
  * @notice Deploys the OmniToken contract with specified configuration
- * @dev Usage: forge script script/OmniToken.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: IN=io/$CHAIN_ID/MessagingConfig.json OUT=io/$CHAIN_ID/OmniToken.json forge script script/OmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract OmniTokenDeploy is Script {
     function run() external {
-        address cfg = vm.envAddress("MessagingConfig");
+        address cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (address));
+        console2.log("cfg: ", cfg);
         bytes memory args = abi.encode(cfg);
         bytes memory initCode = abi.encodePacked(type(OmniToken).creationCode, args);
-
         address predicted = vm.computeCreate2Address(0x0, keccak256(initCode));
-        console.log("predicted: ", predicted);
+        console2.log("predicted: ", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
             OmniToken token = new OmniToken{salt: 0x0}(IMessagingConfig(cfg));
             vm.stopBroadcast();
-            console.log("address: ", address(token));
+            console2.log("address: ", address(token));
         } else {
-            console.log("already deployed");
+            console2.log("already deployed");
         }
 
-        string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/OmniToken.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".OmniToken");
+        vm.writeJson(vm.toString(predicted), vm.envString("OUT"));
     }
 }

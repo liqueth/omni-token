@@ -14,7 +14,7 @@ import "../src/interfaces/IOmniTokenCloner.sol";
  *
  * @dev Example:
  * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
- *   CLN=io/$CHAIN_ID/OmniToken.json IN=io/testnet/OMNI_ALPHA.json OUT=io/$CHAIN_ID/OmniTokens.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+ *   CLN=io/$CHAIN_ID/OmniToken.json IN=io/testnet/OMNI_ALPHA.json OUT=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract OmniTokenClone is Script {
     function run() external {
@@ -40,6 +40,6 @@ contract OmniTokenClone is Script {
         console2.log("address    :", clone);
         console2.log("symbol     :", cfg.symbol);
 
-        vm.writeJson(vm.toString(clone), vm.envString("OUT"), string.concat(".", cfg.symbol));
+        vm.writeJson(vm.toString(clone), vm.envString("OUT"));
     }
 }

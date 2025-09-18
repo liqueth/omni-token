@@ -9,8 +9,8 @@ import "../src/interfaces/IOmniTokenCloner.sol";
  * @notice Deploy an OmniToken clone if it doesn't exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - OmniToken       : address of the IOmniTokenCloner contract
- *   - OmniTokenPath   : path to JSON config file with { env, id, keyValues }
+ *   - CLN : address of the IOmniTokenCloner contract
+ *   - IN  : path to JSON config file with { mints, name, owner, symbol }
  *
  * @dev Example:
  * OmniTokenPath=config/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

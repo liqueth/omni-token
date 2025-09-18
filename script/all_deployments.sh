@@ -13,4 +13,4 @@ OUT=io/$CHAIN_ID/UintToUint.json forge script script/UintToUint.s.sol -f $CHAIN_
 CLN=io/$CHAIN_ID/UintToUint.json IN=io/testnet/endpointMapper.json OUT=io/$CHAIN_ID/messaging.json forge script script/UintToUintClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 IN=io/$CHAIN_ID/messaging.json OUT=io/$CHAIN_ID/MessagingConfig.json forge script script/MessagingConfig.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 IN=io/$CHAIN_ID/MessagingConfig.json OUT=io/$CHAIN_ID/OmniToken.json forge script script/OmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
-CLN=io/$CHAIN_ID/OmniToken.json IN=io/testnet/OMNI_ALPHA.json OUT=io/$CHAIN_ID/OmniTokens.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+CLN=io/$CHAIN_ID/OmniToken.json IN=io/testnet/OMNI_ALPHA.json OUT=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

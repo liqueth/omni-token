@@ -6,6 +6,7 @@ import "./interfaces/IOmniTokenCloner.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
+import "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 
 /**
  * @title OmniToken
@@ -38,13 +39,19 @@ contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
             }
         }
 
+        address sender = _appConfig.sender().value();
+        address receiver = _appConfig.receiver().value();
+        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(_appConfig.endpoint().value());
+
         IUintToUint endpointMapper = IUintToUint(_appConfig.endpointMapper());
         IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();
         for (uint256 i = 0; i < c2e.length; i++) {
             uint256 chain = c2e[i].key;
             if (chain != block.chainid) {
-                uint256 eid = c2e[i].value;
-                setPeer(uint32(eid), bytes32(uint256(uint160(address(this)))));
+                uint32 eid = uint32(c2e[i].value);
+                endpoint.setSendLibrary(address(this), eid, sender);
+                endpoint.setReceiveLibrary(address(this), eid, receiver, 0);
+                setPeer(eid, bytes32(uint256(uint160(address(this)))));
             }
         }
 

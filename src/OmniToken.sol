@@ -61,6 +61,13 @@ contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
         transferOwnership(config.owner);
     }
 
+    function canBridgeTo(uint256 chainId) external view returns (bool) {
+        uint32 eid = uint32(_appConfig.endpointMapper().valueOf(chainId));
+        address sender = _appConfig.sender().value();
+        address receiver = _appConfig.receiver().value();
+        return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
+    }
+
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {
         salt = keccak256(abi.encode(config));
         token = Clones.predictDeterministicAddress(prototype, salt);

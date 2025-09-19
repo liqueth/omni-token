@@ -19,7 +19,6 @@ interface IUintToUint {
     /// @return key at the specified index.
     function keyAt(uint256 index) external view returns (uint256 key);
 
-    /// @dev Reverts if the key does not exist.
     /// @param key The key to look up.
     /// @return value mapped to the given key.
     function valueOf(uint256 key) external view returns (uint256 value);

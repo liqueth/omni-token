@@ -29,8 +29,7 @@ interface IOmniToken is IERC20Metadata {
     function prototype() external view returns (address);
 
     /**
-     * @notice Return the EVM chain IDs supported by this token.
-     * @return chains Array of EVM chain IDs.
+     * @return whether it is possible to send this token to another chain.
      */
-    //function chains() external view returns (uint256[] memory);
+    function canBridgeTo(uint256 chainId) external view returns (bool);
 }

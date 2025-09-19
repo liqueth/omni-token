@@ -18,20 +18,20 @@ interface IMessagingConfig {
     }
 
     /// @return the address of the blocked-message (or “blocker”) library configured on this chain.
-    function blocker() external returns (IOmniAddress);
+    function blocker() external view returns (IOmniAddress);
 
     /// @return the address of the Endpoint contract on this chain.
-    function endpoint() external returns (IOmniAddress);
+    function endpoint() external view returns (IOmniAddress);
 
     /// @return the address of contract that translates a native `chainId` to its Endpoint Identifier (EID).
-    function endpointMapper() external returns (IUintToUint);
+    function endpointMapper() external view returns (IUintToUint);
 
     /// @return the address of the executor used for message delivery on this chain.
-    function executor() external returns (IOmniAddress);
+    function executor() external view returns (IOmniAddress);
 
     /// @return the receive-library address for this chain.
-    function receiver() external returns (IOmniAddress);
+    function receiver() external view returns (IOmniAddress);
 
     /// @return the address of the chain’s configured “send” library.
-    function sender() external returns (IOmniAddress);
+    function sender() external view returns (IOmniAddress);
 }

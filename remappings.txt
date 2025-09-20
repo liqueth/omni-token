@@ -1,6 +1,6 @@
 forge-std/=lib/forge-std/src/
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
-@layerzerolabs/oft-evm/contracts=lib/LayerZero-v2/packages/layerzero-v2/evm/oapp/contracts/oft
-@layerzerolabs/oapp-evm/contracts=lib/LayerZero-v2/packages/layerzero-v2/evm/oapp/contracts/oapp
+@layerzerolabs/oft-evm/contracts=lib/LayerZero-v2/packages/layerzero-v2/evm/oapp/contracts
+@layerzerolabs/oapp-evm/contracts=lib/LayerZero-v2/packages/layerzero-v2/evm/oapp/contracts
 @layerzerolabs/lz-evm-protocol-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/protocol/
 @layerzerolabs/lz-evm-messagelib-v2/=lib/LayerZero-v2/packages/layerzero-v2/evm/messagelib/

@@ -12,6 +12,7 @@ import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
 import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
 import {SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
+import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
 
 /**
  * @title OmniToken
@@ -21,6 +22,8 @@ import {SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.so
  * @custom:source https://github.com/liqueth/omni-token
  */
 contract OmniToken is OFT, IOmniTokenCloner {
+    using OptionsBuilder for bytes;
+
     address public immutable prototype;
     IMessagingConfig internal immutable _appConfig;
     string private _mutableName;
@@ -95,11 +98,12 @@ contract OmniToken is OFT, IOmniTokenCloner {
         if (eid == 0) {
             revert UnsupportedDestinationChain(toChain);
         }
+        bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(65000, 0);
         param.dstEid = eid;
         param.to = bytes32(uint256(uint160(address(this))));
         param.amountLD = amount;
         param.minAmountLD = 0;
-        param.extraOptions = "";
+        param.extraOptions = extraOptions;
         param.composeMsg = "";
         param.oftCmd = "";
     }

@@ -45,6 +45,15 @@ contract OmniToken is OFT, IOmniTokenCloner {
         return _mutableSymbol;
     }
 
+    /// @notice Shared decimals used for cross-chain messaging.
+    /// Setting this to 18 means 1 LD == 1 SD (no rounding).
+    /// Cross-chain amounts are encoded as uint64 in SD units,
+    /// so the maximum representable supply is 2^64 - 1 units,
+    /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
+    function sharedDecimals() public view virtual override returns (uint8) {
+        return 18;
+    }
+
     function __OmniToken_init(Config memory config) public {
         if (bytes(_mutableSymbol).length != 0) {
             revert AlreadyInitialized();
@@ -102,7 +111,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         param.dstEid = eid;
         param.to = bytes32(uint256(uint160(address(this))));
         param.amountLD = amount;
-        param.minAmountLD = 0;
+        param.minAmountLD = amount;
         param.extraOptions = extraOptions;
         param.composeMsg = "";
         param.oftCmd = "";

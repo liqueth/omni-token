@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./interfaces/IMessagingConfig.sol";
-import "./interfaces/IOmniTokenCloner.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
-import "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
+import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
+import {IOmniTokenCloner, IOmniToken} from "./interfaces/IOmniTokenCloner.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {OFT} from "@layerzerolabs/oft-evm/contracts/OFT.sol";
+import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/OAppSender.sol";
+import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
-import "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
+import {SendParam} from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
 
 /**
  * @title OmniToken
@@ -17,19 +20,35 @@ import "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
  *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
  * @custom:source https://github.com/liqueth/omni-token
  */
-contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
+contract OmniToken is OFT, IOmniTokenCloner {
     address public immutable prototype;
     IMessagingConfig internal immutable _appConfig;
+    string private _mutableName;
+    string private _mutableSymbol;
 
-    constructor(IMessagingConfig appConfig) OFTUpgradeable(appConfig.endpoint().value()) {
+    constructor(IMessagingConfig appConfig) OFT("", "", appConfig.endpoint().value(), msg.sender) Ownable(msg.sender) {
         prototype = address(this);
         _appConfig = appConfig;
-        _disableInitializers();
     }
 
-    function __OmniToken_init(Config memory config) public initializer {
-        __OFT_init(config.name, config.symbol, config.owner);
-        __Ownable_init(msg.sender);
+    function name() public view override(ERC20, IERC20Metadata) returns (string memory) {
+        return _mutableName;
+    }
+
+    function symbol() public view override(ERC20, IERC20Metadata) returns (string memory) {
+        return _mutableSymbol;
+    }
+
+    function __OmniToken_init(Config memory config) public {
+        if (bytes(_mutableSymbol).length != 0) {
+            revert AlreadyInitialized();
+        }
+        if (bytes(config.symbol).length == 0) {
+            revert SymbolEmpty();
+        }
+
+        _mutableName = config.name;
+        _mutableSymbol = config.symbol;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];

@@ -29,6 +29,9 @@ interface IOmniTokenCloner is IOmniToken {
     /// @notice Revert if someone tries to reinitialize an instance.
     error AlreadyInitialized();
 
+    /// @notice Revert if someone tries to initialize with an empty symbol.
+    error SymbolEmpty();
+
     /// @notice Emit when a clone is created.
     event Cloned(address indexed clone);
 }

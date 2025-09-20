@@ -26,7 +26,10 @@ contract OmniToken is OFT, IOmniTokenCloner {
     string private _mutableName;
     string private _mutableSymbol;
 
-    constructor(IMessagingConfig appConfig) OFT("", "", appConfig.endpoint().value(), msg.sender) Ownable(msg.sender) {
+    constructor(IMessagingConfig appConfig)
+        OFT("", "", appConfig.endpoint().value(), address(this))
+        Ownable(address(this))
+    {
         prototype = address(this);
         _appConfig = appConfig;
     }
@@ -73,12 +76,10 @@ contract OmniToken is OFT, IOmniTokenCloner {
                 if (IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid)) {
                     endpoint.setSendLibrary(address(this), eid, sender);
                     endpoint.setReceiveLibrary(address(this), eid, receiver, 0);
-                    setPeer(eid, bytes32(uint256(uint160(address(this)))));
+                    _setPeer(eid, bytes32(uint256(uint160(address(this)))));
                 }
             }
         }
-
-        transferOwnership(config.owner);
     }
 
     /// @inheritdoc IOmniToken

@@ -8,6 +8,7 @@ import "@layerzerolabs/oft-evm-upgradeable/contracts/oft/OFTUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
+import "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
 
 /**
  * @title OmniToken
@@ -61,11 +62,40 @@ contract OmniToken is OFTUpgradeable, IOmniTokenCloner {
         transferOwnership(config.owner);
     }
 
+    /// @inheritdoc IOmniToken
     function canBridgeTo(uint256 chainId) external view returns (bool) {
         uint32 eid = uint32(_appConfig.endpointMapper().valueOf(chainId));
         address sender = _appConfig.sender().value();
         address receiver = _appConfig.receiver().value();
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
+    }
+
+    function _buildSend(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
+        uint32 eid = uint32(_appConfig.endpointMapper().valueOf(toChain));
+        if (eid == 0) {
+            revert UnsupportedDestinationChain(toChain);
+        }
+        param.dstEid = eid;
+        param.to = bytes32(uint256(uint160(address(this))));
+        param.amountLD = amount;
+        param.minAmountLD = 0;
+        param.extraOptions = "";
+        param.composeMsg = "";
+        param.oftCmd = "";
+    }
+
+    /// @inheritdoc IOmniToken
+    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+        SendParam memory param = _buildSend(toChain, amount);
+        MessagingFee memory msgFee = this.quoteSend(param, false);
+        fee = msgFee.nativeFee;
+    }
+
+    /// @inheritdoc IOmniToken
+    function bridge(uint256 toChain, uint256 amount) external payable {
+        SendParam memory param = _buildSend(toChain, amount);
+        MessagingFee memory msgFee = MessagingFee(msg.value, 0);
+        this.send(param, msgFee, msg.sender);
     }
 
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {

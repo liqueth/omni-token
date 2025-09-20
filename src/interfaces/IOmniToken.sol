@@ -32,4 +32,22 @@ interface IOmniToken is IERC20Metadata {
      * @return whether it is possible to send this token to another chain.
      */
     function canBridgeTo(uint256 chainId) external view returns (bool);
+
+    /**
+     * @notice Return the native fee required to bridge to a destination chain.
+     * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
+     * @param toChain Destination zkBridge chain ID.
+     * @param amount The amount of tokens to send.
+     * @return fee Estimated native value (wei) the caller should send with {bridge}.
+     */
+    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee);
+
+    /**
+     * @notice Send `amount` of tokens to `toChain`.
+     * @dev Burns tokens on the source chain and sends a LayerZero message to mint on the destination chain.
+     *      Requires sufficient native gas to be supplied to pay for cross-chain message delivery.
+     * @param toChain The destination chain ID (see `chainId` mapping).
+     * @param amount The amount of tokens to send.
+     */
+    function bridge(uint256 toChain, uint256 amount) external payable;
 }

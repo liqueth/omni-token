@@ -6,7 +6,8 @@ src = "src"
 out = "out"
 libs = ["lib"]
 private_key = "${DEPLOYER_KEY}"
-optimizer_runs = 1000
+via_ir = true
+optimizer_runs = 15
 bytecode_hash = "ipfs"
 
 

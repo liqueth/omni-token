@@ -10,8 +10,8 @@ import "../src/interfaces/IUintToUintCloner.sol";
  * @notice Deploy an OmniAddress clone ONLY if it doesn't already exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - UintToUint       : address of the IOmniAddressCloner contract
- *   - UintToUintPath   : path to JSON config file with { env, id, keyValues }
+ *   - CLN : address of the IOmniAddressCloner contract
+ *   - IN  : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
  *   CLN=io/$CHAIN_ID/UintToUint.json IN=io/testnet/endpointMapper.json OUT=io/$CHAIN_ID/messaging.json forge script script/UintToUintClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

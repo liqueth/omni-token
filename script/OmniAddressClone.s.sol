@@ -10,8 +10,8 @@ import "../src/OmniAddress.sol";
  * @notice Deploy an OmniAddress clone ONLY if it doesn't already exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - OmniAddress       : address of the IOmniAddressCloner contract
- *   - OmniAddressPath   : path to JSON config file with { env, id, keyValues }
+ *   - CLN : address of the IOmniAddressCloner contract
+ *   - IN  : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
  *   CLN=io/$CHAIN_ID/OmniAddress.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/OmniAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

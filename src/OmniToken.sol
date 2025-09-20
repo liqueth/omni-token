@@ -119,7 +119,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
     function bridge(uint256 toChain, uint256 amount) external payable {
         SendParam memory param = _buildSend(toChain, amount);
         MessagingFee memory msgFee = MessagingFee(msg.value, 0);
-        this.send(param, msgFee, msg.sender);
+        this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
     }
 
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {

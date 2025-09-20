@@ -31,6 +31,8 @@ contract BridgeOmniToken is Script {
 
         uint256 fee = token.bridgeQuote(input.toChain, input.amount);
         console2.log("fee: ", fee);
+        uint256 fee2 = token.bridgeQuote(input.toChain, input.amount);
+        console2.log("fee2: ", fee2);
         vm.startBroadcast();
         token.bridge{value: fee}(input.toChain, input.amount);
         vm.stopBroadcast();

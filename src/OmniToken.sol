@@ -109,7 +109,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         }
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(65000, 0);
         param.dstEid = eid;
-        param.to = bytes32(uint256(uint160(address(this))));
+        param.to = bytes32(uint256(uint160(msg.sender)));
         param.amountLD = amount;
         param.minAmountLD = amount;
         param.extraOptions = extraOptions;

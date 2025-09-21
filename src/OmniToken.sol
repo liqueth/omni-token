@@ -11,7 +11,7 @@ import {OFT} from "@layerzerolabs/oft-evm/contracts/oft/OFT.sol";
 import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
 import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
-import {SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
+import {SendParam, MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
 
 /**
@@ -28,6 +28,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
     IMessagingConfig internal immutable _appConfig;
     string private _mutableName;
     string private _mutableSymbol;
+    uint128 private _receiverGasLimit;
 
     constructor(IMessagingConfig appConfig)
         OFT("", "", appConfig.endpoint().value(), address(this))
@@ -64,13 +65,14 @@ contract OmniToken is OFT, IOmniTokenCloner {
 
         _mutableName = config.name;
         _mutableSymbol = config.symbol;
+        _receiverGasLimit = config.receiverGasLimit;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
             uint256 mint = mints[i][1];
             if (chain == block.chainid) {
                 if (mint > 0) {
-                    _mint(config.owner, mint);
+                    _mint(config.mintRecipient, mint);
                 }
             }
         }
@@ -95,7 +97,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
     }
 
     /// @inheritdoc IOmniToken
-    function canBridgeTo(uint256 chainId) external view returns (bool) {
+    function bridgeable(uint256 chainId) external view returns (bool) {
         uint32 eid = uint32(_appConfig.endpointMapper().valueOf(chainId));
         address sender = _appConfig.sender().value();
         address receiver = _appConfig.receiver().value();
@@ -107,7 +109,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         if (eid == 0) {
             revert UnsupportedDestinationChain(toChain);
         }
-        bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(65000, 0);
+        bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(_receiverGasLimit, 0);
         param.dstEid = eid;
         param.to = bytes32(uint256(uint160(msg.sender)));
         param.amountLD = amount;
@@ -125,7 +127,11 @@ contract OmniToken is OFT, IOmniTokenCloner {
     }
 
     /// @inheritdoc IOmniToken
-    function bridge(uint256 toChain, uint256 amount) external payable {
+    function bridge(uint256 toChain, uint256 amount)
+        external
+        payable
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
+    {
         SendParam memory param = _buildSend(toChain, amount);
         MessagingFee memory msgFee = MessagingFee(msg.value, 0);
         // Encode the send call with original msg.sender
@@ -135,17 +141,25 @@ contract OmniToken is OFT, IOmniTokenCloner {
             msgFee,
             msg.sender
         );
-        (bool success,) = address(this).delegatecall(calldataPayload);
+        (bool success, bytes memory result) = address(this).delegatecall(calldataPayload);
         if (!success) {
-            revert("Send call failed");
+            if (result.length > 0) {
+                assembly {
+                    revert(add(result, 0x20), mload(result))
+                }
+            }
+            revert SendCallFailed();
         }
+        (msgReceipt, oftReceipt) = abi.decode(result, (MessagingReceipt, OFTReceipt));
     }
 
+    /// @inheritdoc IOmniTokenCloner
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {
         salt = keccak256(abi.encode(config));
         token = Clones.predictDeterministicAddress(prototype, salt);
     }
 
+    /// @inheritdoc IOmniTokenCloner
     function clone(Config memory config) public returns (address token, bytes32 salt) {
         if (address(this) != prototype) {
             return OmniToken(prototype).clone(config);
@@ -155,7 +169,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         if (address(token).code.length == 0) {
             token = Clones.cloneDeterministic(address(this), salt);
             OmniToken(token).__OmniToken_init(config);
-            emit Cloned(config.owner, address(token), config.name, config.symbol);
+            emit Cloned(config.mintRecipient, address(token), config.name, config.symbol);
         }
     }
 }

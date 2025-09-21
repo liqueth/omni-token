@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 
 /**
  * @title IOmniToken
@@ -16,6 +17,7 @@ interface IOmniToken is IERC20Metadata {
     error SentFromDifferentAddress(address fromAddress);
     error UnsupportedDestinationChain(uint256 chain);
     error UnsupportedSourceChain(uint16 zkChain);
+    error SendCallFailed();
 
     event Cloned(address indexed owner, address indexed token, string name, string symbol);
 
@@ -31,11 +33,11 @@ interface IOmniToken is IERC20Metadata {
     /**
      * @return whether it is possible to send this token to another chain.
      */
-    function canBridgeTo(uint256 chainId) external view returns (bool);
+    function bridgeable(uint256 chainId) external view returns (bool);
 
     /**
      * @notice Return the native fee required to bridge to a destination chain.
-     * @dev Proxies the zkBridge fee estimator; some endpoints use a destination gas limit to quote fees.
+     * @dev A simplifying wrapper around IOFT.quoteSend that sets the recipient to `msg.sender` on the destination chain.
      * @param toChain Destination zkBridge chain ID.
      * @param amount The amount of tokens to send.
      * @return fee Estimated native value (wei) the caller should send with {bridge}.
@@ -44,10 +46,13 @@ interface IOmniToken is IERC20Metadata {
 
     /**
      * @notice Send `amount` of tokens to `toChain`.
-     * @dev Burns tokens on the source chain and sends a LayerZero message to mint on the destination chain.
-     *      Requires sufficient native gas to be supplied to pay for cross-chain message delivery.
+     * @dev Requires sufficient native gas to be supplied to pay for cross-chain message delivery as determined by {bridgeQuote}.
+     * Implementented as a simplifying wrapper of IOFT.send that sets the recipient to `msg.sender` on the destination chain.
      * @param toChain The destination chain ID (see `chainId` mapping).
      * @param amount The amount of tokens to send.
      */
-    function bridge(uint256 toChain, uint256 amount) external payable;
+    function bridge(uint256 toChain, uint256 amount)
+        external
+        payable
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt);
 }

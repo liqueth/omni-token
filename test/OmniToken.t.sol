@@ -15,6 +15,7 @@ contract OmniTokenTest is Test {
     uint256 constant toChain = 97;
     uint256 constant toPk = 103;
     uint16 unsupportedSourceChain = 999;
+    uint128 constant rgl = 35000;
     uint256 constant toMint = 1_000_000;
     string constant name = "Omni token";
     string constant symbol = "OMNI";
@@ -66,10 +67,34 @@ contract OmniTokenTest is Test {
 
         factory = new OmniToken(appConfig);
 
-        config = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name, symbol: symbol});
-        config1 = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name1, symbol: name1});
-        config2a = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
-        config2b = IOmniTokenCloner.Config({mints: mints, owner: allocTo, name: name2, symbol: name2});
+        config = IOmniTokenCloner.Config({
+            mints: mints,
+            mintRecipient: allocTo,
+            name: name,
+            receiverGasLimit: rgl,
+            symbol: symbol
+        });
+        config1 = IOmniTokenCloner.Config({
+            mints: mints,
+            mintRecipient: allocTo,
+            name: name1,
+            receiverGasLimit: rgl,
+            symbol: name1
+        });
+        config2a = IOmniTokenCloner.Config({
+            mints: mints,
+            mintRecipient: allocTo,
+            name: name2,
+            receiverGasLimit: rgl,
+            symbol: name2
+        });
+        config2b = IOmniTokenCloner.Config({
+            mints: mints,
+            mintRecipient: allocTo,
+            name: name2,
+            receiverGasLimit: rgl,
+            symbol: name2
+        });
     }
 
     function newEndpoint() private returns (address endpointAlias) {
@@ -123,8 +148,13 @@ contract OmniTokenTest is Test {
     function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
-        OmniToken.Config memory badConfig =
-            IOmniTokenCloner.Config({mints: badMints, owner: allocTo, name: name, symbol: symbol});
+        OmniToken.Config memory badConfig = IOmniTokenCloner.Config({
+            mints: badMints,
+            mintRecipient: allocTo,
+            name: name,
+            receiverGasLimit: rgl,
+            symbol: symbol
+        });
         factory.clone(badConfig);
     }
 

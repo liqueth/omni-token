@@ -128,8 +128,17 @@ contract OmniToken is OFT, IOmniTokenCloner {
     function bridge(uint256 toChain, uint256 amount) external payable {
         SendParam memory param = _buildSend(toChain, amount);
         MessagingFee memory msgFee = MessagingFee(msg.value, 0);
-        transfer(address(this), amount);
-        this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
+        // Encode the send call with original msg.sender
+        bytes memory calldataPayload = abi.encodeWithSignature(
+            "send((uint32,bytes32,uint256,uint256,bytes,bytes,bytes),(uint256,uint256),address)",
+            param,
+            msgFee,
+            msg.sender
+        );
+        (bool success,) = address(this).delegatecall(calldataPayload);
+        if (!success) {
+            revert("Send call failed");
+        }
     }
 
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {

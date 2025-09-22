@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "./IOmniToken.sol";
 
-/// @notice Deploy clones of IUintToAddress.
+/// @notice Deploy clones of OmniToken.
 /// @author Paul Reinholdtsen
 interface IOmniTokenCloner is IOmniToken {
     /// @dev properties are in alphbetic order to simplify converting json to abi-encoded bytes.
@@ -21,17 +21,17 @@ interface IOmniTokenCloner is IOmniToken {
         string symbol;
     }
 
-    /// @notice Predict the address of a clone.
+    /// @notice Predict the address of a clone, which may or may not already exist.
     /// @param config The configuration for the clone.
-    /// @return clone_ The predicted address of the clone.
-    /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(kvs));
-    function cloneAddress(Config memory config) external view returns (address clone_, bytes32 salt);
+    /// @return clone The predicted address of the clone.
+    /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(config));
+    function cloneAddress(Config memory config) external view returns (address clone, bytes32 salt);
 
     /// @notice Create a clone if it doesn't already exist.
     /// @param config The configuration for the clone.
-    /// @return clone_ The predicted address of the clone.
+    /// @return clone The address of the clone.
     /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(kvs));
-    function clone(Config memory config) external returns (address clone_, bytes32 salt);
+    function clone(Config memory config) external returns (address clone, bytes32 salt);
 
     /// @notice Revert if someone tries to reinitialize an instance.
     error AlreadyInitialized();
@@ -40,5 +40,5 @@ interface IOmniTokenCloner is IOmniToken {
     error SymbolEmpty();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed clone);
+    event Cloned(address indexed mintRecipient, address indexed clone, string name, string symbol);
 }

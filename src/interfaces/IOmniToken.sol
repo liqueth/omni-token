@@ -14,8 +14,6 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
 interface IOmniToken is IERC20Metadata {
     error UnsupportedDestinationChain(uint256 chain);
 
-    event Cloned(address indexed owner, address indexed token, string name, string symbol);
-
     /**
      * @notice Return the canonical prototype used as both implementation and factory for clone deployments.
      * @dev The returned address is the code-bearing contract that minimal proxies (EIP-1167/OpenZeppelin Clones)

@@ -134,23 +134,8 @@ contract OmniToken is OFT, IOmniTokenCloner {
     {
         SendParam memory param = _buildSend(toChain, amount);
         MessagingFee memory msgFee = MessagingFee(msg.value, 0);
-        // Encode the send call with original msg.sender
-        bytes memory calldataPayload = abi.encodeWithSignature(
-            "send((uint32,bytes32,uint256,uint256,bytes,bytes,bytes),(uint256,uint256),address)",
-            param,
-            msgFee,
-            msg.sender
-        );
-        (bool success, bytes memory result) = address(this).delegatecall(calldataPayload);
-        if (!success) {
-            if (result.length > 0) {
-                assembly {
-                    revert(add(result, 0x20), mload(result))
-                }
-            }
-            revert SendCallFailed();
-        }
-        (msgReceipt, oftReceipt) = abi.decode(result, (MessagingReceipt, OFTReceipt));
+        transfer(address(this), amount);
+        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
     }
 
     /// @inheritdoc IOmniTokenCloner

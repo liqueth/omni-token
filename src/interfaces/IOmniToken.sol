@@ -12,12 +12,7 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
  * @custom:source https://github.com/liqueth/omni-token
  */
 interface IOmniToken is IERC20Metadata {
-    error AlreadyReceived(bytes32 messageHash);
-    error SenderIsNotBridge(address sender);
-    error SentFromDifferentAddress(address fromAddress);
     error UnsupportedDestinationChain(uint256 chain);
-    error UnsupportedSourceChain(uint16 zkChain);
-    error SendCallFailed();
 
     event Cloned(address indexed owner, address indexed token, string name, string symbol);
 

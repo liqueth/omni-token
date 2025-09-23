@@ -33,6 +33,7 @@ contract OmniTokenTest is Test {
     OmniToken.Config config2b;
     address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
+    address issuer = allocTo;
     address bridgeTo = address(0xDEF);
     uint256[][] chains;
     uint256[][] mints;
@@ -67,14 +68,38 @@ contract OmniTokenTest is Test {
 
         factory = new OmniToken(appConfig);
 
-        config =
-            IOmniTokenCloner.Config({mints: mints, name: name, owner: allocTo, receiverGasLimit: rgl, symbol: symbol});
-        config1 =
-            IOmniTokenCloner.Config({mints: mints, name: name1, owner: allocTo, receiverGasLimit: rgl, symbol: name1});
-        config2a =
-            IOmniTokenCloner.Config({mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2});
-        config2b =
-            IOmniTokenCloner.Config({mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2});
+        config = IOmniTokenCloner.Config({
+            issuer: issuer,
+            mints: mints,
+            name: name,
+            owner: allocTo,
+            receiverGasLimit: rgl,
+            symbol: symbol
+        });
+        config1 = IOmniTokenCloner.Config({
+            issuer: issuer,
+            mints: mints,
+            name: name1,
+            owner: allocTo,
+            receiverGasLimit: rgl,
+            symbol: name1
+        });
+        config2a = IOmniTokenCloner.Config({
+            issuer: issuer,
+            mints: mints,
+            name: name2,
+            owner: allocTo,
+            receiverGasLimit: rgl,
+            symbol: name2
+        });
+        config2b = IOmniTokenCloner.Config({
+            issuer: issuer,
+            mints: mints,
+            name: name2,
+            owner: allocTo,
+            receiverGasLimit: rgl,
+            symbol: name2
+        });
     }
 
     function newEndpoint() private returns (address endpointAlias) {
@@ -129,6 +154,7 @@ contract OmniTokenTest is Test {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOmniTokenCloner.Config({
+            issuer: issuer,
             mints: badMints,
             owner: allocTo,
             name: name,

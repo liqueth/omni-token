@@ -29,7 +29,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
     /// @dev Immutable prototype is available to all clones.
     address public immutable prototype;
     /// @dev Immutable configuration is available to all clones.
-    IMessagingConfig internal immutable _appConfig;
+    IMessagingConfig public immutable messagingConfig;
 
     /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
     string internal _name;
@@ -43,7 +43,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         Ownable(address(this))
     {
         prototype = address(this);
-        _appConfig = appConfig;
+        messagingConfig = appConfig;
     }
 
     /// @inheritdoc IERC20Metadata
@@ -88,11 +88,11 @@ contract OmniToken is OFT, IOmniTokenCloner {
         }
 
         // Get the actual endpoint and sender and receiver libraries via their OmniAddress aliases.
-        address sender = _appConfig.sender().value();
-        address receiver = _appConfig.receiver().value();
-        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(_appConfig.endpoint().value());
+        address sender = messagingConfig.sender().value();
+        address receiver = messagingConfig.receiver().value();
+        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(messagingConfig.endpoint().value());
 
-        IUintToUint endpointMapper = IUintToUint(_appConfig.endpointMapper());
+        IUintToUint endpointMapper = IUintToUint(messagingConfig.endpointMapper());
         IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();
         for (uint256 i = 0; i < c2e.length; i++) {
             uint256 chain = c2e[i].key;
@@ -109,9 +109,9 @@ contract OmniToken is OFT, IOmniTokenCloner {
 
     /// @inheritdoc IOmniToken
     function bridgeable(uint256 chainId) external view returns (bool) {
-        uint32 eid = uint32(_appConfig.endpointMapper().valueOf(chainId));
-        address sender = _appConfig.sender().value();
-        address receiver = _appConfig.receiver().value();
+        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(chainId));
+        address sender = messagingConfig.sender().value();
+        address receiver = messagingConfig.receiver().value();
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
@@ -136,7 +136,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
 
     /// @dev Help construct SendParam for a given destination chain and amount.
     function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
-        uint32 eid = uint32(_appConfig.endpointMapper().valueOf(toChain));
+        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(toChain));
         if (eid == 0) {
             revert UnsupportedDestinationChain(toChain);
         }

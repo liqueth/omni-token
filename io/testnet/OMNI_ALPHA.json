@@ -1,5 +1,4 @@
 {
-  "mintRecipient": "0xE396da99091B535B65384914B178b9264c7426da",
   "mints": [
     [
       97,
@@ -15,6 +14,7 @@
     ]
   ],
   "name": "Omni Alpha Token",
+  "owner": "0xE396da99091B535B65384914B178b9264c7426da",
   "receiverGasLimit": 35000,
   "symbol": "OMNI_ALPHA"
 }

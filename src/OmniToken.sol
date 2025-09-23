@@ -63,7 +63,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
             uint256 mint = mints[i][1];
             if (chain == block.chainid) {
                 if (mint > 0) {
-                    _mint(config.mintRecipient, mint);
+                    _mint(config.owner, mint);
                 }
             }
         }
@@ -143,7 +143,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         if (clone_.code.length == 0) {
             clone_ = Clones.cloneDeterministic(prototype, salt);
             OmniToken(clone_).__OmniToken_init(config);
-            emit Cloned(config.mintRecipient, clone_, config.name, config.symbol);
+            emit Cloned(config.owner, clone_, config.name, config.symbol);
         }
     }
 

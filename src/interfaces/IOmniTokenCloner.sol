@@ -10,12 +10,12 @@ interface IOmniTokenCloner is IOmniToken {
     /// @notice Hold configuration data for deploying a clone.
     /// @dev properties are in alphabetical order to simplify converting json to abi-encoded bytes.
     struct Config {
-        /// @notice the recipient of the minted tokens.
-        address mintRecipient;
         /// @notice Array of [chain, amount] pairs specifying how many tokens to mint on each chain.
         uint256[][] mints;
         /// @notice Name of the token.
         string name;
+        /// @notice the recipient of the minted tokens.
+        address owner;
         /// @notice Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
         uint128 receiverGasLimit;
         /// @notice Symbol of the token.
@@ -41,5 +41,5 @@ interface IOmniTokenCloner is IOmniToken {
     error SymbolEmpty();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed mintRecipient, address indexed clone, string name, string symbol);
+    event Cloned(address indexed owner, address indexed clone, string name, string symbol);
 }

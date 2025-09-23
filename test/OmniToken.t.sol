@@ -67,34 +67,14 @@ contract OmniTokenTest is Test {
 
         factory = new OmniToken(appConfig);
 
-        config = IOmniTokenCloner.Config({
-            mints: mints,
-            mintRecipient: allocTo,
-            name: name,
-            receiverGasLimit: rgl,
-            symbol: symbol
-        });
-        config1 = IOmniTokenCloner.Config({
-            mints: mints,
-            mintRecipient: allocTo,
-            name: name1,
-            receiverGasLimit: rgl,
-            symbol: name1
-        });
-        config2a = IOmniTokenCloner.Config({
-            mints: mints,
-            mintRecipient: allocTo,
-            name: name2,
-            receiverGasLimit: rgl,
-            symbol: name2
-        });
-        config2b = IOmniTokenCloner.Config({
-            mints: mints,
-            mintRecipient: allocTo,
-            name: name2,
-            receiverGasLimit: rgl,
-            symbol: name2
-        });
+        config =
+            IOmniTokenCloner.Config({mints: mints, name: name, owner: allocTo, receiverGasLimit: rgl, symbol: symbol});
+        config1 =
+            IOmniTokenCloner.Config({mints: mints, name: name1, owner: allocTo, receiverGasLimit: rgl, symbol: name1});
+        config2a =
+            IOmniTokenCloner.Config({mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2});
+        config2b =
+            IOmniTokenCloner.Config({mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2});
     }
 
     function newEndpoint() private returns (address endpointAlias) {
@@ -150,7 +130,7 @@ contract OmniTokenTest is Test {
         //vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOmniTokenCloner.Config({
             mints: badMints,
-            mintRecipient: allocTo,
+            owner: allocTo,
             name: name,
             receiverGasLimit: rgl,
             symbol: symbol

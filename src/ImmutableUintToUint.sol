@@ -5,10 +5,9 @@ pragma solidity ^0.8.20;
 import "./interfaces/IUintToUintCloner.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @notice Map uint256 to uint256.
-/// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
-/// ImmutableUintToUint has no governance or upgrade risk.
+/// @notice Immutable map from uint256 to uint256 with no governance or upgrade risk.
 /// The implementation is also a factory, allowing anyone to easily deploy an instance.
+/// Deterministic deployment ensures identical addresses across chains.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract ImmutableUintToUint is IUintToUintCloner {
     /// @inheritdoc IUintToUint

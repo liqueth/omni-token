@@ -19,21 +19,27 @@ interface IMessagingConfig {
         IOmniAddress sender;
     }
 
-    /// @return lookup for the blocked-message library configured on this chain.
+    /// @return lookup for this chain's [Blocked Message Library]
+    /// (https://docs.layerzero.network/v2/developers/evm/technical-reference/api#blockedmessagelib).
     function blocker() external view returns (IOmniAddress lookup);
 
-    /// @return lookup for the Endpoint contract on this chain.
+    /// @return lookup for this chain's [Endpoint]
+    /// (https://docs.layerzero.network/v2/concepts/glossary#endpoint).
     function endpoint() external view returns (IOmniAddress lookup);
 
-    /// @return chainToEid address of contract that translates a native `chainId` to its Endpoint Identifier (EID).
+    /// @return chainToEid translates a native `chainId` to its
+    /// [Endpoint Identifier (EID)](https://docs.layerzero.network/v2/concepts/glossary#endpoint-id).
     function endpointMapper() external view returns (IUintToUint chainToEid);
 
-    /// @return lookup for the executor used for message delivery on this chain.
+    /// @return lookup for this chain's [Executor](https://docs.layerzero.network/v2/concepts/glossary#executor)
+    /// used for message delivery on this chain.
     function executor() external view returns (IOmniAddress lookup);
 
-    /// @return lookup for the receive contract for this chain.
+    /// @return lookup for this chain's [Message Receive Library]
+    /// (https://docs.layerzero.network/v2/concepts/protocol/message-receive-library).
     function receiver() external view returns (IOmniAddress lookup);
 
-    /// @return lookup for the sender contract for this chain.
+    /// @return lookup for this chain's [Message Send Library]
+    /// (https://docs.layerzero.network/v2/concepts/protocol/message-send-library).
     function sender() external view returns (IOmniAddress lookup);
 }

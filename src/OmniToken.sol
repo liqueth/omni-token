@@ -26,8 +26,8 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;
 
-    /// @dev Immutable prototype is available to all clones.
-    address public immutable prototype;
+    /// @dev Immutable implementation is available to all clones.
+    address public immutable implementation;
     /// @dev Immutable configuration is available to all clones.
     IMessagingConfig public immutable messagingConfig;
 
@@ -42,7 +42,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
         OFT("", "", appConfig.endpoint().value(), address(this))
         Ownable(address(this))
     {
-        prototype = address(this);
+        implementation = address(this);
         messagingConfig = appConfig;
     }
 
@@ -153,14 +153,14 @@ contract OmniToken is OFT, IOmniTokenCloner {
     /// @inheritdoc IOmniTokenCloner
     function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        clone_ = Clones.predictDeterministicAddress(prototype, salt);
+        clone_ = Clones.predictDeterministicAddress(implementation, salt);
     }
 
     /// @inheritdoc IOmniTokenCloner
     function clone(Config memory config) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(config);
         if (clone_.code.length == 0) {
-            clone_ = Clones.cloneDeterministic(prototype, salt);
+            clone_ = Clones.cloneDeterministic(implementation, salt);
             OmniToken(clone_).__OmniToken_init(config);
             emit Cloned(config.mintRecipient, clone_, config.name, config.symbol);
         }

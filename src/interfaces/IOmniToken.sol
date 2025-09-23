@@ -15,13 +15,13 @@ interface IOmniToken is IERC20Metadata {
     error UnsupportedDestinationChain(uint256 chain);
 
     /**
-     * @notice Return the canonical prototype used as both implementation and factory for clone deployments.
+     * @notice Return the implementation/factory for clone deployments.
      * @dev The returned address is the code-bearing contract that minimal proxies (EIP-1167/OpenZeppelin Clones)
      *      delegate to. Treat it as stateless logic; do not send funds here. Useful for tooling and off-chain
      *      introspection to know which logic/factory this instance points to.
      * @return Address of the prototype (implementation + factory).
      */
-    function prototype() external view returns (address);
+    function implementation() external view returns (address);
 
     /**
      * @return whether it is possible to send this token to another chain.

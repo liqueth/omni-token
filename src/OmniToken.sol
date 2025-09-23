@@ -26,9 +26,9 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;
 
-    /// @dev Immutable implementation is available to all clones.
-    address public immutable implementation;
-    /// @dev Immutable configuration is available to all clones.
+    /// @dev Immutable implementation/factory is the same for all clones.
+    address public immutable prototype;
+    /// @dev Immutable configuration is the same for all clones.
     IMessagingConfig public immutable messagingConfig;
 
     /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
@@ -42,27 +42,8 @@ contract OmniToken is OFT, IOmniTokenCloner {
         OFT("", "", appConfig.endpoint().value(), address(this))
         Ownable(address(this))
     {
-        implementation = address(this);
+        prototype = address(this);
         messagingConfig = appConfig;
-    }
-
-    /// @inheritdoc IERC20Metadata
-    function name() public view override(ERC20, IERC20Metadata) returns (string memory) {
-        return _name;
-    }
-
-    /// @inheritdoc IERC20Metadata
-    function symbol() public view override(ERC20, IERC20Metadata) returns (string memory) {
-        return _symbol;
-    }
-
-    /// @notice Shared decimals used for cross-chain messaging.
-    /// Setting this to 18 means 1 LD == 1 SD (no rounding).
-    /// Cross-chain amounts are encoded as uint64 in SD units,
-    /// so the maximum representable supply is 2^64 - 1 units,
-    /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
-    function sharedDecimals() public view virtual override returns (uint8) {
-        return 18;
     }
 
     function __OmniToken_init(Config memory config) public {
@@ -153,16 +134,35 @@ contract OmniToken is OFT, IOmniTokenCloner {
     /// @inheritdoc IOmniTokenCloner
     function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        clone_ = Clones.predictDeterministicAddress(implementation, salt);
+        clone_ = Clones.predictDeterministicAddress(prototype, salt);
     }
 
     /// @inheritdoc IOmniTokenCloner
     function clone(Config memory config) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(config);
         if (clone_.code.length == 0) {
-            clone_ = Clones.cloneDeterministic(implementation, salt);
+            clone_ = Clones.cloneDeterministic(prototype, salt);
             OmniToken(clone_).__OmniToken_init(config);
             emit Cloned(config.mintRecipient, clone_, config.name, config.symbol);
         }
+    }
+
+    /// @inheritdoc IERC20Metadata
+    function name() public view override(ERC20, IERC20Metadata) returns (string memory) {
+        return _name;
+    }
+
+    /// @inheritdoc IERC20Metadata
+    function symbol() public view override(ERC20, IERC20Metadata) returns (string memory) {
+        return _symbol;
+    }
+
+    /// @notice Shared decimals used for cross-chain messaging.
+    /// Setting this to 18 means 1 LD == 1 SD (no rounding).
+    /// Cross-chain amounts are encoded as uint64 in SD units,
+    /// so the maximum representable supply is 2^64 - 1 units,
+    /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
+    function sharedDecimals() public view virtual override returns (uint8) {
+        return 18;
     }
 }

@@ -7,17 +7,18 @@ import "./IOmniToken.sol";
 /// @notice Deploy clones of OmniToken.
 /// @author Paul Reinholdtsen
 interface IOmniTokenCloner is IOmniToken {
-    /// @dev properties are in alphbetic order to simplify converting json to abi-encoded bytes.
+    /// @notice Hold configuration data for deploying a clone.
+    /// @dev properties are in alphabetical order to simplify converting json to abi-encoded bytes.
     struct Config {
         /// @notice the recipient of the minted tokens.
         address mintRecipient;
-        /// @notice [chain, amount] pairs specifying how many tokens to mint on each chain.
+        /// @notice Array of [chain, amount] pairs specifying how many tokens to mint on each chain.
         uint256[][] mints;
-        /// @notice the name of the token.
+        /// @notice Name of the token.
         string name;
         /// @notice Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
         uint128 receiverGasLimit;
-        /// @notice the name of the token.
+        /// @notice Symbol of the token.
         string symbol;
     }
 

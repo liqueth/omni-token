@@ -6,6 +6,7 @@ import "./IUintToUint.sol";
 import "./IOmniAddress.sol";
 
 /// @notice Read-only interface exposing the chain-local wiring required by LayerZero v2 interchain messaging.
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IMessagingConfig {
     /// @notice Struct that mirrors the contents of the contract.
     /// @dev properties are in alphabetical order to simplify converting json to abi-encoded bytes.

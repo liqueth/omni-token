@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 /// @notice Map uint256 to uint256.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IUintToUint {
     /// @notice Map a key to a value.
     struct KeyValue {

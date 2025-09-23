@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 import "./IUintToUint.sol";
 
 /// @notice Deploy clones of UintToUint.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IUintToUintCloner is IUintToUint {
     /// @notice Predict the address of a clone.
     /// @param kvs The array of key value pairs sorted by key.

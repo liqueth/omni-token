@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
 /// ImmutableUintToUint has no governance or upgrade risk.
 /// The implementation is also a factory, allowing anyone to easily deploy an instance.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract ImmutableUintToUint is IUintToUintCloner {
     /// @inheritdoc IUintToUint
     function keyCount() external view returns (uint256) {

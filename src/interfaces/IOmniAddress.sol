@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 /// @notice Map a single predictable contract address to many chain local addresses.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniAddress {
     /// @notice Return the chain‑specific address.
     function value() external view returns (address);

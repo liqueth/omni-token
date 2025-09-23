@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 import "./IOmniToken.sol";
 
 /// @notice Deploy clones of OmniToken.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniTokenCloner is IOmniToken {
     /// @notice Hold configuration data for deploying a clone.
     /// @dev properties are in alphabetical order to simplify converting json to abi-encoded bytes.

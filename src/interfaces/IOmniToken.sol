@@ -8,6 +8,7 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
 /// @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
 ///      and chain ID mappings.
 /// @custom:source https://github.com/liqueth/omni-token
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniToken is IERC20Metadata {
     error UnsupportedDestinationChain(uint256 chain);
 

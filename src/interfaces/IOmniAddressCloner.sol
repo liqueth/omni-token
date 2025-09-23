@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 /// @notice Deploy clones of OmniAddress.
-/// @author Paul Reinholdtsen
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniAddressCloner {
     /// @notice Map a chainId to a local address.
     struct KeyValue {

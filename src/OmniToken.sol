@@ -27,6 +27,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - **Deterministic Deployer** – Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - **Immutable Bytecode** – Any change to the logic or constructor encoding produces a new address.
 /// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
+/// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;

@@ -1,33 +1,44 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
+pragma solidity ^0.8.20;
+
+import {IOmniToken, IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
-import {IOmniTokenCloner, IOmniToken} from "./interfaces/IOmniTokenCloner.sol";
+
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
 import {OFT} from "@layerzerolabs/oft-evm/contracts/oft/OFT.sol";
-import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
 import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
-import {SendParam, MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
+import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
+import {MessagingReceipt, OFTReceipt, SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
 
 /**
  * @title OmniToken
- * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
- * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
- *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
+ * @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
+ * @dev Key features:
+ * - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
+ * - Cross-chain address consistency via deterministic deployment.
+ * - Efficient proxy-based deployments using OpenZeppelin Clones.
  * @custom:source https://github.com/liqueth/omni-token
  */
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;
 
+    /// @dev Immutable prototype is available to all clones.
     address public immutable prototype;
+    /// @dev Immutable configuration is available to all clones.
     IMessagingConfig internal immutable _appConfig;
-    string private _mutableName;
-    string private _mutableSymbol;
+
+    /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
+    string internal _name;
+    /// @dev Mask the ERC-20 symbol to support initialization in clones wihout requiring an upgradeable ERC-20.
+    string internal _symbol;
+    /// @dev Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
     uint128 private _receiverGasLimit;
 
     constructor(IMessagingConfig appConfig)
@@ -38,12 +49,14 @@ contract OmniToken is OFT, IOmniTokenCloner {
         _appConfig = appConfig;
     }
 
+    /// @inheritdoc IERC20Metadata
     function name() public view override(ERC20, IERC20Metadata) returns (string memory) {
-        return _mutableName;
+        return _name;
     }
 
+    /// @inheritdoc IERC20Metadata
     function symbol() public view override(ERC20, IERC20Metadata) returns (string memory) {
-        return _mutableSymbol;
+        return _symbol;
     }
 
     /// @notice Shared decimals used for cross-chain messaging.
@@ -56,15 +69,15 @@ contract OmniToken is OFT, IOmniTokenCloner {
     }
 
     function __OmniToken_init(Config memory config) public {
-        if (bytes(_mutableSymbol).length != 0) {
+        if (bytes(_symbol).length != 0) {
             revert AlreadyInitialized();
         }
         if (bytes(config.symbol).length == 0) {
             revert SymbolEmpty();
         }
 
-        _mutableName = config.name;
-        _mutableSymbol = config.symbol;
+        _name = config.name;
+        _symbol = config.symbol;
         _receiverGasLimit = config.receiverGasLimit;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
@@ -77,6 +90,7 @@ contract OmniToken is OFT, IOmniTokenCloner {
             }
         }
 
+        // Get the actual endpoint and sender and receiver libraries via their OmniAddress aliases.
         address sender = _appConfig.sender().value();
         address receiver = _appConfig.receiver().value();
         ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(_appConfig.endpoint().value());
@@ -104,7 +118,27 @@ contract OmniToken is OFT, IOmniTokenCloner {
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
-    function _buildSend(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
+    /// @inheritdoc IOmniToken
+    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+        SendParam memory param = sendParam(toChain, amount);
+        MessagingFee memory msgFee = this.quoteSend(param, false);
+        fee = msgFee.nativeFee;
+    }
+
+    /// @inheritdoc IOmniToken
+    function bridge(uint256 toChain, uint256 amount)
+        external
+        payable
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
+    {
+        SendParam memory param = sendParam(toChain, amount);
+        MessagingFee memory msgFee = MessagingFee(msg.value, 0);
+        transfer(address(this), amount);
+        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
+    }
+
+    /// @dev Help construct SendParam for a given destination chain and amount.
+    function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
         uint32 eid = uint32(_appConfig.endpointMapper().valueOf(toChain));
         if (eid == 0) {
             revert UnsupportedDestinationChain(toChain);
@@ -119,25 +153,6 @@ contract OmniToken is OFT, IOmniTokenCloner {
         param.oftCmd = "";
     }
 
-    /// @inheritdoc IOmniToken
-    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
-        SendParam memory param = _buildSend(toChain, amount);
-        MessagingFee memory msgFee = this.quoteSend(param, false);
-        fee = msgFee.nativeFee;
-    }
-
-    /// @inheritdoc IOmniToken
-    function bridge(uint256 toChain, uint256 amount)
-        external
-        payable
-        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
-    {
-        SendParam memory param = _buildSend(toChain, amount);
-        MessagingFee memory msgFee = MessagingFee(msg.value, 0);
-        transfer(address(this), amount);
-        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
-    }
-
     /// @inheritdoc IOmniTokenCloner
     function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {
         salt = keccak256(abi.encode(config));
@@ -146,15 +161,11 @@ contract OmniToken is OFT, IOmniTokenCloner {
 
     /// @inheritdoc IOmniTokenCloner
     function clone(Config memory config) public returns (address token, bytes32 salt) {
-        if (address(this) != prototype) {
-            return OmniToken(prototype).clone(config);
-        }
-
         (token, salt) = cloneAddress(config);
-        if (address(token).code.length == 0) {
-            token = Clones.cloneDeterministic(address(this), salt);
+        if (token.code.length == 0) {
+            token = Clones.cloneDeterministic(prototype, salt);
             OmniToken(token).__OmniToken_init(config);
-            emit Cloned(config.mintRecipient, address(token), config.name, config.symbol);
+            emit Cloned(config.mintRecipient, token, config.name, config.symbol);
         }
     }
 }

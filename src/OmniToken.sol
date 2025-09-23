@@ -22,6 +22,11 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
 /// - Cross-chain address consistency via deterministic deployment.
 /// - Efficient proxy-based deployments using OpenZeppelin Clones.
+/// Limitations:
+/// - **Global Knowledge of Chain Data** – All chain-specific values must be known at deployment. Adding new chains later requires redeployment.
+/// - **Deterministic Deployer** – Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
+/// - **Immutable Bytecode** – Any change to the logic or constructor encoding produces a new address.
+/// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;

@@ -5,7 +5,8 @@ pragma solidity ^0.8.20;
 import "./IUintToUint.sol";
 import "./IOmniAddress.sol";
 
-/// @notice Read-only interface exposing the chain-local wiring required by LayerZero v2 interchain messaging.
+/// @notice Read-only interface exposing the chain-local wiring required by
+/// [LayerZero V2 Interchain Messaging](https://docs.layerzero.network/v2/developers/evm/overview).
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IMessagingConfig {
     /// @notice Struct that mirrors the contents of the contract.

@@ -151,18 +151,18 @@ contract OmniToken is OFT, IOmniTokenCloner {
     }
 
     /// @inheritdoc IOmniTokenCloner
-    function cloneAddress(Config memory config) public view returns (address token, bytes32 salt) {
+    function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        token = Clones.predictDeterministicAddress(prototype, salt);
+        clone_ = Clones.predictDeterministicAddress(prototype, salt);
     }
 
     /// @inheritdoc IOmniTokenCloner
-    function clone(Config memory config) public returns (address token, bytes32 salt) {
-        (token, salt) = cloneAddress(config);
-        if (token.code.length == 0) {
-            token = Clones.cloneDeterministic(prototype, salt);
-            OmniToken(token).__OmniToken_init(config);
-            emit Cloned(config.mintRecipient, token, config.name, config.symbol);
+    function clone(Config memory config) public returns (address clone_, bytes32 salt) {
+        (clone_, salt) = cloneAddress(config);
+        if (clone_.code.length == 0) {
+            clone_ = Clones.cloneDeterministic(prototype, salt);
+            OmniToken(clone_).__OmniToken_init(config);
+            emit Cloned(config.mintRecipient, clone_, config.name, config.symbol);
         }
     }
 }

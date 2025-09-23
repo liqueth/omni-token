@@ -17,15 +17,12 @@ import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
 import {MessagingReceipt, OFTReceipt, SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
 
-/**
- * @title OmniToken
- * @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
- * @dev Key features:
- * - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
- * - Cross-chain address consistency via deterministic deployment.
- * - Efficient proxy-based deployments using OpenZeppelin Clones.
- * @custom:source https://github.com/liqueth/omni-token
- */
+/// @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
+/// @dev Key features:
+/// - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
+/// - Cross-chain address consistency via deterministic deployment.
+/// - Efficient proxy-based deployments using OpenZeppelin Clones.
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OmniToken is OFT, IOmniTokenCloner {
     using OptionsBuilder for bytes;
 

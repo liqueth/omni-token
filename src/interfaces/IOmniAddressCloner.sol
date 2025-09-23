@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-/// @notice Deploy clones of OmniAddress.
+/// @notice Deploy clones of OmniAddress to predictable addresses.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniAddressCloner {
     /// @notice Map a chainId to a local address.
@@ -19,7 +19,8 @@ interface IOmniAddressCloner {
 
     /// @notice Create a new OmniAddress clone for the current chain if it doesn't already exist.
     /// @param keyValues The array of key/value pairs mapping chainId to address.
-    /// @return clone_ The predicted address of the clone.
+    /// The value() of the returned clone will be the address for the current chainId.
+    /// @return clone_ The address of the new or existing clone.
     /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(keyValues));
     function clone(KeyValue[] memory keyValues) external returns (address clone_, bytes32 salt);
 

@@ -2,9 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-/// @notice Map a single predictable contract address to a chain local addresses.
+/// @notice Map a single predictable contract address to a chain‑specific address.
+/// @dev This deterministic lookup pattern enables the creation of immutable dependent contracts
+/// at deterministic addresses even if they depend on intialization data that varies by chain.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniAddress {
-    /// @notice Return the chain‑specific address.
-    function value() external view returns (address);
+    /// @return local address for the current chain.
+    function value() external view returns (address local);
 }

@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 
-/// @notice Omnichain ERC-20 that burns on the source chain and mints on the destination.
-/// @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
-///      and chain ID mappings.
-/// @custom:source https://github.com/liqueth/omni-token
+/// @notice Simple interface for sending tokens to another chain.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IOmniToken is IERC20Metadata {
+interface IOmniTokenBridger {
     error UnsupportedDestinationChain(uint256 chain);
 
     /// @return whether it is possible to send this token to another chain.
@@ -17,10 +14,10 @@ interface IOmniToken is IERC20Metadata {
 
     /// @notice Return the native fee required to bridge to a destination chain.
     /// @dev A simplifying wrapper around IOFT.quoteSend that sets the recipient to `msg.sender` on the destination chain.
-    /// @param toChain Destination zkBridge chain ID.
+    /// @param toChain Destination chain ID.
     /// @param amount The amount of tokens to send.
     /// @return fee Estimated native value (wei) the caller should send with {bridge}.
-    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee);
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee);
 
     /// @notice Send `amount` of tokens to `toChain`.
     /// @dev Requires sufficient native gas to be supplied to pay for cross-chain message delivery as determined by {bridgeQuote}.

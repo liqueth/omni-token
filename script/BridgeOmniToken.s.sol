@@ -3,14 +3,14 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import {IOmniToken} from "../src/interfaces/IOmniToken.sol";
+import {IOmniTokenBridger} from "../src/interfaces/IOmniTokenBridger.sol";
 
 /**
  * @title BridgeOmniToken
  * @notice Bridge tokens to another chain.
  *
  * @dev Environment variables (required):
- *   - TOKEN : address of the IOmniToken contract
+ *   - TOKEN : address of the IOmniTokenBridger contract
  *   - IN    : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
@@ -23,16 +23,15 @@ contract BridgeOmniToken is Script {
     }
 
     function run() external {
-        IOmniToken token = IOmniToken(abi.decode(vm.parseJson(vm.readFile(vm.envString("TOKEN"))), (address)));
+        IOmniTokenBridger token =
+            IOmniTokenBridger(abi.decode(vm.parseJson(vm.readFile(vm.envString("TOKEN"))), (address)));
         console2.log("token: ", address(token));
         Input memory input = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Input));
         console2.log("toChain: ", input.toChain);
         console2.log("amount: ", input.amount);
 
-        uint256 fee = token.bridgeQuote(input.toChain, input.amount);
+        uint256 fee = token.bridgeFee(input.toChain, input.amount);
         console2.log("fee: ", fee);
-        uint256 fee2 = token.bridgeQuote(input.toChain, input.amount);
-        console2.log("fee2: ", fee2);
         vm.startBroadcast();
         token.bridge{value: fee}(input.toChain, input.amount);
         vm.stopBroadcast();

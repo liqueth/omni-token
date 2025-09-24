@@ -2,14 +2,13 @@
 
 pragma solidity ^0.8.20;
 
-import {IOmniToken} from "./interfaces/IOmniToken.sol";
+import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
 import {IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
 import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
 
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -32,7 +31,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
 /// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmniTokenManager {
+contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenCloner, IOmniTokenMinter, IOmniTokenManager {
     using OptionsBuilder for bytes;
 
     /// @dev Immutable implementation/factory is the same for all clones.
@@ -99,7 +98,7 @@ contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmni
         _transferOwnership(config.owner);
     }
 
-    /// @inheritdoc IOmniToken
+    /// @inheritdoc IOmniTokenBridger
     function bridgeable(uint256 chainId) external view returns (bool) {
         uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(chainId));
         address sender = messagingConfig.sender().value();
@@ -107,14 +106,14 @@ contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmni
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
-    /// @inheritdoc IOmniToken
-    function bridgeQuote(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+    /// @inheritdoc IOmniTokenBridger
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
         SendParam memory param = sendParam(toChain, amount);
         MessagingFee memory msgFee = this.quoteSend(param, false);
         fee = msgFee.nativeFee;
     }
 
-    /// @inheritdoc IOmniToken
+    /// @inheritdoc IOmniTokenBridger
     function bridge(uint256 toChain, uint256 amount)
         external
         payable
@@ -171,12 +170,12 @@ contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmni
     }
 
     /// @inheritdoc IERC20Metadata
-    function name() public view override(ERC20, IERC20Metadata) returns (string memory) {
+    function name() public view override returns (string memory) {
         return _name;
     }
 
     /// @inheritdoc IERC20Metadata
-    function symbol() public view override(ERC20, IERC20Metadata) returns (string memory) {
+    function symbol() public view override returns (string memory) {
         return _symbol;
     }
 

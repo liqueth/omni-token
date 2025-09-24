@@ -152,7 +152,7 @@ contract OmniTokenTest is Test {
 
     function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
-        //vm.expectRevert(abi.encodeWithSelector(IOmniToken.UnsupportedDestinationChain.selector, unmappedChain));
+        //vm.expectRevert(abi.encodeWithSelector(IOmniTokenBridger.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOmniTokenCloner.Config({
             issuer: issuer,
             mints: badMints,

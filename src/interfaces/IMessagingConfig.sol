@@ -7,6 +7,8 @@ import "./IOmniAddress.sol";
 
 /// @notice Read-only interface with the wiring required by
 /// [LayerZero V2 Interchain Messaging](https://docs.layerzero.network/v2/developers/evm/overview).
+/// @dev Uses deterministic lookup to ensure that the contract can be deployed at the same address across chains,
+/// enabling dependent contracts to also deploy to the same address on all chains.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IMessagingConfig {
     /// @notice Struct that mirrors the contents of the contract.

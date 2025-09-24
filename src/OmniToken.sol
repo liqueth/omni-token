@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 
 import {IOmniToken} from "./interfaces/IOmniToken.sol";
 import {IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
+import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
 
@@ -31,7 +32,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
 /// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenManager {
+contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmniTokenManager {
     using OptionsBuilder for bytes;
 
     /// @dev Immutable implementation/factory is the same for all clones.
@@ -157,14 +158,16 @@ contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenManager {
         }
     }
 
-    /// @notice Mint new tokens to a specified address. Only callable by the contract owner.
+    /// @inheritdoc IOmniTokenMinter
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
+        emit Minted(to, amount);
     }
 
-    /// @notice Burn tokens from the caller's address.
+    /// @inheritdoc IOmniTokenMinter
     function burn(uint256 amount) public {
         _burn(msg.sender, amount);
+        emit Burned(amount);
     }
 
     /// @inheritdoc IERC20Metadata

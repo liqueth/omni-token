@@ -66,10 +66,10 @@ contract OmniToken is OFT, IOmniTokenCloner {
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
-            uint256 mint = mints[i][1];
+            uint256 minted = mints[i][1];
             if (chain == block.chainid) {
-                if (mint > 0) {
-                    _mint(config.issuer, mint);
+                if (minted > 0) {
+                    _mint(config.issuer, minted);
                 }
             }
         }
@@ -153,6 +153,16 @@ contract OmniToken is OFT, IOmniTokenCloner {
             OmniToken(clone_).__OmniToken_init(config);
             emit Cloned(config.issuer, config.owner, clone_, config.name, config.symbol);
         }
+    }
+
+    /// @notice Mint new tokens to a specified address. Only callable by the contract owner.
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+
+    /// @notice Burn tokens from the caller's address.
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
     }
 
     /// @inheritdoc IERC20Metadata

@@ -15,7 +15,7 @@
     ]
   ],
   "name": "Omni Alpha Token",
-  "owner": "0x0000000000000000000000000000000000000000",
+  "owner": "0xE396da99091B535B65384914B178b9264c7426da",
   "receiverGasLimit": 35000,
-  "symbol": "OMNI_ALPHA"
+  "symbol": "OMNIA"
 }

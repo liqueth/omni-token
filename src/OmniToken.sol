@@ -2,7 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IOmniToken, IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
+import {IOmniToken} from "./interfaces/IOmniToken.sol";
+import {IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
+import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
 
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
@@ -29,7 +31,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
 /// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFT, IOmniTokenCloner {
+contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenManager {
     using OptionsBuilder for bytes;
 
     /// @dev Immutable implementation/factory is the same for all clones.
@@ -182,5 +184,16 @@ contract OmniToken is OFT, IOmniTokenCloner {
     /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
     function sharedDecimals() public view virtual override returns (uint8) {
         return 18;
+    }
+
+    /// @inheritdoc IOmniTokenManager
+    function setReceiverGasLimit(uint128 newLimit) external onlyOwner {
+        _receiverGasLimit = newLimit;
+        emit ReceiverGasLimitUpdated(newLimit);
+    }
+
+    /// @inheritdoc IOmniTokenManager
+    function receiverGasLimit() external view returns (uint128) {
+        return _receiverGasLimit;
     }
 }

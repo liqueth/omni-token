@@ -6,11 +6,10 @@ import "./interfaces/IAddressLookup.sol";
 import "./interfaces/IAddressLookupCloner.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-/// @notice Map a single predictable contract address to a chain specific address.
+/// @notice Immutably map a single predictable contract address to a chain specific address.
 /// The same contract deployed to the same address on different chains can return
 /// different values based on the chain ID.
-/// @dev Deployed by Nick's deterministic deployer at 0x4e59b44847b379578588920cA78FbF26c0B4956C,
-/// AddressLookup provides a trustless reference with no governance or upgrade risk.
+/// @dev Deterministic deployment provides a trustless reference with no governance or upgrade risk.
 /// Contracts, SDKs, and UIs can hardcode one address and resolve everywhere.
 /// Typical uses include cross-chain endpoints (oracles, messengers, executors), wallets,
 /// bridges, and explorers that require a single uniform reference across chains.

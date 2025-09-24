@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../src/OmniAddress.sol";
+import "../src/AddressLookup.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 import "../src/ImmutableUintToUint.sol";
@@ -24,7 +24,7 @@ contract OmniTokenTest is Test {
     string constant messagingPath = "test/messaging.json";
     string constant endpointMapperPath = "test/endpointMapper.json";
     string constant messagingPath3 = "test/messaging.json";
-    OmniAddress omniAddress;
+    AddressLookup addressLookup;
     OmniToken factory;
     IMessagingConfig appConfig;
     OmniToken.Config config;
@@ -39,10 +39,10 @@ contract OmniTokenTest is Test {
     uint256[][] mints;
     uint256[][] badMints;
 
-    struct OmniAddressConfig {
+    struct AddressLookupConfig {
         string env;
         string id;
-        OmniAddress.KeyValue[] keyValues;
+        AddressLookup.KeyValue[] keyValues;
     }
 
     struct UintToUintConfig {
@@ -56,7 +56,7 @@ contract OmniTokenTest is Test {
 
         newEndpointMapper(endpointMapperPath);
 
-        omniAddress = new OmniAddress{salt: 0x0}();
+        addressLookup = new AddressLookup{salt: 0x0}();
 
         newEndpoint();
 
@@ -105,8 +105,8 @@ contract OmniTokenTest is Test {
     function newEndpoint() private returns (address endpointAlias) {
         string memory endpointPath = "test/endpoint.json";
         bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
-        OmniAddressConfig memory cfg = abi.decode(raw, (OmniAddressConfig));
-        (endpointAlias,) = omniAddress.clone(cfg.keyValues);
+        AddressLookupConfig memory cfg = abi.decode(raw, (AddressLookupConfig));
+        (endpointAlias,) = addressLookup.clone(cfg.keyValues);
         vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
     }
 

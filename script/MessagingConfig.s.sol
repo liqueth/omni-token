@@ -6,7 +6,7 @@ import "forge-std/Script.sol";
 import "../src/MessagingConfig.sol";
 
 /**
- * @notice Deploy the OmniAddress factory/implementation contract.
+ * @notice Deploy the AddressLookup factory/implementation contract.
  * @dev Usage: IN=io/$CHAIN_ID/messaging.json OUT=io/$CHAIN_ID/MessagingConfig.json forge script script/MessagingConfig.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract MessagingConfigDeploy is Script {

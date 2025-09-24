@@ -6,11 +6,11 @@ import "forge-std/Script.sol";
 import "../src/interfaces/IUintToAddressCloner.sol";
 
 /**
- * @title OmniAddressClone
- * @notice Deploy an OmniAddress clone ONLY if it doesn't already exist (idempotent).
+ * @title AddressLookupClone
+ * @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - OmniAddress       : address of the IOmniAddressCloner contract
+ *   - AddressLookup       : address of the IAddressLookupCloner contract
  *   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:

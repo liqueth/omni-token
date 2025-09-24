@@ -77,7 +77,7 @@ contract OmniToken is OFT, IOmniToken, IOmniTokenCloner, IOmniTokenMinter, IOmni
             }
         }
 
-        // Get the actual endpoint and sender and receiver libraries via their OmniAddress aliases.
+        // Get the actual endpoint and sender and receiver libraries via their AddressLookup aliases.
         address sender = messagingConfig.sender().value();
         address receiver = messagingConfig.receiver().value();
         ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(messagingConfig.endpoint().value());

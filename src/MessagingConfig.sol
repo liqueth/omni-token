@@ -7,12 +7,12 @@ import "./interfaces/IMessagingConfig.sol";
 /// @notice Implementation of IMessagingConfig
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract MessagingConfig is IMessagingConfig {
-    IOmniAddress public immutable blocker;
-    IOmniAddress public immutable endpoint;
+    IAddressLookup public immutable blocker;
+    IAddressLookup public immutable endpoint;
     IUintToUint public immutable endpointMapper;
-    IOmniAddress public immutable executor;
-    IOmniAddress public immutable receiver;
-    IOmniAddress public immutable sender;
+    IAddressLookup public immutable executor;
+    IAddressLookup public immutable receiver;
+    IAddressLookup public immutable sender;
 
     constructor(IMessagingConfig.Struct memory s) {
         blocker = s.blocker;

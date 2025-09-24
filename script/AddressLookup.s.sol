@@ -3,19 +3,19 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/OmniAddress.sol";
+import "../src/AddressLookup.sol";
 
 /**
- * @notice Deploy the OmniAddress factory/implementation contract.
- * @dev Usage: OUT=io/$CHAIN_ID/OmniAddress.json forge script script/OmniAddress.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @notice Deploy the AddressLookup factory/implementation contract.
+ * @dev Usage: OUT=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookup.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
-contract OmniAddressScript is Script {
+contract AddressLookupScript is Script {
     function run() external {
-        address predicted = vm.computeCreate2Address(0x0, keccak256(type(OmniAddress).creationCode));
+        address predicted = vm.computeCreate2Address(0x0, keccak256(type(AddressLookup).creationCode));
         console2.log("predicted:", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
-            OmniAddress deployed = new OmniAddress{salt: 0x0}();
+            AddressLookup deployed = new AddressLookup{salt: 0x0}();
             vm.stopBroadcast();
             console2.log("deployed:", address(deployed));
         } else {

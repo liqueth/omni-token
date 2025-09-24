@@ -3,24 +3,24 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/OmniAddress.sol";
+import "../src/AddressLookup.sol";
 
 /**
- * @title OmniAddressClone
- * @notice Deploy an OmniAddress clone ONLY if it doesn't already exist (idempotent).
+ * @title AddressLookupClone
+ * @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
  *
  * @dev Environment variables (required):
- *   - CLN : address of the IOmniAddressCloner contract
+ *   - CLN : address of the IAddressLookupCloner contract
  *   - IN  : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   CLN=io/$CHAIN_ID/OmniAddress.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/OmniAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+ *   CLN=io/$CHAIN_ID/AddressLookup.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
-contract OmniAddressClone is Script {
+contract AddressLookupClone is Script {
     struct Config {
         string env;
         string id;
-        OmniAddress.KeyValue[] keyValues;
+        AddressLookup.KeyValue[] keyValues;
     }
 
     function run() external {
@@ -29,7 +29,7 @@ contract OmniAddressClone is Script {
         Config memory cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Config));
 
         // Resolve predicted clone address (pure/read-only)
-        (address predicted,) = IOmniAddressCloner(cloner).cloneAddress(cfg.keyValues);
+        (address predicted,) = IAddressLookupCloner(cloner).cloneAddress(cfg.keyValues);
 
         // Basic context logs (human-friendly)
         console2.log("predicted   :", predicted);
@@ -39,7 +39,7 @@ contract OmniAddressClone is Script {
         address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = IOmniAddressCloner(cloner).clone(cfg.keyValues);
+            (clone,) = IAddressLookupCloner(cloner).clone(cfg.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }

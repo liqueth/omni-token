@@ -6,7 +6,7 @@ pragma solidity ^0.8.20;
 /// @dev This deterministic lookup pattern enables the creation of immutable contracts
 /// at deterministic addresses even if they depend on initialization data that varies by chain.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IOmniAddress {
+interface IAddressLookup {
     /// @return local address for the current chain.
     function value() external view returns (address local);
 }

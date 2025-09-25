@@ -27,8 +27,8 @@ fs_permissions = [
     { access = "read-write", path = "./config/testnet/OmniToken.json" },
     { access = "read-write", path = "./config/mainnet/UintToUint.json" },
     { access = "read-write", path = "./config/testnet/UintToUint.json" },
-    { access = "read-write", path = "./config/mainnet/UintToAddress.json" },
-    { access = "read-write", path = "./config/testnet/UintToAddress.json" },
+    { access = "read-write", path = "./config/mainnet/UintToAddressProto.json" },
+    { access = "read-write", path = "./config/testnet/UintToAddressProto.json" },
     { access = "read-write", path = "./io/" },
     { access = "read", path = "./config/" }
 ]

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/interfaces/IUintToAddressCloner.sol";
+import "../src/interfaces/IUintToAddressProto.sol";
 
 /**
  * @title AddressLookupClone
@@ -25,7 +25,7 @@ contract UintToAddressClone is Script {
 
     function run() external {
         // Inputs from environment
-        IUintToAddressCloner cloner = IUintToAddressCloner(vm.envAddress("UintToAddress"));
+        IUintToAddressProto cloner = IUintToAddressProto(vm.envAddress("UintToAddressProto"));
         string memory path = vm.envString("UintToAddressPath");
 
         // Read & decode config
@@ -58,7 +58,7 @@ contract UintToAddressClone is Script {
         console2.log("id         :", cfg.id);
         console2.log("env        :", cfg.env);
 
-        string memory jsonPath = string.concat("./config/", cfg.env, "/UintToAddress.json");
+        string memory jsonPath = string.concat("./config/", cfg.env, "/UintToAddressProto.json");
         vm.writeJson(vm.toString(clone), jsonPath, string.concat(".", cfg.id));
     }
 }

@@ -7,9 +7,9 @@ import "../src/ImmutableUintToAddress.sol";
 
 /**
  * @notice Deploy the ImmutableUintToAddress protofactory contract.
- * @dev Usage: forge script script/UintToAddress.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: forge script script/UintToAddressProto.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
-contract UintToAddress is Script {
+contract UintToAddressProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(ImmutableUintToAddress).creationCode));
         console.log("predicted: ", predicted);
@@ -23,7 +23,7 @@ contract UintToAddress is Script {
         }
 
         string memory env = vm.envString("CHAIN_ENV");
-        string memory jsonPath = string.concat("./config/", env, "/UintToAddress.json");
-        vm.writeJson(vm.toString(predicted), jsonPath, ".UintToAddress");
+        string memory jsonPath = string.concat("./config/", env, "/UintToAddressProto.json");
+        vm.writeJson(vm.toString(predicted), jsonPath, ".UintToAddressProto");
     }
 }

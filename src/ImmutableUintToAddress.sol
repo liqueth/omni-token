@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.20;
 
-import "./interfaces/IUintToAddressCloner.sol";
+import "./interfaces/IUintToAddressProto.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Immutable map from uint256 to address with no governance or upgrade risk.
 /// The implementation is also a factory, allowing anyone to easily deploy an instance.
 /// Deterministic deployment ensures identical addresses across chains.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract ImmutableUintToAddress is IUintToAddressCloner {
+contract ImmutableUintToAddress is IUintToAddressProto {
     /// @inheritdoc IUintToAddress
     function keyCount() external view returns (uint256) {
         return _keys.length;
@@ -46,13 +46,13 @@ contract ImmutableUintToAddress is IUintToAddressCloner {
         }
     }
 
-    /// @inheritdoc IUintToAddressCloner
+    /// @inheritdoc IUintToAddressProto
     function cloneAddress(KeyValue[] memory kvs) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(kvs));
         clone_ = Clones.predictDeterministicAddress(address(this), salt);
     }
 
-    /// @inheritdoc IUintToAddressCloner
+    /// @inheritdoc IUintToAddressProto
     function clone(KeyValue[] memory kvs) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(kvs);
         if (clone_.code.length == 0) {

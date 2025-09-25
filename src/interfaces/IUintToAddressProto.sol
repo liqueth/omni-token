@@ -6,7 +6,7 @@ import "./IUintToAddress.sol";
 
 /// @notice Deploy clones of IUintToAddress.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IUintToAddressCloner is IUintToAddress {
+interface IUintToAddressProto is IUintToAddress {
     /// @notice Predict the address of a clone.
     /// @param kvs The array of key value pairs sorted by key.
     /// @return clone_ The predicted address of the clone.

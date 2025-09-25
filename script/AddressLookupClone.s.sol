@@ -10,7 +10,7 @@ import "../src/AddressLookup.sol";
 ///   - CLN : address of the IAddressLookupCloner contract
 ///   - IN  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
-///   CLN=io/$CHAIN_ID/AddressLookup.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+///   CLN=io/$CHAIN_ID/AddressLookupProto.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract AddressLookupClone is Script {
     struct Config {
         string env;

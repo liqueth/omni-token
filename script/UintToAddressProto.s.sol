@@ -10,14 +10,14 @@ import "../src/ImmutableUintToAddress.sol";
 contract UintToAddressProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(ImmutableUintToAddress).creationCode));
-        console.log("predicted: ", predicted);
+        console2.log("predicted: ", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
             ImmutableUintToAddress deployed = new ImmutableUintToAddress{salt: 0x0}();
             vm.stopBroadcast();
-            console.log("deployed: ", address(deployed));
+            console2.log("deployed: ", address(deployed));
         } else {
-            console.log("already deployed");
+            console2.log("already deployed");
         }
 
         vm.writeJson(vm.toString(predicted), vm.envString("proto"));

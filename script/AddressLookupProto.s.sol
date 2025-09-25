@@ -5,10 +5,8 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import "../src/AddressLookup.sol";
 
-/**
- * @notice Deploy the AddressLookup factory/implementation contract.
- * @dev Usage: proto=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookupProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
- */
+/// @notice Deploy the AddressLookup factory/implementation contract.
+/// @dev Usage: proto=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookupProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract AddressLookupProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(AddressLookup).creationCode));

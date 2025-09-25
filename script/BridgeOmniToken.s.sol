@@ -11,7 +11,7 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
 ///   - token    : path to JSON file with "0x token address"
 ///   - transfer : path to JSON file with { amount, toChain }
 /// @dev Example:
-///   token=io/$CHAIN_ID/OMNI_ALPHA.json transfer=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+///   token=io/$chain/OMNI_ALPHA.json transfer=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $chain --private-key $tx_key --broadcast
 contract BridgeOmniToken is Script {
     struct Input {
         uint256 amount;

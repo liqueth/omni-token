@@ -6,7 +6,7 @@ import "forge-std/Script.sol";
 import "../src/AddressLookup.sol";
 
 /// @notice Deploy the AddressLookup factory/implementation contract.
-/// @dev Usage: proto=io/$CHAIN_ID/AddressLookupProto.json forge script script/AddressLookupProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+/// @dev Usage: proto=io/$chain/AddressLookupProto.json forge script script/AddressLookupProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 contract AddressLookupProto is Script {
     function run() external {
         console2.log("script   : AddressLookupProto");

@@ -1,5 +1,5 @@
 # eid.jq
-# Usage: jq --arg env $CHAIN_ENV -f jq/endpointMapper.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/endpointMapper.json
+# Usage: jq --arg env $env -f jq/endpointMapper.jq io/$env/deployments.json > io/$env/endpointMapper.json
 {
     env: $env,
     id: "endpointMapper",

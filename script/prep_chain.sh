@@ -1,4 +1,4 @@
 #!/bin/bash
 
-mkdir -p io/$CHAIN_ID
-cp io/messaging.json io/$CHAIN_ID/messaging.json
+mkdir -p io/$chain
+cp io/messaging.json io/$chain/messaging.json

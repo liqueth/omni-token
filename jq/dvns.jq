@@ -1,5 +1,5 @@
 # dvns.jq
-# Usage: jq --arg env $CHAIN_ENV -r -f jq/dvns.jq io/nickmeta.json > io/$CHAIN_ENV/dvns.txt
+# Usage: jq --arg env $env -r -f jq/dvns.jq io/nickmeta.json > io/$env/dvns.txt
 [
 .[]
 | select(.environment == $env)

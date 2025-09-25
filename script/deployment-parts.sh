@@ -1,6 +1,6 @@
-jq --arg env $CHAIN_ENV -f jq/blocker.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/blocker.json
-jq --arg env $CHAIN_ENV -f jq/endpointMapper.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/endpointMapper.json
-jq --arg env $CHAIN_ENV -f jq/endpoint.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/endpoint.json
-jq --arg env $CHAIN_ENV -f jq/executor.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/executor.json
-jq --arg env $CHAIN_ENV -f jq/receiver.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/receiver.json
-jq --arg env $CHAIN_ENV -f jq/sender.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/sender.json
+jq --arg env $env -f jq/blocker.jq io/$env/deployments.json > io/$env/blocker.json
+jq --arg env $env -f jq/endpointMapper.jq io/$env/deployments.json > io/$env/endpointMapper.json
+jq --arg env $env -f jq/endpoint.jq io/$env/deployments.json > io/$env/endpoint.json
+jq --arg env $env -f jq/executor.jq io/$env/deployments.json > io/$env/executor.json
+jq --arg env $env -f jq/receiver.jq io/$env/deployments.json > io/$env/receiver.json
+jq --arg env $env -f jq/sender.jq io/$env/deployments.json > io/$env/sender.json

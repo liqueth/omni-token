@@ -1,5 +1,5 @@
 # receiver.jq
-# Usage: jq --arg env $CHAIN_ENV -f jq/receiver.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/receiver.json
+# Usage: jq --arg env $env -f jq/receiver.jq io/$env/deployments.json > io/$env/receiver.json
 {
     env: $env,
     id: "receiver",

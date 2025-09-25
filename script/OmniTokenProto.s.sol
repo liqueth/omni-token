@@ -6,7 +6,7 @@ import "../src/OmniToken.sol";
 
 /// @title Deploy Script for OmniToken
 /// @notice Deploys the OmniToken contract with specified configuration
-/// @dev Usage: config=io/$CHAIN_ID/MessagingConfig.json proto=io/$CHAIN_ID/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+/// @dev Usage: config=io/$chain/MessagingConfig.json proto=io/$chain/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 contract OmniTokenProto is Script {
     function run() external {
         console2.log("script   : OmniTokenProto");

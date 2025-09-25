@@ -11,7 +11,7 @@ import "../src/interfaces/IOmniTokenProto.sol";
 ///   - config : path to JSON config file with { mints, name, owner, symbol }
 ///   - clone  : path to JSON file that will contain the deployed address
 /// @dev Example:
-/// proto=io/$CHAIN_ID/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json clone=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+/// proto=io/$chain/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json clone=io/$chain/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $chain --private-key $tx_key --broadcast
 contract OmniTokenClone is Script {
     function run() external {
         console2.log("script   : OmniTokenClone");

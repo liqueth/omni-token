@@ -11,7 +11,7 @@ import "../src/interfaces/IUintToUintProto.sol";
 ///   - config : path to JSON config file with { env, id, keyValues }
 ///   - clone  : path to JSON file that will contain the deployed address
 /// @dev Example:
-/// proto=io/$CHAIN_ID/UintToUintProto.json config=io/testnet/endpointMapper.json clone=io/$CHAIN_ID/messaging.json forge script script/UintToUintClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+/// proto=io/$chain/UintToUintProto.json config=io/testnet/endpointMapper.json clone=io/$chain/messaging.json forge script script/UintToUintClone.s.sol -f $chain --private-key $tx_key --broadcast
 contract UintToUintClone is Script {
     struct Config {
         string env;

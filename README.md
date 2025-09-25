@@ -21,7 +21,7 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 * [Foundry](https://book.getfoundry.sh/) (`forge`, `cast`)
 * Git
-* Environment variables for private key (`DEPLOYER_KEY`) and RPC endpoints (defined in `foundry.toml`)
+* Environment variables for private key (`tx_key`) and RPC endpoints (defined in `foundry.toml`)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
 * Environment variables for verifier key (`ETHERSCAN_API_KEY`) and RPC endpoints (defined in `foundry.toml`)
 
@@ -67,18 +67,18 @@ Get your ETHERSCAN_API_KEY at [Etherscan](https://etherscan.io/myaccount).
 Other environment variables that will come into play include the following.
 
 ```bash
-export CHAIN_ENV=mainnet
-export CHAIN_ENV=testnet
-export CHAIN_ID=97 # BNB testnet
-export CHAIN_ID=137 # Polygon
-export CHAIN_ID=11155111 # Sepolia, set to desired chain id
+export env=mainnet
+export env=testnet
+export chain=97 # BNB testnet
+export chain=137 # Polygon
+export chain=11155111 # Sepolia, set to desired chain id
 export TO_CHAIN_ID=10 # Optimism
 export TO_CHAIN_ID=97 # BNB test, set destination chain id
 ```
 
 ```bash
-# swap CHAIN_ID and TO_CHAIN_ID
-TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CHAIN_ID
+# swap chain and TO_CHAIN_ID
+TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$chain;export chain=$TEMP_CHAIN_ID
 ```
 
 ---

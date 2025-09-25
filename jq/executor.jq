@@ -1,5 +1,5 @@
 # executor.jq
-# Usage: jq --arg env $CHAIN_ENV -f jq/executor.jq io/$CHAIN_ENV/deployments.json > io/$CHAIN_ENV/executor.json
+# Usage: jq --arg env $env -f jq/executor.jq io/$env/deployments.json > io/$env/executor.json
 {
     env: $env,
     id: "executor",

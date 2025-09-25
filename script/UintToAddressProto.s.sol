@@ -6,7 +6,7 @@ import "forge-std/Script.sol";
 import "../src/ImmutableUintToAddress.sol";
 
 /// @notice Deploy the ImmutableUintToAddress protofactory contract.
-/// @dev Usage: proto=io/$CHAIN_ID/UintToAddressProto.json forge script script/UintToUintProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+/// @dev Usage: proto=io/$chain/UintToAddressProto.json forge script script/UintToUintProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 contract UintToAddressProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(ImmutableUintToAddress).creationCode));

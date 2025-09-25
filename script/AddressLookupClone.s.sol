@@ -10,7 +10,7 @@ import "../src/AddressLookup.sol";
 ///   - proto : address of the IAddressLookupProto contract
 ///   - config  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
-///   proto=io/$CHAIN_ID/AddressLookupProto.json config=io/testnet/blocker.json messaging=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+///   proto=io/$chain/AddressLookupProto.json config=io/testnet/blocker.json messaging=io/$chain/messaging.json forge script script/AddressLookupClone.s.sol -f $chain --private-key $tx_key --broadcast
 contract AddressLookupClone is Script {
     struct Config {
         string env;

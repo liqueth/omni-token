@@ -1,5 +1,5 @@
 # dvn.jq
-# usage: jq --arg env $CHAIN_ENV --arg id $DVN_ID -f jq/dvn.jq io/nickmeta.json > io/$CHAIN_ENV/dvn/$DVN_ID.json
+# usage: jq --arg env $env --arg id $DVN_ID -f jq/dvn.jq io/nickmeta.json > io/$env/dvn/$DVN_ID.json
 {
     env: $env,
     id: $id,

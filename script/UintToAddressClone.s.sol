@@ -11,7 +11,7 @@ import "../src/interfaces/IUintToAddressProto.sol";
 ///   - config : path to JSON config file with { env, id, keyValues }
 ///   - clone  : path to JSON file that will contain the deployed address
 /// @dev Example:
-/// proto=io/$CHAIN_ID/UintToAddressProto.json config=io/testnet/dvn/google-cloud.json clone=io/$CHAIN_ID/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+/// proto=io/$chain/UintToAddressProto.json config=io/testnet/dvn/google-cloud.json clone=io/$chain/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $chain --private-key $tx_key --broadcast
 contract UintToAddressClone is Script {
     struct Config {
         string env;

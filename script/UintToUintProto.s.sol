@@ -9,16 +9,16 @@ import "../src/ImmutableUintToUint.sol";
 /// @dev Usage: proto=io/$CHAIN_ID/UintToUintProto.json forge script script/UintToUintProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract UintToUintProto is Script {
     function run() external {
-        console2.log("script  : UintToUintProto");
+        console2.log("script   : UintToUintProto");
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(ImmutableUintToUint).creationCode));
-        console.log("predicted: ", predicted);
+        console2.log("predicted: ", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
             ImmutableUintToUint deployed = new ImmutableUintToUint{salt: 0x0}();
             vm.stopBroadcast();
-            console.log("deployed : ", address(deployed));
+            console2.log("deployed : ", address(deployed));
         } else {
-            console.log("already deployed");
+            console2.log("already deployed");
         }
 
         vm.writeJson(vm.toString(predicted), vm.envString("proto"));

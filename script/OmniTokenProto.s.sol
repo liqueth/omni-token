@@ -11,16 +11,16 @@ contract OmniTokenProto is Script {
     function run() external {
         console2.log("script   : OmniTokenProto");
         address config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (address));
-        console2.log("config: ", config);
+        console2.log("config   : ", config);
         bytes memory args = abi.encode(config);
         bytes memory initCode = abi.encodePacked(type(OmniToken).creationCode, args);
         address predicted = vm.computeCreate2Address(0x0, keccak256(initCode));
         console2.log("predicted: ", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
-            OmniToken token = new OmniToken{salt: 0x0}(IMessagingConfig(config));
+            OmniToken actual = new OmniToken{salt: 0x0}(IMessagingConfig(config));
             vm.stopBroadcast();
-            console2.log("address: ", address(token));
+            console2.log("actual   : ", address(actual));
         } else {
             console2.log("already deployed");
         }

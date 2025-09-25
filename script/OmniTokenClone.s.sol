@@ -10,17 +10,17 @@ import "../src/interfaces/IOmniTokenProto.sol";
 ///   - proto : address of the IOmniTokenProto contract
 ///   - config  : path to JSON config file with { mints, name, owner, symbol }
 /// @dev Example:
-/// proto=io/$CHAIN_ID/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json CLONE=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+/// proto=io/$CHAIN_ID/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json clone=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract OmniTokenClone is Script {
     function run() external {
         console2.log("script   : OmniTokenClone");
         address proto = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
-        console2.log("proto     :", proto);
+        console2.log("proto    :", proto);
         IOmniTokenProto.Config memory config =
             abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (IOmniTokenProto.Config));
-        console2.log("symbol     :", config.symbol);
+        console2.log("symbol   :", config.symbol);
         (address predicted,) = IOmniTokenProto(proto).cloneAddress(config);
-        console2.log("predicted   :", predicted);
+        console2.log("predicted:", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
@@ -33,8 +33,8 @@ contract OmniTokenClone is Script {
         }
 
         // Result logs
-        console2.log("address    :", actual);
-        console2.log("action     :", action);
+        console2.log("actual   :", actual);
+        console2.log("action   :", action);
 
         vm.writeJson(vm.toString(actual), vm.envString("clone"));
     }

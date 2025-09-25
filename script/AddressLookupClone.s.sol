@@ -7,10 +7,10 @@ import "../src/AddressLookup.sol";
 
 /// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
 /// @dev Environment variables (required):
-///   - CLN : address of the IAddressLookupCloner contract
-///   - IN  : path to JSON config file with { env, id, keyValues }
+///   - proto : address of the IAddressLookupCloner contract
+///   - config  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
-///   CLN=io/$CHAIN_ID/AddressLookupProto.json IN=io/testnet/blocker.json OUT=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+///   proto=io/$CHAIN_ID/AddressLookupProto.json config=io/testnet/blocker.json messaging=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract AddressLookupClone is Script {
     struct Config {
         string env;
@@ -19,12 +19,12 @@ contract AddressLookupClone is Script {
     }
 
     function run() external {
-        address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("CLN"))), (address));
-        console2.log("cloner     :", cloner);
-        Config memory cfg = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Config));
+        address proto = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
+        console2.log("proto       :", proto);
+        Config memory config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (Config));
 
         // Resolve predicted clone address (pure/read-only)
-        (address predicted,) = IAddressLookupCloner(cloner).cloneAddress(cfg.keyValues);
+        (address predicted,) = IAddressLookupCloner(proto).cloneAddress(config.keyValues);
 
         // Basic context logs (human-friendly)
         console2.log("predicted   :", predicted);
@@ -34,17 +34,17 @@ contract AddressLookupClone is Script {
         address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = IAddressLookupCloner(cloner).clone(cfg.keyValues);
+            (clone,) = IAddressLookupCloner(proto).clone(config.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }
 
         // Result logs
-        console2.log("action     :", action);
-        console2.log("address    :", clone);
-        console2.log("id         :", cfg.id);
-        console2.log("env        :", cfg.env);
+        console2.log("action    : ", action);
+        console2.log("clone     : ", clone);
+        console2.log("id        : ", config.id);
+        console2.log("env       : ", config.env);
 
-        vm.writeJson(vm.toString(clone), vm.envString("OUT"), string.concat(".", cfg.id));
+        vm.writeJson(vm.toString(clone), vm.envString("messaging"), string.concat(".", config.id));
     }
 }

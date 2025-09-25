@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "./IUintToUint.sol";
 
-/// @notice Deploy clones of UintToUint.
+/// @notice Deploy clones of UintToUintProto.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IUintToUintCloner is IUintToUint {
     /// @notice Predict the address of a clone.

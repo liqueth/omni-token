@@ -9,13 +9,14 @@ import "../src/AddressLookup.sol";
 /// @dev Usage: proto=io/$CHAIN_ID/AddressLookupProto.json forge script script/AddressLookupProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract AddressLookupProto is Script {
     function run() external {
+        console2.log("script   : AddressLookupProto");
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(AddressLookup).creationCode));
         console2.log("predicted:", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
-            AddressLookup deployed = new AddressLookup{salt: 0x0}();
+            AddressLookup actual = new AddressLookup{salt: 0x0}();
             vm.stopBroadcast();
-            console2.log("deployed:", address(deployed));
+            console2.log("actual   :", address(actual));
         } else {
             console2.log("already deployed");
         }

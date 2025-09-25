@@ -9,6 +9,7 @@ import "../src/MessagingConfig.sol";
 /// @dev Usage: IN=io/$CHAIN_ID/messaging.json OUT=io/$CHAIN_ID/MessagingConfig.json forge script script/MessagingConfig.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract MessagingConfigDeploy is Script {
     function run() external {
+        console2.log("script   : MessagingConfig");
         IMessagingConfig.Struct memory cfg =
             abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (IMessagingConfig.Struct));
         bytes memory args = abi.encode(cfg);
@@ -18,9 +19,9 @@ contract MessagingConfigDeploy is Script {
         console2.log("predicted:", predicted);
         if (predicted.code.length == 0) {
             vm.startBroadcast();
-            MessagingConfig deployed = new MessagingConfig{salt: 0x0}(cfg);
+            MessagingConfig actual = new MessagingConfig{salt: 0x0}(cfg);
             vm.stopBroadcast();
-            console2.log("deployed:", address(deployed));
+            console2.log("actual   :", address(actual));
         } else {
             console2.log("already deployed");
         }

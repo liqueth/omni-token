@@ -9,6 +9,7 @@ import "../src/OmniToken.sol";
 /// @dev Usage: CONFIG=io/$CHAIN_ID/MessagingConfig.json PROTO=io/$CHAIN_ID/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract OmniTokenProto is Script {
     function run() external {
+        console2.log("script   : OmniTokenProto");
         address config = abi.decode(vm.parseJson(vm.readFile(vm.envString("CONFIG"))), (address));
         console2.log("config: ", config);
         bytes memory args = abi.encode(config);

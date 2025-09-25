@@ -13,6 +13,7 @@ import "../src/interfaces/IOmniTokenProto.sol";
 /// PROTO=io/$CHAIN_ID/OmniTokenProto.json CONFIG=io/testnet/OMNI_ALPHA.json CLONE=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract OmniTokenClone is Script {
     function run() external {
+        console2.log("script   : OmniTokenClone");
         address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("PROTO"))), (address));
         console2.log("cloner     :", cloner);
         IOmniTokenProto.Config memory config =

@@ -19,32 +19,30 @@ contract AddressLookupClone is Script {
     }
 
     function run() external {
+        console2.log("script   : AddressLookupClone");
+
         address proto = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
-        console2.log("proto       :", proto);
+        console2.log("proto    :", proto);
+
         Config memory config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (Config));
+        console2.log("id       :", config.id);
+        console2.log("env      :", config.env);
 
-        // Resolve predicted clone address (pure/read-only)
         (address predicted,) = IAddressLookupProto(proto).cloneAddress(config.keyValues);
+        console2.log("predicted:", predicted);
 
-        // Basic context logs (human-friendly)
-        console2.log("predicted   :", predicted);
-
-        // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
-        address clone = predicted;
-        if (clone.code.length == 0) {
+        address actual = predicted;
+        if (actual.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = IAddressLookupProto(proto).clone(config.keyValues);
+            (actual,) = IAddressLookupProto(proto).clone(config.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }
 
-        // Result logs
-        console2.log("action    : ", action);
-        console2.log("clone     : ", clone);
-        console2.log("id        : ", config.id);
-        console2.log("env       : ", config.env);
+        console2.log("actual   :", actual);
+        console2.log("action   :", action);
 
-        vm.writeJson(vm.toString(clone), vm.envString("messaging"), string.concat(".", config.id));
+        vm.writeJson(vm.toString(actual), vm.envString("messaging"), string.concat(".", config.id));
     }
 }

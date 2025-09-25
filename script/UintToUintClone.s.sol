@@ -19,16 +19,16 @@ contract UintToUintClone is Script {
     }
 
     function run() external {
-        console2.log("== UintToUintClone ==");
+        console2.log("script   : UintToUintClone");
         address proto = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
-        console2.log("proto     :", proto);
+        console2.log("proto    :", proto);
 
         Config memory config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (Config));
-        console2.log("id        :", config.id);
-        console2.log("env       :", config.env);
+        console2.log("id       :", config.id);
+        console2.log("env      :", config.env);
 
         (address predicted,) = IUintToUintProto(proto).cloneAddress(config.keyValues);
-        console2.log("predicted :", predicted);
+        console2.log("predicted:", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
         string memory action = "reused";
@@ -36,13 +36,12 @@ contract UintToUintClone is Script {
         if (clone.code.length == 0) {
             vm.startBroadcast();
             (clone,) = IUintToUintProto(proto).clone(config.keyValues);
+            console2.log("clone     :", clone);
             vm.stopBroadcast();
             action = "deployed";
         }
 
         // Result logs
-        console2.log("action    :", action);
-        console2.log("clone     :", clone);
 
         vm.writeJson(vm.toString(clone), vm.envString("clone"), string.concat(".", config.id));
     }

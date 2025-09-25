@@ -19,7 +19,7 @@ contract UintToUintClone is Script {
     }
 
     function run() external {
-        address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("CLN"))), (address));
+        address cloner = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
         console2.log("cloner     :", cloner);
 
         Config memory config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (Config));

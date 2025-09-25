@@ -7,7 +7,7 @@ import "../src/AddressLookup.sol";
 
 /// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
 /// @dev Environment variables (required):
-///   - proto : address of the IAddressLookupCloner contract
+///   - proto : address of the IAddressLookupProto contract
 ///   - config  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
 ///   proto=io/$CHAIN_ID/AddressLookupProto.json config=io/testnet/blocker.json messaging=io/$CHAIN_ID/messaging.json forge script script/AddressLookupClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
@@ -24,7 +24,7 @@ contract AddressLookupClone is Script {
         Config memory config = abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (Config));
 
         // Resolve predicted clone address (pure/read-only)
-        (address predicted,) = IAddressLookupCloner(proto).cloneAddress(config.keyValues);
+        (address predicted,) = IAddressLookupProto(proto).cloneAddress(config.keyValues);
 
         // Basic context logs (human-friendly)
         console2.log("predicted   :", predicted);
@@ -34,7 +34,7 @@ contract AddressLookupClone is Script {
         address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = IAddressLookupCloner(proto).clone(config.keyValues);
+            (clone,) = IAddressLookupProto(proto).clone(config.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }

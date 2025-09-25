@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 /// @notice Deploy clones of AddressLookup to predictable addresses.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IAddressLookupCloner {
+interface IAddressLookupProto {
     /// @notice Map a chainId to a local address.
     struct KeyValue {
         uint256 key;

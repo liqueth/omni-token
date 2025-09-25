@@ -7,7 +7,7 @@ import "../src/interfaces/IUintToUintProto.sol";
 
 /// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
 /// @dev Environment variables (required):
-///   - proto : address of the IAddressLookupCloner contract
+///   - proto : address of the IAddressLookupProto contract
 ///   - config  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
 /// proto=io/$CHAIN_ID/UintToUintProto.json config=io/testnet/endpointMapper.json clone=io/$CHAIN_ID/messaging.json forge script script/UintToUintClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

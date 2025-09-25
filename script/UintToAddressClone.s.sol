@@ -8,7 +8,7 @@ import "../src/interfaces/IUintToAddressProto.sol";
 /// @title AddressLookupClone
 /// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
 /// @dev Environment variables (required):
-///   - AddressLookup       : address of the IAddressLookupCloner contract
+///   - AddressLookup       : address of the IAddressLookupProto contract
 ///   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
 ///   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "./interfaces/IAddressLookup.sol";
-import "./interfaces/IAddressLookupCloner.sol";
+import "./interfaces/IAddressLookupProto.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Immutably map a single predictable contract address to a chain specific address.
@@ -15,19 +15,19 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @dev The implementation is also a factory, allowing anyone to easily deploy an AddressLookups.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract AddressLookup is IAddressLookup, IAddressLookupCloner {
+contract AddressLookup is IAddressLookup, IAddressLookupProto {
     /// @inheritdoc IAddressLookup
     function value() external view returns (address) {
         return _value;
     }
 
-    /// @inheritdoc IAddressLookupCloner
+    /// @inheritdoc IAddressLookupProto
     function cloneAddress(KeyValue[] memory keyValues) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(keyValues));
         clone_ = Clones.predictDeterministicAddress(address(this), salt);
     }
 
-    /// @inheritdoc IAddressLookupCloner
+    /// @inheritdoc IAddressLookupProto
     function clone(KeyValue[] memory keyValues) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(keyValues);
         if (clone_.code.length == 0) {

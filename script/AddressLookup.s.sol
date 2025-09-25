@@ -7,9 +7,9 @@ import "../src/AddressLookup.sol";
 
 /**
  * @notice Deploy the AddressLookup factory/implementation contract.
- * @dev Usage: OUT=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookup.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: proto=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookupProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
-contract AddressLookupScript is Script {
+contract AddressLookupProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(AddressLookup).creationCode));
         console2.log("predicted:", predicted);
@@ -22,7 +22,7 @@ contract AddressLookupScript is Script {
             console2.log("already deployed");
         }
 
-        string memory jsonPath = vm.envString("OUT");
+        string memory jsonPath = vm.envString("proto");
         vm.writeJson(vm.toString(predicted), jsonPath);
     }
 }

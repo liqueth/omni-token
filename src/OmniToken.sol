@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
-import {IOmniTokenCloner} from "./interfaces/IOmniTokenCloner.sol";
+import {IOmniTokenProto} from "./interfaces/IOmniTokenProto.sol";
 import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
@@ -31,7 +31,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
 /// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenCloner, IOmniTokenMinter, IOmniTokenManager {
+contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter, IOmniTokenManager {
     /// @inheritdoc IOmniTokenBridger
     function bridge(uint256 toChain, uint256 amount)
         external
@@ -59,7 +59,7 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenCloner, IOmniTokenMinter
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
-    /// @inheritdoc IOmniTokenCloner
+    /// @inheritdoc IOmniTokenProto
     function clone(Config memory config) public returns (address clone_, bytes32 salt) {
         (clone_, salt) = cloneAddress(config);
         if (clone_.code.length == 0) {
@@ -69,7 +69,7 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenCloner, IOmniTokenMinter
         }
     }
 
-    /// @inheritdoc IOmniTokenCloner
+    /// @inheritdoc IOmniTokenProto
     function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
         salt = keccak256(abi.encode(config));
         clone_ = Clones.predictDeterministicAddress(prototype, salt);

@@ -68,7 +68,7 @@ contract OmniTokenTest is Test {
 
         factory = new OmniToken(appConfig);
 
-        config = IOmniTokenCloner.Config({
+        config = IOmniTokenProto.Config({
             issuer: issuer,
             mints: mints,
             name: name,
@@ -76,7 +76,7 @@ contract OmniTokenTest is Test {
             receiverGasLimit: rgl,
             symbol: symbol
         });
-        config1 = IOmniTokenCloner.Config({
+        config1 = IOmniTokenProto.Config({
             issuer: issuer,
             mints: mints,
             name: name1,
@@ -84,7 +84,7 @@ contract OmniTokenTest is Test {
             receiverGasLimit: rgl,
             symbol: name1
         });
-        config2a = IOmniTokenCloner.Config({
+        config2a = IOmniTokenProto.Config({
             issuer: issuer,
             mints: mints,
             name: name2,
@@ -92,7 +92,7 @@ contract OmniTokenTest is Test {
             receiverGasLimit: rgl,
             symbol: name2
         });
-        config2b = IOmniTokenCloner.Config({
+        config2b = IOmniTokenProto.Config({
             issuer: issuer,
             mints: mints,
             name: name2,
@@ -153,7 +153,7 @@ contract OmniTokenTest is Test {
     function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniTokenBridger.UnsupportedDestinationChain.selector, unmappedChain));
-        OmniToken.Config memory badConfig = IOmniTokenCloner.Config({
+        OmniToken.Config memory badConfig = IOmniTokenProto.Config({
             issuer: issuer,
             mints: badMints,
             owner: allocTo,

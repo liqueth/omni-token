@@ -7,10 +7,10 @@ import {IOmniTokenBridger} from "../src/interfaces/IOmniTokenBridger.sol";
 
 /// @notice Bridge tokens to another chain.
 /// @dev Environment variables (required):
-///   - TOKEN : address of the IOmniTokenBridger contract
-///   - IN    : path to JSON config file with { env, id, keyValues }
+///   - token    : path to JSON file with "0x token address"
+///   - transfer : path to JSON file with { amount, toChain }
 /// @dev Example:
-///   TOKEN=io/$CHAIN_ID/OMNI_ALPHA.json IN=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+///   token=io/$CHAIN_ID/OMNI_ALPHA.json transfer=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract BridgeOmniToken is Script {
     struct Input {
         uint256 amount;
@@ -19,9 +19,9 @@ contract BridgeOmniToken is Script {
 
     function run() external {
         IOmniTokenBridger token =
-            IOmniTokenBridger(abi.decode(vm.parseJson(vm.readFile(vm.envString("TOKEN"))), (address)));
+            IOmniTokenBridger(abi.decode(vm.parseJson(vm.readFile(vm.envString("token"))), (address)));
         console2.log("token: ", address(token));
-        Input memory input = abi.decode(vm.parseJson(vm.readFile(vm.envString("IN"))), (Input));
+        Input memory input = abi.decode(vm.parseJson(vm.readFile(vm.envString("transfer"))), (Input));
         console2.log("toChain: ", input.toChain);
         console2.log("amount: ", input.amount);
 

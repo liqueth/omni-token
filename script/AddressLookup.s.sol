@@ -7,7 +7,7 @@ import "../src/AddressLookup.sol";
 
 /**
  * @notice Deploy the AddressLookup factory/implementation contract.
- * @dev Usage: OUT=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookup.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+ * @dev Usage: OUT=io/$CHAIN_ID/AddressLookup.json forge script script/AddressLookup.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
  */
 contract AddressLookupScript is Script {
     function run() external {

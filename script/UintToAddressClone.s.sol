@@ -14,7 +14,7 @@ import "../src/interfaces/IUintToAddressProto.sol";
  *   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
  *
  * @dev Example:
- *   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+ *   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
  */
 contract UintToAddressClone is Script {
     struct Config {

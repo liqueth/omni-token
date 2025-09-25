@@ -8,5 +8,5 @@
 # script/all_deployments.sh
 # CHAIN_ID=97 # BSC Testnet for example
 
-CONFIG=io/$CHAIN_ID/MessagingConfig.json PROTO=io/$CHAIN_ID/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
-PROTO=io/$CHAIN_ID/OmniTokenProto.json CONFIG=io/testnet/OMNI_ALPHA.json CLONE=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+proto=io/$CHAIN_ID/OmniTokenProto.json config=io/$CHAIN_ID/MessagingConfig.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
+proto=io/$CHAIN_ID/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json clone=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast

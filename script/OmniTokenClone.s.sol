@@ -7,8 +7,9 @@ import "../src/interfaces/IOmniTokenProto.sol";
 
 /// @notice Deploy an OmniToken clone if it doesn't exist (idempotent).
 /// @dev Environment variables (required):
-///   - proto : address of the IOmniTokenProto contract
-///   - config  : path to JSON config file with { mints, name, owner, symbol }
+///   - proto  : address of the IOmniTokenProto contract
+///   - config : path to JSON config file with { mints, name, owner, symbol }
+///   - clone  : path to JSON file that will contain the deployed address
 /// @dev Example:
 /// proto=io/$CHAIN_ID/OmniTokenProto.json config=io/testnet/OMNI_ALPHA.json clone=io/$CHAIN_ID/OMNI_ALPHA.json forge script script/OmniTokenClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract OmniTokenClone is Script {

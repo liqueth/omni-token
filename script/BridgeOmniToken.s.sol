@@ -5,17 +5,12 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import {IOmniTokenBridger} from "../src/interfaces/IOmniTokenBridger.sol";
 
-/**
- * @title BridgeOmniToken
- * @notice Bridge tokens to another chain.
- *
- * @dev Environment variables (required):
- *   - TOKEN : address of the IOmniTokenBridger contract
- *   - IN    : path to JSON config file with { env, id, keyValues }
- *
- * @dev Example:
- *   TOKEN=io/$CHAIN_ID/OMNI_ALPHA.json IN=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
- */
+/// @notice Bridge tokens to another chain.
+/// @dev Environment variables (required):
+///   - TOKEN : address of the IOmniTokenBridger contract
+///   - IN    : path to JSON config file with { env, id, keyValues }
+/// @dev Example:
+///   TOKEN=io/$CHAIN_ID/OMNI_ALPHA.json IN=io/bridge.json forge script script/BridgeOmniToken.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract BridgeOmniToken is Script {
     struct Input {
         uint256 amount;

@@ -4,11 +4,9 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import "../src/OmniToken.sol";
 
-/**
- * @title Deploy Script for OmniToken
- * @notice Deploys the OmniToken contract with specified configuration
- * @dev Usage: CONFIG=io/$CHAIN_ID/MessagingConfig.json PROTO=io/$CHAIN_ID/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
- */
+/// @title Deploy Script for OmniToken
+/// @notice Deploys the OmniToken contract with specified configuration
+/// @dev Usage: CONFIG=io/$CHAIN_ID/MessagingConfig.json PROTO=io/$CHAIN_ID/OmniTokenProto.json forge script script/OmniTokenProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract OmniTokenProto is Script {
     function run() external {
         address config = abi.decode(vm.parseJson(vm.readFile(vm.envString("CONFIG"))), (address));

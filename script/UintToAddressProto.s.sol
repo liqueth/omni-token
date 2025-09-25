@@ -5,10 +5,8 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import "../src/ImmutableUintToAddress.sol";
 
-/**
- * @notice Deploy the ImmutableUintToAddress protofactory contract.
- * @dev Usage: forge script script/UintToAddressProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
- */
+/// @notice Deploy the ImmutableUintToAddress protofactory contract.
+/// @dev Usage: forge script script/UintToAddressProto.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast --verify --delay 10 --retries 10
 contract UintToAddressProto is Script {
     function run() external {
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(ImmutableUintToAddress).creationCode));

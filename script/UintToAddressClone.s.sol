@@ -5,17 +5,13 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import "../src/interfaces/IUintToAddressProto.sol";
 
-/**
- * @title AddressLookupClone
- * @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
- *
- * @dev Environment variables (required):
- *   - AddressLookup       : address of the IAddressLookupCloner contract
- *   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
- *
- * @dev Example:
- *   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
- */
+/// @title AddressLookupClone
+/// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
+/// @dev Environment variables (required):
+///   - AddressLookup       : address of the IAddressLookupCloner contract
+///   - UintToAddressPath   : path to JSON config file with { env, id, keyValues }
+/// @dev Example:
+///   UintToAddressPath=config/testnet/dvn/google-cloud.json forge script script/UintToAddressClone.s.sol -f $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
 contract UintToAddressClone is Script {
     struct Config {
         string env;

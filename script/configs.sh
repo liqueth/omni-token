@@ -1,10 +1,14 @@
 #!/bin/bash
 
-# Generate all data files for deployments.
-# Before running:
-# source io/testnet.env
+# Generate all config files for deploying OmniToken to an environment.
+# Prerequisites:
+#   script/nickall.sh
+# Specify the environment:
+#   source io/mainnet.env
+#   or
+#   source io/testnet.env
 # Run:
-# script/data.sh
+#   script/configs.sh
 
 jq -f jq/active.jq io/metadata.json > io/active.json
 jq -sRf jq/nick.jq < io/nick.csv > io/nick.json

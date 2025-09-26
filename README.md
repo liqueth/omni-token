@@ -57,11 +57,11 @@ cd omni-token
 Set the following environment variables (in your .bashrc).
 
 ```bash
-export RAW_PRIVATE_KEY=<YOUR_PRIVATE_WALLET_KEY>
+export tx_key=<YOUR_PRIVATE_WALLET_KEY>
 export ETHERSCAN_API_KEY=<YOUR_ETHERSCAN_API_KEY>
 ```
 
-RAW_PRIVATE_KEY is the private key of the Ethereum account you want to use to initiate transactions such as deploying contracts.
+The environment variable tx_key is the private key of the Ethereum account you want to use to initiate transactions such as deploying contracts.
 Get your ETHERSCAN_API_KEY at [Etherscan](https://etherscan.io/myaccount).
 
 Other environment variables that will come into play include the following.
@@ -72,13 +72,6 @@ export env=testnet
 export chain=97 # BNB testnet
 export chain=137 # Polygon
 export chain=11155111 # Sepolia, set to desired chain id
-export TO_CHAIN_ID=10 # Optimism
-export TO_CHAIN_ID=97 # BNB test, set destination chain id
-```
-
-```bash
-# swap chain and TO_CHAIN_ID
-TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$chain;export chain=$TEMP_CHAIN_ID
 ```
 
 ---
@@ -95,6 +88,18 @@ forge build
 
 ```bash
 forge test
+```
+
+---
+
+## Deploy to a specific chain
+
+```bash
+source io/testnet.env
+# or
+# source io/mainnet.env
+chain=11155111 # ethereum testnet
+script/chain.sh
 ```
 
 ---

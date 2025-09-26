@@ -83890,6 +83890,107 @@
     "chainKey": "opencampus-testnet"
   },
   {
+    "created": "2025-09-04T04:15:12.000Z",
+    "updated": "2025-09-04T04:15:12.000Z",
+    "tableName": "layerzero-chain_metadata",
+    "environment": "testnet",
+    "blockExplorers": [
+      {
+        "url": "https://explorer.etherealtest.net/api"
+      }
+    ],
+    "deployments": [
+      {
+        "eid": "10407",
+        "endpoint": {
+          "address": "0x83c73Da98cf733B03315aFa8758834b36a195b87"
+        },
+        "chainKey": "ethereal-testnet",
+        "stage": "testnet",
+        "relayerV2": {
+          "address": "0x35AdD9321507A87471a11EBd4aE4f592d531e620"
+        },
+        "ultraLightNodeV2": {
+          "address": "0x55370E0fBB5f5b8dAeD978BA1c075a499eB107B8"
+        },
+        "sendUln301": {
+          "address": "0x9eCf72299027e8AeFee5DC5351D6d92294F46d2b"
+        },
+        "receiveUln301": {
+          "address": "0xB0487596a0B62D1A71D0C33294bd6eB635Fc6B09"
+        },
+        "version": 1,
+        "nonceContract": {
+          "address": "0x6098e96a28E02f27B1e6BD381f870F1C8Bd169d3"
+        }
+      },
+      {
+        "eid": "40407",
+        "endpointV2View": {
+          "address": "0x6Ac7bdc07A0583A362F1497252872AE6c0A5F5B8"
+        },
+        "chainKey": "ethereal-testnet",
+        "stage": "testnet",
+        "executor": {
+          "address": "0x701f3927871EfcEa1235dB722f9E608aE120d243"
+        },
+        "deadDVN": {
+          "address": "0x88B27057A9e00c5F05DDa29241027afF63f9e6e0"
+        },
+        "endpointV2": {
+          "address": "0x3aCAAf60502791D199a5a5F0B173D78229eBFe32"
+        },
+        "sendUln302": {
+          "address": "0x45841dd1ca50265Da7614fC43A361e526c0e6160"
+        },
+        "lzExecutor": {
+          "address": "0x4Cf1B3Fa61465c2c907f82fC488B43223BA0CF93"
+        },
+        "blockedMessageLib": {
+          "address": "0xa229b65cc2191bf60bc24efcda3487d7b5c0c9f0"
+        },
+        "version": 2,
+        "receiveUln302": {
+          "address": "0xd682ECF100f6F4284138AA925348633B0611Ae21"
+        }
+      }
+    ],
+    "chainDetails": {
+      "chainStatus": "ACTIVE",
+      "chainKey": "ethereal-testnet",
+      "nativeChainId": 657468,
+      "chainStack": "ARB_STACK",
+      "chainLayer": "L1",
+      "nativeCurrency": {
+        "symbol": "USDe",
+        "cmcId": 1027,
+        "decimals": 18
+      },
+      "chainType": "evm"
+    },
+    "dvns": {
+      "0xa78a78a13074ed93ad447a26ec57121f29e8fec2": {
+        "version": 2,
+        "canonicalName": "LayerZero Labs",
+        "id": "layerzero-labs"
+      },
+      "0x88b27057a9e00c5f05dda29241027aff63f9e6e0": {
+        "id": "lz-dead-dvn",
+        "version": 2,
+        "canonicalName": "LZDeadDVN",
+        "deprecated": true
+      }
+    },
+    "rpcs": [
+      {
+        "rank": 1,
+        "url": "https://rpc.etherealtest.net"
+      }
+    ],
+    "chainName": "ethereal",
+    "chainKey": "ethereal-testnet"
+  },
+  {
     "created": "2025-09-04T04:15:11.000Z",
     "updated": "2025-09-04T04:15:11.000Z",
     "tableName": "layerzero-chain_metadata",

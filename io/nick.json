@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://go.getblock.io/aefd01aa907c4805ba3c00a9e5b48c6b",
+    "url": "https://api.zan.top/eth-mainnet",
     "chainId": 1,
     "rank": "0",
     "key": "ethereum"
@@ -150,9 +150,9 @@
     "key": "manta"
   },
   {
-    "url": "https://xlayer-testnet.drpc.org",
+    "url": "https://moonbase-rpc.dwellir.com",
     "chainId": 195,
-    "rank": "0",
+    "rank": "2",
     "key": "xlayer-testnet"
   },
   {
@@ -330,9 +330,9 @@
     "key": "zkevm"
   },
   {
-    "url": "https://core-testnet.drpc.org",
+    "url": "https://rpc.test.btcs.network",
     "chainId": 1115,
-    "rank": "0",
+    "rank": "1",
     "key": "coredao-testnet"
   },
   {
@@ -570,9 +570,9 @@
     "key": "fantom-testnet"
   },
   {
-    "url": "https://merlin.drpc.org",
+    "url": "https://rpc.merlinchain.io",
     "chainId": 4200,
-    "rank": "0",
+    "rank": "1",
     "key": "merlin"
   },
   {
@@ -606,9 +606,9 @@
     "key": "mantle"
   },
   {
-    "url": "https://mantle-sepolia.drpc.org",
+    "url": "https://rpc.sepolia.mantle.xyz",
     "chainId": 5003,
-    "rank": "0",
+    "rank": "1",
     "key": "mantle-sepolia"
   },
   {
@@ -666,7 +666,7 @@
     "key": "iota"
   },
   {
-    "url": "https://evmos-testnet.drpc.org",
+    "url": "https://alphab.ai/rpc/eth/evmos_testnet",
     "chainId": 9000,
     "rank": "1",
     "key": "ondo-testnet"
@@ -870,9 +870,9 @@
     "key": "ink"
   },
   {
-    "url": "https://linea-sepolia.drpc.org",
+    "url": "https://rpc.sepolia.linea.build",
     "chainId": 59141,
-    "rank": "0",
+    "rank": "1",
     "key": "lineasep-testnet"
   },
   {
@@ -1026,6 +1026,12 @@
     "key": "opencampus-testnet"
   },
   {
+    "url": "https://rpc.etherealtest.net",
+    "chainId": 657468,
+    "rank": "1",
+    "key": "ethereal-testnet"
+  },
+  {
     "url": "https://rpc.ankr.com/xai",
     "chainId": 660279,
     "rank": "0",
@@ -1080,9 +1086,9 @@
     "key": "humanity-testnet"
   },
   {
-    "url": "https://zora.drpc.org",
+    "url": "https://rpc.zora.energy",
     "chainId": 7777777,
-    "rank": "0",
+    "rank": "1",
     "key": "zora"
   },
   {

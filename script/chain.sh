@@ -21,4 +21,4 @@ proto=io/$chain/AddressLookupProto.json config=io/testnet/sender.json messaging=
 
 IN=io/$chain/messaging.json OUT=io/$chain/MessagingConfig.json forge script script/MessagingConfig.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 
-script/deployOmniToken.sh
+script/OmniToken.sh

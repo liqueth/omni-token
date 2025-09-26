@@ -15,22 +15,7 @@ fs_permissions = [
     { access = "read-write", path = "./test/endpointMapper.json" },
     { access = "read-write", path = "./test/endpoint.json" },
     { access = "read-write", path = "./test/messaging.json" },
-    { access = "read-write", path = "./config/mainnet/addresses.json" },
-    { access = "read-write", path = "./config/testnet/addresses.json" },
-    { access = "read", path = "./config/mainnet/messaging.json" },
-    { access = "read", path = "./config/testnet/messaging.json" },
-    { access = "read-write", path = "./config/mainnet/MessagingConfig.json" },
-    { access = "read-write", path = "./config/testnet/MessagingConfig.json" },
-    { access = "read-write", path = "./config/mainnet/AddressLookupProto.json" },
-    { access = "read-write", path = "./config/testnet/AddressLookupProto.json" },
-    { access = "read-write", path = "./config/mainnet/OmniToken.json" },
-    { access = "read-write", path = "./config/testnet/OmniToken.json" },
-    { access = "read-write", path = "./config/mainnet/UintToUintProto.json" },
-    { access = "read-write", path = "./config/testnet/UintToUintProto.json" },
-    { access = "read-write", path = "./config/mainnet/UintToAddressProto.json" },
-    { access = "read-write", path = "./config/testnet/UintToAddressProto.json" },
-    { access = "read-write", path = "./io/" },
-    { access = "read", path = "./config/" }
+    { access = "read-write", path = "./io/" }
 ]
 
 [lint]

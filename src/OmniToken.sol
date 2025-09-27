@@ -22,14 +22,17 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
 /// @dev Key features:
 /// - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
+/// - Simplified bridge functions for user and developer friendly transfers.
 /// - Cross-chain address consistency via deterministic deployment.
 /// - Efficient proxy-based deployments using OpenZeppelin Clones.
-/// Limitations:
-/// - **Global Knowledge of Chain Data** – All chain-specific values must be known at deployment. Adding new chains later requires redeployment.
-/// - **Deterministic Deployer** – Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
-/// - **Immutable Bytecode** – Any change to the logic or constructor encoding produces a new address.
-/// - **Initialization Boundaries** – All chain variation must be encoded without affecting the initcode hash (e.g., branching on `block.chainid`).
-/// - **Uses Default DVN** -- The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
+/// - Ownership can renounced at cloning time for trustless tokens.
+/// - Ownership can kept for post deployment management.
+/// Constraints and considerations:
+/// - All chain-specific values must be known at deployment.
+/// - Adding new chains for existing trustless tokens is not possible.
+/// - Addressing new chains for new trustless tokens requires deploying an updated protofactory.
+/// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
+/// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter, IOmniTokenManager {
     /// @inheritdoc IOmniTokenBridger

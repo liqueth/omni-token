@@ -1,17 +1,17 @@
 # OmniToken
 
-**OmniToken** is an **omnichain ERC-20 token** integrated with **Polyhedra zkBridge** for secure cross-chain transfers.
-It is deployed to the **same address** across multiple chains using **CREATE2**, with **initial token minting configured per chain** via a `ChainConfig` array.
+**OmniToken** is an **omnichain ERC-20 token** integrated with **LayerZero** for secure cross-chain transfers.
+It is deployed to the **same address** across multiple chains using **CREATE2**, with **initial token minting configured per chain**.
 
-Cross-chain transfers are handled by **burning tokens on the source chain** and **minting on the destination chain** via zkBridge.
+Cross-chain transfers are handled by **burning tokens on the source chain** and **minting on the destination chain** via LayerZero.
 
 ---
 
 ## Features
 
 * **Omnichain Deployment** – Same contract address across all supported chains using `CREATE2`.
-* **Polyhedra zkBridge Integration** – Secure cross-chain transfers with zero-knowledge proofs.
-* **Configurable Minting** – Initial token supply per chain defined in constructor via `ChainConfig`:
+* **LayerZero** – Secure cross-chain transfers with zero-knowledge proofs.
+* **Configurable Minting** – Initial token supply per chain defined in constructor.
 * **Security** – Restricts `zkReceive` to mapped chains and validates same-address deployment.
 * **Built with Foundry** – Deployment scripts, tests, and config via `foundry.toml`.
 
@@ -21,9 +21,10 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 * [Foundry](https://book.getfoundry.sh/) (`forge`, `cast`)
 * Git
-* Environment variables for private key (`tx_key`) and RPC endpoints (defined in `foundry.toml`)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
-* Environment variables for verifier key (`ETHERSCAN_API_KEY`) and RPC endpoints (defined in `foundry.toml`)
+* Environment variables for:
+    - private key for Ethereum transaction signing (`tx_key`)
+    - block explorer verifier key (`ETHERSCAN_API_KEY`)
 
 ---
 

@@ -35,7 +35,7 @@ interface IOmniTokenProto {
     function clone(Config memory config) external returns (address clone, bytes32 salt);
 
     /// @notice Revert if someone tries to reinitialize an instance.
-    error AlreadyInitialized();
+    error InitializedAlready();
 
     /// @notice Revert if someone tries to initialize with an empty symbol.
     error SymbolEmpty();

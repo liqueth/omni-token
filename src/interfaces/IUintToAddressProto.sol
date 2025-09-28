@@ -20,7 +20,7 @@ interface IUintToAddressProto is IUintToAddress {
     function clone(KeyValue[] memory kvs) external returns (address clone_, bytes32 salt);
 
     /// @notice Revert if someone tries to reinitialize an instance.
-    error AlreadyInitialized();
+    error InitializedAlready();
 
     /// @notice Emit when a clone is created.
     event Cloned(address indexed clone);

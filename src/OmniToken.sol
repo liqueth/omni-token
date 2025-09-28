@@ -124,7 +124,7 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
 
     function __OmniToken_init(Config memory config) public {
         if (bytes(_symbol).length != 0) {
-            revert AlreadyInitialized();
+            revert InitializedAlready();
         }
         if (bytes(config.symbol).length == 0) {
             revert SymbolEmpty();

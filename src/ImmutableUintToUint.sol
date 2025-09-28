@@ -74,7 +74,7 @@ contract ImmutableUintToUint is IUintToUintProto {
     /// @dev Only the cloner should call __init.
     /// @param kvs The array of key value pairs sorted by key.
     function __init(KeyValue[] memory kvs) public {
-        if (_initialized) revert AlreadyInitialized();
+        if (_initialized) revert InitializedAlready();
         _initialized = true;
         for (uint256 i; i < kvs.length; ++i) {
             _keys.push(kvs[i].key);

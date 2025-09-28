@@ -14,7 +14,7 @@ interface IAddressLookupProto {
     /// @notice Predict the address of a cloned AddressLookup.
     /// @param keyValues The array of key/value pairs mapping chainId to address.
     /// @return clone_ The predicted address of the clone.
-    /// @return salt The salt used to create the clone.
+    /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(keyValues));
     function cloneAddress(KeyValue[] memory keyValues) external view returns (address clone_, bytes32 salt);
 
     /// @notice Create a new AddressLookup clone for the current chain if it doesn't already exist.
@@ -25,7 +25,7 @@ interface IAddressLookupProto {
     function clone(KeyValue[] memory keyValues) external returns (address clone_, bytes32 salt);
 
     /// @notice Revert if someone tries to reinitialize an instance.
-    error AlreadyInitialized();
+    error InitializedAlready();
 
     /// @notice Emit when a clone is created.
     event Cloned(address indexed clone, address indexed value);

@@ -19,8 +19,8 @@ interface IOmniTokenBridger {
     /// @return fee Estimated native value (wei) the caller should send with {bridge}.
     function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee);
 
-    /// @notice Send `amount` of tokens to `toChain`.
-    /// @dev Requires sufficient native gas to be supplied to pay for cross-chain message delivery as determined by {bridgeQuote}.
+    /// @notice Send 'amount' of this token to the same token at the same address on `toChain`.
+    /// @dev Requires sufficient native gas to be supplied to pay for cross-chain message delivery as determined by {bridgeFee}.
     /// Implementented as a simplifying wrapper of IOFT.send that sets the recipient to `msg.sender` on the destination chain.
     /// @param toChain The destination chain ID (see `chainId` mapping).
     /// @param amount The amount of tokens to send.

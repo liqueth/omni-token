@@ -15,7 +15,7 @@ interface IUintToUintProto is IUintToUint {
 
     /// @notice Create a clone if it doesn't already exist.
     /// @param kvs The array of key value pairs sorted by key.
-    /// @return clone_ The predicted address of the clone.
+    /// @return clone_ The deployed address of the clone.
     /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(kvs));
     function clone(KeyValue[] memory kvs) external returns (address clone_, bytes32 salt);
 

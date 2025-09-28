@@ -51,7 +51,7 @@ contract AddressLookup is IAddressLookup, IAddressLookupProto {
         _initialized = true;
     }
 
-    /// @dev Only let the cloner set the value address after cloning.
+    /// @dev Only let the owner set the value address after cloning.
     /// @param value_ The value address for the current chain.
     function __AddressLookup_init(address value_) public {
         if (_initialized) revert InitializedAlready();

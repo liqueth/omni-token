@@ -30,7 +30,7 @@ exclude_lints = [
 ]
 
 [rpc_endpoints]
-1           = "https://go.getblock.io/aefd01aa907c4805ba3c00a9e5b48c6b"               # ethereum
+1           = "https://eth-mainnet.public.blastapi.io"                                     # ethereum
 10          = "https://1rpc.io/op"                                                    # optimism
 14          = "https://rpc.ankr.com/flare"                                            # flare
 25          = "https://evm.cronos.org"                                                # cronosevm

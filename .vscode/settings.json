@@ -1,0 +1,14 @@
+{
+    "[json]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "editor.formatOnSave": true,
+    "solidity.formatter": "forge",
+    "solidity.packageDefaultDependenciesDirectory": "lib",
+    "solidity.packageDefaultDependenciesContractsDirectory": "src",
+    "foundry.remappings": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true
+}

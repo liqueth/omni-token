@@ -1,17 +1,17 @@
 # OmniToken
 
-**OmniToken** is an **omnichain ERC-20 token** integrated with **Polyhedra zkBridge** for secure cross-chain transfers.
-It is deployed to the **same address** across multiple chains using **CREATE2**, with **initial token minting configured per chain** via a `ChainConfig` array.
+**OmniToken** is an **omnichain ERC-20 token** integrated with **LayerZero** for secure cross-chain transfers.
+It is deployed to the **same address** across multiple chains using **CREATE2**, with **initial token minting configured per chain**.
 
-Cross-chain transfers are handled by **burning tokens on the source chain** and **minting on the destination chain** via zkBridge.
+Cross-chain transfers are handled by **burning tokens on the source chain** and **minting on the destination chain** via LayerZero.
 
 ---
 
 ## Features
 
 * **Omnichain Deployment** – Same contract address across all supported chains using `CREATE2`.
-* **Polyhedra zkBridge Integration** – Secure cross-chain transfers with zero-knowledge proofs.
-* **Configurable Minting** – Initial token supply per chain defined in constructor via `ChainConfig`:
+* **LayerZero** – Secure cross-chain transfers with zero-knowledge proofs.
+* **Configurable Minting** – Initial token supply per chain defined in constructor.
 * **Security** – Restricts `zkReceive` to mapped chains and validates same-address deployment.
 * **Built with Foundry** – Deployment scripts, tests, and config via `foundry.toml`.
 
@@ -21,9 +21,10 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 
 * [Foundry](https://book.getfoundry.sh/) (`forge`, `cast`)
 * Git
-* Environment variables for private key (`DEPLOYER_KEY`) and RPC endpoints (defined in `foundry.toml`)
 * Block explorer accounts for verification (Etherscan, BscScan, etc.)
-* Environment variables for verifier key (`ETHERSCAN_KEY`) and RPC endpoints (defined in `foundry.toml`)
+* Environment variables for:
+    - private key for Ethereum transaction signing (`tx_key`)
+    - block explorer verifier key (`ETHERSCAN_API_KEY`)
 
 ---
 
@@ -33,6 +34,8 @@ Cross-chain transfers are handled by **burning tokens on the source chain** and 
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 ```
+
+Restart your shell to recognize the updated path.
 
 ## Clone the repository
 
@@ -52,27 +55,24 @@ cd omni-token
 
 ## Set environment variables
 
-```bash
-export DEPLOYER_ADDRESS=<YOUR_DEPLOYER_ADDRESS>
-export DEPLOYER_KEY=<YOUR_PRIVATE_WALLET_KEY>
-export ETHERSCAN_KEY=<YOUR_ETHERSCAN_KEY>
-export ZK_BRIDGE_ADDRESS=0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7
-export FixedOmniTokenConfigPath=config/FixedOmniToken/mainnet.json
-export FixedOmniTokenConfigPath=config/FixedOmniToken/testnet.json
-export MINTS='[[1,1e21],[10,1e21],[56,1e21],[100,1e21],[137,1e21],[204,1e21],[250,1e21],[1088,1e21],[1116,1e21],[1284,1e21],[5000,1e21],[8453,1e21],[42161,1e21],[42170,1e21],[42220,1e21],[43114,1e21],[59144,1e21],[534352,1e21]]' # main
-export MINTS='[[97,3e21],[11155111,2e21]]' # test
-export BRIDGE_AMOUNT=123e16
-export CHAIN_ID=137 # Polygon 
-export CHAIN_ID=11155111 # Sepolia, set to desired chain id 
-export TO_CHAIN_ID=10 # Optimism
-export TO_CHAIN_ID=97 # BNB test, set destination chain id
-export CLONE_NAME='Omnicoin Alpha'
-export CLONE_SYMBOL=OMNIA
-```
+Set the following environment variables (in your .bashrc).
 
 ```bash
-# swap CHAIN_ID and TO_CHAIN_ID
-TEMP_CHAIN_ID=$TO_CHAIN_ID;export TO_CHAIN_ID=$CHAIN_ID;export CHAIN_ID=$TEMP_CHAIN_ID
+export tx_key=<YOUR_PRIVATE_WALLET_KEY>
+export ETHERSCAN_API_KEY=<YOUR_ETHERSCAN_API_KEY>
+```
+
+The environment variable tx_key is the private key of the Ethereum account you want to use to initiate transactions such as deploying contracts.
+Get your ETHERSCAN_API_KEY at [Etherscan](https://etherscan.io/myaccount).
+
+Other environment variables that will come into play include the following.
+
+```bash
+export env=mainnet
+export env=testnet
+export chain=97 # BNB testnet
+export chain=137 # Polygon
+export chain=11155111 # Sepolia, set to desired chain id
 ```
 
 ---
@@ -93,66 +93,15 @@ forge test
 
 ---
 
-## Deploy
+## Deploy to a specific chain
 
 ```bash
-# Deploy the token factory/implementation
-forge script script/FixedOmniToken.s.sol --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --broadcast
+source io/testnet.env
+# or
+# source io/mainnet.env
+chain=11155111 # ethereum testnet
+script/chain.sh
 ```
-
-```bash
-# Save contract address displayed in commands above in environment variable
-export CONTRACT_ADDRESS=$(jq -r '.transactions[0].contractAddress' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json); echo $CONTRACT_ADDRESS
-```
-
----
-
-## Encode constructor arguments
-
-```bash
-export CONSTRUCTOR_ARGS=$(cast abi-encode 'constructor(address,uint256[][])' $(jq -r '.transactions[0].arguments[]' broadcast/FixedOmniToken.s.sol/$CHAIN_ID/run-latest.json | tr -d ' ' | xargs)); echo $CONSTRUCTOR_ARGS
-```
-
----
-
-## Verify
-
-```bash
-# Save Standard Json-Input format to FixedOmniToken.json
-forge verify-contract --show-standard-json-input --constructor-args  $CONSTRUCTOR_ARGS $CONTRACT_ADDRESS src/FixedOmniToken.sol:FixedOmniToken > FixedOmniToken.json
-```
-
-Submit FixedOmniToken.json to a verification service like Etherscan. Use their API or web interface to upload the file and verify the contract at `CONTRACT_ADDRESS`. 
-For detailed instructions, see: https://docs.etherscan.io/contract-verification.
-
----
-
-## Deploy a cloned token
-
-```bash
-# Deploy a cloned token
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY $CONTRACT_ADDRESS "clone(address,string,string,uint256[][])" $DEPLOYER_ADDRESS "$CLONE_NAME" "$CLONE_SYMBOL" $MINTS
-```
-
-## Bridge tokens to another chain
-
-```bash
-# Estimate bridge fee
-export BRIDGE_FEE=$(cast call $CLONE_ADDRESS "bridgeFeeEstimate(uint256)(uint256)" $TO_CHAIN_ID --rpc-url $CHAIN_ID | awk '{print $1}'); echo $BRIDGE_FEE
-```
-
-```bash
-# bridge clone token
-cast send --rpc-url $CHAIN_ID --private-key $DEPLOYER_KEY --value $BRIDGE_FEE $CLONE_ADDRESS "bridge(uint256,uint256)" $TO_CHAIN_ID $BRIDGE_AMOUNT
-```
-
----
-
-## Security Notes
-
-* Only zkBridge contract can call `zkReceive`.
-* Only known source chains allowed.
-* Enforces identical address deployment via `CREATE2`.
 
 ---
 

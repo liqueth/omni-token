@@ -1,159 +1,205 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-import "./interfaces/IOmniToken.sol";
-import "./interfaces/IZKBridge.sol";
-import "./interfaces/IZKBridgeReceiver.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
+pragma solidity ^0.8.20;
 
-/**
- * @title OmniToken
- * @notice Omnichain ERC-20 that burns on the source chain and mints on the destination via Polyhedra zkBridge.
- * @dev Deployed to the same address on multiple chains using CREATE2. Constructor config sets per-chain minting
- *      and chain ID mappings. Enforces zkBridge-only callbacks, source/peer validation, and replay protection.
- * @custom:source https://github.com/liqueth/omni-token
- */
-abstract contract OmniToken is ERC20Upgradeable, IOmniToken, IZKBridgeReceiver {
-    address internal _prototype;
-    IZKBridge internal _zkBridge;
-    bytes internal _cloneData;
-    uint256[] internal _chains;
-    mapping(uint256 => uint16) private _evmToZkChain;
-    mapping(uint16 => uint256) private _zkToEvmChain;
-    mapping(bytes32 => bool) private _received;
+import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
+import {IOmniTokenProto} from "./interfaces/IOmniTokenProto.sol";
+import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
+import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
+import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
 
-    /**
-     * @notice Initializes zkBridge endpoint, chain ID mappings.
-     * @param zkBridge_ zkBridge endpoint address on all chains.
-     * @param zkChains Map EVM chain ids to zk bridge chain ids.
-     */
-    constructor(address zkBridge_, uint256[][] memory zkChains) {
-        _prototype = address(this);
-        _zkBridge = IZKBridge(zkBridge_);
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-        bool localChainIncluded = false;
-        for (uint256 i = 0; i < zkChains.length; i++) {
-            uint256 evmChain = zkChains[i][0];
-            localChainIncluded = localChainIncluded || evmChain == block.chainid;
+import {OFT} from "@layerzerolabs/oft-evm/contracts/oft/OFT.sol";
+import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
+import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
+import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
+import {MessagingReceipt, OFTReceipt, SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
+import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
+
+/// @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
+/// @dev Key features:
+/// - Seamless cross-chain minting and burning with LayerZero's OFT protocol.
+/// - Simplified bridge functions for user and developer friendly transfers.
+/// - Cross-chain address consistency via deterministic deployment.
+/// - Efficient proxy-based deployments using OpenZeppelin Clones.
+/// - Ownership can renounced at cloning time for trustless tokens.
+/// - Ownership can kept for post deployment management.
+/// Constraints and considerations:
+/// - All chain-specific values must be known at deployment.
+/// - Adding new chains for existing trustless tokens is not possible.
+/// - Addressing new chains for new trustless tokens requires deploying an updated protofactory.
+/// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
+/// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
+/// @author Paul Reinholdtsen (reinholdtsen.eth)
+contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter, IOmniTokenManager {
+    /// @inheritdoc IOmniTokenBridger
+    function bridge(uint256 toChain, uint256 amount)
+        external
+        payable
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
+    {
+        SendParam memory param = sendParam(toChain, amount);
+        MessagingFee memory msgFee = MessagingFee(msg.value, 0);
+        transfer(address(this), amount);
+        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
+    }
+
+    /// @inheritdoc IOmniTokenBridger
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+        SendParam memory param = sendParam(toChain, amount);
+        MessagingFee memory msgFee = this.quoteSend(param, false);
+        fee = msgFee.nativeFee;
+    }
+
+    /// @inheritdoc IOmniTokenBridger
+    function bridgeable(uint256 chainId) external view returns (bool) {
+        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(chainId));
+        address sender = messagingConfig.sender().value();
+        address receiver = messagingConfig.receiver().value();
+        return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
+    }
+
+    /// @inheritdoc IOmniTokenProto
+    function clone(Config memory config) public returns (address clone_, bytes32 salt) {
+        (clone_, salt) = cloneAddress(config);
+        if (clone_.code.length == 0) {
+            clone_ = Clones.cloneDeterministic(prototype, salt);
+            OmniToken(clone_).__OmniToken_init(config);
+            emit Cloned(config.issuer, config.owner, clone_, config.name, config.symbol);
         }
-        require(localChainIncluded, "Local chain ID not in chains");
-
-        initializeChains(zkChains);
-
-        _disableInitializers();
     }
 
-    function initializeChains(uint256[][] memory zkChains) internal {
-        for (uint256 i = 0; i < zkChains.length; i++) {
-            uint256 evmChain = zkChains[i][0];
-            uint16 zkChain = uint16(zkChains[i][1]);
-            _evmToZkChain[evmChain] = uint16(zkChain);
-            _zkToEvmChain[zkChain] = evmChain;
-            _chains.push(evmChain);
-        }
+    /// @inheritdoc IOmniTokenProto
+    function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
+        salt = keccak256(abi.encode(config));
+        clone_ = Clones.predictDeterministicAddress(prototype, salt);
     }
 
-    function initialize(
-        bytes memory cloneData_,
-        string memory name,
-        string memory symbol,
-        IZKBridge zkBridge_,
-        uint256[][] memory zkChains
-    ) internal {
-        __ERC20_init(name, symbol);
-        _cloneData = cloneData_;
-        _prototype = msg.sender;
-        _zkBridge = zkBridge_;
-        initializeChains(zkChains);
+    /// @inheritdoc IOmniTokenMinter
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+        emit Minted(to, amount);
     }
 
-    function cloneEncoded(bytes memory cloneData_)
-        public
-        virtual
-        returns (address token, bytes32 salt, bytes memory cloneData);
-
-    /// @inheritdoc IOmniToken
-    function deployToChain(uint256 toChain) external payable {
-        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(_prototype), _cloneData);
-        emit DeployToChainInitiated(address(this), toChain, nonce);
-    }
-
-    /// @inheritdoc IOmniToken
-    function bridge(uint256 toChain, uint256 amount) external payable {
-        bytes memory payload = abi.encode(msg.sender, amount);
+    /// @inheritdoc IOmniTokenMinter
+    function burn(uint256 amount) public {
         _burn(msg.sender, amount);
-        uint64 nonce = _zkBridge.send{value: msg.value}(evmToZkChain(toChain), address(this), payload);
-        emit BridgeInitiated(msg.sender, address(this), toChain, amount, nonce);
+        emit Burned(amount);
     }
 
-    /**
-     * @notice zkBridge callback to mint tokens on this chain for a received bridge message.
-     * @dev Only callable by the zkBridge endpoint. Validates the source chain/address and enforces replay protection.
-     *      Decodes the payload (e.g., recipient, token, destChain, amount) and mints to the intended recipient.
-     * @param fromZkChain Source zkBridge chain ID.
-     * @param fromAddress Address of the token contract on the source chain.
-     * @param nonce Source message nonce.
-     * @param payload ABI-encoded bridge payload.
-     */
-    function zkReceive(uint16 fromZkChain, address fromAddress, uint64 nonce, bytes calldata payload) external {
-        if (msg.sender != address(_zkBridge)) {
-            revert SenderIsNotBridge(msg.sender);
+    /// @inheritdoc IOmniTokenManager
+    function setReceiverGasLimit(uint128 newLimit) external onlyOwner {
+        _receiverGasLimit = newLimit;
+        emit ReceiverGasLimitUpdated(newLimit);
+    }
+
+    /// @inheritdoc IOmniTokenManager
+    function receiverGasLimit() external view returns (uint128) {
+        return _receiverGasLimit;
+    }
+
+    /// @dev Immutable implementation/factory is the same for all clones.
+    address public immutable prototype;
+    /// @dev Immutable configuration is the same for all clones.
+    IMessagingConfig public immutable messagingConfig;
+
+    /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
+    string internal _name;
+    /// @dev Mask the ERC-20 symbol to support initialization in clones wihout requiring an upgradeable ERC-20.
+    string internal _symbol;
+
+    /// @dev Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
+    uint128 private _receiverGasLimit;
+
+    constructor(IMessagingConfig messagingConfig_)
+        OFT("", "", messagingConfig_.endpoint().value(), address(this))
+        Ownable(address(this))
+    {
+        prototype = address(this);
+        messagingConfig = messagingConfig_;
+    }
+
+    function __OmniToken_init(Config memory config) public {
+        if (bytes(_symbol).length != 0) {
+            revert InitializedAlready();
+        }
+        if (bytes(config.symbol).length == 0) {
+            revert SymbolEmpty();
         }
 
-        // Ensure the message has not been processed before
-        bytes32 messageHash = keccak256(abi.encodePacked(fromZkChain, fromAddress, nonce, payload));
-        if (_received[messageHash]) {
-            revert AlreadyReceived(messageHash);
+        _name = config.name;
+        _symbol = config.symbol;
+        _receiverGasLimit = config.receiverGasLimit;
+        uint256[][] memory mints = config.mints;
+        for (uint256 i = 0; i < mints.length; i++) {
+            uint256 chain = mints[i][0];
+            uint256 minted = mints[i][1];
+            if (chain == block.chainid) {
+                if (minted > 0) {
+                    _mint(config.issuer, minted);
+                }
+            }
         }
-        _received[messageHash] = true;
 
-        if (fromAddress == address(this)) {
-            (address holder, uint256 amount) = abi.decode(payload, (address, uint256));
-            uint256 evmChain = zkToEvmChain(fromZkChain);
-            _mint(holder, amount);
+        // Get the actual endpoint and sender and receiver libraries via their AddressLookup aliases.
+        address sender = messagingConfig.sender().value();
+        address receiver = messagingConfig.receiver().value();
+        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(messagingConfig.endpoint().value());
 
-            emit BridgeFinalized(holder, address(this), evmChain, amount, nonce);
-        } else if (fromAddress == address(_prototype)) {
-            (address token,,) = cloneEncoded(payload);
-            emit DeployToChainFinalized(token, zkToEvmChain(fromZkChain), nonce);
-        } else {
-            revert SentFromDifferentAddress(fromAddress);
+        IUintToUint endpointMapper = IUintToUint(messagingConfig.endpointMapper());
+        IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();
+        for (uint256 i = 0; i < c2e.length; i++) {
+            uint256 chain = c2e[i].key;
+            if (chain != block.chainid) {
+                uint32 eid = uint32(c2e[i].value);
+                if (IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid)) {
+                    endpoint.setSendLibrary(address(this), eid, sender);
+                    endpoint.setReceiveLibrary(address(this), eid, receiver, 0);
+                    _setPeer(eid, bytes32(uint256(uint160(address(this)))));
+                }
+            }
         }
+
+        _transferOwnership(config.owner);
     }
 
-    /// @inheritdoc IOmniToken
-    function bridgeFeeEstimate(uint256 toChain) external view returns (uint256 fee) {
-        uint16 toZkChain = evmToZkChain(toChain);
-        fee = _zkBridge.estimateFee(toZkChain);
-    }
+    using OptionsBuilder for bytes;
 
-    /// @inheritdoc IOmniToken
-    function prototype() external view returns (address) {
-        return _prototype;
-    }
-
-    /// @inheritdoc IOmniToken
-    function chains() external view returns (uint256[] memory) {
-        return _chains;
-    }
-
-    /// @inheritdoc IOmniToken
-    function cloneData() external view returns (bytes memory) {
-        return _cloneData;
-    }
-
-    function zkToEvmChain(uint16 zkChain) internal view returns (uint256 chainId) {
-        chainId = _zkToEvmChain[zkChain];
-        if (chainId == 0) {
-            revert UnsupportedSourceChain(zkChain);
+    /// @dev Help construct SendParam for a given destination chain and amount.
+    function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
+        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(toChain));
+        if (eid == 0) {
+            revert UnsupportedDestinationChain(toChain);
         }
+        bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(_receiverGasLimit, 0);
+        param.dstEid = eid;
+        param.to = bytes32(uint256(uint160(msg.sender)));
+        param.amountLD = amount;
+        param.minAmountLD = amount;
+        param.extraOptions = extraOptions;
+        param.composeMsg = "";
+        param.oftCmd = "";
     }
 
-    function evmToZkChain(uint256 chain) internal view returns (uint16 zkChain) {
-        zkChain = _evmToZkChain[chain];
-        if (zkChain == 0) {
-            revert UnsupportedDestinationChain(chain);
-        }
+    /// @inheritdoc IERC20Metadata
+    function name() public view override returns (string memory) {
+        return _name;
+    }
+
+    /// @inheritdoc IERC20Metadata
+    function symbol() public view override returns (string memory) {
+        return _symbol;
+    }
+
+    /// @notice Shared decimals used for cross-chain messaging.
+    /// Setting this to 18 means 1 LD == 1 SD (no rounding).
+    /// Cross-chain amounts are encoded as uint64 in SD units,
+    /// so the maximum representable supply is 2^64 - 1 units,
+    /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
+    function sharedDecimals() public view virtual override returns (uint8) {
+        return 18;
     }
 }

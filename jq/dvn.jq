@@ -1,0 +1,21 @@
+# dvn.jq
+# usage: jq --arg env $env --arg id $DVN_ID -f jq/dvn.jq io/nickmeta.json > io/$env/dvn/$DVN_ID.json
+{
+    env: $env,
+    id: $id,
+    keyValues: [
+        .[]?
+        | . +.chainDetails + ((.dvns // {}) | to_entries[])
+        | select(.value.version == 2
+                and .environment == $env
+                and .value.id == $id
+                and .value.deprecated != true
+                and .nativeChainId)
+        | {
+            key: .nativeChainId,
+            value: .key
+        }
+    ]
+    | sort_by(.key)
+    | unique_by(.key)
+}

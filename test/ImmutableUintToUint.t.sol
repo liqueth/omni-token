@@ -81,12 +81,12 @@ contract ImmutableUintToUintTest is Test {
         // Need an empty set of KVs
         IUintToUint.KeyValue[] memory empty;
 
-        // Call cloneAddress() on an empty set of KVs
+        // Call cloneAddress() on the empty set of KVs
         (address address1, bytes32 salt1) = proto.cloneAddress(empty);
         assertNotEq(address1, address(0), "cloneAddress() on empty KVs failed.");
         assertNotEq(salt1, 0, "salt1 unexpectedly zero.");
 
-        // Call clone() on an empty set of KVs
+        // Call clone() on the empty set of KVs
         (address address2, bytes32 salt2) = proto.clone(empty);
         assertNotEq(address2, address(0), "clone() on empty KVs failed.");
         assertNotEq(salt2, 0, "salt2 unexpectedly zero.");

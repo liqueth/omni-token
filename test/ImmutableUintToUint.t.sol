@@ -6,7 +6,7 @@ import {IUintToUint} from "../src/interfaces/IUintToUint.sol";
 
 import "forge-std/Test.sol";
 
-contract OmniLookupTest is Test {
+contract ImmutableUintToUintTest is Test {
     ImmutableUintToUint proto;
     Config config;
 
@@ -25,7 +25,7 @@ contract OmniLookupTest is Test {
     }
 
     // Test clone()
-    function test_UintToUint2Clone() public {
+    function test_UintToUintClone() public {
         // Simple canonical deployment
         (address address1, bytes32 salt1) = proto.clone(config.keyValues);
         assertNotEq(address1, address(0), "address1 is unexpectedly zero.");
@@ -64,7 +64,7 @@ contract OmniLookupTest is Test {
     function test_UintToUintCloneDifferentKVsGivesDifferentAddress() public {
         // Make a copy of the config KV's and change the first element
         IUintToUint.KeyValue[] memory altered = config.keyValues;
-        altered[0].value = altered[0].value + 1; // mutate
+        altered[0].value = address(42);
 
         // Deploy with both sets of KVs
         (address address1,) = proto.clone(config.keyValues);

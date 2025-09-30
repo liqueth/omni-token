@@ -1,0 +1,1777 @@
+[
+  {
+    "chainId": 1,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "axelar",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "eigenzero",
+      "fbtc",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "lagrange-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle-bank",
+      "mantle01",
+      "mantle02",
+      "mantle02",
+      "mantle03",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "omnicat",
+      "ondo",
+      "ondo-staging",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "pearlnet",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "predicate",
+      "quantoz",
+      "quantoz",
+      "republic-crypto",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "ubisoft",
+      "usdt0",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 10,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "axelar",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "lagrange-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "pearlnet",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "ubisoft",
+      "usdt0",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 14,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "stakingcabin",
+      "stargate",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 25,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 30,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 37,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss",
+      "ubisoft"
+    ]
+  },
+  {
+    "chainId": 40,
+    "dvns": [
+      "bcw",
+      "bitgo",
+      "bitgo",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 50,
+    "dvns": [
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 56,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "axelar",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "eigenzero",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle03",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "omnicat",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "republic-crypto",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 66,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 88,
+    "dvns": [
+      "bcw",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 100,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "deutsche-telekom",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "p-ops-team",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "tss",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 122,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 130,
+    "dvns": [
+      "animoca-blockdaemon",
+      "bitgo",
+      "bitgo",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "stargate",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 137,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "omnicat",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "quantoz",
+      "quantoz",
+      "republic-crypto",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "usdt0",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 146,
+    "dvns": [
+      "bitgo",
+      "canary",
+      "deutsche-telekom",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "muon",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 169,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 196,
+    "dvns": [
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "paxos",
+      "polyhedra-network",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 204,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "polyhedra-network",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 232,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 239,
+    "dvns": [
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 250,
+    "dvns": [
+      "01node",
+      "animoca-blockdaemon",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "flowdesk",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nodes-guru",
+      "omni-x",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "superform",
+      "switchboard",
+      "tss",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 252,
+    "dvns": [
+      "axelar",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 291,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 295,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 324,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss",
+      "ubisoft",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 480,
+    "dvns": [
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 592,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 747,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 957,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 964,
+    "dvns": [
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 999,
+    "dvns": [
+      "bitgo",
+      "canary",
+      "deutsche-telekom",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle03",
+      "mim",
+      "nethermind",
+      "nethermind",
+      "omni-x",
+      "p2p",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 1030,
+    "dvns": [
+      "bcw",
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 1088,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1101,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss",
+      "ubisoft"
+    ]
+  },
+  {
+    "chainId": 1116,
+    "dvns": [
+      "bcw",
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1135,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 1284,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "p-ops-team",
+      "polyhedra-network",
+      "polyhedra-network",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1285,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1329,
+    "dvns": [
+      "bcw",
+      "bitgo",
+      "bitgo",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "polyhedra-network",
+      "stakingcabin",
+      "stargate",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 1480,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 1514,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1625,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nodes-guru",
+      "stakingcabin",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 1729,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1868,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "canary",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1890,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 1923,
+    "dvns": [
+      "bitgo",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1996,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "omni-x",
+      "stakingcabin",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2044,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2222,
+    "dvns": [
+      "axelar",
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2345,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2355,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 2525,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2741,
+    "dvns": [
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "stargate",
+      "ubisoft"
+    ]
+  },
+  {
+    "chainId": 2818,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 3338,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nodes-guru",
+      "p2p",
+      "stakingcabin",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 3637,
+    "dvns": [
+      "deutsche-telekom",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 4200,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "stakingcabin",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 4337,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 5000,
+    "dvns": [
+      "axelar",
+      "bcw",
+      "bware-labs",
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle-bank",
+      "mantle01",
+      "mantle02",
+      "mantle02",
+      "mantle03",
+      "nethermind",
+      "nethermind",
+      "ondo",
+      "ondo-staging",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 7560,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "polyhedra-network",
+      "stakingcabin"
+    ]
+  },
+  {
+    "chainId": 7979,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 8217,
+    "dvns": [
+      "bcw",
+      "canary",
+      "deutsche-telekom",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 8453,
+    "dvns": [
+      "altlayer",
+      "animoca-blockdaemon",
+      "bcw",
+      "bcw",
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "canary",
+      "deutsche-telekom",
+      "frax",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "lagrange-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle-bank",
+      "muon",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "omni-x",
+      "omnicat",
+      "p-ops-team",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "superform",
+      "tss",
+      "ubisoft",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 8822,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 9069,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 11501,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 19011,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "stakingcabin",
+      "tss",
+      "ubisoft"
+    ]
+  },
+  {
+    "chainId": 33139,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 34443,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "polyhedra-network",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 41923,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 42161,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "axelar",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "lagrange-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle-bank",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "omnicat",
+      "ondo",
+      "ondo-staging",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "pearlnet",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "ubisoft",
+      "usdt0",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 42170,
+    "dvns": [
+      "bcw",
+      "bware-labs",
+      "canary",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "polyhedra-network",
+      "polyhedra-network",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 42220,
+    "dvns": [
+      "canary",
+      "deutsche-telekom",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "tss",
+      "usdt0",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 42793,
+    "dvns": [
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "stargate",
+      "tss",
+      "zeeve"
+    ]
+  },
+  {
+    "chainId": 43111,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 43114,
+    "dvns": [
+      "01node",
+      "altlayer",
+      "animoca-blockdaemon",
+      "animoca-blockdaemon",
+      "axelar",
+      "bcw",
+      "bcw",
+      "bera",
+      "bitgo",
+      "bitgo",
+      "blockhunters",
+      "bware-labs",
+      "canary",
+      "ccip",
+      "ccip",
+      "delegate",
+      "deutsche-telekom",
+      "eigenzero",
+      "flowdesk",
+      "frax",
+      "gitcoin",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mercury",
+      "mim",
+      "muon",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "nocturnal-labs",
+      "nodes-guru",
+      "omni-x",
+      "p-ops-team",
+      "p2p",
+      "paxos",
+      "pearlnet",
+      "planetarium-labs",
+      "polyhedra-network",
+      "polyhedra-network",
+      "portal",
+      "republic-crypto",
+      "restake",
+      "stablelab",
+      "stakingcabin",
+      "stakingcabin",
+      "stargate",
+      "superform",
+      "switchboard",
+      "tss",
+      "ubisoft",
+      "usdt0",
+      "zeeve",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 43419,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 48900,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stakingcabin",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 50104,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 53935,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 55244,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 57073,
+    "dvns": [
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "paxos",
+      "stargate",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 59144,
+    "dvns": [
+      "bware-labs",
+      "canary",
+      "deutsche-telekom",
+      "frax",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "muon",
+      "nethermind",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "superform",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 60808,
+    "dvns": [
+      "bitgo",
+      "bware-labs",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 80094,
+    "dvns": [
+      "animoca-blockdaemon",
+      "bera",
+      "bitgo",
+      "canary",
+      "fbtc",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "mantle-bank",
+      "mim",
+      "nansen",
+      "nethermind",
+      "nethermind",
+      "p-ops-team",
+      "p2p",
+      "stargate",
+      "tss",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 81457,
+    "dvns": [
+      "axelar",
+      "bware-labs",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "omnicat",
+      "polyhedra-network",
+      "superform",
+      "tss",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 94524,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 98865,
+    "dvns": [
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "ondo",
+      "ondo-staging",
+      "p2p",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 98866,
+    "dvns": [
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "predicate",
+      "stargate"
+    ]
+  },
+  {
+    "chainId": 167000,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stakingcabin",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 200901,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 534352,
+    "dvns": [
+      "axelar",
+      "bcw",
+      "bware-labs",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "nethermind",
+      "p-ops-team",
+      "p2p",
+      "polyhedra-network",
+      "polyhedra-network",
+      "stargate",
+      "tss",
+      "zenrock"
+    ]
+  },
+  {
+    "chainId": 660279,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 747474,
+    "dvns": [
+      "deutsche-telekom",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 6985385,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 7777777,
+    "dvns": [
+      "bcw",
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "luganodes",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 21000000,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "usdt0"
+    ]
+  },
+  {
+    "chainId": 666666666,
+    "dvns": [
+      "canary",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1313161554,
+    "dvns": [
+      "bcw",
+      "canary",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1380012617,
+    "dvns": [
+      "horizen-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "stargate",
+      "tss"
+    ]
+  }
+]

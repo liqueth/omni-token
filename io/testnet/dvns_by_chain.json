@@ -1,0 +1,809 @@
+[
+  {
+    "chainId": 31,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 41,
+    "dvns": [
+      "bitgo",
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 47,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 71,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 83,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 97,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "delegate",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "mantle01",
+      "nethermind",
+      "p2p",
+      "polyhedra-network",
+      "republic-crypto",
+      "stablelab",
+      "switchboard",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 114,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 123,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 195,
+    "dvns": [
+      "layerzero-labs",
+      "nethermind",
+      "paxos"
+    ]
+  },
+  {
+    "chainId": 240,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 296,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 300,
+    "dvns": [
+      "layerzero-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 335,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 478,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 545,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 919,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 945,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 998,
+    "dvns": [
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "lz-dead-dvn",
+      "mantle01",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 1001,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1075,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 1115,
+    "dvns": [
+      "layerzero-labs",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1287,
+    "dvns": [
+      "bware-labs",
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1301,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 1439,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 1891,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 1924,
+    "dvns": [
+      "bitgo",
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 1946,
+    "dvns": [
+      "bitgo",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 1992,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 2038,
+    "dvns": [
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2201,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 2221,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 2391,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 2442,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 2522,
+    "dvns": [
+      "frax",
+      "layerzero-labs",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 2810,
+    "dvns": [
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 3636,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 3939,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 4002,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "delegate",
+      "gitcoin",
+      "google-cloud",
+      "layerzero-labs",
+      "nethermind",
+      "p2p",
+      "stablelab",
+      "switchboard",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 4202,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 4460,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 4801,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 5003,
+    "dvns": [
+      "layerzero-labs",
+      "mantle01",
+      "mantle01",
+      "mantle01",
+      "mantle02"
+    ]
+  },
+  {
+    "chainId": 5115,
+    "dvns": [
+      "citrea",
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 5611,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 6342,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 6900,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 9000,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 9070,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 9746,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 10143,
+    "dvns": [
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "mantle01",
+      "nethermind",
+      "p2p",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 10200,
+    "dvns": [
+      "bware-labs",
+      "layerzero-labs",
+      "nethermind",
+      "p2p",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 11124,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 13337,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 14800,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 17000,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 33111,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 37111,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 40875,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 43113,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "delegate",
+      "gitcoin",
+      "google-cloud",
+      "horizen-labs",
+      "layerzero-labs",
+      "nethermind",
+      "p2p",
+      "republic-crypto",
+      "stablelab",
+      "switchboard",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 44787,
+    "dvns": [
+      "layerzero-labs",
+      "nethermind",
+      "p2p",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 50312,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 57054,
+    "dvns": [
+      "bitgo",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 59141,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 59902,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 64002,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 80002,
+    "dvns": [
+      null,
+      "bitgo",
+      "bitgo",
+      "blockdaemon",
+      "citrea",
+      "frax",
+      "frax",
+      "frax",
+      "joc",
+      "layerzero-labs",
+      "republic-crypto"
+    ]
+  },
+  {
+    "chainId": 80069,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 84532,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "horizen-labs",
+      "horizen-labs",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 98985,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 128123,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 129399,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 161201,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 167009,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 200810,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 325000,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 421614,
+    "dvns": [
+      "altlayer",
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "citrea",
+      "frax",
+      "frax",
+      "frax",
+      "horizen-labs",
+      "horizen-labs",
+      "joc",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "nethermind",
+      "paxos",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 534351,
+    "dvns": [
+      "bware-labs",
+      "layerzero-labs",
+      "p2p",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 656476,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 657468,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 686868,
+    "dvns": [
+      "layerzero-labs",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 713715,
+    "dvns": [
+      "bitgo",
+      "layerzero-labs",
+      "p2p"
+    ]
+  },
+  {
+    "chainId": 743111,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 763373,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "p2p",
+      "paxos"
+    ]
+  },
+  {
+    "chainId": 3441006,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 7080969,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 11155111,
+    "dvns": [
+      "altlayer",
+      "bware-labs",
+      "bware-labs",
+      "citrea",
+      "delegate",
+      "frax",
+      "frax",
+      "frax",
+      "gitcoin",
+      "google-cloud",
+      "google-cloud",
+      "horizen-labs",
+      "horizen-labs",
+      "horizen-labs",
+      "joc",
+      "layerzero-labs",
+      "layerzero-labs",
+      "lz-dead-dvn",
+      "lz-dead-dvn",
+      "mantle01",
+      "mantle01",
+      "mantle01",
+      "mantle02",
+      "nethermind",
+      "nethermind",
+      "p2p",
+      "p2p",
+      "paxos",
+      "predicate",
+      "stablelab",
+      "switchboard",
+      "tss",
+      "tss",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 11155420,
+    "dvns": [
+      "bitgo",
+      "bitgo",
+      "bware-labs",
+      "citrea",
+      "frax",
+      "frax",
+      "frax",
+      "horizen-labs",
+      "layerzero-labs",
+      "nethermind",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 21000001,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 89346162,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 111557560,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 168587773,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 531050104,
+    "dvns": [
+      "layerzero-labs",
+      "lz-dead-dvn"
+    ]
+  },
+  {
+    "chainId": 999999999,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 1313161555,
+    "dvns": [
+      "layerzero-labs",
+      "tss"
+    ]
+  },
+  {
+    "chainId": 1444673419,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  },
+  {
+    "chainId": 1918988905,
+    "dvns": [
+      "layerzero-labs",
+      "nethermind"
+    ]
+  },
+  {
+    "chainId": 37714555429,
+    "dvns": [
+      "layerzero-labs"
+    ]
+  }
+]

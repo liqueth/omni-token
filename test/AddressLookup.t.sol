@@ -17,81 +17,125 @@ contract AddressLookupTest is Test {
         AddressLookup.KeyValue[] keyValues;
     }
 
-    // setUp() is always run before each test
     function setUp() public {
         config = abi.decode(vm.parseJson(vm.readFile("test/endpoint.json")), (Config));
+        // CREATE2 for proto, so its address is stable across our snapshots
         proto = new AddressLookup{salt: 0x0}();
         assertNotEq(address(proto), address(0), "proto is unexpectedly zero in setup().");
     }
 
-    // Test clone()
+    // -----------------------------
+    // Helpers for chain-id toggling
+    // -----------------------------
+
+    function _predictUnder(uint256 newChainId) internal returns (address predicted, bytes32 salt) {
+        uint256 prev = block.chainid;
+        vm.chainId(newChainId);
+        (predicted, salt) = proto.cloneAddress(config.keyValues);
+        vm.chainId(prev);
+    }
+
+    function _deployUnder(uint256 newChainId) internal returns (address deployed, bytes32 salt) {
+        uint256 prev = block.chainid;
+        vm.chainId(newChainId);
+        (deployed, salt) = proto.clone(config.keyValues);
+        vm.chainId(prev);
+    }
+
+    // ------------------------------------------------------------
+    // Prove determinism across chain IDs (prediction only)
+    // ------------------------------------------------------------
+    function test_AddressLookupSamePredictedAddressAcrossChainIds() public {
+        // Pick any two distinct chain IDs you care about
+        uint256 CHAIN_A = 1;        // Ethereum mainnet
+        uint256 CHAIN_B = 8453;     // Base mainnet (example)
+
+        (address pA, bytes32 sA) = _predictUnder(CHAIN_A);
+        (address pB, bytes32 sB) = _predictUnder(CHAIN_B);
+
+        // If your salt/bytecode/deployer are the same and you don't bake chainid into your salt,
+        // these should be identical.
+        assertEq(pA, pB, "Predicted clone address should be identical across chain IDs");
+        assertEq(sA, sB, "Predicted salt should be identical across chain IDs");
+    }
+
+    // -------------------------------------------------------------------
+    // NEW: Prove determinism across chain IDs with real deployments twice
+    //      Use snapshot/revert so the two deployments don't collide.
+    // -------------------------------------------------------------------
+    function test_AddressLookupSameDeployedAddressAcrossChainIds() public {
+        uint256 CHAIN_A = 1;
+        uint256 CHAIN_B = 8453;
+
+        // Take a clean snapshot of the world right after setUp()
+        uint256 snap = vm.snapshotState();
+
+        // Deploy under CHAIN_A
+        (address dA, bytes32 sA) = _deployUnder(CHAIN_A);
+        assertNotEq(dA, address(0), "Deploy on CHAIN_A failed");
+        assertNotEq(sA, bytes32(0), "Salt unexpectedly zero on CHAIN_A");
+
+        // Roll back state so we can deploy "fresh" again
+        vm.revertToState(snap);
+
+        // Deploy under CHAIN_B
+        (address dB, bytes32 sB) = _deployUnder(CHAIN_B);
+        assertNotEq(dB, address(0), "Deploy on CHAIN_B failed");
+        assertNotEq(sB, bytes32(0), "Salt unexpectedly zero on CHAIN_B");
+
+        // If chain ID is not included in your salt/derivation, these must match
+        assertEq(dA, dB, "Deployed clone address should match across chain IDs");
+        assertEq(sA, sB, "Salt should match across chain IDs");
+    }
+
+    // ----------------------------
+    // Your existing tests (as is)
+    // ----------------------------
+
     function test_AddressLookupClone() public {
-        // Simple canonical deployment
         (address address1, bytes32 salt1) = proto.clone(config.keyValues);
         assertNotEq(address1, address(0), "address1 is unexpectedly zero.");
         assertNotEq(salt1, bytes32(0), "salt2 is unexpectedly zero.");
     }
 
-    // Test redundant clone()
     function test_AddressLookupClone2() public {
-        // Clone for the first time
         (address address1, bytes32 salt1) = proto.clone(config.keyValues);
         assertNotEq(address1, address(0), "address1 is unexpectedly zero.");
         assertNotEq(salt1, bytes32(0), "salt1 is unexpectedly zero.");
 
-        // Test that a second clone looks just like the first clone
         (address address2, bytes32 salt2) = proto.clone(config.keyValues);
         assertNotEq(address2, address(0), "address2 is unexpectedly zero.");
         assertNotEq(salt2, bytes32(0), "salt2 is unexpectedly zero.");
 
-        // Test that the second clone() was returning the same values as the first
         assertEq(address1, address2, "Second clone should return address1.");
         assertEq(salt1, salt2, "Second clone should return same salt as address1.");
     }
 
-    // Test that clone() clones to the address that cloneAddress() predicts
     function test_AddressLookupCloneAddress() public {
-        // Call cloneAddress() and clone() for comparison
         (address address1, bytes32 salt1) = proto.cloneAddress(config.keyValues);
         (address address2, bytes32 salt2) = proto.clone(config.keyValues);
-
-        // Both should return the same address and salt
         assertEq(address1, address2, "cloneAddress() and clone() disagree on deployed address.");
         assertEq(salt1, salt2, "cloneAddress() and clone() return different values for salt.");
     }
 
-    // Test that different KVs affect the resulting address.
     function test_AddressLookupCloneDifferentKVsGivesDifferentAddress() public {
-        // Make a copy of the config KV's and change the first element
         AddressLookup.KeyValue[] memory altered = config.keyValues;
-        altered[0].value = address(42); // mutate
-
-        // Deploy with both sets of KVs
+        altered[0].value = address(42);
         (address address1,) = proto.clone(config.keyValues);
         (address address2,) = proto.clone(altered);
-
-        // Make sure that we get two non-zero address
         assertNotEq(address1, address(0), "clone of KVs failed.");
         assertNotEq(address2, address(0), "clone of modified KVs failed.");
         assertNotEq(address1, address2, "Distinct KVs should yield different clone addresses");
     }
 
-    // Test that empty KVs is acceptable (This should probably be reversed but it's currently allowed)
     function test_AddressLookupEmptyConfigIsDeterministic() public {
-        // Need an empty set of KVs
         AddressLookup.KeyValue[] memory empty;
-
-        // Call cloneAddress() on the empty set of KVs
         (address address1, bytes32 salt1) = proto.cloneAddress(empty);
         assertNotEq(address1, address(0), "cloneAddress() on empty KVs failed.");
         assertNotEq(salt1, 0, "salt1 unexpectedly zero.");
-
-        // Call clone() on the empty set of KVs
         (address address2, bytes32 salt2) = proto.clone(empty);
         assertNotEq(address2, address(0), "clone() on empty KVs failed.");
         assertNotEq(salt2, 0, "salt2 unexpectedly zero.");
-
-        // Expect cloneAddress() and clone() to return the same address and salt
         assertEq(address1, address2, "cloneAddress() and clone() should return the same address.");
         assertEq(salt1, salt2, "cloneAddress() and clone() should return the same salt.");
     }

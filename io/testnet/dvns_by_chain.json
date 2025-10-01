@@ -39,7 +39,6 @@
     "chainId": 97,
     "dvns": [
       "bitgo",
-      "bitgo",
       "bware-labs",
       "delegate",
       "gitcoin",
@@ -94,8 +93,6 @@
     "chainId": 300,
     "dvns": [
       "layerzero-labs",
-      "layerzero-labs",
-      "layerzero-labs",
       "lz-dead-dvn"
     ]
   },
@@ -136,8 +133,6 @@
     "chainId": 998,
     "dvns": [
       "layerzero-labs",
-      "layerzero-labs",
-      "lz-dead-dvn",
       "lz-dead-dvn",
       "mantle01",
       "p2p"
@@ -263,7 +258,6 @@
     "chainId": 2810,
     "dvns": [
       "layerzero-labs",
-      "layerzero-labs",
       "lz-dead-dvn"
     ]
   },
@@ -283,7 +277,6 @@
   {
     "chainId": 4002,
     "dvns": [
-      "bitgo",
       "bitgo",
       "bware-labs",
       "delegate",
@@ -322,8 +315,6 @@
     "chainId": 5003,
     "dvns": [
       "layerzero-labs",
-      "mantle01",
-      "mantle01",
       "mantle01",
       "mantle02"
     ]
@@ -382,7 +373,6 @@
     "chainId": 10143,
     "dvns": [
       "layerzero-labs",
-      "layerzero-labs",
       "lz-dead-dvn",
       "mantle01",
       "nethermind",
@@ -425,7 +415,6 @@
     "chainId": 17000,
     "dvns": [
       "bitgo",
-      "bitgo",
       "bware-labs",
       "layerzero-labs",
       "tss"
@@ -454,7 +443,6 @@
   {
     "chainId": 43113,
     "dvns": [
-      "bitgo",
       "bitgo",
       "bware-labs",
       "delegate",
@@ -518,11 +506,8 @@
     "dvns": [
       null,
       "bitgo",
-      "bitgo",
       "blockdaemon",
       "citrea",
-      "frax",
-      "frax",
       "frax",
       "joc",
       "layerzero-labs",
@@ -540,10 +525,7 @@
     "chainId": 84532,
     "dvns": [
       "bitgo",
-      "bitgo",
       "horizen-labs",
-      "horizen-labs",
-      "layerzero-labs",
       "layerzero-labs",
       "lz-dead-dvn",
       "nethermind",
@@ -602,16 +584,11 @@
     "dvns": [
       "altlayer",
       "bitgo",
-      "bitgo",
       "bware-labs",
       "citrea",
       "frax",
-      "frax",
-      "frax",
-      "horizen-labs",
       "horizen-labs",
       "joc",
-      "layerzero-labs",
       "layerzero-labs",
       "lz-dead-dvn",
       "nethermind",
@@ -691,37 +668,23 @@
     "dvns": [
       "altlayer",
       "bware-labs",
-      "bware-labs",
       "citrea",
       "delegate",
       "frax",
-      "frax",
-      "frax",
       "gitcoin",
       "google-cloud",
-      "google-cloud",
-      "horizen-labs",
-      "horizen-labs",
       "horizen-labs",
       "joc",
       "layerzero-labs",
-      "layerzero-labs",
       "lz-dead-dvn",
-      "lz-dead-dvn",
-      "mantle01",
-      "mantle01",
       "mantle01",
       "mantle02",
       "nethermind",
-      "nethermind",
-      "p2p",
       "p2p",
       "paxos",
       "predicate",
       "stablelab",
       "switchboard",
-      "tss",
-      "tss",
       "tss"
     ]
   },
@@ -729,11 +692,8 @@
     "chainId": 11155420,
     "dvns": [
       "bitgo",
-      "bitgo",
       "bware-labs",
       "citrea",
-      "frax",
-      "frax",
       "frax",
       "horizen-labs",
       "layerzero-labs",

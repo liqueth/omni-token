@@ -1,0 +1,30 @@
+{
+  "env": "testnet",
+  "id": "horizen-labs",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0x98a7ad52b970d9b350fdee17d3892bbe79d0132a"
+    },
+    {
+      "key": 43113,
+      "value": "0xbc00fc17db9ae7c5cc957932688a686cab095936"
+    },
+    {
+      "key": 84532,
+      "value": "0xe1cdd37c13450bc256a39d27b1e1b5d1bc26dde2"
+    },
+    {
+      "key": 421614,
+      "value": "0xc6cec4e6b8f3dc87e676d06a24864081311eda15"
+    },
+    {
+      "key": 11155111,
+      "value": "0x843139c725c2fb9814de6a12fb890d8dbf3e1698"
+    },
+    {
+      "key": 11155420,
+      "value": "0xc041606700ef1ae6c0430d7a6f3013cb6aebdfdb"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "env": "mainnet",
+  "id": "deutsche-telekom",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x373a6e5c0c4e89e24819f00aa37ea370917aaff4"
+    },
+    {
+      "key": 10,
+      "value": "0x427bd19a0463fc4edc2e247d35eb61323d7e5541"
+    },
+    {
+      "key": 50,
+      "value": "0xdfdb9b369ef5821e9e6cb9b3329c74c38fe93194"
+    },
+    {
+      "key": 56,
+      "value": "0xf0a5c5306adbfd4e3dfd5d4b148b451c411d3878"
+    },
+    {
+      "key": 100,
+      "value": "0x93d2d7aadc9f2cf5ebc88e9703e06db09b8fd85b"
+    },
+    {
+      "key": 137,
+      "value": "0x5cccb8de6cdba9d2af9d84465653af7390fdf9dd"
+    },
+    {
+      "key": 146,
+      "value": "0xde79818c75649773fc462e9d3134b23b81741481"
+    },
+    {
+      "key": 239,
+      "value": "0xacde1f22eeab249d3ca6ba8805c8fee9f52a16e7"
+    },
+    {
+      "key": 250,
+      "value": "0x8181f551c95928c0648d4378dc4d95e847bc3945"
+    },
+    {
+      "key": 964,
+      "value": "0x58dff8622759ea75910a08dba5d060579271dcd7"
+    },
+    {
+      "key": 999,
+      "value": "0x32ffd21260172518a8844fec76a88c8f239c384b"
+    },
+    {
+      "key": 1030,
+      "value": "0x45a7305c65aad28384f20a80f87a5183772e4f70"
+    },
+    {
+      "key": 1116,
+      "value": "0xde79818c75649773fc462e9d3134b23b81741481"
+    },
+    {
+      "key": 3637,
+      "value": "0x7a3d18e2324536294cd6f054cdde7c994f40391a"
+    },
+    {
+      "key": 5000,
+      "value": "0x45f1d581f704b3203d0a4eab2a572658d7a2e678"
+    },
+    {
+      "key": 8217,
+      "value": "0xca29b2be45f1d609189dc467e0f1e48ee202ed0e"
+    },
+    {
+      "key": 8453,
+      "value": "0xc2a0c36f5939a14966705c7cec813163faeea1f0"
+    },
+    {
+      "key": 42161,
+      "value": "0xeae839784e5f6c79bbaf34b6023a2f62e134ab39"
+    },
+    {
+      "key": 42220,
+      "value": "0xea928f8e62f3dac51288056015b1d4e3ecfacdac"
+    },
+    {
+      "key": 43114,
+      "value": "0xbe57e9e7d9eb16b92c6383792abe28d64a18c0f1"
+    },
+    {
+      "key": 59144,
+      "value": "0xa2d10677441230c4aed58030e4ea6ba7bfd80393"
+    },
+    {
+      "key": 747474,
+      "value": "0x7cc59b5062a8291804a21a2a793c6ce9ea2f0eb9"
+    }
+  ]
+}

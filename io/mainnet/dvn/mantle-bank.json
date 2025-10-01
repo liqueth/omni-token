@@ -1,0 +1,26 @@
+{
+  "env": "mainnet",
+  "id": "mantle-bank",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x868e6393aea25e8c7e58bc5d4c90a5237c573ff6"
+    },
+    {
+      "key": 5000,
+      "value": "0xb797053fba3d41f5067c4bd74dc334328395c4d2"
+    },
+    {
+      "key": 8453,
+      "value": "0x761bc869351293c5572ed5581e23e7d5d9c6d3d1"
+    },
+    {
+      "key": 42161,
+      "value": "0x50ff206140cadada2d9d510f1a184be9221d86cf"
+    },
+    {
+      "key": 80094,
+      "value": "0x88a8b858c7fcb3fe0052c9b7bcc69183a9cebd76"
+    }
+  ]
+}

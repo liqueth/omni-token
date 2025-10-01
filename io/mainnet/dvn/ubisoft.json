@@ -1,0 +1,46 @@
+{
+  "env": "mainnet",
+  "id": "ubisoft",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0xcc9da5b157ed87e24a9cf562e6a7c05d3c3decd3"
+    },
+    {
+      "key": 10,
+      "value": "0x51accfb59e4bda0f8324934f9789e9ea19fbeff4"
+    },
+    {
+      "key": 37,
+      "value": "0xa51ce237fafa3052d5d3308df38a024724bb1274"
+    },
+    {
+      "key": 324,
+      "value": "0x02a7bf7298d17c12181578ff474c17c922aad75a"
+    },
+    {
+      "key": 1101,
+      "value": "0xd074b6bbcbec2f2b4c4265de3d95e521f82bf669"
+    },
+    {
+      "key": 2741,
+      "value": "0x62aa89bad332788021f6f4f4fb196d5fe59c27a6"
+    },
+    {
+      "key": 8453,
+      "value": "0x505e855810cb243b2f23e95fdbb8f28d22f87a8c"
+    },
+    {
+      "key": 19011,
+      "value": "0x60af1c48abd2f6013e06269292a77b3285e984b9"
+    },
+    {
+      "key": 42161,
+      "value": "0x77aaf86b4466a67869667babe02c6ebe7e7791d6"
+    },
+    {
+      "key": 43114,
+      "value": "0xc86d023c11c5e8aa731f40b65158590624d242af"
+    }
+  ]
+}

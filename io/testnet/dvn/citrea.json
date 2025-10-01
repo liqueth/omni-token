@@ -1,0 +1,26 @@
+{
+  "env": "testnet",
+  "id": "citrea",
+  "keyValues": [
+    {
+      "key": 5115,
+      "value": "0xe7e778f704ebc0598902cbf96c6748f3b96bc8d1"
+    },
+    {
+      "key": 80002,
+      "value": "0x4f9d2bd7942c3e76cfc7323a56b95b4a6a52fdfd"
+    },
+    {
+      "key": 421614,
+      "value": "0x5e352bbde7376f817566927fb00b58d92d97e145"
+    },
+    {
+      "key": 11155111,
+      "value": "0x120be7fabde72292e2a56240610db1ca54ae4000"
+    },
+    {
+      "key": 11155420,
+      "value": "0xf1eb575035fcb1291a4c1801fcac8bd93b4e281b"
+    }
+  ]
+}

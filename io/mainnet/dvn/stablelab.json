@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "stablelab",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x5fddd320a1e29bb466fa635661b125d51d976f92"
+    },
+    {
+      "key": 10,
+      "value": "0xcd37ca043f8479064e10635020c65ffc005d36f6"
+    },
+    {
+      "key": 56,
+      "value": "0xabc9b1819cc4d9846550f928b985993cf6240439"
+    },
+    {
+      "key": 137,
+      "value": "0xabc9b1819cc4d9846550f928b985993cf6240439"
+    },
+    {
+      "key": 250,
+      "value": "0xabc9b1819cc4d9846550f928b985993cf6240439"
+    },
+    {
+      "key": 42161,
+      "value": "0xcd37ca043f8479064e10635020c65ffc005d36f6"
+    },
+    {
+      "key": 43114,
+      "value": "0x5fddd320a1e29bb466fa635661b125d51d976f92"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "env": "mainnet",
+  "id": "luganodes",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x58249a2ec05c1978bf21df1f5ec1847e42455cf4"
+    },
+    {
+      "key": 10,
+      "value": "0xd841a741addcb6dea735d3b8c9faf96ba3f3d30d"
+    },
+    {
+      "key": 56,
+      "value": "0x2c7185f5b0976397d9eb5c19d639d4005e6708f0"
+    },
+    {
+      "key": 100,
+      "value": "0x7cc59b5062a8291804a21a2a793c6ce9ea2f0eb9"
+    },
+    {
+      "key": 130,
+      "value": "0xf02d0f9acc2870e12c34aa3816dd86fac1339f38"
+    },
+    {
+      "key": 137,
+      "value": "0xd1b5493e712081a6fbab73116405590046668f6b"
+    },
+    {
+      "key": 146,
+      "value": "0xc8b7744afd77c3eecf310383837a07584766a51a"
+    },
+    {
+      "key": 239,
+      "value": "0x58249a2ec05c1978bf21df1f5ec1847e42455cf4"
+    },
+    {
+      "key": 250,
+      "value": "0xa6f5ddbf0bd4d03334523465439d301080574742"
+    },
+    {
+      "key": 999,
+      "value": "0x9e451905f65ef78d62b93dac3513486da8429d0a"
+    },
+    {
+      "key": 1329,
+      "value": "0x6e01aa282f058873d28055e07d85f4197e8db261"
+    },
+    {
+      "key": 2741,
+      "value": "0x022da66b230da7efdeed802dfc77ee8dd258e2c8"
+    },
+    {
+      "key": 5000,
+      "value": "0x315b0e76a510607bb0f706b17716f426d5b385b8"
+    },
+    {
+      "key": 8453,
+      "value": "0xa0af56164f02bdf9d75287ee77c568889f11d5f2"
+    },
+    {
+      "key": 42161,
+      "value": "0x54dd79f5ce72b51fcbbcb170dd01e32034323565"
+    },
+    {
+      "key": 42220,
+      "value": "0x82f6ad698f3116ca1b71836a7f1303628fa855db"
+    },
+    {
+      "key": 43114,
+      "value": "0xe4193136b92ba91402313e95347c8e9fad8d27d0"
+    },
+    {
+      "key": 57073,
+      "value": "0x0ad6c9eb13e373154bfb303561b979bac5fa2302"
+    },
+    {
+      "key": 59144,
+      "value": "0x08670e326968d18d4fe359080b8e3eeea552e867"
+    },
+    {
+      "key": 80094,
+      "value": "0xfd4d23eb5cea65f6cc7eec8f3b394e55aed68299"
+    },
+    {
+      "key": 534352,
+      "value": "0xf60c89799c85d8fab79519f7666dcde2a7c97cca"
+    },
+    {
+      "key": 7777777,
+      "value": "0x9fe36b305120556dbeefab58d58877d87b553df5"
+    }
+  ]
+}

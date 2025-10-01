@@ -12,7 +12,8 @@
             .[]
             | .value.id
         ]
+        | unique_by(.)
         | sort_by(.)
     }
 ]
-#| sort_by(.chainId)
+| sort_by(.chainId)

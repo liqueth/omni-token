@@ -1,31 +1,31 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {ImmutableUintToUint} from "../src/ImmutableUintToUint.sol";
-import {IUintToUint} from "../src/interfaces/IUintToUint.sol";
+import {ImmutableUintToAddress} from "../src/ImmutableUintToAddress.sol";
+import {IUintToAddress} from "../src/interfaces/IUintToAddress.sol";
 
 import "forge-std/Test.sol";
 
-contract ImmutableUintToUintTest is Test {
-    ImmutableUintToUint proto;
+contract ImmutableUintToAddressTest is Test {
+    ImmutableUintToAddress proto;
     Config config;
 
     // The contract maps a key and a network to a KV lookup table
     struct Config {
         string env;
         string id;
-        IUintToUint.KeyValue[] keyValues;
+        IUintToAddress.KeyValue[] keyValues;
     }
 
     // setUp() is always run before each test
     function setUp() public {
         config = abi.decode(vm.parseJson(vm.readFile("test/endpointMapper.json")), (Config));
-        proto = new ImmutableUintToUint{salt: 0x0}();
+        proto = new ImmutableUintToAddress{salt: 0x0}();
         assertNotEq(address(proto), address(0), "proto is unexpectedly zero in setup().");
     }
 
     // Test clone()
-    function test_UintToUintClone() public {
+    function test_UintToAddressClone() public {
         // Simple canonical deployment
         (address address1, bytes32 salt1) = proto.clone(config.keyValues);
         assertNotEq(address1, address(0), "address1 is unexpectedly zero.");
@@ -33,7 +33,7 @@ contract ImmutableUintToUintTest is Test {
     }
 
     // Test redundant clone()
-    function test_UintToUintClone2() public {
+    function test_UintToAddressClone2() public {
         // Clone for the first time
         (address address1, bytes32 salt1) = proto.clone(config.keyValues);
         assertNotEq(address1, address(0), "address1 is unexpectedly zero.");
@@ -50,7 +50,7 @@ contract ImmutableUintToUintTest is Test {
     }
 
     // Test that clone() clones to the address that cloneAddress() predicts
-    function test_UintToUintCloneAddress() public {
+    function test_UintToAddressCloneAddress() public {
         // Call cloneAddress() and clone() for comparison
         (address address1, bytes32 salt1) = proto.cloneAddress(config.keyValues);
         (address address2, bytes32 salt2) = proto.clone(config.keyValues);
@@ -61,10 +61,10 @@ contract ImmutableUintToUintTest is Test {
     }
 
     // Test that different KVs affect the resulting address.
-    function test_UintToUintCloneDifferentKVsGivesDifferentAddress() public {
+    function test_UintToAddressCloneDifferentKVsGivesDifferentAddress() public {
         // Make a copy of the config KV's and change the first element
-        IUintToUint.KeyValue[] memory altered = config.keyValues;
-        altered[0].value = 42;
+        IUintToAddress.KeyValue[] memory altered = config.keyValues;
+        altered[0].value = address(42); // mutate
 
         // Deploy with both sets of KVs
         (address address1,) = proto.clone(config.keyValues);
@@ -77,9 +77,9 @@ contract ImmutableUintToUintTest is Test {
     }
 
     // Test that empty KVs is acceptable (This should probably be reversed but it's currently allowed)
-    function test_UintToUintEmptyConfigIsDeterministic() public {
+    function test_UintToAddressEmptyConfigIsDeterministic() public {
         // Need an empty set of KVs
-        IUintToUint.KeyValue[] memory empty;
+        IUintToAddress.KeyValue[] memory empty;
 
         // Call cloneAddress() on the empty set of KVs
         (address address1, bytes32 salt1) = proto.cloneAddress(empty);

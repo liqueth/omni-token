@@ -10,7 +10,7 @@ import "../src/AddressLookup.sol";
 ///   - proto : address of the IAddressLookupProto contract
 ///   - config  : path to JSON config file with { env, id, keyValues }
 /// @dev Example:
-///   proto=io/$chain/AddressLookupProto.json config=io/testnet/blocker.json messaging=io/$chain/messaging.json forge script script/AddressLookupClone.s.sol -f $chain --private-key $tx_key --broadcast
+///   proto=io/$chain/AddressLookupProto.json config=io/testnet/blocker.json clone=io/$chain/messaging/blocker.json forge script script/AddressLookupClone.s.sol -f $chain --private-key $tx_key --broadcast
 contract AddressLookupClone is Script {
     struct Config {
         string env;
@@ -41,8 +41,7 @@ contract AddressLookupClone is Script {
         }
 
         console2.log("actual   :", actual);
-        console2.log("action   :", action);
 
-        vm.writeJson(vm.toString(actual), vm.envString("messaging"), string.concat(".", config.id));
+        vm.writeJson(vm.serializeAddress("tmp", config.id, actual), vm.envString("clone"));
     }
 }

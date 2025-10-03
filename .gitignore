@@ -1,5 +1,6 @@
 # Compiler files
 cache/
+lib/
 out/
 
 # Ignores development broadcast logs
@@ -10,8 +11,12 @@ out/
 # Docs
 docs/
 
-# Dotenv file
+# Shell variable files
+env.sh
 .env
+
+# Locks
+*.lock
 
 # Spotlight
 .DS_Store

@@ -2,8 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import "./interfaces/IUintToAddressProto.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
+import {IUintToAddressProto, IUintToAddress} from "./interfaces/IUintToAddressProto.sol";
+import {Assertions} from "./Assertions.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Immutable map from uint256 to address with no governance or upgrade risk.
 /// The implementation is also a factory, allowing anyone to easily deploy an instance.
@@ -46,19 +47,20 @@ contract ImmutableUintToAddress is IUintToAddressProto {
         }
     }
 
+    using Assertions for address;
+
     /// @inheritdoc IUintToAddressProto
-    function cloneAddress(KeyValue[] memory kvs) public view returns (address clone_, bytes32 salt) {
+    function cloneAddress(KeyValue[] memory kvs) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(kvs));
-        clone_ = Clones.predictDeterministicAddress(address(this), salt);
+        expected = Clones.predictDeterministicAddress(address(this), salt);
     }
 
     /// @inheritdoc IUintToAddressProto
-    function clone(KeyValue[] memory kvs) public returns (address clone_, bytes32 salt) {
-        (clone_, salt) = cloneAddress(kvs);
-        if (clone_.code.length == 0) {
-            Clones.cloneDeterministic(address(this), salt);
-            ImmutableUintToAddress(clone_).__init(kvs);
-            return (clone_, salt);
+    function clone(KeyValue[] memory kvs) public returns (address expected, bytes32 salt) {
+        (expected, salt) = cloneAddress(kvs);
+        if (expected.code.length == 0) {
+            Clones.cloneDeterministic(address(this), salt).assertEqual(expected);
+            ImmutableUintToAddress(expected).__init(kvs);
         }
     }
 

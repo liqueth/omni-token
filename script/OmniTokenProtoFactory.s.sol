@@ -6,7 +6,7 @@ import "forge-std/Script.sol";
 import "../src/OmniTokenProtoFactory.sol";
 
 /// @notice Deploy the OmniTokenProtoFactory contract.
-/// @dev Usage: proto=io/$chain/OmniTokenProtoFactory.json forge script script/OmniTokenProtoFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
+/// @dev Usage: factory=io/$chain/OmniTokenProtoFactory.json forge script script/OmniTokenProtoFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 contract OmniTokenProtoFactoryCreate is Script {
     function run() external {
         console2.log("script   : OmniTokenProtoFactoryCreate");
@@ -21,6 +21,6 @@ contract OmniTokenProtoFactoryCreate is Script {
             console2.log("already deployed");
         }
 
-        vm.writeJson(vm.toString(predicted), vm.envString("proto"));
+        vm.writeJson(vm.toString(predicted), vm.envString("factory"));
     }
 }

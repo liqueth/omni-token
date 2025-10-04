@@ -13,9 +13,10 @@ contract OmniTokenProtoFactory is IOmniTokenProtoFactory {
 
     /// @inheritdoc IOmniTokenProtoFactory
     function create(IMessagingConfig config) external returns (address thing) {
-        thing = createAddress(config);
-        if (thing.code.length == 0) {
+        address predicted = createAddress(config);
+        if (predicted.code.length == 0) {
             thing = address(new OmniToken(config));
+            require(thing == predicted, "Predicted address not actually deployed");
             emit Created(thing);
         }
     }

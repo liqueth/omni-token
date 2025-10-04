@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import "./IUintToAddress.sol";
+import {IUintToAddress} from "./IUintToAddress.sol";
 
 /// @notice Deploy clones of IUintToAddress.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)

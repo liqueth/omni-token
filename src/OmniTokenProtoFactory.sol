@@ -10,8 +10,6 @@ import {Assertions} from "./Assertions.sol";
 /// @notice Factory to idempotently deploy new OmniToken implementations.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OmniTokenProtoFactory is IOmniTokenProtoFactory {
-    address constant NICKS_CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
-
     using Assertions for address;
 
     /// @inheritdoc IOmniTokenProtoFactory
@@ -24,10 +22,10 @@ contract OmniTokenProtoFactory is IOmniTokenProtoFactory {
     }
 
     /// @inheritdoc IOmniTokenProtoFactory
-    function createAddress(IMessagingConfig config) public pure returns (address expected) {
+    function createAddress(IMessagingConfig config) public view returns (address expected) {
         bytes memory args = abi.encode(config);
         bytes memory initCode = abi.encodePacked(type(OmniToken).creationCode, args);
-        expected = create2Address(NICKS_CREATE2_DEPLOYER, 0x0, initCode);
+        expected = create2Address(address(this), 0x0, initCode);
     }
 
     function create2Address(address deployer, bytes32 salt, bytes memory initCode) public pure returns (address) {

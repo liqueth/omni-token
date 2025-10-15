@@ -1,8 +1,8 @@
 {
-  "blocker": null,
-  "endpoint": null,
-  "endpointMapper": null,
-  "executor": null,
-  "receiver": null,
-  "sender": null
+  "blocker": "0xe07fb686019f413dE12BCce7BeB19f2983de3915",
+  "endpoint": "0x12dE827DF4feacE4f8ec1825C7FFdbD66aC06339",
+  "endpointMapper": "0x0A27894AceccF88bAA5874035c469B16F790b58e",
+  "executor": "0x47e1C47fd36d26Ded2ee04EB118BdF6dbc6ec130",
+  "receiver": "0x3d6080Bcf7cf7E1E183a9F1E99654ea0190BE2D4",
+  "sender": "0xA4Bc119e8D259Aceebe07c3566C63e6600017cC0"
 }

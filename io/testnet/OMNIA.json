@@ -16,6 +16,6 @@
   ],
   "name": "Omni Alpha",
   "owner": "0x0",
-  "receiverGasLimit": 35000,
+  "receiverGasLimit": 200000,
   "symbol": "OMNIA"
 }

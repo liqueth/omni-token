@@ -203,6 +203,6 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
     /// so the maximum representable supply is 2^64 - 1 units,
     /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
     function sharedDecimals() public view virtual override returns (uint8) {
-        return 18;
+        return 6;
     }
 }

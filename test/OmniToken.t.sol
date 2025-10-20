@@ -71,36 +71,16 @@ contract OmniTokenTest is Test {
         factory = new OmniToken(appConfig);
 
         config = IOmniTokenProto.Config({
-            issuer: issuer,
-            mints: mints,
-            name: name,
-            owner: allocTo,
-            receiverGasLimit: rgl,
-            symbol: symbol
+            issuer: issuer, mints: mints, name: name, owner: allocTo, receiverGasLimit: rgl, symbol: symbol
         });
         config1 = IOmniTokenProto.Config({
-            issuer: issuer,
-            mints: mints,
-            name: name1,
-            owner: allocTo,
-            receiverGasLimit: rgl,
-            symbol: name1
+            issuer: issuer, mints: mints, name: name1, owner: allocTo, receiverGasLimit: rgl, symbol: name1
         });
         config2a = IOmniTokenProto.Config({
-            issuer: issuer,
-            mints: mints,
-            name: name2,
-            owner: allocTo,
-            receiverGasLimit: rgl,
-            symbol: name2
+            issuer: issuer, mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2
         });
         config2b = IOmniTokenProto.Config({
-            issuer: issuer,
-            mints: mints,
-            name: name2,
-            owner: allocTo,
-            receiverGasLimit: rgl,
-            symbol: name2
+            issuer: issuer, mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2
         });
     }
 
@@ -156,12 +136,7 @@ contract OmniTokenTest is Test {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniTokenBridger.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOmniTokenProto.Config({
-            issuer: issuer,
-            mints: badMints,
-            owner: allocTo,
-            name: name,
-            receiverGasLimit: rgl,
-            symbol: symbol
+            issuer: issuer, mints: badMints, owner: allocTo, name: name, receiverGasLimit: rgl, symbol: symbol
         });
         factory.clone(badConfig);
     }

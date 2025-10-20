@@ -7,6 +7,7 @@ import {IOmniTokenProto} from "./interfaces/IOmniTokenProto.sol";
 import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
+import {Assertions} from "./Assertions.sol";
 
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
@@ -62,20 +63,22 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
         return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
+    using Assertions for address;
+
     /// @inheritdoc IOmniTokenProto
-    function clone(Config memory config) public returns (address clone_, bytes32 salt) {
-        (clone_, salt) = cloneAddress(config);
-        if (clone_.code.length == 0) {
-            clone_ = Clones.cloneDeterministic(prototype, salt);
-            OmniToken(clone_).__OmniToken_init(config);
-            emit Cloned(config.issuer, config.owner, clone_, config.name, config.symbol);
+    function clone(Config memory config) public returns (address expected, bytes32 salt) {
+        (expected, salt) = cloneAddress(config);
+        if (expected.code.length == 0) {
+            Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
+            OmniToken(expected).__OmniToken_init(config);
+            emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
         }
     }
 
     /// @inheritdoc IOmniTokenProto
-    function cloneAddress(Config memory config) public view returns (address clone_, bytes32 salt) {
+    function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        clone_ = Clones.predictDeterministicAddress(prototype, salt);
+        expected = Clones.predictDeterministicAddress(prototype, salt);
     }
 
     /// @inheritdoc IOmniTokenMinter
@@ -200,6 +203,6 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
     /// so the maximum representable supply is 2^64 - 1 units,
     /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
     function sharedDecimals() public view virtual override returns (uint8) {
-        return 18;
+        return 6;
     }
 }

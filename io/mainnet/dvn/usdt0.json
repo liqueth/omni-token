@@ -1,0 +1,70 @@
+{
+  "env": "mainnet",
+  "id": "usdt0",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x3b0531eb02ab4ad72e7a531180beef9493a00dd2"
+    },
+    {
+      "key": 10,
+      "value": "0x947bb89919d1e5996d6c46223626ac2e97bcf8a3"
+    },
+    {
+      "key": 14,
+      "value": "0x7cec38c06a2fec9fd525b1925544110204cbb5f6"
+    },
+    {
+      "key": 30,
+      "value": "0xbabbb709b3cefe563f2ab14898a53301686d48b9"
+    },
+    {
+      "key": 130,
+      "value": "0x208894346d2995a26493f8c2a5b04fb1ee41a899"
+    },
+    {
+      "key": 137,
+      "value": "0xdd3d71ff05d9206c69c667d22b3a0970009780e4"
+    },
+    {
+      "key": 196,
+      "value": "0x6de0d56e2d695db9e2b4fbeca3d81372c59848bb"
+    },
+    {
+      "key": 999,
+      "value": "0xae016a939935d6fe6185900d4c7c7c9b27366cac"
+    },
+    {
+      "key": 1030,
+      "value": "0x38179d3bfa6ef1d69a8a7b0b671ba3d8836b2ae8"
+    },
+    {
+      "key": 1329,
+      "value": "0x8efb6b7dc61c6b6638714747d5e6b81a3512b5c3"
+    },
+    {
+      "key": 42161,
+      "value": "0xa8b8575fa41c305953f519c7d288cd7741727c7b"
+    },
+    {
+      "key": 42220,
+      "value": "0x18f76f0d8ccd176bbe59b3870fa486d1fff87026"
+    },
+    {
+      "key": 43114,
+      "value": "0x375c76c6e8ec55a358e6a8c72fe233d0d4a96bee"
+    },
+    {
+      "key": 57073,
+      "value": "0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d"
+    },
+    {
+      "key": 80094,
+      "value": "0xd01ae6905d48315f7be10c7330aecf8360ef5b12"
+    },
+    {
+      "key": 21000000,
+      "value": "0x91f93749e44c7b6510dcd236aeade39dfc901d49"
+    }
+  ]
+}

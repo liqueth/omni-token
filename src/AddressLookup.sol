@@ -2,9 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import "./interfaces/IAddressLookup.sol";
-import "./interfaces/IAddressLookupProto.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
+import {IAddressLookup} from "./interfaces/IAddressLookup.sol";
+import {IAddressLookupProto} from "./interfaces/IAddressLookupProto.sol";
+import {Assertions} from "./Assertions.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 /// @notice Immutably map a single predictable contract address to a chain specific address.
 /// The same contract deployed to the same address on different chains can return
@@ -21,16 +22,18 @@ contract AddressLookup is IAddressLookup, IAddressLookupProto {
         return _value;
     }
 
+    using Assertions for address;
+
     /// @inheritdoc IAddressLookupProto
-    function cloneAddress(KeyValue[] memory keyValues) public view returns (address clone_, bytes32 salt) {
+    function cloneAddress(KeyValue[] memory keyValues) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(keyValues));
-        clone_ = Clones.predictDeterministicAddress(address(this), salt);
+        expected = Clones.predictDeterministicAddress(address(this), salt);
     }
 
     /// @inheritdoc IAddressLookupProto
-    function clone(KeyValue[] memory keyValues) public returns (address clone_, bytes32 salt) {
-        (clone_, salt) = cloneAddress(keyValues);
-        if (clone_.code.length == 0) {
+    function clone(KeyValue[] memory keyValues) public returns (address expected, bytes32 salt) {
+        (expected, salt) = cloneAddress(keyValues);
+        if (expected.code.length == 0) {
             address value_;
             for (uint256 i; i < keyValues.length; ++i) {
                 if (keyValues[i].key == block.chainid) {
@@ -38,8 +41,8 @@ contract AddressLookup is IAddressLookup, IAddressLookupProto {
                     break;
                 }
             }
-            Clones.cloneDeterministic(address(this), salt);
-            AddressLookup(clone_).__AddressLookup_init(value_);
+            Clones.cloneDeterministic(address(this), salt).assertEqual(expected);
+            AddressLookup(expected).__AddressLookup_init(value_);
         }
     }
 

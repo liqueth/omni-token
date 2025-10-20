@@ -44,6 +44,6 @@ contract UintToUintClone is Script {
 
         // Result logs
 
-        vm.writeJson(vm.toString(clone), vm.envString("clone"), string.concat(".", config.id));
+        vm.writeJson(vm.serializeAddress("tmp", config.id, clone), vm.envString("clone"));
     }
 }

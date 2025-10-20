@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "portal",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x92ef4381a03372985985e70fb15e9f081e2e8d14"
+    },
+    {
+      "key": 10,
+      "value": "0xdf30c9f6a70ce65a152c5bd09826525d7e97ba49"
+    },
+    {
+      "key": 56,
+      "value": "0xbd40c9047980500c46b8aed4462e2f889299febe"
+    },
+    {
+      "key": 137,
+      "value": "0x8fc629aa400d4d9c0b118f2685a49316552abf27"
+    },
+    {
+      "key": 250,
+      "value": "0xbd40c9047980500c46b8aed4462e2f889299febe"
+    },
+    {
+      "key": 42161,
+      "value": "0x539008c98b17803a273edf98aba2d4414ee3f4d7"
+    },
+    {
+      "key": 43114,
+      "value": "0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff"
+    }
+  ]
+}

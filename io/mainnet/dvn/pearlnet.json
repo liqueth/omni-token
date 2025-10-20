@@ -1,0 +1,22 @@
+{
+  "env": "mainnet",
+  "id": "pearlnet",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24"
+    },
+    {
+      "key": 10,
+      "value": "0xabc9b1819cc4d9846550f928b985993cf6240439"
+    },
+    {
+      "key": 42161,
+      "value": "0xabc9b1819cc4d9846550f928b985993cf6240439"
+    },
+    {
+      "key": 43114,
+      "value": "0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24"
+    }
+  ]
+}

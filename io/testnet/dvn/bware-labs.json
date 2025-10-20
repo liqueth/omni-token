@@ -1,0 +1,46 @@
+{
+  "env": "testnet",
+  "id": "bware-labs",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0x35fa068ec18631719a7f6253710ba29ab5c5f3b7"
+    },
+    {
+      "key": 1287,
+      "value": "0xcc9a31f253970ad46cb45e6db19513e2248ed1fe"
+    },
+    {
+      "key": 4002,
+      "value": "0x312f5c396cf78a80f6fac979b55a4ddde44031f0"
+    },
+    {
+      "key": 10200,
+      "value": "0x1c4fc6f1e44eaaef53ac701b7cc4c280f536fa75"
+    },
+    {
+      "key": 17000,
+      "value": "0xd0d47c34937ddbebbe698267a6bbb1dace51198d"
+    },
+    {
+      "key": 43113,
+      "value": "0x0d88ab4c8e8f89d8d758cbd5a6373f86f7bd737b"
+    },
+    {
+      "key": 421614,
+      "value": "0x9f529527a6810f1b661fb2aeea19378ce5a2c23e"
+    },
+    {
+      "key": 534351,
+      "value": "0xca01daa8e559cb6a810ce7906ec2aea39bdecce4"
+    },
+    {
+      "key": 11155111,
+      "value": "0xca7a736be0fe968a33af62033b8b36d491f7999b"
+    },
+    {
+      "key": 11155420,
+      "value": "0x3e9d8fa8067938f2a62baa7114eed183040824ab"
+    }
+  ]
+}

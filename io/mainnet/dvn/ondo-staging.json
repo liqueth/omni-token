@@ -1,0 +1,22 @@
+{
+  "env": "mainnet",
+  "id": "ondo-staging",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0xf34d1b07c64c4f4d492ae3ddd0aab0658a2975eb"
+    },
+    {
+      "key": 5000,
+      "value": "0x377b51593a03b82543c1508fe7e75aba6acde008"
+    },
+    {
+      "key": 42161,
+      "value": "0x2f2f1c6025e8da125e2afd73ba17d3cbdfe3d093"
+    },
+    {
+      "key": 98865,
+      "value": "0xcbfb74e751052404dcdab09494e5a502f9be0438"
+    }
+  ]
+}

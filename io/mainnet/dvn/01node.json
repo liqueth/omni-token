@@ -1,0 +1,34 @@
+{
+  "env": "mainnet",
+  "id": "01node",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x58dff8622759ea75910a08dba5d060579271dcd7"
+    },
+    {
+      "key": 10,
+      "value": "0x969a0bdd86a230345ad87a6a381de5ed9e6cda85"
+    },
+    {
+      "key": 56,
+      "value": "0x8fc629aa400d4d9c0b118f2685a49316552abf27"
+    },
+    {
+      "key": 137,
+      "value": "0xf0809f6e760a5452ee567975eda7a28da4a83d38"
+    },
+    {
+      "key": 250,
+      "value": "0x8fc629aa400d4d9c0b118f2685a49316552abf27"
+    },
+    {
+      "key": 42161,
+      "value": "0x7a205ed4e3d7f9d0777594501705d8cd405c3b05"
+    },
+    {
+      "key": 43114,
+      "value": "0xa80aa110f05c9c6140018aae0c4e08a70f43350d"
+    }
+  ]
+}

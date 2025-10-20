@@ -1,0 +1,22 @@
+{
+  "env": "mainnet",
+  "id": "mantle03",
+  "keyValues": [
+    {
+      "key": 1,
+      "value": "0x554833698ae0fb22ecc90b01222903fd62ca4b47"
+    },
+    {
+      "key": 56,
+      "value": "0xec65a0245c19a084650cb5b85fd1a2bc7b0fd452"
+    },
+    {
+      "key": 999,
+      "value": "0xbbd228fa47a8e80fbbfb778abc56031fa2c038ce"
+    },
+    {
+      "key": 5000,
+      "value": "0x78203678d264063815dac114ea810e9837cd80f7"
+    }
+  ]
+}

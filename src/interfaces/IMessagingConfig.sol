@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import "./IUintToUint.sol";
-import "./IAddressLookup.sol";
+import {IUintToUint} from "./IUintToUint.sol";
+import {IAddressLookup} from "./IAddressLookup.sol";
 
 /// @notice Read-only interface with the wiring required by
 /// [LayerZero V2 Interchain Messaging](https://docs.layerzero.network/v2/developers/evm/overview).

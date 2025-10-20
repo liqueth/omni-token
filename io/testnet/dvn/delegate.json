@@ -1,0 +1,18 @@
+{
+  "env": "testnet",
+  "id": "delegate",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0xcd02c60d6a23966bd74d435df235a941b35f4f5f"
+    },
+    {
+      "key": 4002,
+      "value": "0x427859dcf157e29fda324c2cd90b17fa33d0e300"
+    },
+    {
+      "key": 43113,
+      "value": "0xe0f3389bf8a8aa1576b420d888cd462483fdc2a0"
+    }
+  ]
+}

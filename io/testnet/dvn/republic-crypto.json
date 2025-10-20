@@ -1,0 +1,18 @@
+{
+  "env": "testnet",
+  "id": "republic-crypto",
+  "keyValues": [
+    {
+      "key": 97,
+      "value": "0x33ba0e70d74c72d3633870904244b57edfb35df7"
+    },
+    {
+      "key": 43113,
+      "value": "0xefdd92121acb3acd6e2f09dd810752d8da3dfdaf"
+    },
+    {
+      "key": 80002,
+      "value": "0x35cea726508192472919c51951042dd140794b01"
+    }
+  ]
+}

@@ -3,9 +3,12 @@
 pragma solidity ^0.8.20;
 
 import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
+import {IOmniTokenProto} from "./interfaces/IOmniTokenProto.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
+import {Assertions} from "./Assertions.sol";
 
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -31,7 +34,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenManager {
+abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProto, IOmniTokenManager {
     function token() public view virtual returns (address);
 
     /// @inheritdoc IOmniTokenBridger
@@ -64,6 +67,24 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenMana
             && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
     }
 
+    using Assertions for address;
+
+    /// @inheritdoc IOmniTokenProto
+    function clone(Config memory config) public returns (address expected, bytes32 salt) {
+        (expected, salt) = cloneAddress(config);
+        if (expected.code.length == 0) {
+            Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
+            OFTDeterministic(expected).initialize(config);
+            emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
+        }
+    }
+
+    /// @inheritdoc IOmniTokenProto
+    function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
+        salt = keccak256(abi.encode(config));
+        expected = Clones.predictDeterministicAddress(prototype, salt);
+    }
+
     /// @inheritdoc IOmniTokenManager
     function setReceiverGasLimit(uint128 newLimit) external onlyOwner {
         _receiverGasLimit = newLimit;
@@ -83,15 +104,23 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenMana
     /// @dev Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
     uint128 private _receiverGasLimit;
 
-    constructor(uint8 localDecimals_, IMessagingConfig messagingConfig_)
-        OFTCore(localDecimals_, messagingConfig_.endpoint().value(), address(this))
-        Ownable(address(this))
+    constructor(uint8 localDecimals_, IMessagingConfig messagingConfig_, address delegate_)
+        OFTCore(localDecimals_, messagingConfig_.endpoint().value(), delegate_)
+        Ownable(delegate_)
     {
         prototype = address(this);
         messagingConfig = messagingConfig_;
     }
 
-    function __OFTDeterministic_init() internal {
+    function initialize(Config memory config) public virtual {
+        if (_receiverGasLimit != 0) {
+            revert InitializedAlready();
+        }
+        if (config.receiverGasLimit == 0) {
+            revert InitializedAlready();
+        }
+        _receiverGasLimit = config.receiverGasLimit;
+
         // Get the actual endpoint and sender and receiver libraries via their AddressLookup aliases.
         address sender = messagingConfig.sender().value();
         address receiver = messagingConfig.receiver().value();
@@ -110,6 +139,8 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenMana
                 }
             }
         }
+
+        _transferOwnership(config.owner);
     }
 
     using OptionsBuilder for bytes;

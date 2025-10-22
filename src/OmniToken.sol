@@ -2,23 +2,12 @@
 
 pragma solidity ^0.8.20;
 
-import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
-import {IOmniTokenProto} from "./interfaces/IOmniTokenProto.sol";
+import {OFTDeterministic} from "./OFTDeterministic.sol";
 import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
-import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
-import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
-import {Assertions} from "./Assertions.sol";
+import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
 
-import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-import {OFT} from "@layerzerolabs/oft-evm/contracts/oft/OFT.sol";
-import {ILayerZeroEndpointV2} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
-import {IMessageLib} from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
-import {MessagingFee} from "@layerzerolabs/oapp-evm/contracts/oapp/OApp.sol";
-import {MessagingReceipt, OFTReceipt, SendParam} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
-import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/OptionsBuilder.sol";
 
 /// @notice Cross-chain ERC-20 token using LayerZero OFT for trustless transfers across EVM chains.
 /// @dev Key features:
@@ -35,52 +24,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter, IOmniTokenManager {
-    /// @inheritdoc IOmniTokenBridger
-    function bridge(uint256 toChain, uint256 amount)
-        external
-        payable
-        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
-    {
-        SendParam memory param = sendParam(toChain, amount);
-        MessagingFee memory msgFee = MessagingFee(msg.value, 0);
-        transfer(address(this), amount);
-        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
-    }
-
-    /// @inheritdoc IOmniTokenBridger
-    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
-        SendParam memory param = sendParam(toChain, amount);
-        MessagingFee memory msgFee = this.quoteSend(param, false);
-        fee = msgFee.nativeFee;
-    }
-
-    /// @inheritdoc IOmniTokenBridger
-    function bridgeable(uint256 chainId) external view returns (bool) {
-        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(chainId));
-        address sender = messagingConfig.sender().value();
-        address receiver = messagingConfig.receiver().value();
-        return (eid != 0) && IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid);
-    }
-
-    using Assertions for address;
-
-    /// @inheritdoc IOmniTokenProto
-    function clone(Config memory config) public returns (address expected, bytes32 salt) {
-        (expected, salt) = cloneAddress(config);
-        if (expected.code.length == 0) {
-            Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
-            OmniToken(expected).__OmniToken_init(config);
-            emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
-        }
-    }
-
-    /// @inheritdoc IOmniTokenProto
-    function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
-        salt = keccak256(abi.encode(config));
-        expected = Clones.predictDeterministicAddress(prototype, salt);
-    }
-
+contract OmniToken is OFTDeterministic, ERC20, IOmniTokenMinter {
     /// @inheritdoc IOmniTokenMinter
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
@@ -93,39 +37,22 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
         emit Burned(amount);
     }
 
-    /// @inheritdoc IOmniTokenManager
-    function setReceiverGasLimit(uint128 newLimit) external onlyOwner {
-        _receiverGasLimit = newLimit;
-        emit ReceiverGasLimitUpdated(newLimit);
-    }
-
-    /// @inheritdoc IOmniTokenManager
-    function receiverGasLimit() external view returns (uint128) {
-        return _receiverGasLimit;
-    }
-
-    /// @dev Immutable implementation/factory is the same for all clones.
-    address public immutable prototype;
-    /// @dev Immutable configuration is the same for all clones.
-    IMessagingConfig public immutable messagingConfig;
-
     /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
     string internal _name;
     /// @dev Mask the ERC-20 symbol to support initialization in clones wihout requiring an upgradeable ERC-20.
     string internal _symbol;
 
-    /// @dev Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
-    uint128 private _receiverGasLimit;
-
     constructor(IMessagingConfig messagingConfig_)
-        OFT("", "", messagingConfig_.endpoint().value(), address(this))
-        Ownable(address(this))
+        OFTDeterministic(18, messagingConfig_, address(this))
+        ERC20("OmniToken Prototype", "OMNIPROT")
     {
         prototype = address(this);
         messagingConfig = messagingConfig_;
     }
 
-    function __OmniToken_init(Config memory config) public {
+    function initialize(Config memory config) public virtual override {
+        super.initialize(config);
+
         if (bytes(_symbol).length != 0) {
             revert InitializedAlready();
         }
@@ -135,7 +62,6 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
 
         _name = config.name;
         _symbol = config.symbol;
-        _receiverGasLimit = config.receiverGasLimit;
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {
             uint256 chain = mints[i][0];
@@ -146,45 +72,6 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
                 }
             }
         }
-
-        // Get the actual endpoint and sender and receiver libraries via their AddressLookup aliases.
-        address sender = messagingConfig.sender().value();
-        address receiver = messagingConfig.receiver().value();
-        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(messagingConfig.endpoint().value());
-
-        IUintToUint endpointMapper = IUintToUint(messagingConfig.endpointMapper());
-        IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();
-        for (uint256 i = 0; i < c2e.length; i++) {
-            uint256 chain = c2e[i].key;
-            if (chain != block.chainid) {
-                uint32 eid = uint32(c2e[i].value);
-                if (IMessageLib(sender).isSupportedEid(eid) && IMessageLib(receiver).isSupportedEid(eid)) {
-                    endpoint.setSendLibrary(address(this), eid, sender);
-                    endpoint.setReceiveLibrary(address(this), eid, receiver, 0);
-                    _setPeer(eid, bytes32(uint256(uint160(address(this)))));
-                }
-            }
-        }
-
-        _transferOwnership(config.owner);
-    }
-
-    using OptionsBuilder for bytes;
-
-    /// @dev Help construct SendParam for a given destination chain and amount.
-    function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
-        uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(toChain));
-        if (eid == 0) {
-            revert UnsupportedDestinationChain(toChain);
-        }
-        bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(_receiverGasLimit, 0);
-        param.dstEid = eid;
-        param.to = bytes32(uint256(uint160(msg.sender)));
-        param.amountLD = amount;
-        param.minAmountLD = amount;
-        param.extraOptions = extraOptions;
-        param.composeMsg = "";
-        param.oftCmd = "";
     }
 
     /// @inheritdoc IERC20Metadata
@@ -197,12 +84,73 @@ contract OmniToken is OFT, IOmniTokenBridger, IOmniTokenProto, IOmniTokenMinter,
         return _symbol;
     }
 
-    /// @notice Shared decimals used for cross-chain messaging.
-    /// Setting this to 18 means 1 LD == 1 SD (no rounding).
-    /// Cross-chain amounts are encoded as uint64 in SD units,
-    /// so the maximum representable supply is 2^64 - 1 units,
-    /// i.e. ~1.84e19 wei-units (~18.4 billion whole tokens at 18 decimals).
-    function sharedDecimals() public view virtual override returns (uint8) {
-        return 6;
+    //// The following functions are overrides required by OFT and copied from OFT.sol
+
+    /**
+     * @dev Retrieves the address of the underlying ERC20 implementation.
+     * @return The address of the OFT token.
+     *
+     * @dev In the case of OFT, address(this) and erc20 are the same contract.
+     */
+    function token() public view virtual override returns (address) {
+        return address(this);
+    }
+
+    /**
+     * @notice Indicates whether the OFT contract requires approval of the 'token()' to send.
+     * @return requiresApproval Needs approval of the underlying token implementation.
+     *
+     * @dev In the case of OFT where the contract IS the token, approval is NOT required.
+     */
+    function approvalRequired() external pure virtual returns (bool) {
+        return false;
+    }
+
+    /**
+     * @dev Burns tokens from the sender's specified balance.
+     * @param _from The address to debit the tokens from.
+     * @param _amountLD The amount of tokens to send in local decimals.
+     * @param _minAmountLD The minimum amount to send in local decimals.
+     * @param _dstEid The destination chain ID.
+     * @return amountSentLD The amount sent in local decimals.
+     * @return amountReceivedLD The amount received in local decimals on the remote.
+     */
+    function _debit(address _from, uint256 _amountLD, uint256 _minAmountLD, uint32 _dstEid)
+        internal
+        virtual
+        override
+        returns (uint256 amountSentLD, uint256 amountReceivedLD)
+    {
+        (amountSentLD, amountReceivedLD) = _debitView(_amountLD, _minAmountLD, _dstEid);
+
+        // @dev In NON-default OFT, amountSentLD could be 100, with a 10% fee, the amountReceivedLD amount is 90,
+        // therefore amountSentLD CAN differ from amountReceivedLD.
+
+        // @dev Default OFT burns on src.
+        _burn(_from, amountSentLD);
+    }
+
+    /**
+     * @dev Credits tokens to the specified address.
+     * @param _to The address to credit the tokens to.
+     * @param _amountLD The amount of tokens to credit in local decimals.
+     * @dev _srcEid The source chain ID.
+     * @return amountReceivedLD The amount of tokens ACTUALLY received in local decimals.
+     */
+    function _credit(
+        address _to,
+        uint256 _amountLD,
+        uint32 /*_srcEid*/
+    )
+        internal
+        virtual
+        override
+        returns (uint256 amountReceivedLD)
+    {
+        if (_to == address(0x0)) _to = address(0xdead); // _mint(...) does not support address(0x0)
+        // @dev Default OFT mints on dst.
+        _mint(_to, _amountLD);
+        // @dev In the case of NON-default OFT, the _amountLD MIGHT not be == amountReceivedLD.
+        return _amountLD;
     }
 }

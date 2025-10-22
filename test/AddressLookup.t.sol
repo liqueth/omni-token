@@ -2,7 +2,6 @@
 pragma solidity ^0.8.20;
 
 import {AddressLookup} from "../src/AddressLookup.sol";
-import {IAddressLookup} from "../src/interfaces/IAddressLookup.sol";
 
 import "forge-std/Test.sol";
 

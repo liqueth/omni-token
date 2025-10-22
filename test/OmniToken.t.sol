@@ -6,6 +6,7 @@ import "../src/AddressLookup.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 import "../src/ImmutableUintToUint.sol";
+import {IOmniTokenProto} from "../src/interfaces/IOmniTokenProto.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;

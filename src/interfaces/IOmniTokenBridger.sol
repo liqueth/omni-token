@@ -7,6 +7,7 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
 /// @notice Simple interface for sending tokens to another chain.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 interface IOmniTokenBridger {
+    error TransferFailed(address token, address from, address to, uint256 amount);
     error UnsupportedDestinationChain(uint256 chain);
 
     /// @return whether it is possible to send this token to another chain.

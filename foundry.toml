@@ -23,6 +23,8 @@ fs_permissions = [
 
 [lint]
 exclude_lints = [
+    "unsafe-cheatcode",
+    "mixed-case-variable",
     "mixed-case-function",
     "screaming-snake-case-const",
     "screaming-snake-case-immutable",

@@ -34,7 +34,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProto, IOmniTokenManager {
+abstract contract OFTCoreDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProto, IOmniTokenManager {
     uint8 public constant LOCAL_DECIMALS = 8;
 
     function token() public view virtual returns (address);
@@ -76,7 +76,7 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProt
         (expected, salt) = cloneAddress(config);
         if (expected.code.length == 0) {
             Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
-            OFTDeterministic(expected).initialize(config);
+            OFTCoreDeterministic(expected).initialize(config);
             emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
         }
     }

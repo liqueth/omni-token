@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {OFTDeterministic} from "./OFTDeterministic.sol";
+import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IOmniTokenMinter} from "./interfaces/IOmniTokenMinter.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
 
@@ -24,7 +24,7 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFTDeterministic, ERC20, IOmniTokenMinter {
+contract OmniToken is OFTCoreDeterministic, ERC20, IOmniTokenMinter {
     /// @inheritdoc IOmniTokenMinter
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
@@ -43,7 +43,7 @@ contract OmniToken is OFTDeterministic, ERC20, IOmniTokenMinter {
     string internal _symbol;
 
     constructor(IMessagingConfig messagingConfig_)
-        OFTDeterministic(messagingConfig_, address(this))
+        OFTCoreDeterministic(messagingConfig_, address(this))
         ERC20("OmniToken Prototype", "OMNIPROT")
     {
         prototype = address(this);

@@ -43,7 +43,7 @@ contract OmniToken is OFTDeterministic, ERC20, IOmniTokenMinter {
     string internal _symbol;
 
     constructor(IMessagingConfig messagingConfig_)
-        OFTDeterministic(18, messagingConfig_, address(this))
+        OFTDeterministic(messagingConfig_, address(this))
         ERC20("OmniToken Prototype", "OMNIPROT")
     {
         prototype = address(this);

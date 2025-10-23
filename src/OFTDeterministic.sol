@@ -35,6 +35,8 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProto, IOmniTokenManager {
+    uint8 public constant LOCAL_DECIMALS = 8;
+
     function token() public view virtual returns (address);
 
     /// @inheritdoc IOmniTokenBridger
@@ -104,8 +106,8 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProt
     /// @dev Specify the gas limit for executing the _lzReceive callback function on the destination chain in a LayerZero OFT transfer.
     uint128 private _receiverGasLimit;
 
-    constructor(uint8 localDecimals_, IMessagingConfig messagingConfig_, address delegate_)
-        OFTCore(localDecimals_, messagingConfig_.endpoint().value(), delegate_)
+    constructor(IMessagingConfig messagingConfig_, address delegate_)
+        OFTCore(LOCAL_DECIMALS, messagingConfig_.endpoint().value(), delegate_)
         Ownable(delegate_)
     {
         prototype = address(this);
@@ -117,7 +119,7 @@ abstract contract OFTDeterministic is OFTCore, IOmniTokenBridger, IOmniTokenProt
             revert InitializedAlready();
         }
         if (config.receiverGasLimit == 0) {
-            revert InitializedAlready();
+            revert GasLimitZero();
         }
         _receiverGasLimit = config.receiverGasLimit;
 

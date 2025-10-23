@@ -34,6 +34,9 @@ interface IOmniTokenProto {
     /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(kvs));
     function clone(Config memory config) external returns (address clone, bytes32 salt);
 
+    /// @notice Revert if someone tries to specify a zero gas limit.
+    error GasLimitZero();
+
     /// @notice Revert if someone tries to reinitialize an instance.
     error InitializedAlready();
 

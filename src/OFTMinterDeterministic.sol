@@ -22,13 +22,10 @@ contract OFTMinterDeterministic is OFTCoreDeterministic {
 
     /**
      * @dev Constructor for the OFTAdapter contract.
-     * @param _token The address of the ERC-20 token to be adapted.
      * @param messagingConfig_ The LayerZero endpoint address.
      */
-    constructor(address _token, IMessagingConfig messagingConfig_)
-        OFTCoreDeterministic(messagingConfig_, address(this))
-    {
-        innerToken = IMinter(_token);
+    constructor(IMessagingConfig messagingConfig_) OFTCoreDeterministic(messagingConfig_, address(this)) {
+        // Intentionally left blank.
     }
 
     function initialize(Config memory config) public virtual override {

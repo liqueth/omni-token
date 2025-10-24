@@ -20,6 +20,8 @@ interface IOmniTokenProto {
         uint128 receiverGasLimit;
         /// @notice Symbol of the token.
         string symbol;
+        /// @notice Address of token for adapter.
+        address token;
     }
 
     /// @notice Predict the address of a clone, which may or may not already exist.

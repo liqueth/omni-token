@@ -71,17 +71,25 @@ contract OmniTokenTest is Test {
 
         factory = new OmniToken(appConfig);
 
-        config = IOmniTokenProto.Config({
-            issuer: issuer, mints: mints, name: name, owner: allocTo, receiverGasLimit: rgl, symbol: symbol
-        });
-        config1 = IOmniTokenProto.Config({
-            issuer: issuer, mints: mints, name: name1, owner: allocTo, receiverGasLimit: rgl, symbol: name1
-        });
-        config2a = IOmniTokenProto.Config({
-            issuer: issuer, mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2
-        });
-        config2b = IOmniTokenProto.Config({
-            issuer: issuer, mints: mints, name: name2, owner: allocTo, receiverGasLimit: rgl, symbol: name2
+        config = newConfig(name, symbol);
+        config1 = newConfig(name1, name1);
+        config2a = newConfig(name2, name2);
+        config2b = newConfig(name2, name2);
+    }
+
+    function newConfig(string memory name_, string memory symbol_)
+        private
+        view
+        returns (IOmniTokenProto.Config memory)
+    {
+        return IOmniTokenProto.Config({
+            issuer: issuer,
+            mints: mints,
+            name: name_,
+            owner: allocTo,
+            receiverGasLimit: rgl,
+            symbol: symbol_,
+            token: address(0)
         });
     }
 
@@ -137,7 +145,13 @@ contract OmniTokenTest is Test {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniTokenBridger.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOmniTokenProto.Config({
-            issuer: issuer, mints: badMints, owner: allocTo, name: name, receiverGasLimit: rgl, symbol: symbol
+            issuer: issuer,
+            mints: badMints,
+            owner: allocTo,
+            name: name,
+            receiverGasLimit: rgl,
+            symbol: symbol,
+            token: address(0)
         });
         factory.clone(badConfig);
     }

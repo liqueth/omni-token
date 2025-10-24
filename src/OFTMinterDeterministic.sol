@@ -2,14 +2,13 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
+import {IMinter} from "./interfaces/IMinter.sol";
 
 /**
- * @title OFTAdapter Contract
- * @dev OFTAdapter is a contract that adapts an ERC-20 token to the OFT functionality.
+ * @title OFTMinterDeterministic Contract
+ * @dev OFTMinterDeterministic is a contract that adapts an ERC-20 token to the OFT functionality.
  *
  * @dev For existing ERC20 tokens, this can be used to convert the token to crosschain compatibility.
  * @dev WARNING: ONLY 1 of these should exist for a given global mesh,
@@ -19,20 +18,22 @@ import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
 abstract contract OFTMinterDeterministic is OFTCoreDeterministic {
-    using SafeERC20 for IERC20;
-
-    IERC20 internal immutable innerToken;
+    IMinter internal innerToken;
 
     /**
      * @dev Constructor for the OFTAdapter contract.
      * @param _token The address of the ERC-20 token to be adapted.
      * @param messagingConfig_ The LayerZero endpoint address.
-     * @param _delegate The delegate capable of making OApp configurations inside of the endpoint.
      */
-    constructor(address _token, IMessagingConfig messagingConfig_, address _delegate)
-        OFTCoreDeterministic(messagingConfig_, _delegate)
+    constructor(address _token, IMessagingConfig messagingConfig_)
+        OFTCoreDeterministic(messagingConfig_, address(this))
     {
-        innerToken = IERC20(_token);
+        innerToken = IMinter(_token);
+    }
+
+    function initialize(Config memory config) public virtual override {
+        super.initialize(config);
+        innerToken = IMinter(config.token);
     }
 
     /**
@@ -78,7 +79,7 @@ abstract contract OFTMinterDeterministic is OFTCoreDeterministic {
     {
         (amountSentLD, amountReceivedLD) = _debitView(_amountLD, _minAmountLD, _dstEid);
         // @dev Lock tokens by moving them into this contract from the caller.
-        innerToken.safeTransferFrom(_from, address(this), amountSentLD);
+        innerToken.burn(_from, amountSentLD);
     }
 
     /**
@@ -103,7 +104,7 @@ abstract contract OFTMinterDeterministic is OFTCoreDeterministic {
         returns (uint256 amountReceivedLD)
     {
         // @dev Unlock the tokens and transfer to the recipient.
-        innerToken.safeTransfer(_to, _amountLD);
+        innerToken.mint(_to, _amountLD);
         // @dev In the case of NON-default OFTAdapter, the amountLD MIGHT not be == amountReceivedLD.
         return _amountLD;
     }

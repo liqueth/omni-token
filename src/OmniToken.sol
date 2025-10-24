@@ -32,9 +32,9 @@ contract OmniToken is OFTCoreDeterministic, ERC20, IMinter {
     }
 
     /// @inheritdoc IMinter
-    function burn(uint256 amount) public {
-        _burn(msg.sender, amount);
-        emit Burned(amount);
+    function burn(address from, uint256 amount) public {
+        _burn(from, amount);
+        emit Burned(from, amount);
     }
 
     /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.

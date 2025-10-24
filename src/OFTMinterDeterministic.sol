@@ -17,7 +17,7 @@ import {IMinter} from "./interfaces/IMinter.sol";
  * IF the 'innerToken' applies something like a transfer fee, the default will NOT work...
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
-abstract contract OFTMinterDeterministic is OFTCoreDeterministic {
+contract OFTMinterDeterministic is OFTCoreDeterministic {
     IMinter internal innerToken;
 
     /**

@@ -2,17 +2,17 @@
 
 pragma solidity ^0.8.20;
 
-import {IOFTMintableProtoFactory} from "./interfaces/IOFTMintableProtoFactory.sol";
+import {IOFTMintableFactory} from "./interfaces/IOFTMintableFactory.sol";
 import {IOFTProto} from "./interfaces/IOFTProto.sol";
 import {OFTMintable} from "./OFTMintable.sol";
 import {Assertions} from "./Assertions.sol";
 
 /// @notice Factory to idempotently deploy new OFTMinter implementations.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OFTMintableProtoFactory is IOFTMintableProtoFactory {
+contract OFTMintableFactory is IOFTMintableFactory {
     using Assertions for address;
 
-    /// @inheritdoc IOFTMintableProtoFactory
+    /// @inheritdoc IOFTMintableFactory
     function create(IOFTProto.Config memory config, IOFTProto bridgeFactory) external returns (address expected) {
         expected = createAddress(config, bridgeFactory);
         if (expected.code.length == 0) {
@@ -21,7 +21,7 @@ contract OFTMintableProtoFactory is IOFTMintableProtoFactory {
         }
     }
 
-    /// @inheritdoc IOFTMintableProtoFactory
+    /// @inheritdoc IOFTMintableFactory
     function createAddress(IOFTProto.Config memory config, IOFTProto bridgeFactory)
         public
         view

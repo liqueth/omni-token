@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 /// @notice Deploy clones of OmniToken.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IOmniTokenProto {
+interface IOFTProto {
     /// @notice Hold configuration data for deploying a clone.
     /// @dev properties are in alphabetical order to simplify converting json to abi-encoded bytes.
     struct Config {

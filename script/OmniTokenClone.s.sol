@@ -3,11 +3,11 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/interfaces/IOmniTokenProto.sol";
+import "../src/interfaces/IOFTProto.sol";
 
 /// @notice Deploy an OmniToken clone if it doesn't exist (idempotent).
 /// @dev Environment variables (required):
-///   - proto  : address of the IOmniTokenProto contract
+///   - proto  : address of the IOFTProto contract
 ///   - config : path to JSON config file with { mints, name, owner, symbol }
 ///   - clone  : path to JSON file that will contain the deployed address
 /// @dev Example:
@@ -17,10 +17,10 @@ contract OmniTokenClone is Script {
         console2.log("script   : OmniTokenClone");
         address proto = abi.decode(vm.parseJson(vm.readFile(vm.envString("proto"))), (address));
         console2.log("proto    :", proto);
-        IOmniTokenProto.Config memory config =
-            abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (IOmniTokenProto.Config));
+        IOFTProto.Config memory config =
+            abi.decode(vm.parseJson(vm.readFile(vm.envString("config"))), (IOFTProto.Config));
         console2.log("symbol   :", config.symbol);
-        (address predicted,) = IOmniTokenProto(proto).cloneAddress(config);
+        (address predicted,) = IOFTProto(proto).cloneAddress(config);
         console2.log("predicted:", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
@@ -28,7 +28,7 @@ contract OmniTokenClone is Script {
         address actual = predicted;
         if (actual.code.length == 0) {
             vm.startBroadcast();
-            (actual,) = IOmniTokenProto(proto).clone(config);
+            (actual,) = IOFTProto(proto).clone(config);
             vm.stopBroadcast();
             action = "deployed";
         }

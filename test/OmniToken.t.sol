@@ -6,7 +6,7 @@ import "../src/AddressLookup.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 import "../src/ImmutableUintToUint.sol";
-import {IOmniTokenProto} from "../src/interfaces/IOmniTokenProto.sol";
+import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
@@ -77,12 +77,8 @@ contract OmniTokenTest is Test {
         config2b = newConfig(name2, name2);
     }
 
-    function newConfig(string memory name_, string memory symbol_)
-        private
-        view
-        returns (IOmniTokenProto.Config memory)
-    {
-        return IOmniTokenProto.Config({
+    function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {
+        return IOFTProto.Config({
             issuer: issuer,
             mints: mints,
             name: name_,
@@ -144,7 +140,7 @@ contract OmniTokenTest is Test {
     function ntest_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IOmniTokenBridger.UnsupportedDestinationChain.selector, unmappedChain));
-        OmniToken.Config memory badConfig = IOmniTokenProto.Config({
+        OmniToken.Config memory badConfig = IOFTProto.Config({
             issuer: issuer,
             mints: badMints,
             owner: allocTo,

@@ -2,17 +2,17 @@
 
 pragma solidity ^0.8.20;
 
-import {IOFTBridgeFactory} from "./interfaces/IOFTBridgeFactory.sol";
+import {IBridgeFactory} from "./interfaces/IBridgeFactory.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
 import {OFTMinter} from "./OFTMinter.sol";
 import {Assertions} from "./Assertions.sol";
 
 /// @notice Factory to idempotently deploy new OFTMinter implementations.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OFTBridgeFactory is IOFTBridgeFactory {
+contract BridgeFactory is IBridgeFactory {
     using Assertions for address;
 
-    /// @inheritdoc IOFTBridgeFactory
+    /// @inheritdoc IBridgeFactory
     function create(IMessagingConfig config) external returns (address expected) {
         expected = createAddress(config);
         if (expected.code.length == 0) {
@@ -21,7 +21,7 @@ contract OFTBridgeFactory is IOFTBridgeFactory {
         }
     }
 
-    /// @inheritdoc IOFTBridgeFactory
+    /// @inheritdoc IBridgeFactory
     function createAddress(IMessagingConfig config) public view returns (address expected) {
         bytes memory args = abi.encode(config);
         bytes memory initCode = abi.encodePacked(type(OFTMinter).creationCode, args);

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deploy OFTBridgeFactory and OFTMinterProto clone
+# Deploy BridgeFactory and OFTMinterProto clone
 # prerequesite before running:
 # source config/testnet.env
 # or
@@ -8,6 +8,6 @@
 # script/chain.sh
 # chain=97 # BSC Testnet for example
 
-factory=io/$chain/OFTBridgeFactory.json forge script script/OFTBridgeFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
-proto=io/$chain/OFTMinterProto.json factory=io/$chain/OFTBridgeFactory.json config=io/$chain/MessagingConfig.json forge script script/OFTMinterProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
+factory=io/$chain/BridgeFactory.json forge script script/BridgeFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
+proto=io/$chain/OFTMinterProto.json factory=io/$chain/BridgeFactory.json config=io/$chain/MessagingConfig.json forge script script/OFTMinterProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 script/verifyOFTMinterDeterministic.sh

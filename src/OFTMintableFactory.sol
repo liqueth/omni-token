@@ -7,7 +7,7 @@ import {IOFTProto} from "./interfaces/IOFTProto.sol";
 import {OFTMintable} from "./OFTMintable.sol";
 import {Assertions} from "./Assertions.sol";
 
-/// @notice Factory to idempotently deploy new OFTMinter implementations.
+/// @notice Factory to idempotently deploy new Bridge implementations.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 contract OFTMintableFactory is IOFTMintableFactory {
     using Assertions for address;

@@ -79,12 +79,16 @@ contract OFTMintable is ERC20, IOFTProto, IMinter {
         emit Burned(from, amount);
     }
 
+    IOFTProto public immutable bridgeFactory;
+    address internal _bridge;
+
     /**
      * @dev Constructor for the OFTAdapter contract.
      * @param config The LayerZero endpoint address.
      */
-    constructor(Config memory config) ERC20(config.name, config.symbol) {
-        // Intentionally left blank.
+    constructor(Config memory config, IOFTProto bridgeFactory_) ERC20(config.name, config.symbol) {
+        bridgeFactory = bridgeFactory_;
+        initialize(config);
     }
 
     function initialize(Config memory config) public virtual {
@@ -97,6 +101,19 @@ contract OFTMintable is ERC20, IOFTProto, IMinter {
 
         _name = config.name;
         _symbol = config.symbol;
+
+        (_bridge,) = bridgeFactory.clone(config);
+
+        uint256[][] memory mints = config.mints;
+        for (uint256 i = 0; i < mints.length; i++) {
+            uint256 chain = mints[i][0];
+            uint256 minted = mints[i][1];
+            if (chain == block.chainid) {
+                if (minted > 0) {
+                    _mint(config.issuer, minted);
+                }
+            }
+        }
     }
 
     address private _minter;

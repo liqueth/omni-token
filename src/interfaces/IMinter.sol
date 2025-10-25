@@ -17,4 +17,7 @@ interface IMinter {
 
     /// @notice Emit when tokens are burned.
     event Burned(address indexed from, uint256 amount);
+
+    /// @notice Error thrown when a non-minter attempts to mint or burn tokens.
+    error UnauthorizedMinter(address caller);
 }

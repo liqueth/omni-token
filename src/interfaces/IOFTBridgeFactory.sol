@@ -6,7 +6,7 @@ import {IMessagingConfig} from "./IMessagingConfig.sol";
 
 /// @notice Deploy implementations of OmniToken.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IOFTMinterProtoFactory {
+interface IOFTBridgeFactory {
     /// @notice Predict the address of a thing, which may or may not already exist.
     /// @param config The configuration for the thing.
     /// @return thing The predicted address of the thing.

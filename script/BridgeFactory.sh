@@ -10,4 +10,4 @@
 
 factory=io/$chain/BridgeFactory.json forge script script/BridgeFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 proto=io/$chain/BridgeProto.json factory=io/$chain/BridgeFactory.json config=io/$chain/MessagingConfig.json forge script script/BridgeProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
-script/verifyBridgeDeterministic.sh
+script/verifyBridge.sh

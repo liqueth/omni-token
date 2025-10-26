@@ -9,7 +9,7 @@ import "../src/BridgeFactory.sol";
 /// @dev Usage: factory=io/$chain/BridgeFactory.json forge script script/BridgeFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 contract BridgeFactoryCreate is Script {
     function run() external {
-        console2.log("script   : OmniTokenProtoFactoryCreate");
+        console2.log("script   : BridgeFactoryCreate");
         address predicted = vm.computeCreate2Address(0x0, keccak256(type(BridgeFactory).creationCode));
         console2.log("predicted: ", predicted);
         if (predicted.code.length == 0) {

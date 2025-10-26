@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 /// @notice Mint and burn tokens.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IMinter {
+interface IMintBurn {
     /// @notice Mint new tokens to a specified address.
     /// @dev Only callable by the contract owner.
     function mint(address to, uint256 amount) external;

@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IOFTProto} from "./interfaces/IOFTProto.sol";
-import {IMinter} from "./interfaces/IMinter.sol";
+import {IMintBurn} from "./interfaces/IMintBurn.sol";
 import {Assertions} from "./Assertions.sol";
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -21,7 +21,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
  * IF the 'innerToken' applies something like a transfer fee, the default will NOT work...
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
-contract OmniTokenBridged is ERC20, IOFTProto, IMinter {
+contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn {
     /// @dev Immutable implementation/factory is the same for all clones.
     address public immutable prototype;
 
@@ -67,13 +67,13 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMinter {
         }
     }
 
-    /// @inheritdoc IMinter
+    /// @inheritdoc IMintBurn
     function mint(address to, uint256 amount) public onlyMinter {
         _mint(to, amount);
         emit Minted(to, amount);
     }
 
-    /// @inheritdoc IMinter
+    /// @inheritdoc IMintBurn
     function burn(address from, uint256 amount) public onlyMinter {
         _burn(from, amount);
         emit Burned(from, amount);

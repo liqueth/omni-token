@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
-import {IMinter} from "./interfaces/IMinter.sol";
+import {IMintBurn} from "./interfaces/IMintBurn.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -24,14 +24,14 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract OmniToken is OFTCoreDeterministic, ERC20, IMinter {
-    /// @inheritdoc IMinter
+contract OmniToken is OFTCoreDeterministic, ERC20, IMintBurn {
+    /// @inheritdoc IMintBurn
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
         emit Minted(to, amount);
     }
 
-    /// @inheritdoc IMinter
+    /// @inheritdoc IMintBurn
     function burn(address from, uint256 amount) public {
         _burn(from, amount);
         emit Burned(from, amount);

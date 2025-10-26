@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
-import {IMinter} from "./interfaces/IMinter.sol";
+import {IMintBurn} from "./interfaces/IMintBurn.sol";
 
 /**
  * @notice Bridge adapts a mintable ERC-20 token to the OFT functionality.
@@ -17,7 +17,7 @@ import {IMinter} from "./interfaces/IMinter.sol";
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
 contract Bridge is OFTCoreDeterministic {
-    IMinter internal innerToken;
+    IMintBurn internal innerToken;
 
     /**
      * @dev Constructor for the OFTAdapter contract.
@@ -29,7 +29,7 @@ contract Bridge is OFTCoreDeterministic {
 
     function initialize(Config memory config) public virtual override {
         super.initialize(config);
-        innerToken = IMinter(config.token);
+        innerToken = IMintBurn(config.token);
     }
 
     /**

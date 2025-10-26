@@ -12,7 +12,7 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**
- * @notice OFTMintable is ERC-20 token paired with an Bridge a to the OFT functionality.
+ * @notice OmniTokenBridged is ERC-20 token paired with an Bridge a to the OFT functionality.
  *
  * @dev For existing ERC20 tokens, this can be used to convert the token to crosschain compatibility.
  * @dev WARNING: ONLY 1 of these should exist for a given global mesh,
@@ -21,7 +21,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
  * IF the 'innerToken' applies something like a transfer fee, the default will NOT work...
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
-contract OFTMintable is ERC20, IOFTProto, IMinter {
+contract OmniTokenBridged is ERC20, IOFTProto, IMinter {
     /// @dev Immutable implementation/factory is the same for all clones.
     address public immutable prototype;
 

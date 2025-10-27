@@ -27,9 +27,6 @@ IN=io/$chain/messaging.json OUT=io/$chain/MessagingConfig.json forge script scri
 
 script/OmniToken.sh
 
-script/BridgeFactory.sh
-script/BridgeProto.sh
+script/Bridge.sh
 
-script/OmniTokenBridgedFactory.sh
-script/OmniTokenBridgedProto.sh
-
+script/OmniTokenBridged.sh

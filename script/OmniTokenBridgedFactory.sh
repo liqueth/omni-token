@@ -11,5 +11,5 @@
 echo "[*] Starting OmniTokenBridgedFactory.sh for chain $chain on env $env"
 
 factory=io/$chain/OmniTokenBridgedFactory.json forge script script/OmniTokenBridgedFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
-factory=io/$chain/OmniTokenBridgedFactory.json config=io/$chain/MessagingConfig.json proto=io/$chain/OmniTokenBridgedProto.json forge script script/OmniTokenBridgedProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
+factory=io/$chain/OmniTokenBridgedFactory.json config=io/$env/OMNIB.json bridge=io/$chain/BridgeProto.json proto=io/$chain/OmniTokenBridgedProto.json forge script script/OmniTokenBridgedProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 script/verifyBridge.sh

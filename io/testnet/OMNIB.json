@@ -14,7 +14,7 @@
       3000000000000000000000
     ]
   ],
-  "name": "Omni Beta",
+  "name": "Omni Token Bridged Proto",
   "owner": "0x0",
   "receiverGasLimit": 200000,
   "symbol": "OMNIB"

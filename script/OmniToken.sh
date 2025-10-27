@@ -8,6 +8,8 @@
 # script/all_deployments.sh
 # chain=97 # BSC Testnet for example
 
+echo "[*] Starting OmniToken.sh for chain $chain on env $env"
+
 factory=io/$chain/OmniTokenProtoFactory.json forge script script/OmniTokenProtoFactory.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 proto=io/$chain/OmniTokenProto.json factory=io/$chain/OmniTokenProtoFactory.json config=io/$chain/MessagingConfig.json forge script script/OmniTokenProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 script/verifyOmniTokenProto.sh

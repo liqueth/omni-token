@@ -7,6 +7,8 @@
 # source config/$env.env
 # chain=421614 # Arbitrum Testnet for example
 
+echo "[*] Starting chain.sh for chain $chain on env $env"
+
 script/prep_chain.sh
 
 proto=io/$chain/UintToUintProto.json forge script script/UintToUintProto.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10 ## --priority-gas-price 1gwei --with-gas-price 30gwei
@@ -24,3 +26,10 @@ jq -s 'add' io/$chain/messaging/*.json > io/$chain/messaging.json
 IN=io/$chain/messaging.json OUT=io/$chain/MessagingConfig.json forge script script/MessagingConfig.s.sol -f $chain --private-key $tx_key --broadcast --verify --delay 10 --retries 10
 
 script/OmniToken.sh
+
+script/BridgeFactory.sh
+script/BridgeProto.sh
+
+script/OmniTokenBridgedFactory.sh
+script/OmniTokenBridgedProto.sh
+

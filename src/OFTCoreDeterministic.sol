@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IOmniTokenBridger} from "./interfaces/IOmniTokenBridger.sol";
+import {IBridge} from "./interfaces/IBridge.sol";
 import {IOFTProto} from "./interfaces/IOFTProto.sol";
 import {IOmniTokenManager} from "./interfaces/IOmniTokenManager.sol";
 import {IMessagingConfig, IUintToUint} from "./interfaces/IMessagingConfig.sol";
@@ -34,12 +34,12 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - Requires a mechanism like Nick’s Factory (`CREATE2`) to guarantee identical addresses.
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-abstract contract OFTCoreDeterministic is OFTCore, IOmniTokenBridger, IOFTProto, IOmniTokenManager {
+abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniTokenManager {
     uint8 public constant LOCAL_DECIMALS = 8;
 
     function token() public view virtual returns (address);
 
-    /// @inheritdoc IOmniTokenBridger
+    /// @inheritdoc IBridge
     function bridge(uint256 toChain, uint256 amount)
         external
         payable
@@ -53,14 +53,14 @@ abstract contract OFTCoreDeterministic is OFTCore, IOmniTokenBridger, IOFTProto,
         (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
     }
 
-    /// @inheritdoc IOmniTokenBridger
+    /// @inheritdoc IBridge
     function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
         SendParam memory param = sendParam(toChain, amount);
         MessagingFee memory msgFee = this.quoteSend(param, false);
         fee = msgFee.nativeFee;
     }
 
-    /// @inheritdoc IOmniTokenBridger
+    /// @inheritdoc IBridge
     function bridgeable(uint256 chainId) external view returns (bool) {
         uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(chainId));
         address sender = messagingConfig.sender().value();

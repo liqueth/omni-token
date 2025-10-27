@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import {IOmniTokenBridger} from "../src/interfaces/IOmniTokenBridger.sol";
+import {IBridge} from "../src/interfaces/IBridge.sol";
 import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
 
 /// @notice Bridge tokens to another chain.
@@ -26,11 +26,11 @@ contract BridgeOmniToken is Script {
         console2.log("amount :", input.amount);
         console2.log("toChain:", input.toChain);
 
-        uint256 fee = IOmniTokenBridger(token).bridgeFee(input.toChain, input.amount);
+        uint256 fee = IBridge(token).bridgeFee(input.toChain, input.amount);
         console2.log("fee    :", fee);
         vm.startBroadcast();
         (MessagingReceipt memory msgRct, OFTReceipt memory oftRct) =
-            IOmniTokenBridger(token).bridge{value: fee}(input.toChain, input.amount);
+            IBridge(token).bridge{value: fee}(input.toChain, input.amount);
         vm.stopBroadcast();
 
         console2.log("msgRct.fee.nativeFee   :", msgRct.fee.nativeFee);

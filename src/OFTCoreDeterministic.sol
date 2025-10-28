@@ -39,6 +39,10 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
 
     function token() public view virtual returns (address);
 
+    function actualBridge() external view returns (IBridge actual) {
+        actual = this;
+    }
+
     /// @inheritdoc IBridge
     function bridge(uint256 toChain, uint256 amount)
         external

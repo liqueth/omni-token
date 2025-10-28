@@ -10,6 +10,9 @@ interface IBridge {
     error TransferFailed(address token, address from, address to, uint256 amount);
     error UnsupportedDestinationChain(uint256 chain);
 
+    /// @return actual bridge that actually does the bridging.
+    function actualBridge() external view returns (IBridge actual);
+
     /// @return whether it is possible to send this token to another chain.
     function bridgeable(uint256 chainId) external view returns (bool whether);
 

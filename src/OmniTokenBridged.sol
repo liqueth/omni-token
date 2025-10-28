@@ -45,6 +45,11 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     }
 
     /// @inheritdoc IBridge
+    function actualBridge() external view returns (IBridge actual) {
+        actual = _bridge;
+    }
+
+    /// @inheritdoc IBridge
     function bridgeable(uint256 chainId) external view returns (bool whether) {
         whether = IBridge(_bridge).bridgeable(chainId);
     }
@@ -103,7 +108,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     }
 
     IOFTProto public immutable bridgeFactory;
-    address internal _bridge;
+    IBridge internal _bridge;
 
     /**
      * @dev Constructor for the OFTAdapter contract.
@@ -125,7 +130,8 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         _name = config.name;
         _symbol = config.symbol;
 
-        (_bridge,) = bridgeFactory.clone(config);
+        (address bridgeAddress,) = bridgeFactory.clone(config);
+        _bridge = IBridge(bridgeAddress);
 
         uint256[][] memory mints = config.mints;
         for (uint256 i = 0; i < mints.length; i++) {

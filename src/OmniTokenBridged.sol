@@ -55,8 +55,8 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     }
 
     /// @inheritdoc IBridge
-    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
-        fee = IBridge(_bridge).bridgeFee(toChain, amount);
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee, uint256 amountNoDust) {
+        (fee, amountNoDust) = IBridge(_bridge).bridgeFee(toChain, amount);
     }
 
     /// @inheritdoc IBridge
@@ -68,7 +68,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         if (!transfer(address(this), amount)) {
             revert TransferFailed(address(this), msg.sender, address(this), amount);
         }
-        (msgReceipt, oftReceipt) = IBridge(_bridge).bridge(toChain, amount);
+        (msgReceipt, oftReceipt) = IBridge(_bridge).bridge{value: msg.value}(toChain, amount);
     }
 
     /**

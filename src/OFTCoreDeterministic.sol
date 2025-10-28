@@ -58,8 +58,9 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     }
 
     /// @inheritdoc IBridge
-    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee, uint256 amountNoDust) {
         SendParam memory param = sendParam(toChain, amount);
+        amountNoDust = param.amountLD;
         MessagingFee memory msgFee = this.quoteSend(param, false);
         fee = msgFee.nativeFee;
     }

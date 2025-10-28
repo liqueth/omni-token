@@ -26,7 +26,7 @@ contract BridgeOmniToken is Script {
         console2.log("amount :", input.amount);
         console2.log("toChain:", input.toChain);
 
-        uint256 fee = IBridge(token).bridgeFee(input.toChain, input.amount);
+        (uint256 fee,) = IBridge(token).bridgeFee(input.toChain, input.amount);
         console2.log("fee    :", fee);
         vm.startBroadcast();
         (MessagingReceipt memory msgRct, OFTReceipt memory oftRct) =

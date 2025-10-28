@@ -21,7 +21,8 @@ interface IBridge {
     /// @param toChain Destination chain ID.
     /// @param amount The amount of tokens to send.
     /// @return fee Estimated native value (wei) the caller should send with {bridge}.
-    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee);
+    /// @return amountNoDust amount rounded down to prevent dust loss due to bridge rounding errors.
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee, uint256 amountNoDust);
 
     /// @notice Send 'amount' of this token to the same token at the same address on `toChain`.
     /// @dev Requires sufficient native gas to be supplied to pay for cross-chain message delivery as determined by {bridgeFee}.

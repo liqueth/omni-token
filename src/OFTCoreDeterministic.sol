@@ -149,6 +149,7 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
 
     /// @dev Help construct SendParam for a given destination chain and amount.
     function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
+        amount = _removeDust(amount);
         uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(toChain));
         if (eid == 0) {
             revert UnsupportedDestinationChain(toChain);

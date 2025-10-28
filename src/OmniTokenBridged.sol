@@ -60,6 +60,9 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         payable
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
     {
+        if (!transfer(address(this), amount)) {
+            revert TransferFailed(address(this), msg.sender, address(this), amount);
+        }
         (msgReceipt, oftReceipt) = IBridge(_bridge).bridge(toChain, amount);
     }
 

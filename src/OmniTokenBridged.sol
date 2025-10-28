@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 
 import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IOFTProto} from "./interfaces/IOFTProto.sol";
+import {IBridge, MessagingReceipt, OFTReceipt} from "./interfaces/IBridge.sol";
 import {IMintBurn} from "./interfaces/IMintBurn.sol";
 import {Assertions} from "./Assertions.sol";
 
@@ -21,7 +22,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
  * IF the 'innerToken' applies something like a transfer fee, the default will NOT work...
  * a pre/post balance check will need to be done to calculate the amountSentLD/amountReceivedLD.
  */
-contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn {
+contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     /// @dev Immutable implementation/factory is the same for all clones.
     address public immutable prototype;
 
@@ -41,6 +42,25 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn {
     function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(config));
         expected = Clones.predictDeterministicAddress(prototype, salt);
+    }
+
+    /// @inheritdoc IBridge
+    function bridgeable(uint256 chainId) external view returns (bool whether) {
+        whether = IBridge(_bridge).bridgeable(chainId);
+    }
+
+    /// @inheritdoc IBridge
+    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee) {
+        fee = IBridge(_bridge).bridgeFee(toChain, amount);
+    }
+
+    /// @inheritdoc IBridge
+    function bridge(uint256 toChain, uint256 amount)
+        external
+        payable
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
+    {
+        (msgReceipt, oftReceipt) = IBridge(_bridge).bridge(toChain, amount);
     }
 
     /**

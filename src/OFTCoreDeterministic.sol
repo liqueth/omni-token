@@ -44,16 +44,17 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     }
 
     /// @inheritdoc IBridge
-    function bridge(address to, uint256 toChain, uint256 amount)
+    function bridge(address from, address to, uint256 toChain, uint256 amount)
         external
         payable
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
     {
         SendParam memory param = sendParam(to, toChain, amount);
-        MessagingFee memory msgFee = MessagingFee({nativeFee: msg.value, lzTokenFee: 0});
-        if (!IERC20(token()).transfer(address(this), amount)) {
+        amount = param.amountLD;
+        if (!IERC20(token()).transferFrom(from, address(this), amount)) {
             revert TransferFailed(token(), msg.sender, address(this), amount);
         }
+        MessagingFee memory msgFee = MessagingFee({nativeFee: msg.value, lzTokenFee: 0});
         (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, to);
     }
 

@@ -64,15 +64,15 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     }
 
     /// @inheritdoc IBridge
-    function bridge(address to, uint256 toChain, uint256 amount)
+    function bridge(address from, address to, uint256 toChain, uint256 amount)
         external
         payable
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
     {
-        if (!transfer(address(this), amount)) {
+        if (!transferFrom(from, address(this), amount)) {
             revert TransferFailed(address(this), msg.sender, address(this), amount);
         }
-        (msgReceipt, oftReceipt) = _bridge.bridge{value: msg.value}(to, toChain, amount);
+        (msgReceipt, oftReceipt) = _bridge.bridge{value: msg.value}(from, to, toChain, amount);
     }
 
     /**

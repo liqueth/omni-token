@@ -35,7 +35,7 @@ import {OptionsBuilder} from "@layerzerolabs/oapp-evm/contracts/oapp/libs/Option
 /// - The default OFT uses the default LayerZero DVN. Custom DVNs are currently not supported.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
 abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniTokenManager {
-    uint8 public constant LOCAL_DECIMALS = 8;
+    uint8 public constant LOCAL_DECIMALS = 18;
 
     function token() public view virtual returns (address);
 

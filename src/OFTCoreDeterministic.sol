@@ -44,22 +44,26 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     }
 
     /// @inheritdoc IBridge
-    function bridge(uint256 toChain, uint256 amount)
+    function bridge(address to, uint256 toChain, uint256 amount)
         external
         payable
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
     {
-        SendParam memory param = sendParam(toChain, amount);
+        SendParam memory param = sendParam(to, toChain, amount);
         MessagingFee memory msgFee = MessagingFee({nativeFee: msg.value, lzTokenFee: 0});
         if (!IERC20(token()).transfer(address(this), amount)) {
             revert TransferFailed(token(), msg.sender, address(this), amount);
         }
-        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, msg.sender);
+        (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, to);
     }
 
     /// @inheritdoc IBridge
-    function bridgeFee(uint256 toChain, uint256 amount) external view returns (uint256 fee, uint256 amountNoDust) {
-        SendParam memory param = sendParam(toChain, amount);
+    function bridgeFee(address to, uint256 toChain, uint256 amount)
+        external
+        view
+        returns (uint256 fee, uint256 amountNoDust)
+    {
+        SendParam memory param = sendParam(to, toChain, amount);
         amountNoDust = param.amountLD;
         MessagingFee memory msgFee = this.quoteSend(param, false);
         fee = msgFee.nativeFee;
@@ -153,7 +157,7 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     using OptionsBuilder for bytes;
 
     /// @dev Help construct SendParam for a given destination chain and amount.
-    function sendParam(uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
+    function sendParam(address to, uint256 toChain, uint256 amount) internal view returns (SendParam memory param) {
         amount = _removeDust(amount);
         uint32 eid = uint32(messagingConfig.endpointMapper().valueOf(toChain));
         if (eid == 0) {
@@ -161,7 +165,7 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
         }
         bytes memory extraOptions = OptionsBuilder.newOptions().addExecutorLzReceiveOption(_receiverGasLimit, 0);
         param.dstEid = eid;
-        param.to = bytes32(uint256(uint160(msg.sender)));
+        param.to = bytes32(uint256(uint160(to)));
         param.amountLD = amount;
         param.minAmountLD = amount;
         param.extraOptions = extraOptions;

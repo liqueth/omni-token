@@ -15,6 +15,7 @@ import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft
 contract BridgeOmniToken is Script {
     struct Input {
         uint256 amount;
+        address to;
         uint256 toChain;
     }
 
@@ -26,11 +27,11 @@ contract BridgeOmniToken is Script {
         console2.log("amount :", input.amount);
         console2.log("toChain:", input.toChain);
 
-        (uint256 fee,) = IBridge(token).bridgeFee(input.toChain, input.amount);
+        (uint256 fee,) = IBridge(token).bridgeFee(input.to, input.toChain, input.amount);
         console2.log("fee    :", fee);
         vm.startBroadcast();
         (MessagingReceipt memory msgRct, OFTReceipt memory oftRct) =
-            IBridge(token).bridge{value: fee}(input.toChain, input.amount);
+            IBridge(token).bridge{value: fee}(input.to, input.toChain, input.amount);
         vm.stopBroadcast();
 
         console2.log("msgRct.fee.nativeFee   :", msgRct.fee.nativeFee);

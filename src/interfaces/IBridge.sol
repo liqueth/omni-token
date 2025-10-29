@@ -34,7 +34,7 @@ interface IBridge {
     /// @param to The recipient.
     /// @param toChain The destination chain ID (see `chainId` mapping).
     /// @param amount The amount of tokens to send.
-    function bridge(address from, address to, uint256 toChain, uint256 amount)
+    function bridge(address to, uint256 toChain, uint256 amount)
         external
         payable
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt);

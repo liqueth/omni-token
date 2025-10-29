@@ -31,7 +31,7 @@ contract SendBridged is Script {
         console2.log("fee    :", fee);
         vm.startBroadcast();
         (MessagingReceipt memory msgRct, OFTReceipt memory oftRct) =
-            IBridge(token).bridge{value: fee}(msg.sender, input.to, input.toChain, input.amount);
+            IBridge(token).bridge{value: fee}(input.to, input.toChain, input.amount);
         vm.stopBroadcast();
 
         console2.log("msgRct.fee.nativeFee   :", msgRct.fee.nativeFee);

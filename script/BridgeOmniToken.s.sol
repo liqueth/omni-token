@@ -5,6 +5,7 @@ pragma solidity ^0.8.20;
 import "forge-std/Script.sol";
 import {IBridge} from "../src/interfaces/IBridge.sol";
 import {MessagingReceipt, OFTReceipt} from "@layerzerolabs/oft-evm/contracts/oft/interfaces/IOFT.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /// @notice Bridge tokens to another chain.
 /// @dev Environment variables (required):
@@ -30,6 +31,7 @@ contract BridgeOmniToken is Script {
         (uint256 fee,) = IBridge(token).bridgeFee(input.to, input.toChain, input.amount);
         console2.log("fee    :", fee);
         vm.startBroadcast();
+        IERC20(token).approve(address(token), input.amount);
         (MessagingReceipt memory msgRct, OFTReceipt memory oftRct) =
             IBridge(token).bridge{value: fee}(input.to, input.toChain, input.amount);
         vm.stopBroadcast();

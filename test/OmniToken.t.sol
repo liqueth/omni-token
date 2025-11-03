@@ -11,9 +11,11 @@ import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
     uint256 constant fromChain = 11155111;
+    uint32 constant fromChainEid = 40161;
     uint256 constant fromPk = 119;
     uint256 constant fromMint = 1_000_000;
     uint256 constant toChain = 97;
+    uint32 constant toChainEid = 40102;
     uint256 constant toPk = 103;
     uint16 unsupportedSourceChain = 999;
     uint128 constant rgl = 35000;
@@ -25,6 +27,8 @@ contract OmniTokenTest is Test {
     string constant messagingPath = "test/messaging.json";
     string constant endpointMapperPath = "test/endpointMapper.json";
     string constant messagingPath3 = "test/messaging.json";
+    string constant endpointPath = "test/endpoint.json";
+
     AddressLookup addressLookup;
     OmniToken factory;
     IMessagingConfig appConfig;
@@ -36,6 +40,7 @@ contract OmniTokenTest is Test {
     address allocTo = address(0xABC);
     address issuer = allocTo;
     address bridgeTo = address(0xDEF);
+    address endpointOwner = vm.addr(3);
     uint256[][] chains;
     uint256[][] mints;
     uint256[][] badMints;
@@ -54,20 +59,28 @@ contract OmniTokenTest is Test {
 
     function setUp() public {}
 
-    function setUp2() public {
+    function ntest_setUp() public {
         vm.chainId(fromChain);
 
         newEndpointMapper(endpointMapperPath);
 
         addressLookup = new AddressLookup{salt: 0x0}();
 
-        newEndpoint();
+        address endpointAlias = newEndpoint();
+
+        console.log("endpointAlias:", endpointAlias);
 
         chains = [[fromChain, fromPk], [toChain, toPk]];
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         appConfig = loadEndpointConfig(messagingPath);
+        console.log("appConfig:");
+        console.log("  blocker:", address(appConfig.blocker()));
+        console.log("  endpoint:", address(appConfig.endpoint()));
+        console.log("  executor:", address(appConfig.executor()));
+        console.log("  receiver:", address(appConfig.receiver()));
+        console.log("  sender:", address(appConfig.sender()));
 
         factory = new OmniToken(appConfig);
 
@@ -90,7 +103,20 @@ contract OmniTokenTest is Test {
     }
 
     function newEndpoint() private returns (address endpointAlias) {
-        string memory endpointPath = "test/endpoint.json";
+        //address fromEndpointV2 = address(new EndpointV2Mock(fromChainEid, endpointOwner));
+        //address toEndpointV2 = address(new EndpointV2Mock(toChainEid, endpointOwner));
+        address fromEndpointV2;
+        address toEndpointV2;
+        vm.writeJson(
+            vm.toString(fromEndpointV2),
+            endpointPath,
+            string.concat(".keyValues[?(@.key==", vm.toString(fromChainEid), ")].value")
+        );
+        vm.writeJson(
+            vm.toString(toEndpointV2),
+            endpointPath,
+            string.concat(".keyValues[?(@.key==", vm.toString(toChainEid), ")].value")
+        );
         bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
         AddressLookupConfig memory cfg = abi.decode(raw, (AddressLookupConfig));
         (endpointAlias,) = addressLookup.clone(cfg.keyValues);

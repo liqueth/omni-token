@@ -6,14 +6,18 @@ import "../src/AddressLookup.sol";
 import "../src/OmniToken.sol";
 import "../src/MessagingConfig.sol";
 import "../src/ImmutableUintToUint.sol";
+import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
+
 import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
+    uint256 constant fromKeyIndex = 1;
     uint256 constant fromChain = 11155111;
     uint32 constant fromChainEid = 40161;
     uint256 constant fromPk = 119;
     uint256 constant fromMint = 1_000_000;
+    uint256 constant toKeyIndex = 0;
     uint256 constant toChain = 97;
     uint32 constant toChainEid = 40102;
     uint256 constant toPk = 103;
@@ -59,7 +63,7 @@ contract OmniTokenTest is Test {
 
     function setUp() public {}
 
-    function ntest_setUp() public {
+    function test_setUp() public {
         vm.chainId(fromChain);
 
         newEndpointMapper(endpointMapperPath);
@@ -103,23 +107,14 @@ contract OmniTokenTest is Test {
     }
 
     function newEndpoint() private returns (address endpointAlias) {
-        //address fromEndpointV2 = address(new EndpointV2Mock(fromChainEid, endpointOwner));
-        //address toEndpointV2 = address(new EndpointV2Mock(toChainEid, endpointOwner));
-        address fromEndpointV2;
-        address toEndpointV2;
-        vm.writeJson(
-            vm.toString(fromEndpointV2),
-            endpointPath,
-            string.concat(".keyValues[?(@.key==", vm.toString(fromChainEid), ")].value")
-        );
-        vm.writeJson(
-            vm.toString(toEndpointV2),
-            endpointPath,
-            string.concat(".keyValues[?(@.key==", vm.toString(toChainEid), ")].value")
-        );
-        bytes memory raw = vm.parseJson(vm.readFile(endpointPath));
-        AddressLookupConfig memory cfg = abi.decode(raw, (AddressLookupConfig));
-        (endpointAlias,) = addressLookup.clone(cfg.keyValues);
+        address fromEndpointV2 = address(new EndpointV2Mock(fromChainEid, endpointOwner));
+        address toEndpointV2 = address(new EndpointV2Mock(toChainEid, endpointOwner));
+        AddressLookup.KeyValue[] memory keyValues = new AddressLookup.KeyValue[](2);
+        keyValues[0].key = toChainEid;
+        keyValues[0].value = toEndpointV2;
+        keyValues[1].key = fromChainEid;
+        keyValues[1].value = fromEndpointV2;
+        (endpointAlias,) = addressLookup.clone(keyValues);
         vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
     }
 

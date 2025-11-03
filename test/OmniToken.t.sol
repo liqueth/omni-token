@@ -61,9 +61,7 @@ contract OmniTokenTest is Test {
         IUintToUint.KeyValue[] keyValues;
     }
 
-    function setUp() public {}
-
-    function test_setUp() public {
+    function setUp() public {
         vm.chainId(fromChain);
 
         newEndpointMapper(endpointMapperPath);
@@ -107,15 +105,20 @@ contract OmniTokenTest is Test {
     }
 
     function newEndpoint() private returns (address endpointAlias) {
+        console.log("  chainid:", block.chainid);
         address fromEndpointV2 = address(new EndpointV2Mock(fromChainEid, endpointOwner));
+        console.log("  fromEndpointV2:", fromEndpointV2);
         address toEndpointV2 = address(new EndpointV2Mock(toChainEid, endpointOwner));
+        console.log("  toEndpointV2:", toEndpointV2);
         AddressLookup.KeyValue[] memory keyValues = new AddressLookup.KeyValue[](2);
-        keyValues[0].key = toChainEid;
+        keyValues[0].key = toChain;
         keyValues[0].value = toEndpointV2;
-        keyValues[1].key = fromChainEid;
+        keyValues[1].key = fromChain;
         keyValues[1].value = fromEndpointV2;
         (endpointAlias,) = addressLookup.clone(keyValues);
         vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
+        console.log("  endpointAlias:", endpointAlias);
+        console.log("  endpointAlias.value():", AddressLookup(endpointAlias).value());
     }
 
     function newEndpointMapper(string memory path) private returns (address mapper) {

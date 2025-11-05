@@ -28,7 +28,6 @@ contract OmniTokenTest is Test {
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
     string constant endpointMapperPath = "test/endpointMapper.json";
-    string constant endpointPath = "test/endpoint.json";
 
     AddressLookup addressLookup;
     OmniToken factory;
@@ -44,12 +43,6 @@ contract OmniTokenTest is Test {
     uint256[][] mints;
     uint256[][] badMints;
     uint32[] eids;
-
-    struct AddressLookupConfig {
-        string env;
-        string id;
-        AddressLookup.KeyValue[] keyValues;
-    }
 
     struct UintToUintConfig {
         string env;

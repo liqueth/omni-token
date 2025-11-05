@@ -70,8 +70,8 @@ contract OmniTokenTest is Test {
 
         addressLookup = new AddressLookup{salt: 0x0}();
 
-        address endpointAlias = newEndpoint();
-        console.log("endpointAlias:", endpointAlias);
+        address endpointLookup = newEndpointLookup();
+        console.log("endpointLookup:", endpointLookup);
 
         address senderLookup = newSenderLookup();
         console.log("senderLookup:", senderLookup);
@@ -81,7 +81,7 @@ contract OmniTokenTest is Test {
 
         IMessagingConfig.Struct memory global = IMessagingConfig.Struct({
             blocker: IAddressLookup(address(0)),
-            endpoint: IAddressLookup(endpointAlias),
+            endpoint: IAddressLookup(endpointLookup),
             endpointMapper: IUintToUint(endpointMapper),
             executor: IAddressLookup(address(0)),
             receiver: IAddressLookup(receiverLookup),
@@ -130,20 +130,20 @@ contract OmniTokenTest is Test {
         thing = address(new EndpointV2Mock(eids[index], endpointOwner));
     }
 
-    function newEndpoint() private returns (address lookup) {
+    function newEndpointLookup() private returns (address lookup) {
         lookup = newAddressLookup(newEndpointV2Mock);
     }
 
-    function newMessageLibMock(uint256) internal returns (address thing) {
+    function newMessageLib(uint256) internal returns (address thing) {
         thing = address(new MessageLibMock());
     }
 
     function newSenderLookup() private returns (address lookup) {
-        lookup = newAddressLookup(newMessageLibMock);
+        lookup = newAddressLookup(newMessageLib);
     }
 
     function newReceiverLookup() private returns (address lookup) {
-        lookup = newAddressLookup(newMessageLibMock);
+        lookup = newAddressLookup(newMessageLib);
     }
 
     function newEndpointMapper(string memory path) private returns (address mapper) {

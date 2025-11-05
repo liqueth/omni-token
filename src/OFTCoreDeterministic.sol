@@ -85,16 +85,20 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     function clone(Config memory config) public returns (address expected, bytes32 salt) {
         (expected, salt) = cloneAddress(config);
         if (expected.code.length == 0) {
-            Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
-            OFTCoreDeterministic(expected).initialize(config);
-            emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
+            if (address(this) != prototype) {
+                (expected, salt) = IOFTProto(prototype).clone(config);
+            } else {
+                Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
+                OFTCoreDeterministic(expected).initialize(config);
+                emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
+            }
         }
     }
 
     /// @inheritdoc IOFTProto
     function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        expected = Clones.predictDeterministicAddress(prototype, salt);
+        expected = Clones.predictDeterministicAddress(prototype, salt, prototype);
     }
 
     /// @inheritdoc IOmniTokenManager

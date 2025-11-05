@@ -179,7 +179,7 @@ contract OmniTokenTest is Test {
         assertNotEq(address(clone1), address(0));
     }
 
-    function ntest_CloneCanClone() public {
+    function test_CloneCanClone() public {
         vm.chainId(fromChain);
         (address clone1,) = factory.clone(config1);
         assertNotEq(address(clone1), address(0));

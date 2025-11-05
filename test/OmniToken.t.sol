@@ -42,6 +42,7 @@ contract OmniTokenTest is Test {
     address endpointOwner = vm.addr(3);
     uint256[][] mints;
     uint256[][] badMints;
+    uint256[] chains;
     uint32[] eids;
 
     struct UintToUintConfig {
@@ -51,10 +52,8 @@ contract OmniTokenTest is Test {
     }
 
     function setUp() public {
-        eids = new uint32[](2);
-        eids[fromKeyIndex] = fromChainEid;
-        eids[toKeyIndex] = toChainEid;
-
+        chains = [fromChain, toChain];
+        eids = [fromChainEid, toChainEid];
         mints = [[fromChain, fromMint], [toChain, toMint]];
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
 
@@ -117,15 +116,11 @@ contract OmniTokenTest is Test {
 
     function newAddressLookup(function(uint256) returns (address) create) internal returns (address lookup) {
         console.log("newAddressLookup:");
-        address to = create(0);
-        console.log("  to:", to);
-        address from = create(1);
-        console.log("  from:", from);
-        AddressLookup.KeyValue[] memory keyValues = new AddressLookup.KeyValue[](2);
-        keyValues[0].key = toChain;
-        keyValues[0].value = to;
-        keyValues[1].key = fromChain;
-        keyValues[1].value = from;
+        AddressLookup.KeyValue[] memory keyValues = new AddressLookup.KeyValue[](chains.length);
+        for (uint256 i = 0; i < chains.length; i++) {
+            keyValues[i].key = chains[i];
+            keyValues[0].value = create(i);
+        }
         (lookup,) = addressLookup.clone(keyValues);
         console.log("  lookup:", lookup);
         console.log("  lookup.value():", AddressLookup(lookup).value());

@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "forge-std/Test.sol";
-import "../src/AddressLookup.sol";
-import "../src/OmniToken.sol";
-import "../src/MessagingConfig.sol";
-import "../src/ImmutableUintToUint.sol";
+import {Test, console} from "forge-std/Test.sol";
+
+import {AddressLookup, IAddressLookup} from "../src/AddressLookup.sol";
+import {OmniToken} from "../src/OmniToken.sol";
+import {MessagingConfig, IMessagingConfig} from "../src/MessagingConfig.sol";
+import {ImmutableUintToUint, IUintToUint} from "../src/ImmutableUintToUint.sol";
+
 import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
 import {MessageLibMock} from "./mocks/MessageLibMock.sol";
 

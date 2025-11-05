@@ -71,8 +71,8 @@ contract OmniTokenTest is Test {
         config2b = newConfig(name2, name2);
     }
 
-    function initializeFactory() internal {
-        vm.chainId(fromChain);
+    function initializeFactory(uint256 chain) internal {
+        vm.chainId(chain);
 
         address endpointMapper = newEndpointMapper(endpointMapperPath);
 
@@ -171,14 +171,14 @@ contract OmniTokenTest is Test {
     }
 
     function test_Clone1() public {
-        initializeFactory();
+        initializeFactory(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = factory.clone(config1);
         assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
-        initializeFactory();
+        initializeFactory(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = factory.clone(config1);
         assertNotEq(address(clone1), address(0));
@@ -190,7 +190,7 @@ contract OmniTokenTest is Test {
     }
 
     function test_RevertWhen_MintUnmappedChain() public {
-        initializeFactory();
+        initializeFactory(fromChain);
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOFTProto.Config({
@@ -206,7 +206,7 @@ contract OmniTokenTest is Test {
     }
 
     function testInitialMintOnChainWithMintAmount() public {
-        initializeFactory();
+        initializeFactory(fromChain);
         (address proxy,) = factory.clone(config);
         OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);
@@ -214,8 +214,7 @@ contract OmniTokenTest is Test {
     }
 
     function test_RevertWhen_LocalChainNotMapped() public {
-        vm.chainId(1); // Unsupported EVM chain ID
-        initializeFactory();
+        initializeFactory(fromChain);
         //vm.expectRevert("Local chain ID not in chains");
         new OmniToken(appConfig);
     }

@@ -190,7 +190,7 @@ contract OmniTokenTest is Test {
         assertEq(address(clone2a), address(clone2b));
     }
 
-    function ntest_RevertWhen_MintUnmappedChain() public {
+    function test_RevertWhen_MintUnmappedChain() public {
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOFTProto.Config({
@@ -205,14 +205,14 @@ contract OmniTokenTest is Test {
         factory.clone(badConfig);
     }
 
-    function ntestInitialMintOnChainWithMintAmount() public {
+    function testInitialMintOnChainWithMintAmount() public {
         (address proxy,) = factory.clone(config);
         OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);
         assertEq(token.totalSupply(), fromMint);
     }
 
-    function ntest_RevertWhen_LocalChainNotMapped() public {
+    function test_RevertWhen_LocalChainNotMapped() public {
         vm.chainId(1); // Unsupported EVM chain ID
         //vm.expectRevert("Local chain ID not in chains");
         new OmniToken(appConfig);

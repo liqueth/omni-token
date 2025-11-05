@@ -29,7 +29,6 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
     string constant messagingPath = "test/messaging.json";
     string constant endpointMapperPath = "test/endpointMapper.json";
-    string constant messagingPath3 = "test/messaging.json";
     string constant endpointPath = "test/endpoint.json";
 
     AddressLookup addressLookup;
@@ -39,7 +38,6 @@ contract OmniTokenTest is Test {
     OmniToken.Config config1;
     OmniToken.Config config2a;
     OmniToken.Config config2b;
-    address zkBridgeMock = address(0xa8a4547Be2eCe6Dde2Dd91b4A5adFe4A043b21C7);
     address allocTo = address(0xABC);
     address issuer = allocTo;
     address bridgeTo = address(0xDEF);

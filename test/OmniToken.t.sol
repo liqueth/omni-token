@@ -58,8 +58,6 @@ contract OmniTokenTest is Test {
     }
 
     function setUp() public {
-        vm.chainId(fromChain);
-
         eids = new uint32[](2);
         eids[fromKeyIndex] = fromChainEid;
         eids[toKeyIndex] = toChainEid;
@@ -71,6 +69,8 @@ contract OmniTokenTest is Test {
         config1 = newConfig(name1, name1);
         config2a = newConfig(name2, name2);
         config2b = newConfig(name2, name2);
+
+        vm.chainId(fromChain);
 
         address endpointMapper = newEndpointMapper(endpointMapperPath);
 

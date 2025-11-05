@@ -85,8 +85,6 @@ contract OmniTokenTest is Test {
         address receiverLookup = newReceiverLookup();
         console.log("receiverLookup:", receiverLookup);
 
-        vm.prank(allocTo);
-
         IMessagingConfig.Struct memory global = IMessagingConfig.Struct({
             blocker: IAddressLookup(address(0)),
             endpoint: IAddressLookup(endpointAlias),

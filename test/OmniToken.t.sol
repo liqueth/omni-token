@@ -23,7 +23,7 @@ contract OmniTokenTest is Test {
     uint256 constant toChain = 97;
     uint32 constant toChainEid = 40102;
     uint16 unsupportedSourceChain = 999;
-    uint128 constant rgl = 35000;
+    uint128 constant receiverGasLimit = 35000;
     uint256 constant toMint = 1_000_000;
     string constant name = "Omni token";
     string constant symbol = "OMNI";
@@ -104,7 +104,7 @@ contract OmniTokenTest is Test {
             mints: mints,
             name: name_,
             owner: allocTo,
-            receiverGasLimit: rgl,
+            receiverGasLimit: receiverGasLimit,
             symbol: symbol_,
             token: address(0)
         });
@@ -181,7 +181,7 @@ contract OmniTokenTest is Test {
             mints: badMints,
             owner: allocTo,
             name: name,
-            receiverGasLimit: rgl,
+            receiverGasLimit: receiverGasLimit,
             symbol: symbol,
             token: address(0)
         });

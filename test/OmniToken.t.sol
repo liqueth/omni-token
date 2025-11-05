@@ -29,7 +29,6 @@ contract OmniTokenTest is Test {
     string constant symbol = "OMNI";
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
-    string constant endpointMapperPath = "test/endpointMapper.json";
 
     AddressLookup addressLookup;
     OmniToken omniTokenProto;
@@ -68,7 +67,7 @@ contract OmniTokenTest is Test {
     function newAppConfig(uint256 chain) internal {
         vm.chainId(chain);
 
-        address endpointMapper = newEndpointMapper(endpointMapperPath);
+        address endpointMapper = newEndpointMapper();
 
         addressLookup = new AddressLookup{salt: 0x0}();
         address endpointLookup = newEndpointLookup();
@@ -138,15 +137,17 @@ contract OmniTokenTest is Test {
         lookup = newAddressLookup(newMessageLib);
     }
 
-    function newEndpointMapper(string memory path) private returns (address mapper) {
+    function newEndpointMapper() private returns (address mapper) {
         ImmutableUintToUint cloner = new ImmutableUintToUint{salt: 0x0}();
 
-        // Read & decode config
-        bytes memory raw = vm.parseJson(vm.readFile(path));
-        UintToUintConfig memory cfg = abi.decode(raw, (UintToUintConfig));
+        IUintToUint.KeyValue[] memory keyValues = new IUintToUint.KeyValue[](chains.length);
+        for (uint256 i = 0; i < chains.length; i++) {
+            keyValues[i].key = chains[i];
+            keyValues[0].value = eids[i];
+        }
 
         // Resolve expected clone address (pure/read-only)
-        (mapper,) = cloner.clone(cfg.keyValues);
+        (mapper,) = cloner.clone(keyValues);
     }
 
     function test_Dummy() public pure {

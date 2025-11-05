@@ -30,7 +30,7 @@ contract OmniTokenTest is Test {
     string constant endpointMapperPath = "test/endpointMapper.json";
 
     AddressLookup addressLookup;
-    OmniToken factory;
+    OmniToken omniTokenProto;
     IMessagingConfig appConfig;
     OmniToken.Config config;
     OmniToken.Config config1;
@@ -93,7 +93,7 @@ contract OmniTokenTest is Test {
 
     function initializeFactory(uint256 chain) internal {
         newAppConfig(chain);
-        factory = new OmniToken(appConfig);
+        omniTokenProto = new OmniToken(appConfig);
     }
 
     function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {
@@ -154,16 +154,16 @@ contract OmniTokenTest is Test {
     function test_Clone1() public {
         initializeFactory(fromChain);
         vm.chainId(fromChain);
-        (address clone1,) = factory.clone(config1);
+        (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
         initializeFactory(fromChain);
         vm.chainId(fromChain);
-        (address clone1,) = factory.clone(config1);
+        (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
-        (address clone2a,) = factory.clone(config2a);
+        (address clone2a,) = omniTokenProto.clone(config2a);
         assertNotEq(address(clone2a), address(0));
         (address clone2b,) = OmniToken(clone1).clone(config2b);
         assertNotEq(address(clone2b), address(0));
@@ -183,12 +183,12 @@ contract OmniTokenTest is Test {
             symbol: symbol,
             token: address(0)
         });
-        factory.clone(badConfig);
+        omniTokenProto.clone(badConfig);
     }
 
     function testInitialMintOnChainWithMintAmount() public {
         initializeFactory(fromChain);
-        (address proxy,) = factory.clone(config);
+        (address proxy,) = omniTokenProto.clone(config);
         OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);
         assertEq(token.totalSupply(), fromMint);
@@ -197,6 +197,6 @@ contract OmniTokenTest is Test {
     function test_RevertWhen_LocalChainNotMapped() public {
         newAppConfig(1);
         vm.expectRevert();
-        factory = new OmniToken(appConfig);
+        omniTokenProto = new OmniToken(appConfig);
     }
 }

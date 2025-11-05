@@ -126,6 +126,9 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     {
         prototype = address(this);
         messagingConfig = messagingConfig_;
+        messagingConfig_.sender().value().assertNotZero();
+        messagingConfig_.receiver().value().assertNotZero();
+        messagingConfig_.endpoint().value().assertNotZero();
     }
 
     function initialize(Config memory config) public virtual {
@@ -139,8 +142,12 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
 
         // Get the actual endpoint and sender and receiver libraries via their AddressLookup aliases.
         address sender = messagingConfig.sender().value();
+        sender.assertNotZero();
         address receiver = messagingConfig.receiver().value();
-        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(messagingConfig.endpoint().value());
+        receiver.assertNotZero();
+        address endpointAddress = messagingConfig.endpoint().value();
+        endpointAddress.assertNotZero();
+        ILayerZeroEndpointV2 endpoint = ILayerZeroEndpointV2(endpointAddress);
 
         IUintToUint endpointMapper = IUintToUint(messagingConfig.endpointMapper());
         IUintToUint.KeyValue[] memory c2e = endpointMapper.keyValues();

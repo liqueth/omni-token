@@ -14,5 +14,14 @@ library Assertions {
         }
     }
 
+    /// @notice Revert if actual is zero.
+    /// @param actual address.
+    function assertNotZero(address actual) public pure {
+        if (actual == address(0)) {
+            revert ActualIsZero();
+        }
+    }
+
     error ActualNotExpected(address actual, address expected);
+    error ActualIsZero();
 }

@@ -67,6 +67,14 @@ contract OmniTokenTest is Test {
         eids[fromKeyIndex] = fromChainEid;
         eids[toKeyIndex] = toChainEid;
 
+        mints = [[fromChain, fromMint], [toChain, toMint]];
+        badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
+
+        config = newConfig(name, symbol);
+        config1 = newConfig(name1, name1);
+        config2a = newConfig(name2, name2);
+        config2b = newConfig(name2, name2);
+
         newEndpointMapper(endpointMapperPath);
 
         addressLookup = new AddressLookup{salt: 0x0}();
@@ -83,8 +91,6 @@ contract OmniTokenTest is Test {
         console.log("receiverLookup:", receiverLookup);
         vm.writeJson(vm.toString(receiverLookup), messagingPath, ".receiver");
 
-        mints = [[fromChain, fromMint], [toChain, toMint]];
-        badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         vm.prank(allocTo);
         appConfig = loadEndpointConfig(messagingPath);
         console.log("appConfig:");
@@ -95,11 +101,6 @@ contract OmniTokenTest is Test {
         console.log("  sender:", address(appConfig.sender()));
 
         factory = new OmniToken(appConfig);
-
-        config = newConfig(name, symbol);
-        config1 = newConfig(name1, name1);
-        config2a = newConfig(name2, name2);
-        config2b = newConfig(name2, name2);
     }
 
     function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {

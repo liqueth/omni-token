@@ -27,7 +27,6 @@ contract OmniTokenTest is Test {
     string constant symbol = "OMNI";
     string constant name1 = "Clone1";
     string constant name2 = "Clone2";
-    string constant messagingPath = "test/messaging.json";
     string constant endpointMapperPath = "test/endpointMapper.json";
     string constant endpointPath = "test/endpoint.json";
 
@@ -73,24 +72,31 @@ contract OmniTokenTest is Test {
         config2a = newConfig(name2, name2);
         config2b = newConfig(name2, name2);
 
-        newEndpointMapper(endpointMapperPath);
+        address endpointMapper = newEndpointMapper(endpointMapperPath);
 
         addressLookup = new AddressLookup{salt: 0x0}();
 
         address endpointAlias = newEndpoint();
         console.log("endpointAlias:", endpointAlias);
-        vm.writeJson(vm.toString(endpointAlias), messagingPath, ".endpoint");
 
         address senderLookup = newSenderLookup();
         console.log("senderLookup:", senderLookup);
-        vm.writeJson(vm.toString(senderLookup), messagingPath, ".sender");
 
         address receiverLookup = newReceiverLookup();
         console.log("receiverLookup:", receiverLookup);
-        vm.writeJson(vm.toString(receiverLookup), messagingPath, ".receiver");
 
         vm.prank(allocTo);
-        appConfig = loadEndpointConfig(messagingPath);
+
+        IMessagingConfig.Struct memory global = IMessagingConfig.Struct({
+            blocker: IAddressLookup(address(0)),
+            endpoint: IAddressLookup(endpointAlias),
+            endpointMapper: IUintToUint(endpointMapper),
+            executor: IAddressLookup(address(0)),
+            receiver: IAddressLookup(receiverLookup),
+            sender: IAddressLookup(senderLookup)
+        });
+        appConfig = new MessagingConfig{salt: 0x0}(global);
+
         console.log("appConfig:");
         console.log("  blocker:", address(appConfig.blocker()));
         console.log("  endpoint:", address(appConfig.endpoint()));
@@ -158,14 +164,6 @@ contract OmniTokenTest is Test {
 
         // Resolve expected clone address (pure/read-only)
         (mapper,) = cloner.clone(cfg.keyValues);
-        vm.writeJson(vm.toString(mapper), messagingPath, ".endpointMapper");
-    }
-
-    function loadEndpointConfig(string memory path) public returns (IMessagingConfig cfg) {
-        string memory json = vm.readFile(path);
-        bytes memory encodedData = vm.parseJson(json);
-        IMessagingConfig.Struct memory global = abi.decode(encodedData, (IMessagingConfig.Struct));
-        cfg = new MessagingConfig{salt: 0x0}(global);
     }
 
     function test_Dummy() public pure {

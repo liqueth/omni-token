@@ -93,7 +93,7 @@ contract OmniTokenTest is Test {
         console.log("  sender:", address(appConfig.sender()));
     }
 
-    function initializeFactory(uint256 chain) internal {
+    function newOmniTokenProto(uint256 chain) internal {
         newAppConfig(chain);
         omniTokenProto = new OmniToken(appConfig);
     }
@@ -154,14 +154,14 @@ contract OmniTokenTest is Test {
     }
 
     function test_Clone1() public {
-        initializeFactory(fromChain);
+        newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
-        initializeFactory(fromChain);
+        newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
@@ -173,7 +173,7 @@ contract OmniTokenTest is Test {
     }
 
     function test_RevertWhen_MintUnmappedChain() public {
-        initializeFactory(fromChain);
+        newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOFTProto.Config({
@@ -189,7 +189,7 @@ contract OmniTokenTest is Test {
     }
 
     function testInitialMintOnChainWithMintAmount() public {
-        initializeFactory(fromChain);
+        newOmniTokenProto(fromChain);
         (address proxy,) = omniTokenProto.clone(config);
         OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);

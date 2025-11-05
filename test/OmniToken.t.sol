@@ -71,7 +71,7 @@ contract OmniTokenTest is Test {
         config2b = newConfig(name2, name2);
     }
 
-    function initializeFactory(uint256 chain) internal {
+    function newAppConfig(uint256 chain) internal {
         vm.chainId(chain);
 
         address endpointMapper = newEndpointMapper(endpointMapperPath);
@@ -103,7 +103,10 @@ contract OmniTokenTest is Test {
         console.log("  executor:", address(appConfig.executor()));
         console.log("  receiver:", address(appConfig.receiver()));
         console.log("  sender:", address(appConfig.sender()));
+    }
 
+    function initializeFactory(uint256 chain) internal {
+        newAppConfig(chain);
         factory = new OmniToken(appConfig);
     }
 
@@ -214,8 +217,8 @@ contract OmniTokenTest is Test {
     }
 
     function test_RevertWhen_LocalChainNotMapped() public {
-        initializeFactory(fromChain);
-        //vm.expectRevert("Local chain ID not in chains");
-        new OmniToken(appConfig);
+        newAppConfig(1);
+        vm.expectRevert();
+        factory = new OmniToken(appConfig);
     }
 }

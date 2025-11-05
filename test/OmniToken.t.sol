@@ -120,12 +120,12 @@ contract OmniTokenTest is Test {
         console.log("  lookup.value():", AddressLookup(lookup).value());
     }
 
-    function newEndpointV2Mock(uint256 index) internal returns (address thing) {
+    function newEndpoint(uint256 index) internal returns (address thing) {
         thing = address(new EndpointV2Mock(eids[index], endpointOwner));
     }
 
     function newEndpointLookup() private returns (address lookup) {
-        lookup = newAddressLookup(newEndpointV2Mock);
+        lookup = newAddressLookup(newEndpoint);
     }
 
     function newMessageLib(uint256) internal returns (address thing) {

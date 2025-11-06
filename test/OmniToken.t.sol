@@ -15,16 +15,16 @@ import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant unmappedChain = 11155112;
-    uint256 constant fromKeyIndex = 1;
+
     uint256 constant fromChain = 11155111;
     uint32 constant fromChainEid = 40161;
     uint256 constant fromMint = 1_000_000;
-    uint256 constant toKeyIndex = 0;
+
     uint256 constant toChain = 97;
     uint32 constant toChainEid = 40102;
-    uint16 unsupportedSourceChain = 999;
-    uint128 constant receiverGasLimit = 35000;
     uint256 constant toMint = 1_000_000;
+
+    uint128 constant receiverGasLimit = 35000;
     string constant name = "Omni token";
     string constant symbol = "OMNI";
     string constant name1 = "Clone1";

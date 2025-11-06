@@ -31,10 +31,10 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
 
     AddressLookup addressLookup;
-    OmniToken.Config config;
-    OmniToken.Config config1;
-    OmniToken.Config config2a;
-    OmniToken.Config config2b;
+    IOFTProto.Config config;
+    IOFTProto.Config config1;
+    IOFTProto.Config config2a;
+    IOFTProto.Config config2b;
     address allocTo = address(0xABC);
     address issuer = allocTo;
     address bridgeTo = address(0xDEF);
@@ -151,14 +151,14 @@ contract OmniTokenTest is Test {
     }
 
     function test_Clone1() public {
-        (IMessagingConfig appConfig, OmniToken omniTokenProto) = newOmniTokenProto(fromChain);
+        (, OmniToken omniTokenProto) = newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
-        (IMessagingConfig appConfig, OmniToken proto) = newOmniTokenProto(fromChain);
+        (, OmniToken proto) = newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         (address clone1,) = proto.clone(config1);
         assertNotEq(address(clone1), address(0));
@@ -172,7 +172,7 @@ contract OmniTokenTest is Test {
     uint256[][] badMints;
 
     function test_RevertWhen_MintUnmappedChain() public {
-        (IMessagingConfig appConfig, OmniToken proto) = newOmniTokenProto(fromChain);
+        (, OmniToken proto) = newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
@@ -189,7 +189,7 @@ contract OmniTokenTest is Test {
     }
 
     function testInitialMintOnChainWithMintAmount() public {
-        (IMessagingConfig appConfig, OmniToken proto) = newOmniTokenProto(fromChain);
+        (, OmniToken proto) = newOmniTokenProto(fromChain);
         (address proxy,) = proto.clone(config);
         OmniToken token = OmniToken(proxy);
         assertEq(token.balanceOf(allocTo), fromMint);

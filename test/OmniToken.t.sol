@@ -40,7 +40,6 @@ contract OmniTokenTest is Test {
     address bridgeTo = address(0xDEF);
     address endpointOwner = vm.addr(3);
     uint256[][] mints;
-    uint256[][] badMints;
     uint256[] chains;
     uint32[] eids;
 
@@ -54,7 +53,6 @@ contract OmniTokenTest is Test {
         chains = [fromChain, toChain];
         eids = [fromChainEid, toChainEid];
         mints = [[fromChain, fromMint], [toChain, toMint]];
-        badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
 
         config = newConfig(name, symbol);
         config1 = newConfig(name1, name1);
@@ -171,9 +169,12 @@ contract OmniTokenTest is Test {
         assertEq(address(clone2a), address(clone2b));
     }
 
+    uint256[][] badMints;
+
     function test_RevertWhen_MintUnmappedChain() public {
         (IMessagingConfig appConfig, OmniToken proto) = newOmniTokenProto(fromChain);
         vm.chainId(fromChain);
+        badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOFTProto.Config({
             issuer: issuer,

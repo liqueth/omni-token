@@ -7,6 +7,8 @@ import {AddressLookup, IAddressLookup} from "../src/AddressLookup.sol";
 import {OmniToken} from "../src/OmniToken.sol";
 import {MessagingConfig, IMessagingConfig} from "../src/MessagingConfig.sol";
 import {ImmutableUintToUint, IUintToUint} from "../src/ImmutableUintToUint.sol";
+import {Bridge} from "../src/Bridge.sol";
+import {OmniTokenBridged} from "../src/OmniTokenBridged.sol";
 
 import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
 import {MessageLibMock} from "./mocks/MessageLibMock.sol";
@@ -91,6 +93,20 @@ contract OmniTokenTest is Test {
     function newOmniTokenProto(uint256 chain) public returns (IMessagingConfig appConfig, OmniToken proto) {
         appConfig = newAppConfig(chain);
         proto = new OmniToken(appConfig);
+    }
+
+    function newBridgeProto(uint256 chain) public returns (IMessagingConfig appConfig, Bridge proto) {
+        appConfig = newAppConfig(chain);
+        proto = new Bridge(appConfig);
+    }
+
+    function newOmniTokenBridgedProto(uint256 chain)
+        public
+        returns (IMessagingConfig appConfig, Bridge bridgeProto, OmniTokenBridged proto)
+    {
+        appConfig = newAppConfig(chain);
+        (appConfig, bridgeProto) = newBridgeProto(chain);
+        proto = new OmniTokenBridged(config, proto);
     }
 
     function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {

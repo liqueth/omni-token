@@ -168,14 +168,12 @@ contract OmniTokenTest is Test {
 
     function test_Clone1() public {
         (, OmniToken omniTokenProto) = newOmniTokenProto(fromChain);
-        vm.chainId(fromChain);
         (address clone1,) = omniTokenProto.clone(config1);
         assertNotEq(address(clone1), address(0));
     }
 
     function test_CloneCanClone() public {
         (, OmniToken proto) = newOmniTokenProto(fromChain);
-        vm.chainId(fromChain);
         (address clone1,) = proto.clone(config1);
         assertNotEq(address(clone1), address(0));
         (address clone2a,) = proto.clone(config2a);
@@ -189,7 +187,6 @@ contract OmniTokenTest is Test {
 
     function test_RevertWhen_MintUnmappedChain() public {
         (, OmniToken proto) = newOmniTokenProto(fromChain);
-        vm.chainId(fromChain);
         badMints = [[fromChain, fromMint], [unmappedChain, toMint]];
         //vm.expectRevert(abi.encodeWithSelector(IBridge.UnsupportedDestinationChain.selector, unmappedChain));
         OmniToken.Config memory badConfig = IOFTProto.Config({
@@ -213,7 +210,7 @@ contract OmniTokenTest is Test {
     }
 
     function test_RevertWhen_LocalChainNotMapped() public {
-        IMessagingConfig appConfig = newAppConfig(1);
+        IMessagingConfig appConfig = newAppConfig(unmappedChain);
         vm.expectRevert();
         new OmniToken(appConfig);
     }

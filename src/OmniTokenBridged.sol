@@ -135,6 +135,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
 
         _name = config.name;
         _symbol = config.symbol;
+        config.token = address(this);
 
         (address bridgeAddress,) = bridgeFactory.clone(config);
         _bridge = IBridge(bridgeAddress);

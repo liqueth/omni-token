@@ -14,7 +14,7 @@ import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
 import {MessageLibMock} from "./mocks/MessageLibMock.sol";
 
 import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
-import {IBridge} from "../src/interfaces/IBridge.sol";
+import {IBridge, MessagingReceipt, OFTReceipt} from "../src/interfaces/IBridge.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant bridgeAmount = 12345678901234567890;
@@ -22,11 +22,11 @@ contract OmniTokenTest is Test {
 
     uint256 constant fromChain = 11155111;
     uint32 constant fromChainEid = 40161;
-    uint256 constant fromMint = 1_000_000;
+    uint256 constant fromMint = 1e21;
 
     uint256 constant toChain = 97;
     uint32 constant toChainEid = 40102;
-    uint256 constant toMint = 1_000_000;
+    uint256 constant toMint = 1e21;
 
     uint128 constant receiverGasLimit = 35000;
     string constant name = "Omni token";
@@ -237,5 +237,15 @@ contract OmniTokenTest is Test {
         (uint256 fee, uint256 amountNoDust) = bridgeToken.bridgeFee(allocTo, toChain, bridgeAmount);
         assertNotEq(fee, 0, "fee");
         assertNotEq(amountNoDust, 0, "amountNoDust");
+        /*
+        vm.prank(allocTo);
+        console.log("test_BridgedToken.msg.sender:", msg.sender);
+        console.log("test_BridgedToken.allocTo:", allocTo);
+        (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt) =
+            bridgeToken.bridge(allocTo, toChain, amountNoDust);
+        assertEq(msgReceipt.fee.nativeFee, fee, "msgReceipt.fee");
+        assertEq(oftReceipt.amountSentLD, amountNoDust, "amountNoDust");
+        assertEq(oftReceipt.amountSentLD, oftReceipt.amountReceivedLD, "oftReceipt");
+        */
     }
 }

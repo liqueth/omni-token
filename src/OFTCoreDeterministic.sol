@@ -51,8 +51,9 @@ abstract contract OFTCoreDeterministic is OFTCore, IBridge, IOFTProto, IOmniToke
     {
         SendParam memory param = sendParam(to, toChain, amount);
         amount = param.amountLD;
-        if (!IERC20(token()).transferFrom(msg.sender, address(this), amount)) {
-            revert TransferFailed(token(), msg.sender, address(this), amount);
+        IERC20 bridgeToken = IERC20(token());
+        if (!bridgeToken.transferFrom(msg.sender, address(this), amount)) {
+            revert TransferFailed(address(bridgeToken), msg.sender, address(this), amount);
         }
         MessagingFee memory msgFee = MessagingFee({nativeFee: msg.value, lzTokenFee: 0});
         (msgReceipt, oftReceipt) = this.send{value: msgFee.nativeFee}(param, msgFee, to);

@@ -12,6 +12,7 @@ import {MessagingChannelMock} from "./MessagingChannelMock.sol";
 import {MessageLibManagerMock} from "./MessageLibManagerMock.sol";
 import {MessagingComposerMock} from "./MessagingComposerMock.sol";
 import {MessagingContextMock} from "./MessagingContextMock.sol";
+import {console} from "forge-std/Test.sol";
 
 /// @title EndpointV2Mock
 /// @notice A no-op mock implementation of ILayerZeroEndpointV2 for testing.
@@ -23,11 +24,22 @@ contract EndpointV2Mock is
     MessagingComposerMock,
     MessagingContextMock
 {
+    uint256 public defaultSendFee;
+
     constructor(uint32 _eid, address _owner) MessagingChannelMock(_eid) {
+        _owner;
+        defaultSendFee = 1234567890;
         //_transferOwnership(_owner);
     }
 
-    function quote(MessagingParams calldata _params, address _sender) external view returns (MessagingFee memory) {}
+    function quote(MessagingParams calldata _params, address _sender) external view returns (MessagingFee memory fee) {
+        console.log("EndpointV2Mock.quote", address(this));
+        console.log("EndpointV2Mock.quote._sender", _sender);
+        _params;
+        _sender;
+        fee.nativeFee = defaultSendFee;
+        console.log("EndpointV2Mock.quote.fee.nativeFee", fee.nativeFee);
+    }
 
     function send(MessagingParams calldata _params, address _refundAddress)
         external

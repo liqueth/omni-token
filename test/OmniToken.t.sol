@@ -14,8 +14,10 @@ import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
 import {MessageLibMock} from "./mocks/MessageLibMock.sol";
 
 import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
+import {IBridge} from "../src/interfaces/IBridge.sol";
 
 contract OmniTokenTest is Test {
+    uint256 constant bridgeAmount = 12345678901234567890;
     uint256 constant unmappedChain = 11155112;
 
     uint256 constant fromChain = 11155111;
@@ -107,9 +109,12 @@ contract OmniTokenTest is Test {
         public
         returns (IMessagingConfig appConfig, Bridge bridgeProto, OmniTokenBridged tokenProto)
     {
+        console.log("newOmniTokenBridgedProto:");
         appConfig = newAppConfig(chain);
         (appConfig, bridgeProto) = newBridgeProto(chain);
         tokenProto = new OmniTokenBridged(config, bridgeProto);
+        console.log("newOmniTokenBridgedProto.tokenProto:", address(tokenProto));
+        console.log("newOmniTokenBridgedProto.symbol:", tokenProto.symbol());
     }
 
     function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {
@@ -160,7 +165,7 @@ contract OmniTokenTest is Test {
         IUintToUint.KeyValue[] memory keyValues = new IUintToUint.KeyValue[](chains.length);
         for (uint256 i = 0; i < chains.length; i++) {
             keyValues[i].key = chains[i];
-            keyValues[0].value = eids[i];
+            keyValues[i].value = eids[i];
         }
 
         // Resolve expected clone address (pure/read-only)
@@ -226,5 +231,11 @@ contract OmniTokenTest is Test {
         assertNotEq(address(tokenProto), address(0));
         (address tokenAddress,) = tokenProto.clone(config);
         assertNotEq(tokenAddress, address(0));
+        OmniTokenBridged bridgeToken = OmniTokenBridged(tokenAddress);
+        console.log("test_BridgedToken.bridgeToken:", address(bridgeToken));
+        console.log("test_BridgedToken.symbol:", bridgeToken.symbol());
+        (uint256 fee, uint256 amountNoDust) = bridgeToken.bridgeFee(allocTo, toChain, bridgeAmount);
+        assertNotEq(fee, 0, "fee");
+        assertNotEq(amountNoDust, 0, "amountNoDust");
     }
 }

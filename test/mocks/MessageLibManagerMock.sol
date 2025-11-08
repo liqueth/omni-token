@@ -5,10 +5,12 @@ import {
     IMessageLibManager,
     SetConfigParam
 } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLibManager.sol";
+import {console} from "forge-std/Test.sol";
 
 /// @title MessagingChannelMock
 /// @notice A minimal, do-nothing implementation of IMessagingChannel for testing.
 contract MessageLibManagerMock is IMessageLibManager {
+    mapping(uint32 => address) eidToSendLibrary;
     function registerLibrary(address _lib) external {}
 
     function isRegisteredLibrary(address _lib) external view returns (bool) {}
@@ -27,12 +29,19 @@ contract MessageLibManagerMock is IMessageLibManager {
 
     function defaultReceiveLibraryTimeout(uint32 _eid) external view returns (address lib, uint256 expiry) {}
 
-    function isSupportedEid(uint32 _eid) external view returns (bool) {}
+    function isSupportedEid(uint32 _eid) external view returns (bool) {
+        console.log("Checking if eid %s is supported", _eid);
+        return eidToSendLibrary[_eid] != address(0);
+    }
 
     function isValidReceiveLibrary(address _receiver, uint32 _eid, address _lib) external view returns (bool) {}
 
     /// ------------------- OApp interfaces -------------------
-    function setSendLibrary(address _oapp, uint32 _eid, address _newLib) external {}
+    function setSendLibrary(address _oapp, uint32 _eid, address _newLib) external {
+        _oapp;
+        console.log("Setting send library for eid %s to %s", _eid, _newLib);
+        eidToSendLibrary[_eid] = _newLib;
+    }
 
     function getSendLibrary(address _sender, uint32 _eid) external view returns (address lib) {}
 

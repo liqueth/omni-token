@@ -33,7 +33,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         (expected, salt) = cloneAddress(config);
         if (expected.code.length == 0) {
             Clones.cloneDeterministic(prototype, salt).assertEqual(expected);
-            OFTCoreDeterministic(expected).initialize(config);
+            OmniTokenBridged(expected).initialize(config);
             emit Cloned(config.issuer, config.owner, expected, config.name, config.symbol);
         }
     }
@@ -41,7 +41,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     /// @inheritdoc IOFTProto
     function cloneAddress(Config memory config) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(config));
-        expected = Clones.predictDeterministicAddress(prototype, salt);
+        expected = Clones.predictDeterministicAddress(prototype, salt, prototype);
     }
 
     /// @inheritdoc IBridge
@@ -120,6 +120,7 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
      * @param config The LayerZero endpoint address.
      */
     constructor(Config memory config, IOFTProto bridgeFactory_) ERC20(config.name, config.symbol) {
+        prototype = address(this);
         bridgeFactory = bridgeFactory_;
         initialize(config);
     }
@@ -157,12 +158,12 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
     string internal _symbol;
 
     /// @inheritdoc IERC20Metadata
-    function name() public view override returns (string memory) {
+    function name() public view virtual override returns (string memory) {
         return _name;
     }
 
     /// @inheritdoc IERC20Metadata
-    function symbol() public view override returns (string memory) {
+    function symbol() public view virtual override returns (string memory) {
         return _symbol;
     }
 }

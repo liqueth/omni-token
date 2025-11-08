@@ -95,14 +95,17 @@ contract OmniTokenTest is Test {
         console.log("  sender:", address(appConfig.sender()));
     }
 
-    function newOmniTokenProto(uint256 chain) public returns (IMessagingConfig appConfig, OmniToken proto) {
+    function newOmniTokenProto(uint256 chain) public returns (IMessagingConfig appConfig, OmniToken tokenProto) {
         appConfig = newAppConfig(chain);
-        proto = new OmniToken(appConfig);
+        tokenProto = new OmniToken(appConfig);
+        console.log("newOmniTokenProto.tokenProto:", address(tokenProto));
+        console.log("newOmniTokenProto.symbol:", tokenProto.symbol());
     }
 
-    function newBridgeProto(uint256 chain) public returns (IMessagingConfig appConfig, Bridge proto) {
+    function newBridgeProto(uint256 chain) public returns (IMessagingConfig appConfig, Bridge bridgeProto) {
         appConfig = newAppConfig(chain);
-        proto = new Bridge(appConfig);
+        bridgeProto = new Bridge(appConfig);
+        console.log("newBridgeProto.bridgeProto:", address(bridgeProto));
     }
 
     function newOmniTokenBridgedProto(uint256 chain)

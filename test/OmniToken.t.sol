@@ -33,6 +33,7 @@ contract OmniTokenTest is Test {
     string constant name2 = "Clone2";
 
     AddressLookup addressLookup;
+    ImmutableUintToUint uintToUintProto;
     IOFTProto.Config config;
     IOFTProto.Config config1;
     IOFTProto.Config config2a;
@@ -67,7 +68,9 @@ contract OmniTokenTest is Test {
 
         address endpointMapper = newEndpointMapper();
 
-        addressLookup = new AddressLookup{salt: 0x0}();
+        if (address(addressLookup) == address(0)) {
+            addressLookup = new AddressLookup{salt: 0x0}();
+        }
         address endpointLookup = newEndpointLookup();
         address receiverLookup = newMessageLibLookup();
         address senderLookup = newMessageLibLookup();
@@ -102,11 +105,11 @@ contract OmniTokenTest is Test {
 
     function newOmniTokenBridgedProto(uint256 chain)
         public
-        returns (IMessagingConfig appConfig, Bridge bridgeProto, OmniTokenBridged proto)
+        returns (IMessagingConfig appConfig, Bridge bridgeProto, OmniTokenBridged tokenProto)
     {
         appConfig = newAppConfig(chain);
         (appConfig, bridgeProto) = newBridgeProto(chain);
-        proto = new OmniTokenBridged(config, proto);
+        tokenProto = new OmniTokenBridged(config, bridgeProto);
     }
 
     function newConfig(string memory name_, string memory symbol_) private view returns (IOFTProto.Config memory) {
@@ -150,7 +153,9 @@ contract OmniTokenTest is Test {
     }
 
     function newEndpointMapper() private returns (address mapper) {
-        ImmutableUintToUint cloner = new ImmutableUintToUint{salt: 0x0}();
+        if (address(uintToUintProto) == address(0)) {
+            uintToUintProto = new ImmutableUintToUint{salt: 0x0}();
+        }
 
         IUintToUint.KeyValue[] memory keyValues = new IUintToUint.KeyValue[](chains.length);
         for (uint256 i = 0; i < chains.length; i++) {
@@ -159,7 +164,7 @@ contract OmniTokenTest is Test {
         }
 
         // Resolve expected clone address (pure/read-only)
-        (mapper,) = cloner.clone(keyValues);
+        (mapper,) = uintToUintProto.clone(keyValues);
     }
 
     function test_Dummy() public pure {
@@ -213,5 +218,13 @@ contract OmniTokenTest is Test {
         IMessagingConfig appConfig = newAppConfig(unmappedChain);
         vm.expectRevert();
         new OmniToken(appConfig);
+    }
+
+    function test_BridgedToken() public {
+        (, Bridge bridgeProto, OmniTokenBridged tokenProto) = newOmniTokenBridgedProto(fromChain);
+        assertNotEq(address(bridgeProto), address(0));
+        assertNotEq(address(tokenProto), address(0));
+        (address tokenAddress,) = tokenProto.clone(config);
+        assertNotEq(tokenAddress, address(0));
     }
 }

@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IAddressLookup} from "./interfaces/IAddressLookup.sol";
-import {IAddressLookupProto} from "./interfaces/IAddressLookupProto.sol";
+import {IAddressLookup, IUintToAddressCloner} from "./interfaces/IAddressLookup.sol";
 import {Assertions} from "./Assertions.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
@@ -16,7 +15,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 /// bridges, and explorers that require a single uniform reference across chains.
 /// @dev The implementation is also a factory, allowing anyone to easily deploy an AddressLookups.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract AddressLookup is IAddressLookup, IAddressLookupProto {
+contract AddressLookup is IAddressLookup {
     /// @inheritdoc IAddressLookup
     function value() external view returns (address) {
         return _value;
@@ -24,13 +23,13 @@ contract AddressLookup is IAddressLookup, IAddressLookupProto {
 
     using Assertions for address;
 
-    /// @inheritdoc IAddressLookupProto
+    /// @inheritdoc IUintToAddressCloner
     function cloneAddress(KeyValue[] memory keyValues) public view returns (address expected, bytes32 salt) {
         salt = keccak256(abi.encode(keyValues));
         expected = Clones.predictDeterministicAddress(address(this), salt);
     }
 
-    /// @inheritdoc IAddressLookupProto
+    /// @inheritdoc IUintToAddressCloner
     function clone(KeyValue[] memory keyValues) public returns (address expected, bytes32 salt) {
         (expected, salt) = cloneAddress(keyValues);
         if (expected.code.length == 0) {
@@ -60,6 +59,6 @@ contract AddressLookup is IAddressLookup, IAddressLookupProto {
         if (_initialized) revert InitializedAlready();
         _initialized = true;
         _value = value_;
-        emit Cloned(address(this), value_);
+        emit Cloned(address(this));
     }
 }

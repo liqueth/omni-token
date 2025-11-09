@@ -28,14 +28,14 @@ contract AddressLookupClone is Script {
         console2.log("id       :", config.id);
         console2.log("env      :", config.env);
 
-        (address predicted,) = IAddressLookupProto(proto).cloneAddress(config.keyValues);
+        (address predicted,) = IUintToAddressCloner(proto).cloneAddress(config.keyValues);
         console2.log("predicted:", predicted);
 
         string memory action = "reused";
         address actual = predicted;
         if (actual.code.length == 0) {
             vm.startBroadcast();
-            (actual,) = IAddressLookupProto(proto).clone(config.keyValues);
+            (actual,) = IUintToAddressCloner(proto).clone(config.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }

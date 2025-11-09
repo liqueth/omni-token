@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
+import {OFTCoreDeterministic, MessagingReceipt, OFTReceipt} from "./OFTCoreDeterministic.sol";
 import {IMintBurn} from "./interfaces/IMintBurn.sol";
 import {IMessagingConfig} from "./interfaces/IMessagingConfig.sol";
 
@@ -104,6 +104,18 @@ contract OmniToken is OFTCoreDeterministic, ERC20, IMintBurn {
      */
     function approvalRequired() external pure virtual returns (bool) {
         return false;
+    }
+
+    /// @inheritdoc OFTCoreDeterministic
+    function bridge(address to, uint256 toChain, uint256 amount)
+        public
+        payable
+        virtual
+        override
+        returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
+    {
+        approve(address(this), amount);
+        return super.bridge(to, toChain, amount);
     }
 
     /**

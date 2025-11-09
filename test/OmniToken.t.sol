@@ -40,9 +40,9 @@ contract OmniTokenTest is Test {
     IOFTProto.Config config1;
     IOFTProto.Config config2a;
     IOFTProto.Config config2b;
-    address allocTo = address(0xABC);
+    address allocTo = address(0xA11CE);
     address issuer = allocTo;
-    address bridgeTo = address(0xDEF);
+    address bridgeTo = address(0xB0B);
     address endpointOwner = vm.addr(3);
     uint256[][] mints;
     uint256[] chains;
@@ -141,7 +141,7 @@ contract OmniTokenTest is Test {
         }
         (lookup,) = addressLookup.clone(keyValues);
         console.log("  lookup:", lookup);
-        console.log("  lookup.value():", AddressLookup(lookup).value());
+        console.log("  value :", AddressLookup(lookup).value());
     }
 
     function newEndpoint(uint256 index) internal returns (address thing) {
@@ -237,18 +237,18 @@ contract OmniTokenTest is Test {
         OmniTokenBridged bridgeToken = OmniTokenBridged(tokenAddress);
         console.log("test_BridgedToken.bridgeToken:", address(bridgeToken));
         console.log("test_BridgedToken.symbol:", bridgeToken.symbol());
+        console.log("test_BridgedToken.bridgeToken.actualBridge:", address(bridgeToken.actualBridge()));
+
         (uint256 fee, uint256 amountNoDust) = bridgeToken.bridgeFee(allocTo, toChain, bridgeAmount);
         assertNotEq(fee, 0, "fee");
         assertNotEq(amountNoDust, 0, "amountNoDust");
-        /*
-        vm.prank(allocTo);
         console.log("test_BridgedToken.msg.sender:", msg.sender);
         console.log("test_BridgedToken.allocTo:", allocTo);
+        vm.prank(allocTo);
         (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt) =
             bridgeToken.bridge(allocTo, toChain, amountNoDust);
         assertEq(msgReceipt.fee.nativeFee, fee, "msgReceipt.fee");
         assertEq(oftReceipt.amountSentLD, amountNoDust, "amountNoDust");
         assertEq(oftReceipt.amountSentLD, oftReceipt.amountReceivedLD, "oftReceipt");
-        */
     }
 }

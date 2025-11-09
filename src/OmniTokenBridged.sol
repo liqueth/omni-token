@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.20;
 
-import {OFTCoreDeterministic} from "./OFTCoreDeterministic.sol";
 import {IOFTProto} from "./interfaces/IOFTProto.sol";
 import {IBridge, MessagingReceipt, OFTReceipt} from "./interfaces/IBridge.sol";
 import {IMintBurn} from "./interfaces/IMintBurn.sol";
@@ -78,10 +77,14 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyBridge() {
+        _onlyBridge();
+        _;
+    }
+
+    function _onlyBridge() internal view {
         if (address(_bridge) != _msgSender()) {
             revert UnauthorizedMinter(_msgSender());
         }
-        _;
     }
 
     /// @inheritdoc IMintBurn

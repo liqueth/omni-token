@@ -14,7 +14,7 @@ import {EndpointV2Mock} from "./mocks/EndpointV2Mock.sol";
 import {MessageLibMock} from "./mocks/MessageLibMock.sol";
 
 import {IOFTProto} from "../src/interfaces/IOFTProto.sol";
-import {IBridge, MessagingReceipt, OFTReceipt} from "../src/interfaces/IBridge.sol";
+import {MessagingReceipt, OFTReceipt} from "../src/interfaces/IBridge.sol";
 
 contract OmniTokenTest is Test {
     uint256 constant bridgeAmount = 12345678901234567890;

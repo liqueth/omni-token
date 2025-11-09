@@ -61,6 +61,7 @@ contract ImmutableUintToAddress is IUintToAddress {
         if (expected.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt).assertEqual(expected);
             ImmutableUintToAddress(expected).__init(kvs);
+            emit Cloned(expected, salt);
         }
     }
 
@@ -82,6 +83,5 @@ contract ImmutableUintToAddress is IUintToAddress {
             _keys.push(kvs[i].key);
             _values[kvs[i].key] = kvs[i].value;
         }
-        emit Cloned(address(this));
     }
 }

@@ -61,7 +61,7 @@ contract ImmutableUintToUint is IUintToUintProto {
         if (expected.code.length == 0) {
             Clones.cloneDeterministic(address(this), salt).assertEqual(expected);
             ImmutableUintToUint(expected).__init(kvs);
-            return (expected, salt);
+            emit Cloned(expected, salt);
         }
     }
 
@@ -83,6 +83,5 @@ contract ImmutableUintToUint is IUintToUintProto {
             _keys.push(kvs[i].key);
             _values[kvs[i].key] = kvs[i].value;
         }
-        emit Cloned(address(this));
     }
 }

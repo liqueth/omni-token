@@ -23,5 +23,5 @@ interface IUintToUintProto is IUintToUint {
     error InitializedAlready();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed clone);
+    event Cloned(address indexed clone, bytes32 indexed salt);
 }

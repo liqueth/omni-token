@@ -27,5 +27,7 @@ interface IUintToAddressCloner {
     error InitializedAlready();
 
     /// @notice Emit when a clone is created.
-    event Cloned(address indexed clone);
+    /// @return clone The address of the new clone.
+    /// @return salt The salt used to create the clone. salt = keccak256(abi.encode(keyValues));
+    event Cloned(address indexed clone, bytes32 indexed salt);
 }

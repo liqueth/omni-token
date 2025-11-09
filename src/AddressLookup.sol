@@ -42,6 +42,7 @@ contract AddressLookup is IAddressLookup {
             }
             Clones.cloneDeterministic(address(this), salt).assertEqual(expected);
             AddressLookup(expected).__AddressLookup_init(value_);
+            emit Cloned(expected, salt);
         }
     }
 
@@ -59,6 +60,5 @@ contract AddressLookup is IAddressLookup {
         if (_initialized) revert InitializedAlready();
         _initialized = true;
         _value = value_;
-        emit Cloned(address(this));
     }
 }

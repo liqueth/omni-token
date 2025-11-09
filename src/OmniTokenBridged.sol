@@ -70,42 +70,28 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         returns (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt)
     {
         _transfer(msg.sender, address(this), amount);
-        approve(address(_bridge), amount);
+        _approve(address(this), address(_bridge), amount);
         (msgReceipt, oftReceipt) = _bridge.bridge{value: msg.value}(to, toChain, amount);
     }
 
     /**
      * @dev Throws if called by any account other than the owner.
      */
-    modifier onlyMinter() {
-        _checkMinter();
+    modifier onlyBridge() {
+        if (address(_bridge) != _msgSender()) {
+            revert UnauthorizedMinter(_msgSender());
+        }
         _;
     }
 
-    /**
-     * @dev Returns the address of the current owner.
-     */
-    function minter() public view returns (address) {
-        return _minter;
-    }
-
-    /**
-     * @dev Throws if the sender is not the owner.
-     */
-    function _checkMinter() internal view virtual {
-        if (minter() != _msgSender()) {
-            revert UnauthorizedMinter(_msgSender());
-        }
-    }
-
     /// @inheritdoc IMintBurn
-    function mint(address to, uint256 amount) public onlyMinter {
+    function mint(address to, uint256 amount) public onlyBridge {
         _mint(to, amount);
         emit Minted(to, amount);
     }
 
     /// @inheritdoc IMintBurn
-    function burn(address from, uint256 amount) public onlyMinter {
+    function burn(address from, uint256 amount) public onlyBridge {
         _burn(from, amount);
         emit Burned(from, amount);
     }
@@ -150,7 +136,6 @@ contract OmniTokenBridged is ERC20, IOFTProto, IMintBurn, IBridge {
         }
     }
 
-    address private _minter;
     /// @dev Mask the ERC-20 name to support initialization in clones wihout requiring an upgradeable ERC-20.
     string internal _name;
     /// @dev Mask the ERC-20 symbol to support initialization in clones wihout requiring an upgradeable ERC-20.

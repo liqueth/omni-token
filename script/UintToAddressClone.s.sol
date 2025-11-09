@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
-import "../src/interfaces/IUintToAddressProto.sol";
+import "../src/interfaces/IUintToAddressCloner.sol";
 
 /// @notice Deploy an AddressLookup clone ONLY if it doesn't already exist (idempotent).
 /// @dev Environment variables (required):
@@ -28,7 +28,7 @@ contract UintToAddressClone is Script {
         console2.log("id        :", config.id);
         console2.log("env       :", config.env);
 
-        (address predicted,) = IUintToAddressProto(proto).cloneAddress(config.keyValues);
+        (address predicted,) = IUintToAddressCloner(proto).cloneAddress(config.keyValues);
         console2.log("predicted :", predicted);
 
         // Idempotent deploy (only broadcast if bytecode missing)
@@ -36,7 +36,7 @@ contract UintToAddressClone is Script {
         address clone = predicted;
         if (clone.code.length == 0) {
             vm.startBroadcast();
-            (clone,) = IUintToAddressProto(proto).clone(config.keyValues);
+            (clone,) = IUintToAddressCloner(proto).clone(config.keyValues);
             vm.stopBroadcast();
             action = "deployed";
         }

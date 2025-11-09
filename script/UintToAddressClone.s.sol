@@ -16,7 +16,7 @@ contract UintToAddressClone is Script {
     struct Config {
         string env;
         string id;
-        IUintToAddress.KeyValue[] keyValues;
+        IUintToAddressCloner.KeyValue[] keyValues;
     }
 
     function run() external {

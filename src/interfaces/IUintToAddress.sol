@@ -2,15 +2,11 @@
 
 pragma solidity ^0.8.20;
 
+import {IUintToAddressCloner} from "./IUintToAddressCloner.sol";
+
 /// @notice Map uint256 to address.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-interface IUintToAddress {
-    /// @notice Map a key to a value.
-    struct KeyValue {
-        uint256 key;
-        address value;
-    }
-
+interface IUintToAddress is IUintToAddressCloner {
     /// @return total number of keys in the map.
     function keyCount() external view returns (uint256);
 

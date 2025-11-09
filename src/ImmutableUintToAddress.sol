@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IUintToAddressCloner, IUintToAddress} from "./interfaces/IUintToAddressCloner.sol";
+import {IUintToAddressCloner, IUintToAddress} from "./interfaces/IUintToAddress.sol";
 import {Assertions} from "./Assertions.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
@@ -10,7 +10,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 /// The implementation is also a factory, allowing anyone to easily deploy an instance.
 /// Deterministic deployment ensures identical addresses across chains.
 /// @author Paul Reinholdtsen (reinholdtsen.eth)
-contract ImmutableUintToAddress is IUintToAddressCloner {
+contract ImmutableUintToAddress is IUintToAddress {
     /// @inheritdoc IUintToAddress
     function keyCount() external view returns (uint256) {
         return _keys.length;

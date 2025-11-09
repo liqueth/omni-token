@@ -247,7 +247,7 @@ contract OmniTokenTest is Test {
         vm.prank(allocTo);
         (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt) =
             bridgeToken.bridge(allocTo, toChain, amountNoDust);
-        //assertEq(msgReceipt.fee.nativeFee, fee, "msgReceipt.fee");
+        assertEq(msgReceipt.fee.nativeFee, fee, "msgReceipt.fee");
         assertEq(oftReceipt.amountSentLD, amountNoDust, "amountNoDust");
         assertEq(oftReceipt.amountSentLD, oftReceipt.amountReceivedLD, "oftReceipt");
     }

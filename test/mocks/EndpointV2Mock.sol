@@ -44,8 +44,12 @@ contract EndpointV2Mock is
     function send(MessagingParams calldata _params, address _refundAddress)
         external
         payable
-        returns (MessagingReceipt memory)
-    {}
+        returns (MessagingReceipt memory msgReceipt)
+    {
+        _params;
+        _refundAddress;
+        msgReceipt.fee.nativeFee = defaultSendFee;
+    }
 
     function verify(Origin calldata _origin, address _receiver, bytes32 _payloadHash) external {}
 

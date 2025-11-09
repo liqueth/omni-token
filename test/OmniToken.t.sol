@@ -251,4 +251,26 @@ contract OmniTokenTest is Test {
         assertEq(oftReceipt.amountSentLD, amountNoDust, "amountNoDust");
         assertEq(oftReceipt.amountSentLD, oftReceipt.amountReceivedLD, "oftReceipt");
     }
+
+    function test_OmniTokenBridge() public {
+        (, OmniToken tokenProto) = newOmniTokenProto(fromChain);
+        assertNotEq(address(tokenProto), address(0));
+        (address tokenAddress,) = tokenProto.clone(config);
+        assertNotEq(tokenAddress, address(0));
+        OmniToken bridgeToken = OmniToken(tokenAddress);
+        console.log("test_OmniTokenBridge.bridgeToken:", address(bridgeToken));
+        console.log("test_OmniTokenBridge.symbol:", bridgeToken.symbol());
+
+        (uint256 fee, uint256 amountNoDust) = bridgeToken.bridgeFee(allocTo, toChain, bridgeAmount);
+        assertNotEq(fee, 0, "fee");
+        assertNotEq(amountNoDust, 0, "amountNoDust");
+        console.log("test_BridgedToken.msg.sender:", msg.sender);
+        console.log("test_BridgedToken.allocTo:", allocTo);
+        vm.prank(allocTo);
+        (MessagingReceipt memory msgReceipt, OFTReceipt memory oftReceipt) =
+            bridgeToken.bridge(allocTo, toChain, amountNoDust);
+        assertEq(msgReceipt.fee.nativeFee, fee, "msgReceipt.fee");
+        assertEq(oftReceipt.amountSentLD, amountNoDust, "amountNoDust");
+        assertEq(oftReceipt.amountSentLD, oftReceipt.amountReceivedLD, "oftReceipt");
+    }
 }
